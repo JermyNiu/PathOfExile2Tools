@@ -182,26 +182,189 @@
   .profile-pane.active { display:grid; gap:12px; }
   .equipment-grid {
     display:grid;
-    grid-template-columns:repeat(2, minmax(360px, 1fr));
-    gap:12px;
+    grid-template-columns:repeat(5, minmax(72px, 96px));
+    grid-template-areas:
+      "weapon helmet amulet ring1 offhand"
+      "gloves body belt ring2 boots"
+      "flask1 flask2 flask3 charm1 charm2";
+    gap:10px;
+    align-items:stretch;
+    justify-content:center;
   }
   .equipment-slot {
-    border:1px solid var(--line);
-    border-radius:8px;
-    background:#0b1120;
-    padding:10px;
+    position:relative;
+    border:1px solid #293442;
+    border-radius:2px;
+    background:#111a24;
+    padding:6px;
     display:grid;
+    place-items:center;
     gap:6px;
-    min-height:112px;
+    min-height:92px;
+    color:var(--text);
+    text-align:center;
+  }
+  .equipment-slot.empty {
+    border-style:dashed;
+    opacity:.62;
+  }
+  .equipment-slot.filled {
+    border-color:#725139;
+    background:#202b26;
+    cursor:default;
+  }
+  .equipment-slot.filled:focus-visible {
+    outline:2px solid var(--accent);
+    outline-offset:2px;
   }
   .equipment-slot strong,
   .skill-group strong {
     color:var(--text);
   }
+  .equipment-slot strong {
+    font-size:13px;
+    line-height:1.25;
+  }
+  .equipment-icon {
+    width:100%;
+    height:74px;
+    object-fit:contain;
+    image-rendering:auto;
+  }
+  .equipment-slot[data-equipment-slot="weapon"] .equipment-icon,
+  .equipment-slot[data-equipment-slot="offhand"] .equipment-icon {
+    height:150px;
+  }
+  .equipment-slot[data-equipment-slot="body"] .equipment-icon {
+    height:126px;
+  }
+  .equipment-icon.placeholder {
+    border:1px solid #334155;
+    border-radius:6px;
+    background:linear-gradient(135deg, #111827, #1f2937);
+  }
+  .equipment-sockets {
+    position:absolute;
+    left:6px;
+    top:6px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+    max-width:72px;
+    pointer-events:none;
+  }
+  .equipment-socket {
+    width:18px;
+    height:18px;
+    border:2px solid #4b5563;
+    background:#111827;
+    box-shadow:0 2px 8px rgba(0,0,0,.45);
+  }
+  .equipment-base {
+    color:#cbd5e1;
+    font-size:12px;
+    line-height:1.25;
+  }
+  .equipment-tooltip {
+    position:fixed;
+    z-index:20;
+    left:var(--equipment-tooltip-left, 20px);
+    top:var(--equipment-tooltip-top, 80px);
+    bottom:auto;
+    width:min(420px, 92vw);
+    transform:none;
+    border:1px solid #b45309;
+    border-radius:8px;
+    background:#080c13;
+    box-shadow:0 18px 42px rgba(0,0,0,.55);
+    padding:14px 16px;
+    display:none;
+    gap:8px;
+    pointer-events:none;
+  }
+  .equipment-slot.filled:hover .equipment-tooltip,
+  .equipment-slot.filled:focus .equipment-tooltip,
+  .equipment-slot.filled:focus-within .equipment-tooltip {
+    display:grid;
+  }
+  .equipment-tooltip::after {
+    content:none;
+    position:absolute;
+    left:50%;
+    bottom:-7px;
+    width:12px;
+    height:12px;
+    transform:translateX(-50%) rotate(45deg);
+    border-right:1px solid #b45309;
+    border-bottom:1px solid #b45309;
+    background:#080c13;
+  }
+  .equipment-tooltip-title {
+    color:#c26b28;
+    font-size:18px;
+    font-weight:700;
+    text-align:center;
+    line-height:1.25;
+  }
+  .equipment-tooltip-type,
+  .equipment-tooltip-property {
+    color:#94a3b8;
+    text-align:center;
+    line-height:1.35;
+  }
+  .equipment-tooltip-sep {
+    height:1px;
+    width:70%;
+    margin:2px auto;
+    background:linear-gradient(90deg, transparent, #5b3418, transparent);
+  }
+  .equipment-tooltip .mod-list {
+    padding:0;
+    display:grid;
+    gap:3px;
+    list-style:none;
+  }
+  .equipment-tooltip .mod-list li {
+    color:#9b96ff;
+    text-align:center;
+    line-height:1.35;
+  }
+  .equipment-tooltip-section.corrupted .mod-list li {
+    color:#ef4444;
+  }
+  .equipment-tooltip-section {
+    display:grid;
+    gap:4px;
+  }
+  .equipment-tooltip-heading {
+    color:#64748b;
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .equipment-tooltip-icon {
+    justify-self:center;
+    max-width:110px;
+    max-height:86px;
+    object-fit:contain;
+    margin-top:4px;
+  }
   .slot-name,
   .gem-meta {
     color:var(--muted);
     font-size:12px;
+  }
+  .sr-only {
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0, 0, 0, 0);
+    white-space:nowrap;
+    border:0;
   }
   .mod-list,
   .gem-list {
@@ -214,6 +377,21 @@
     line-height:1.45;
     word-break:keep-all;
     overflow-wrap:break-word;
+  }
+  .rune-list {
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+  }
+  .rune-chip {
+    width:fit-content;
+    border:1px solid #475569;
+    border-radius:999px;
+    padding:2px 7px;
+    color:#f8fafc;
+    background:#1e293b;
+    font-size:12px;
+    line-height:1.4;
   }
   .skill-group {
     border:1px solid var(--line);
@@ -241,6 +419,8 @@
   }
   @media (max-width: 1100px) {
     .grid, .equipment-grid, .profile-stat-grid { grid-template-columns:1fr; }
+    .equipment-grid { grid-template-areas:none; }
+    .equipment-slot { grid-area:auto !important; }
   }
 </style>
 </head>
@@ -381,6 +561,7 @@ const i18n = {
     profileSupportGems: '辅助宝石',
     profileSkillGroups: '技能组',
     profileSocketedJewels: '插入珠宝',
+    profileRunes: '符文',
     profileTreeJewels: '天赋珠宝',
     profileJewelSockets: '珠宝插槽',
     profileSocketNode: '插槽节点',
@@ -562,6 +743,7 @@ const i18n = {
     profileSupportGems: '輔助寶石',
     profileSkillGroups: '技能組',
     profileSocketedJewels: '插入珠寶',
+    profileRunes: '符文',
     profileTreeJewels: '天賦珠寶',
     profileJewelSockets: '珠寶插槽',
     profileSocketNode: '插槽節點',
@@ -743,6 +925,7 @@ const i18n = {
     profileSupportGems: 'Support gems',
     profileSkillGroups: 'Skill groups',
     profileSocketedJewels: 'Socketed jewels',
+    profileRunes: 'Runes',
     profileTreeJewels: 'Tree jewels',
     profileJewelSockets: 'Jewel sockets',
     profileSocketNode: 'Socket node',
@@ -1328,15 +1511,133 @@ function itemBaseTypeFromXmlText(text) {
 }
 
 function itemModLinesFromText(text) {
-  const useful = String(text || '')
+  return itemTooltipSectionsFromText(text)
+    .flatMap((section) => section.lines)
+    .filter((line) => !/^(unique id|item level|levelreq|implicits|note|variant|league|source):/i.test(line))
+    .filter((line) => !isItemClassLine(line))
+    .filter((line) => !isLikelyFlavourLine(line));
+}
+
+function cleanPobItemLine(line) {
+  return String(line || '').trim().replace(/^\{[^}]+\}/, '').trim();
+}
+
+function pobItemLineTag(line) {
+  const match = String(line || '').trim().match(/^\{([^}]+)\}/);
+  return match ? match[1].toLowerCase() : '';
+}
+
+function isItemMetaLine(line) {
+  return /^(unique id|levelreq|implicits|note|variant|league|source):/i.test(String(line || '').trim());
+}
+
+function isItemPropertyLine(line) {
+  return /^(quality|armour|evasion rating|energy shield|runic ward|ward|spirit|charm slots|physical damage|elemental damage|fire damage|cold damage|lightning damage|chaos damage|critical hit chance|attacks per second|dps|item level|requires|stack size|limited to|socket-bound):/i
+    .test(String(line || '').trim());
+}
+
+function isRawItemHeaderLine(line) {
+  const text = String(line || '').trim();
+  return /^rarity:/i.test(text) || isItemClassLine(text) || isItemMetaLine(text) || isItemPropertyLine(text);
+}
+
+function isItemClassLine(line) {
+  return /^(belt|amulet|ring|body armour|helmet|gloves|boots|quarterstaff|staff|wand|sceptre|crossbow|bow|shield|buckler|jewel|charm|flask)$/i.test(String(line || '').trim());
+}
+
+function isLikelyFlavourLine(line) {
+  const text = String(line || '').trim();
+  if (/[+\-]?\d|%|\{/.test(text)) return false;
+  if (/^(all|has|gain|grants|legacy|cannot|can|always|never|enemies|minions|used|when|while|on|adds|requires)\b/i.test(text)) return false;
+  return /[.!?。！？]$/.test(text);
+}
+
+function itemPropertyLinesFromText(text) {
+  const lines = String(text || '')
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
-    .filter((line) => !/^rarity:/i.test(line) && !/^--------+$/.test(line))
-    .filter((line) => !/^(unique id|item level|levelreq|implicits|note|variant|league|source):/i.test(line));
-  return useful
-    .slice(Math.min(2, useful.length))
-    .filter((line) => /[+\-]?\d|%|minion|resistance|life|spirit|damage|attribute|movement|armour|evasion/i.test(line));
+    .filter((line) => isItemPropertyLine(line) || /^LevelReq:/i.test(line))
+    .map((line) => /^LevelReq:\s*(.+)$/i.test(line) ? line.replace(/^LevelReq:\s*/i, 'Requires: Level ') : line);
+  return uniqueRows(lines);
+}
+
+function itemTooltipSectionsFromText(text) {
+  const rawSections = [];
+  let current = [];
+  String(text || '').split(/\r?\n/).forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) return;
+    if (/^--------+$/.test(trimmed)) {
+      if (current.length) rawSections.push(current);
+      current = [];
+      return;
+    }
+    if (!/^rarity:/i.test(trimmed)) current.push(trimmed);
+  });
+  if (current.length) rawSections.push(current);
+  const sections = [];
+  let modSectionIndex = 0;
+  if (rawSections.length === 1) {
+    const lines = rawSections[0];
+    const implicitCount = Number((lines.find((line) => /^Implicits:/i.test(line)) || '').match(/:\s*(\d+)/)?.[1] || 0);
+    let seenModArea = implicitCount <= 0;
+    let implicitRemaining = implicitCount;
+    lines.forEach((line) => {
+      const raw = line.trim();
+      if (!raw) return;
+      if (/^Implicits:/i.test(raw)) {
+        seenModArea = true;
+        return;
+      }
+      if (!seenModArea || isRawItemHeaderLine(raw)) return;
+      const tag = pobItemLineTag(raw);
+      const cleaned = cleanPobItemLine(raw);
+      if (!cleaned || isLikelyFlavourLine(cleaned)) return;
+      if (/^corrupted$/i.test(cleaned)) {
+        sections.push({ kind: 'corrupted', lines: [cleaned] });
+        return;
+      }
+      if (tag === 'enchant') {
+        sections.push({ kind: 'enchant', lines: [cleaned] });
+        if (implicitRemaining > 0) implicitRemaining -= 1;
+        return;
+      }
+      if (tag === 'crafted') {
+        sections.push({ kind: 'crafted', lines: [cleaned] });
+        return;
+      }
+      const kind = tag ? 'explicit' : (implicitRemaining > 0 ? 'implicit' : 'explicit');
+      sections.push({ kind, lines: [cleaned] });
+      if (!tag && implicitRemaining > 0) implicitRemaining -= 1;
+    });
+    return sections.reduce((acc, section) => {
+      const last = acc[acc.length - 1];
+      if (last?.kind === section.kind) last.lines.push(...section.lines);
+      else acc.push({ ...section, lines: [...section.lines] });
+      return acc;
+    }, []);
+  }
+  rawSections.forEach((section, index) => {
+    const isHeader = index === 0;
+    const lines = section
+      .filter((line) => !/^(unique id|item level|levelreq|implicits|note|variant|league|source):/i.test(line))
+      .filter((line) => !isItemClassLine(line))
+      .filter((line) => !isLikelyFlavourLine(line));
+    if (!lines.length || isHeader) return;
+    if (lines.every((line) => /^Requires:/i.test(line))) {
+      sections.push({ kind: 'requirements', lines });
+      return;
+    }
+    if (lines.every((line) => /^Sockets?:/i.test(line))) {
+      sections.push({ kind: 'sockets', lines });
+      return;
+    }
+    const kind = modSectionIndex === 0 ? 'implicit' : 'explicit';
+    sections.push({ kind, lines });
+    modSectionIndex += 1;
+  });
+  return sections;
 }
 
 function arrayFromValue(value) {
@@ -1348,6 +1649,71 @@ function arrayFromValue(value) {
       .flatMap((key) => arrayFromValue(value[key]));
   }
   return [];
+}
+
+function deepArraysByKeys(value, keys, depth = 0) {
+  if (!value || typeof value !== 'object' || depth > 5) return [];
+  if (Array.isArray(value)) return value.flatMap((item) => deepArraysByKeys(item, keys, depth + 1));
+  const rows = [];
+  for (const [key, child] of Object.entries(value)) {
+    if (keys.includes(key)) rows.push(...arrayFromValue(child));
+    if (child && typeof child === 'object') rows.push(...deepArraysByKeys(child, keys, depth + 1));
+  }
+  return rows;
+}
+
+function firstArrayByKeys(entry, keys) {
+  for (const key of keys) {
+    const value = entry?.[key];
+    const rows = uniqueRows([
+      ...arrayFromValue(value),
+      ...deepArraysByKeys(entry, [key])
+    ]).map((line) => String(line).trim()).filter(Boolean);
+    if (rows.length) return rows;
+  }
+  return [];
+}
+
+function groupedModsFromEntry(entry) {
+  return {
+    implicit: firstArrayByKeys(entry, ['implicitMods', 'implicit', 'implicitStats']),
+    enchant: firstArrayByKeys(entry, ['enchantMods', 'enchantments', 'enchantedMods', 'enchant']),
+    fractured: firstArrayByKeys(entry, ['fracturedMods', 'fractured']),
+    prefix: firstArrayByKeys(entry, ['prefixMods', 'prefixes', 'prefix']),
+    suffix: firstArrayByKeys(entry, ['suffixMods', 'suffixes', 'suffix']),
+    explicit: firstArrayByKeys(entry, ['explicitMods', 'explicit', 'mods']),
+    crafted: firstArrayByKeys(entry, ['craftedMods', 'crafted']),
+    corrupted: firstArrayByKeys(entry, ['corruptedMods', 'corrupted'])
+  };
+}
+
+function uniqueRows(rows) {
+  return [...new Set((rows || []).map((line) => String(line).trim()).filter(Boolean))];
+}
+
+function runeLinesFromValue(value) {
+  if (Array.isArray(value)) return value.flatMap(runeLinesFromValue);
+  if (value === null || value === undefined) return [];
+  if (typeof value === 'string' || typeof value === 'number') return [String(value)];
+  if (typeof value === 'object') {
+    const direct = value.name || value.typeLine || value.baseType || value.rune || value.text || value.label;
+    if (direct) return [String(direct)];
+    return ['runes', 'rune', 'socketedRunes', 'socketedRune', 'socketedItems', 'sockets']
+      .flatMap((key) => runeLinesFromValue(value[key]));
+  }
+  return [];
+}
+
+function itemRuneLinesFromText(text) {
+  return String(text || '')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .flatMap((line) => {
+      const match = line.match(/^Runes?:\s*(.+)$/i);
+      if (!match) return [];
+      return match[1].split(/\s*(?:,|;|\||\/)\s*/).map((part) => part.trim()).filter(Boolean);
+    });
 }
 
 function extractStatRollsFromMod(mod) {
@@ -1366,13 +1732,44 @@ function extractStatRollsFromMod(mod) {
 
 function normalizeImportedItem(entry, fallbackRawText = '') {
   const rawText = entry?.rawText || entry?.text || fallbackRawText || '';
+  const groupedMods = groupedModsFromEntry(entry);
+  const textSections = itemTooltipSectionsFromText(rawText);
   const mods = [
     ...arrayFromValue(entry),
     ...itemModLinesFromText(rawText)
   ].map((line) => String(line).trim()).filter(Boolean);
-  const uniqueMods = [...new Set(mods)];
+  const runes = [
+    ...runeLinesFromValue(entry?.runes),
+    ...runeLinesFromValue(entry?.rune),
+    ...runeLinesFromValue(entry?.socketedRunes),
+    ...runeLinesFromValue(entry?.socketedRune),
+    ...runeLinesFromValue(entry?.sockets),
+    ...itemRuneLinesFromText(rawText)
+  ].map((line) => String(line).replace(/^Runes?:\s*/i, '').trim()).filter(Boolean);
+  const uniqueMods = uniqueRows(mods);
+  const uniqueRunes = [...new Set(runes)];
   return {
     mods: uniqueMods,
+    modGroups: {
+      implicit: uniqueRows(groupedMods.implicit),
+      enchant: uniqueRows(groupedMods.enchant),
+      fractured: uniqueRows(groupedMods.fractured),
+      prefix: uniqueRows(groupedMods.prefix),
+      suffix: uniqueRows(groupedMods.suffix),
+      explicit: uniqueRows(groupedMods.explicit),
+      crafted: uniqueRows(groupedMods.crafted),
+      corrupted: uniqueRows(groupedMods.corrupted),
+      text: uniqueRows(itemModLinesFromText(rawText)),
+      textSections
+    },
+    runes: uniqueRunes,
+    properties: [
+      ...new Set([
+        ...arrayFromValue(entry?.properties),
+        ...arrayFromValue(entry?.requirements),
+        ...itemPropertyLinesFromText(rawText)
+      ].map((line) => String(line).trim()).filter(Boolean))
+    ],
     statRolls: uniqueMods.flatMap(extractStatRollsFromMod)
   };
 }
@@ -1460,6 +1857,9 @@ function parsePobXmlText(xmlText) {
       socketNodeId: socketedJewel?.nodeId || null,
       socketType: socketedJewel ? 'passive-tree-jewel' : null,
       mods: normalizedItem.mods,
+      modGroups: normalizedItem.modGroups,
+      runes: normalizedItem.runes,
+      properties: normalizedItem.properties,
       statRolls: normalizedItem.statRolls,
       rawText
     };
@@ -1826,6 +2226,9 @@ function collectItems(data) {
         socketType: entry.socketType || null,
         raw: entry,
         mods: normalizedItem.mods,
+        modGroups: normalizedItem.modGroups,
+        runes: normalizedItem.runes,
+        properties: normalizedItem.properties,
         statRolls: normalizedItem.statRolls
       });
     });
@@ -2324,6 +2727,23 @@ function findItemDetailById(id) {
   return itemDetailEntries().find((entry) => normalizeName(entry.id) === normalizeName(id)) || null;
 }
 
+function findItemDetailByNames(names) {
+  const normalizedNames = names.map(normalizeName).filter(Boolean);
+  if (!normalizedNames.length) return null;
+  return itemDetailEntries().find((entry) => {
+    const aliases = [
+      entry.id,
+      entry.title?.en,
+      entry.title?.zhCN,
+      entry.title?.zhTW,
+      entry.name?.en,
+      entry.name?.zhCN,
+      entry.name?.zhTW
+    ].map(normalizeName).filter(Boolean);
+    return aliases.some((alias) => normalizedNames.some((name) => alias.includes(name) || name.includes(alias)));
+  }) || null;
+}
+
 function normalizedModPattern(value) {
   return cleanModLookupText(value)
     .toLowerCase()
@@ -2574,6 +2994,10 @@ function translateKnownItemStatLine(mod) {
       Spirit: '精魂',
       Quality: '品质',
       'Charm Slots': '咒符栏',
+      'Item Level': '物品等级',
+      Requires: '需求',
+      'Stack Size': '堆叠数量',
+      'Limited to': '限制',
       'Unique ID': '唯一 ID'
     },
     zhTW: {
@@ -2584,13 +3008,22 @@ function translateKnownItemStatLine(mod) {
       Spirit: '精神',
       Quality: '品質',
       'Charm Slots': '護符欄',
+      'Item Level': '物品等級',
+      Requires: '需求',
+      'Stack Size': '堆疊數量',
+      'Limited to': '限制',
       'Unique ID': '傳奇 ID'
     }
   };
   const labels = labelMap[currentLang] || labelMap.zhCN;
   for (const [en, localized] of Object.entries(labels)) {
     const match = source.match(new RegExp(`^${en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:\\s*(.+)$`, 'i'));
-    if (match) return `${localized}: ${match[1]}`;
+    if (match) {
+      const value = en === 'Requires'
+        ? match[1].replace(/\bLevel\b/gi, currentLang === 'zhTW' ? '等級' : '等级').replace(/\bDex\b/g, currentLang === 'zhTW' ? '敏捷' : '敏捷').replace(/\bInt\b/g, currentLang === 'zhTW' ? '智慧' : '智慧').replace(/\bStr\b/g, currentLang === 'zhTW' ? '力量' : '力量')
+        : match[1];
+      return `${localized}: ${value}`;
+    }
   }
   const grants = source.match(/^Grants Skill:\s*(?:Level\s+(\d+)\s+)?(.+)$/i);
   if (grants) {
@@ -2598,6 +3031,14 @@ function translateKnownItemStatLine(mod) {
     const grantsText = currentLang === 'zhTW' ? '賦予技能' : '获得技能';
     const levelText = currentLang === 'zhTW' ? '等級' : '等级';
     return `${prefix}${grantsText}: ${grants[1] ? `${levelText} ${grants[1]} ` : ''}${skillName}`;
+  }
+  const mageLegacy = source.match(/^Legacy of (Silver|Bismuth|Gold|Jade)$/i);
+  if (mageLegacy) {
+    const legacyNames = currentLang === 'zhTW'
+      ? { Silver: '白銀', Bismuth: '鉍晶', Gold: '黃金', Jade: '翠玉' }
+      : { Silver: '白银', Bismuth: '铋晶', Gold: '黄金', Jade: '翠玉' };
+    const legacyText = currentLang === 'zhTW' ? '魔遺' : '法师遗产';
+    return `${legacyText}：${legacyNames[mageLegacy[1]] || mageLegacy[1]}`;
   }
   const cn = currentLang === 'zhTW'
     ? {
@@ -3614,7 +4055,269 @@ function profileStat(label, value) {
 
 function itemModsForProfile(item) {
   const mods = item.mods || normalizeImportedItem(item.raw || item).mods || [];
-  return mods.slice(0, 5);
+  if (mods.length) return mods;
+  const match = findImportedItemReference(item);
+  if (match.kind === 'base' && match.entry) {
+    return (match.entry.mods?.en || []).filter((line) => !/^Requires:/i.test(String(line || '')));
+  }
+  if (match.kind !== 'unique' || !match.entry) return [];
+  const detail = findItemDetailById(match.entry.id);
+  const referenceMods = match.entry.mods?.en || detail?.mods?.en || [];
+  return referenceMods;
+}
+
+function itemPropertiesForProfile(item) {
+  const properties = item.properties || normalizeImportedItem(item.raw || item).properties || [];
+  if (properties.length) return properties;
+  const match = findImportedItemReference(item);
+  return match.entry?.properties?.en || [];
+}
+
+function itemRunesForProfile(item) {
+  const runes = item.runes || normalizeImportedItem(item.raw || item).runes || [];
+  return runes;
+}
+
+function profileModSectionLabels() {
+  return currentLang === 'zhTW'
+    ? {
+        requirements: '需求',
+        implicit: '固有 / 基底',
+        enchant: '附魔',
+        fractured: '破裂',
+        prefix: '前綴',
+        suffix: '後綴',
+        explicit: '顯性詞綴',
+        crafted: '製作',
+        corrupted: '腐化',
+        sockets: '插槽'
+      }
+    : currentLang === 'en'
+      ? {
+          requirements: 'Requirements',
+          implicit: 'Implicit / Base',
+          enchant: 'Enchant',
+          fractured: 'Fractured',
+          prefix: 'Prefixes',
+          suffix: 'Suffixes',
+          explicit: 'Explicit mods',
+          crafted: 'Crafted',
+          corrupted: 'Corrupted',
+          sockets: 'Sockets'
+        }
+      : {
+          requirements: '需求',
+          implicit: '固有 / 基底',
+          enchant: '附魔',
+          fractured: '破裂',
+          prefix: '前缀',
+          suffix: '后缀',
+          explicit: '显性词缀',
+          crafted: '制作',
+          corrupted: '腐化',
+          sockets: '插槽'
+        };
+}
+
+function itemModGroupsForProfile(item) {
+  const normalized = normalizeImportedItem(item.raw || item);
+  const groups = item.modGroups || normalized.modGroups || {};
+  if (groups.textSections?.length) {
+    return groups.textSections.reduce((acc, section) => {
+      const kind = section.kind || 'explicit';
+      acc[kind] = uniqueRows([...(acc[kind] || []), ...(section.lines || [])]);
+      return acc;
+    }, {});
+  }
+  const hasStructuredGroups = ['implicit', 'enchant', 'fractured', 'prefix', 'suffix', 'explicit', 'crafted', 'corrupted']
+    .some((key) => groups[key]?.length);
+  if (hasStructuredGroups) {
+    return {
+      requirements: uniqueRows(groups.requirements),
+      implicit: uniqueRows(groups.implicit),
+      enchant: uniqueRows(groups.enchant),
+      fractured: uniqueRows(groups.fractured),
+      prefix: uniqueRows(groups.prefix),
+      suffix: uniqueRows(groups.suffix),
+      explicit: uniqueRows(groups.explicit),
+      crafted: uniqueRows(groups.crafted),
+      corrupted: uniqueRows(groups.corrupted)
+    };
+  }
+  const textRows = uniqueRows(groups.text);
+  if (textRows.length) return { explicit: textRows };
+  const fallbackMods = itemModsForProfile(item);
+  if (fallbackMods.length) {
+    const match = findImportedItemReference(item);
+    if (match.kind === 'base') return { implicit: fallbackMods };
+    return { explicit: fallbackMods };
+  }
+  return {};
+}
+
+function equipmentModSectionHtml(label, rows, item) {
+  const values = uniqueRows(rows);
+  if (!values.length) return '';
+  const sectionClass = /corrupt|腐化/i.test(label) ? ' equipment-tooltip-section corrupted' : ' equipment-tooltip-section';
+  return `<div class="${sectionClass.trim()}">
+    <div class="equipment-tooltip-heading">${escapeHtml(label)}</div>
+    <ul class="mod-list">${values.map((mod) => `<li>${escapeHtml(importedItemModDisplayLine(mod, item))}</li>`).join('')}</ul>
+  </div>`;
+}
+
+function equipmentModSectionsHtml(item) {
+  const labels = profileModSectionLabels();
+  const groups = itemModGroupsForProfile(item);
+  return [
+    equipmentModSectionHtml(labels.requirements, groups.requirements, item),
+    equipmentModSectionHtml(labels.implicit, groups.implicit, item),
+    equipmentModSectionHtml(labels.enchant, groups.enchant, item),
+    equipmentModSectionHtml(labels.fractured, groups.fractured, item),
+    equipmentModSectionHtml(labels.prefix, groups.prefix, item),
+    equipmentModSectionHtml(labels.suffix, groups.suffix, item),
+    equipmentModSectionHtml(labels.explicit, groups.explicit, item),
+    equipmentModSectionHtml(labels.crafted, groups.crafted, item),
+    equipmentModSectionHtml(labels.corrupted, groups.corrupted, item)
+  ].filter(Boolean).join('<div class="equipment-tooltip-sep"></div>');
+}
+
+function localizedIconField(value) {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'object') return value[currentLang] || value.zhCN || value.zhTW || value.en || '';
+  return '';
+}
+
+function itemIconUrl(item) {
+  const direct = item.icon || item.image || item.img || item.raw?.icon || item.raw?.image || item.raw?.img;
+  if (direct) return localizedIconField(direct);
+  const match = findImportedItemReference(item);
+  const detail = findItemDetailById(match.entry?.id)
+    || findItemDetailByNames([...itemImportedBaseCandidates(item), ...itemImportedNameCandidates(item)]);
+  return localizedIconField(detail?.icon) || localizedIconField(match.entry?.icon);
+}
+
+function itemIconFallbackUrl(item) {
+  const baseDetail = findItemDetailByNames(itemImportedBaseCandidates(item));
+  const baseIcon = localizedIconField(baseDetail?.icon);
+  const currentIcon = itemIconUrl(item);
+  return baseIcon && baseIcon !== currentIcon ? baseIcon : '';
+}
+
+function normalizeEquipmentSlotKey(value, used = new Set()) {
+  const text = normalizeName(value || '');
+  const take = (key) => {
+    if (!used.has(key)) return key;
+    if (key === 'ring1' && !used.has('ring2')) return 'ring2';
+    if (key === 'flask1') {
+      for (let index = 2; index <= 3; index += 1) {
+        if (!used.has(`flask${index}`)) return `flask${index}`;
+      }
+    }
+    if (key === 'charm1' && !used.has('charm2')) return 'charm2';
+    return key;
+  };
+  if (/weapon1|mainhand|main hand|weapon\b/.test(text)) return take('weapon');
+  if (/weapon2|offhand|off hand|shield|quiver|buckler/.test(text)) return take('offhand');
+  if (/helmet|helm|head/.test(text)) return take('helmet');
+  if (/bodyarmour|bodyarmor|body|chest/.test(text)) return take('body');
+  if (/gloves|glove|hands/.test(text)) return take('gloves');
+  if (/boots|boot|feet/.test(text)) return take('boots');
+  if (/amulet|neck/.test(text)) return take('amulet');
+  if (/ring2/.test(text)) return take('ring2');
+  if (/ring/.test(text)) return take('ring1');
+  if (/belt/.test(text)) return take('belt');
+  if (/flask2/.test(text)) return take('flask2');
+  if (/flask3/.test(text)) return take('flask3');
+  if (/flask/.test(text)) return take('flask1');
+  if (/charm2/.test(text)) return take('charm2');
+  if (/charm/.test(text)) return take('charm1');
+  return '';
+}
+
+function equipmentSlotDefinitions(t) {
+  return [
+    { key: 'weapon', label: importedItemSlotDisplayName('Weapon', t.itemsTitle), area: 'weapon' },
+    { key: 'helmet', label: importedItemSlotDisplayName('Helmet', t.itemsTitle), area: 'helmet' },
+    { key: 'amulet', label: importedItemSlotDisplayName('Amulet', t.itemsTitle), area: 'amulet' },
+    { key: 'ring1', label: importedItemSlotDisplayName('Ring 1', t.itemsTitle), area: 'ring1' },
+    { key: 'offhand', label: importedItemSlotDisplayName('Shield', t.itemsTitle), area: 'offhand' },
+    { key: 'gloves', label: importedItemSlotDisplayName('Gloves', t.itemsTitle), area: 'gloves' },
+    { key: 'body', label: importedItemSlotDisplayName('Body Armour', t.itemsTitle), area: 'body' },
+    { key: 'belt', label: importedItemSlotDisplayName('Belt', t.itemsTitle), area: 'belt' },
+    { key: 'ring2', label: importedItemSlotDisplayName('Ring 2', t.itemsTitle), area: 'ring2' },
+    { key: 'boots', label: importedItemSlotDisplayName('Boots', t.itemsTitle), area: 'boots' },
+    { key: 'flask1', label: importedItemSlotDisplayName('Flask 1', t.itemsTitle), area: 'flask1' },
+    { key: 'flask2', label: importedItemSlotDisplayName('Flask 2', t.itemsTitle), area: 'flask2' },
+    { key: 'flask3', label: importedItemSlotDisplayName('Flask 3', t.itemsTitle), area: 'flask3' },
+    { key: 'charm1', label: importedItemSlotDisplayName('Charm 1', t.itemsTitle), area: 'charm1' },
+    { key: 'charm2', label: importedItemSlotDisplayName('Charm 2', t.itemsTitle), area: 'charm2' }
+  ];
+}
+
+function equipmentItemsBySlot(items) {
+  const used = new Set();
+  const map = new Map();
+  items.forEach((item) => {
+    if (item.socketType === 'passive-tree-jewel') return;
+    const slotKey = normalizeEquipmentSlotKey(item.context || item.slot || item.raw?.slot || item.raw?.inventoryId, used);
+    if (!slotKey || map.has(slotKey)) return;
+    map.set(slotKey, item);
+    used.add(slotKey);
+  });
+  return map;
+}
+
+function equipmentTooltipHtml(item) {
+  const t = i18n[currentLang];
+  const sectionLabels = profileModSectionLabels();
+  const properties = itemPropertiesForProfile(item);
+  const runes = itemRunesForProfile(item);
+  const icon = itemIconUrl(item);
+  const itemName = importedItemDisplayName(item);
+  const baseName = importedItemBaseDisplayName(item);
+  const propertyLines = properties.map((property) => `<div class="equipment-tooltip-property">${escapeHtml(translateKnownItemStatLine(property))}</div>`).join('');
+  const runeList = runes.length
+    ? `<div class="rune-list" aria-label="${escapeHtml(t.profileRunes)}">${runes.map((rune) => `<span class="rune-chip">${escapeHtml(localizeKnownEnglishNamesInLine(rune))}</span>`).join('')}</div>`
+    : '';
+  const modSections = equipmentModSectionsHtml(item);
+  const modList = modSections
+    ? modSections
+    : `<span class="slot-name">${escapeHtml(t.gearModCount)} 0</span>`;
+  return `<div class="equipment-tooltip" role="tooltip">
+    <div class="equipment-tooltip-title">${escapeHtml(itemName)}${baseName && normalizeName(baseName) !== normalizeName(itemName) ? `<br>${escapeHtml(baseName)}` : ''}</div>
+    ${propertyLines ? `<div class="equipment-tooltip-sep"></div>${propertyLines}` : ''}
+    ${runeList ? `<div class="equipment-tooltip-sep"></div><div class="equipment-tooltip-section"><div class="equipment-tooltip-heading">${escapeHtml(sectionLabels.sockets)}</div><div class="equipment-tooltip-property">${escapeHtml(t.profileRunes)}：${runes.length}</div>${runeList}</div>` : ''}
+    <div class="equipment-tooltip-sep"></div>
+    ${modList}
+    ${icon ? `<img class="equipment-tooltip-icon" src="${escapeHtml(icon)}" alt="">` : ''}
+  </div>`;
+}
+
+function positionEquipmentTooltip(slot) {
+  const tooltip = slot?.querySelector?.('.equipment-tooltip');
+  if (!tooltip) return;
+  const slotRect = slot.getBoundingClientRect();
+  const tooltipWidth = Math.min(420, window.innerWidth * 0.92);
+  const measuredHeight = tooltip.offsetHeight || 260;
+  const gap = 12;
+  let left = slotRect.right + gap;
+  if (left + tooltipWidth > window.innerWidth - gap) left = slotRect.left - tooltipWidth - gap;
+  if (left < gap) left = Math.max(gap, (window.innerWidth - tooltipWidth) / 2);
+  let top = slotRect.top;
+  if (top + measuredHeight > window.innerHeight - gap) top = window.innerHeight - measuredHeight - gap;
+  if (top < gap) top = gap;
+  tooltip.style.setProperty('--equipment-tooltip-left', `${Math.round(left)}px`);
+  tooltip.style.setProperty('--equipment-tooltip-top', `${Math.round(top)}px`);
+}
+
+function bindEquipmentTooltipPositioning() {
+  document.querySelectorAll('#profileEquipmentGrid .equipment-slot.filled').forEach((slot) => {
+    const update = () => positionEquipmentTooltip(slot);
+    slot.addEventListener('mouseenter', update);
+    slot.addEventListener('mousemove', update);
+    slot.addEventListener('focus', update);
+  });
 }
 
 function gemMeta(gem) {
@@ -3649,21 +4352,28 @@ function renderProfileEquipment(result) {
     grid.innerHTML = `<div class="equipment-slot">${escapeHtml(t.profileNoEquipment)}</div>`;
     return;
   }
-  grid.innerHTML = result.items.slice(0, 18).map((item) => {
-    const mods = itemModsForProfile(item);
-    const slotName = importedItemSlotDisplayName(item.context || item.slot, t.itemsTitle);
+  const itemsBySlot = equipmentItemsBySlot(result.items);
+  const definitions = equipmentSlotDefinitions(t);
+  grid.innerHTML = definitions.map((slot) => {
+    const item = itemsBySlot.get(slot.key);
+    if (!item) {
+      return `<article class="equipment-slot empty" style="grid-area:${escapeHtml(slot.area)}">
+        <span class="slot-name">${escapeHtml(slot.label)}</span>
+      </article>`;
+    }
     const itemName = importedItemDisplayName(item);
-    const baseName = importedItemBaseDisplayName(item);
-    const modList = mods.length
-      ? `<ul class="mod-list">${mods.map((mod) => `<li>${escapeHtml(importedItemModDisplayLine(mod, item))}</li>`).join('')}</ul>`
-      : `<span class="slot-name">${escapeHtml(t.gearModCount)} 0</span>`;
-    return `<article class="equipment-slot">
-      <span class="slot-name">${escapeHtml(slotName)}</span>
-      <strong>${escapeHtml(itemName)}</strong>
-      ${baseName && normalizeName(baseName) !== normalizeName(itemName) ? `<span class="slot-name">${escapeHtml(t.itemBaseType)}：${escapeHtml(baseName)}</span>` : ''}
-      ${modList}
+    const icon = itemIconUrl(item);
+    const fallbackIcon = itemIconFallbackUrl(item);
+    const runes = itemRunesForProfile(item);
+    const sockets = runes.slice(0, 6).map(() => '<span class="equipment-socket" aria-hidden="true"></span>').join('');
+    return `<article class="equipment-slot filled" tabindex="0" style="grid-area:${escapeHtml(slot.area)}" data-equipment-slot="${escapeHtml(slot.key)}">
+      <span class="sr-only">${escapeHtml(slot.label)}：${escapeHtml(itemName)}</span>
+      ${icon ? `<img class="equipment-icon" src="${escapeHtml(icon)}" ${fallbackIcon ? `data-fallback-src="${escapeHtml(fallbackIcon)}"` : ''} onerror="if(this.dataset.fallbackSrc&&this.src!==this.dataset.fallbackSrc){this.src=this.dataset.fallbackSrc;this.dataset.fallbackSrc='';}else{this.classList.add('missing');}" alt="">` : `<span class="equipment-icon placeholder" aria-hidden="true"></span>`}
+      ${sockets ? `<div class="equipment-sockets" aria-hidden="true">${sockets}</div>` : ''}
+      ${equipmentTooltipHtml(item)}
     </article>`;
   }).join('');
+  bindEquipmentTooltipPositioning();
 }
 
 function renderProfileSkills(result) {

@@ -101,11 +101,19 @@ function collectBlocks(html, classNames) {
   return [...new Set(rows)];
 }
 
+function parsePageImage(html) {
+  const ogImage = html.match(/<meta property="og:image" content="([^"]+)"/i)?.[1];
+  if (ogImage) return decodeHtml(ogImage);
+  const itemImage = html.match(/<img[^>]+src="([^"]+)"[^>]*>/i)?.[1];
+  return itemImage ? decodeHtml(itemImage) : '';
+}
+
 function parseDetailPage(html, lang, id) {
   const title = stripTags(html.match(/<title>([\s\S]*?)<\/title>/)?.[1] || '').replace(/\s+-\s+.*$/, '');
   return {
     id,
     title,
+    icon: parsePageImage(html),
     properties: collectBlocks(html, ['property']),
     mods: collectBlocks(html, ['requirements', 'implicitMod', 'explicitMod', 'poe2 mutatedMod']),
     sourceRef: `https://poe2db.tw/${lang}/${id}`
@@ -135,6 +143,11 @@ function mergeDetails(localizedRows, manifest, season, version, fetchedAt, skipp
           en: en.title || id,
           zhCN: zhCN.title || en.title || id,
           zhTW: zhTW.title || en.title || id
+        },
+        icon: {
+          en: en.icon || '',
+          zhCN: zhCN.icon || en.icon || '',
+          zhTW: zhTW.icon || en.icon || ''
         },
         properties: {
           en: en.properties || [],

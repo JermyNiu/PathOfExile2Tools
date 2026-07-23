@@ -5,7 +5,7 @@
   "source": {
     "type": "poe2db-item-detail-pages",
     "version": "4.5",
-    "fetchedAt": "2026-07-23T06:27:56.280Z",
+    "fetchedAt": "2026-07-23T12:37:21.734Z",
     "skipped": []
   },
   "entries": [
@@ -16,6 +16,11 @@
         "en": "Runeforged Sleek Jacket",
         "zhCN": "符文滑布外衣",
         "zhTW": "符鍛光滑外衣"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDexInt02.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDexInt02.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Basetypes/BodyDexInt02.webp"
       },
       "properties": {
         "en": [
@@ -64,6 +69,11 @@
         "en": "Guiding Palm of the Heart Shrine Sceptre",
         "zhCN": "心脏之指引之掌 圣地权杖",
         "zhTW": "引導之掌：心 神殿權杖"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/GuidingPalmFire.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/GuidingPalmFire.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/GuidingPalmFire.webp"
       },
       "properties": {
         "en": [
@@ -125,6 +135,11 @@
         "zhCN": "法师之血 万用腰带",
         "zhTW": "魔血 實用腰帶"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Mageblood.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Mageblood.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Mageblood.webp"
+      },
       "properties": {
         "en": [
           "Belts"
@@ -172,6 +187,11 @@
         "en": "Sapphire Ring",
         "zhCN": "蓝玉戒指",
         "zhTW": "藍玉戒指"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Basetypes/SapphireRing.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Basetypes/SapphireRing.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Basetypes/SapphireRing.webp"
       },
       "properties": {
         "en": [
@@ -248,6 +268,11 @@
         "zhCN": "天选之人 宏伟战矛",
         "zhTW": "神授命使 宏偉長矛"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/TheOrdained.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/TheOrdained.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/TheOrdained.webp"
+      },
       "properties": {
         "en": [
           "Spears",
@@ -323,6 +348,11 @@
         "zhCN": "捷足便鞋",
         "zhTW": "捷足輕鞋"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Basetypes/BootsDexInt04.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Basetypes/BootsDexInt04.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Basetypes/BootsDexInt04.webp"
+      },
       "properties": {
         "en": [
           "Boots",
@@ -373,6 +403,11 @@
         "en": "Gold Amulet",
         "zhCN": "帝金项链",
         "zhTW": "帝金護身符"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Basetypes/GoldAmulet.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Basetypes/GoldAmulet.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Basetypes/GoldAmulet.webp"
       },
       "properties": {
         "en": [
@@ -434,6 +469,11 @@
         "zhCN": "符文石拳",
         "zhTW": "符鍛磐石之拳"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Basetypes/GlovesDexInt01.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Basetypes/GlovesDexInt01.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Basetypes/GlovesDexInt01.webp"
+      },
       "properties": {
         "en": [
           "Gloves"
@@ -469,6 +509,11 @@
         "en": "Soaring Spear",
         "zhCN": "翱翔战矛",
         "zhTW": "展翼長矛"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear04.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear04.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/1HSpear04.webp"
       },
       "properties": {
         "en": [
@@ -520,6 +565,11 @@
         "en": "The Black Insignia Corsair Cap",
         "zhCN": "黑盗勋章 海贼帽",
         "zhTW": "漆黑徽章 海盜便帽"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheBlackCrest.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheBlackCrest.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheBlackCrest.webp"
       },
       "properties": {
         "en": [
@@ -584,6 +634,11 @@
         "zhCN": "元素之章 三相戒指",
         "zhTW": "元素之章"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/TheTaming.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/TheTaming.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/TheTaming.webp"
+      },
       "properties": {
         "en": [
           "Rings"
@@ -634,6 +689,11 @@
         "en": "Ultimate Mana Flask",
         "zhCN": "终极魔力药剂",
         "zhTW": "終極魔力藥劑"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Basetypes/FlaskMana09.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Basetypes/FlaskMana09.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Basetypes/FlaskMana09.webp"
       },
       "properties": {
         "en": [
@@ -691,6 +751,11 @@
         "en": "Ultimate Life Flask",
         "zhCN": "终极生命药剂",
         "zhTW": "終極生命藥劑"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Basetypes/FlaskLife09.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Basetypes/FlaskLife09.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Basetypes/FlaskLife09.webp"
       },
       "properties": {
         "en": [
@@ -767,6 +832,11 @@
         "zhCN": "仪式通道 黄金咒符",
         "zhTW": "儀式通道 黃金護符"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/GoldenUniqueCharm.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/GoldenUniqueCharm.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/GoldenUniqueCharm.webp"
+      },
       "properties": {
         "en": [
           "Charms",
@@ -818,6 +888,11 @@
         "zhCN": "真银咒符",
         "zhTW": "白銀護符"
       },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Basetypes/SilverCharm.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Basetypes/SilverCharm.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Basetypes/SilverCharm.webp"
+      },
       "properties": {
         "en": [
           "Charms",
@@ -868,6 +943,11 @@
         "en": "Nascent Hope Thawing Charm",
         "zhCN": "新生希望 融冰咒符",
         "zhTW": "萌芽希望 解凍護符"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/ThawingUniqueCharm.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/ThawingUniqueCharm.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/ThawingUniqueCharm.webp"
       },
       "properties": {
         "en": [
@@ -922,6 +1002,11 @@
         "en": "Heart of the Well",
         "zhCN": "泉井之心 宝钻",
         "zhTW": "水井之心 鑽石"
+      },
+      "icon": {
+        "en": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/ApostatesHeart.webp",
+        "zhCN": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/ApostatesHeart.webp",
+        "zhTW": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/ApostatesHeart.webp"
       },
       "properties": {
         "en": [
