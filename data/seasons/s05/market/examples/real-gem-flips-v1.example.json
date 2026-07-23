@@ -1,0 +1,58 @@
+{
+  "snapshotSchemaVersion": 1,
+  "id": "s05-real-gem-flips-v1-example",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-22T12:00:00+08:00",
+  "source": {
+    "type": "real-snapshot-v1",
+    "provider": "manual-fixture",
+    "league": "S05",
+    "fetchedAt": "2026-07-22T11:55:00+08:00",
+    "note": "Fixture that demonstrates the required shape for a real gem flipping snapshot. Prices are not live.",
+    "filters": {
+      "minListingDepth": 5,
+      "abnormalPriceRules": [
+        "Drop listings below half of the median visible ask.",
+        "Drop listings with no comparable sell side depth."
+      ]
+    }
+  },
+  "currency": "exalted",
+  "feeRate": 0.08,
+  "scoreWeights": {
+    "netProfit": 0.5,
+    "roi": 0.25,
+    "liquidity": 0.2,
+    "risk": -0.2
+  },
+  "entries": [
+    {
+      "id": "supporting-fire-21-real-example",
+      "category": "active",
+      "name": {
+        "zhCN": "支援火力",
+        "zhTW": "支援火力",
+        "en": "Supporting Fire"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 18,
+      "sellPrice": 32,
+      "liquidity": 72,
+      "risk": 42,
+      "notes": {
+        "zhCN": "真实快照结构示例；价格不是实时行情。",
+        "zhTW": "真實快照結構示例；價格不是即時行情。",
+        "en": "Real snapshot shape example; prices are not live."
+      },
+      "marketEvidence": {
+        "observedAt": "2026-07-22T11:55:00+08:00",
+        "buyListingCount": 12,
+        "sellListingCount": 9,
+        "priceConfidence": 78,
+        "depthNote": "Fixture depth for validating real-snapshot-v1 fields."
+      }
+    }
+  ]
+}

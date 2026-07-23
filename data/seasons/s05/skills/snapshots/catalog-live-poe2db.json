@@ -1,0 +1,581 @@
+{
+  "id": "s05-poe2db-skill-catalog-v1",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-22T10:57:12.915Z",
+  "source": {
+    "type": "poe2db-snapshot-v1",
+    "version": "live-skill-gems-pages",
+    "fetchedAt": "2026-07-22T10:57:12.916Z",
+    "note": "Normalized from PoE2DB Skill_Gems and Support_Gems list pages."
+  },
+  "entries": [
+    {
+      "id": "supporting-fire",
+      "kind": "active",
+      "name": {
+        "zhCN": "支援火力",
+        "zhTW": "支援火力",
+        "en": "Supporting Fire"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Supporting_Fire"
+      },
+      "poe2db": {
+        "href": "Supporting_Fire",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "vulnerability",
+      "kind": "active",
+      "name": {
+        "zhCN": "脆弱",
+        "zhTW": "脆弱",
+        "en": "Vulnerability"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Spell",
+        "AoE",
+        "Physical",
+        "Duration",
+        "Curse",
+        "Repeatable"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Vulnerability"
+      },
+      "poe2db": {
+        "href": "Vulnerability",
+        "gemTier": 7
+      }
+    },
+    {
+      "id": "skeletal-warrior",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍武士",
+        "zhTW": "骷髏戰士",
+        "en": "Skeletal Warrior"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Physical"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Warrior"
+      },
+      "poe2db": {
+        "href": "Skeletal_Warrior",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "frost-mage",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍冰霜法师",
+        "zhTW": "骷髏霜寒法師",
+        "en": "Skeletal Frost Mage"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Cold"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Frost_Mage"
+      },
+      "poe2db": {
+        "href": "Skeletal_Frost_Mage",
+        "gemTier": 5
+      }
+    },
+    {
+      "id": "wolf-pack",
+      "kind": "active",
+      "name": {
+        "zhCN": "狼群",
+        "zhTW": "召喚惡狼",
+        "en": "Wolf Pack"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Companion",
+        "Persistent",
+        "Physical"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Wolf_Pack"
+      },
+      "poe2db": {
+        "href": "Wolf_Pack",
+        "gemTier": 8
+      }
+    },
+    {
+      "id": "cleric",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍祭司",
+        "zhTW": "骷髏牧師",
+        "en": "Skeletal Cleric"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Cleric"
+      },
+      "poe2db": {
+        "href": "Skeletal_Cleric",
+        "gemTier": 13
+      }
+    },
+    {
+      "id": "arsonist",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍焚焰使",
+        "zhTW": "骷髏縱火者",
+        "en": "Skeletal Arsonist"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Fire",
+        "Detonator"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Arsonist"
+      },
+      "poe2db": {
+        "href": "Skeletal_Arsonist",
+        "gemTier": 3
+      }
+    },
+    {
+      "id": "storm-mage",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍风暴法师",
+        "zhTW": "骷髏風暴法師",
+        "en": "Skeletal Storm Mage"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Lightning"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Storm_Mage"
+      },
+      "poe2db": {
+        "href": "Skeletal_Storm_Mage",
+        "gemTier": 11
+      }
+    },
+    {
+      "id": "reaver",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍掠夺者",
+        "zhTW": "骷髏掠奪者",
+        "en": "Skeletal Reaver"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Physical"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Reaver"
+      },
+      "poe2db": {
+        "href": "Skeletal_Reaver",
+        "gemTier": 9
+      }
+    },
+    {
+      "id": "sniper",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍神射手",
+        "zhTW": "骷髏狙擊手",
+        "en": "Skeletal Sniper"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Physical",
+        "Fire",
+        "Chaos"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Sniper"
+      },
+      "poe2db": {
+        "href": "Skeletal_Sniper",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "brute",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍蛮兵",
+        "zhTW": "骷髏巨獸",
+        "en": "Skeletal Brute"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Warcry",
+        "Persistent",
+        "Physical",
+        "Payoff"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Brute"
+      },
+      "poe2db": {
+        "href": "Skeletal_Brute",
+        "gemTier": 13
+      }
+    },
+    {
+      "id": "kurgals-leash",
+      "kind": "support",
+      "name": {
+        "zhCN": "古加尔的缰绳",
+        "zhTW": "柯戈的繩索",
+        "en": "Kurgal's Leash"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Lineage",
+        "Minion",
+        "Chaos"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact compatible skill tags from PoE2DB before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Kurgals_Leash"
+      },
+      "poe2db": {
+        "href": "Kurgals_Leash",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "muster",
+      "kind": "support",
+      "name": {
+        "zhCN": "海纳百川",
+        "zhTW": "召集",
+        "en": "Muster"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact minion or command compatibility before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Muster"
+      },
+      "poe2db": {
+        "href": "Muster",
+        "gemTier": 3
+      }
+    },
+    {
+      "id": "heft",
+      "kind": "support",
+      "name": {
+        "zhCN": "势大力沉",
+        "zhTW": "分量",
+        "en": "Heft"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Physical"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact compatible hit and damage tags before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Heft"
+      },
+      "poe2db": {
+        "href": "Heft",
+        "gemTier": 5
+      }
+    },
+    {
+      "id": "bidding-3",
+      "kind": "support",
+      "name": {
+        "zhCN": "奉命 III",
+        "zhTW": "出價 III",
+        "en": "Bidding III"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion",
+        "Command"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact command compatibility and tier naming before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Bidding_III"
+      },
+      "poe2db": {
+        "href": "Bidding_III",
+        "gemTier": 5
+      }
+    },
+    {
+      "id": "heightened-curse",
+      "kind": "support",
+      "name": {
+        "zhCN": "强效诅咒",
+        "zhTW": "增強詛咒",
+        "en": "Heightened Curse"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Curse"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "curse"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Heightened_Curse"
+      },
+      "poe2db": {
+        "href": "Heightened_Curse",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "focused-curse",
+      "kind": "support",
+      "name": {
+        "zhCN": "聚焦诅咒",
+        "zhTW": "專注詛咒",
+        "en": "Focused Curse"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Curse"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "curse"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Focused_Curse"
+      },
+      "poe2db": {
+        "href": "Focused_Curse",
+        "gemTier": 2
+      }
+    },
+    {
+      "id": "rapid-casting-2",
+      "kind": "support",
+      "name": {
+        "zhCN": "快速施法 II",
+        "zhTW": "疾速施法 II",
+        "en": "Rapid Casting II"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Spell"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact cast-speed support tier naming before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Rapid_Casting_II"
+      },
+      "poe2db": {
+        "href": "Rapid_Casting_II",
+        "gemTier": 4
+      }
+    },
+    {
+      "id": "prolonged-duration-2",
+      "kind": "support",
+      "name": {
+        "zhCN": "持续时间延长 II",
+        "zhTW": "延長持續時間 II",
+        "en": "Prolonged Duration II"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Duration"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "duration"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Prolonged_Duration_II"
+      },
+      "poe2db": {
+        "href": "Prolonged_Duration_II",
+        "gemTier": 3
+      }
+    },
+    {
+      "id": "meat-shield",
+      "kind": "support",
+      "name": {
+        "zhCN": "肉盾 I",
+        "zhTW": "肉盾 I",
+        "en": "Meat Shield I"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "minion"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Meat_Shield_I"
+      },
+      "poe2db": {
+        "href": "Meat_Shield_I",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "last-gasp",
+      "kind": "support",
+      "name": {
+        "zhCN": "亡命之息",
+        "zhTW": "臨終恐息",
+        "en": "Last Gasp"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion",
+        "Persistent",
+        "Duration"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "minion"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Last_Gasp"
+      },
+      "poe2db": {
+        "href": "Last_Gasp",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "withering-touch",
+      "kind": "support",
+      "name": {
+        "zhCN": "凋零之触",
+        "zhTW": "凋零之觸",
+        "en": "Withering Touch"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Chaos",
+        "Duration"
+      ],
+      "supportRequirements": {
+        "requiresHit": true,
+        "damageTypes": [
+          "chaos"
+        ],
+        "notes": [
+          "Use only after verifying the linked minion can benefit from the required hit or damage behavior."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Withering_Touch"
+      },
+      "poe2db": {
+        "href": "Withering_Touch",
+        "gemTier": 1
+      }
+    },
+    {
+      "id": "culling-strike",
+      "kind": "support",
+      "name": {
+        "zhCN": "终结 I",
+        "zhTW": "撲殺 I",
+        "en": "Culling Strike I"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Attack"
+      ],
+      "supportRequirements": {
+        "requiresHit": true,
+        "sourceRef": "https://poe2db.tw/us/Culling_Strike_I"
+      },
+      "poe2db": {
+        "href": "Culling_Strike_I",
+        "gemTier": 4
+      }
+    }
+  ]
+}

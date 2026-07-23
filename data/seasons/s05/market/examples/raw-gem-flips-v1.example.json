@@ -1,0 +1,43 @@
+{
+  "updatedAt": "2026-07-22T11:55:00+08:00",
+  "currency": "exalted",
+  "feeRate": 0.08,
+  "source": {
+    "filters": {
+      "minListingDepth": 5,
+      "abnormalPriceRules": [
+        "Drop listings below half of the median visible ask.",
+        "Drop listings with no comparable sell side depth."
+      ]
+    },
+    "note": "Raw manual capture template for gem flipping candidates. Fixture prices are not live."
+  },
+  "entries": [
+    {
+      "id": "supporting-fire-21-raw-example",
+      "category": "active",
+      "name": {
+        "zhCN": "支援火力",
+        "zhTW": "支援火力",
+        "en": "Supporting Fire"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 18,
+      "sellPrice": 32,
+      "liquidity": 72,
+      "risk": 42,
+      "notes": {
+        "zhCN": "原始输入模板；价格不是实时行情。",
+        "zhTW": "原始輸入模板；價格不是即時行情。",
+        "en": "Raw input template; prices are not live."
+      },
+      "marketEvidence": {
+        "buyListingCount": 12,
+        "sellListingCount": 9,
+        "priceConfidence": 78,
+        "depthNote": "Fixture depth for raw snapshot normalization."
+      }
+    }
+  ]
+}

@@ -1,0 +1,1361 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 路线复核</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  select {
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    color:var(--text);
+    min-height:34px;
+    padding:6px 8px;
+    font:inherit;
+  }
+  .nav, .filters, .inline-actions, .segmented {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.primary {
+    border-color:#0ea5e9;
+    background:#075985;
+  }
+  .btn.disabled {
+    color:var(--muted);
+    cursor:not-allowed;
+    opacity:.65;
+  }
+  .segmented {
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:3px;
+    background:#0b1120;
+  }
+  .segmented button {
+    border:0;
+    border-radius:6px;
+    padding:6px 9px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+  }
+  .segmented button.active {
+    background:#075985;
+    color:var(--text);
+  }
+  .shell {
+    width:min(1320px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel, .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .card { background:var(--panel2); padding:14px; }
+  .muted, li { color:var(--muted); line-height:1.55; }
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:8px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:4px;
+  }
+  .stat strong { color:var(--accent); font-size:18px; }
+  .stat span { color:var(--muted); font-size:12px; line-height:1.35; }
+  .queue-grid {
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:10px;
+  }
+  .queue-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    display:grid;
+    gap:8px;
+  }
+  .queue-card strong { font-size:14px; line-height:1.35; }
+  .queue-card p { color:var(--muted); font-size:13px; line-height:1.45; }
+  table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th, td {
+    padding:9px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  th { color:var(--muted); font-weight:650; }
+  tr:last-child td { border-bottom:0; }
+  code, pre {
+    color:var(--accent);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  pre {
+    margin:0;
+    white-space:pre-wrap;
+    word-break:break-word;
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    max-height:320px;
+    overflow:auto;
+  }
+  .badge {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:2px 7px;
+    color:var(--muted);
+    font-size:12px;
+    margin:0 4px 4px 0;
+  }
+  .ok { color:var(--ok); }
+  .warn { color:var(--warn); }
+  .bad { color:var(--bad); }
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .queue-grid { grid-template-columns:1fr; }
+    table { display:block; overflow:auto; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="pageTitle">路线复核</h1>
+  <nav class="nav">
+    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+    <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
+    <a class="btn" href="version-history.html" data-i18n="versionHistory">版本历史</a>
+    <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
+      <button class="active" type="button" data-lang="zhCN">简体</button>
+      <button type="button" data-lang="zhTW">繁体</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="panel">
+    <h2 data-i18n="currentRoutesTitle">当前版本路线</h2>
+    <p class="muted" data-i18n="currentRoutesDesc">这里集中检查当前版本 manifest、BD 阶段配置和路线 JSON meta 是否一致。终局投影路线可以继续展示，但必须标记待手调；真正实战修正后再通过归档脚本写入并切换为手调路线。</p>
+    <div class="filters">
+      <label class="muted"><span data-i18n="versionLabel">版本</span>
+        <select id="versionSelect" aria-label="版本" data-i18n-aria="versionLabel">
+          <option selected data-i18n="loading">读取中...</option>
+        </select>
+      </label>
+      <label class="muted"><span data-i18n="buildLabel">BD</span>
+        <select id="buildFilter">
+          <option value="all" data-i18n="allBuilds">全部 BD</option>
+        </select>
+      </label>
+      <label class="muted"><span data-i18n="statusLabel">状态</span>
+        <select id="routeFilter">
+          <option value="all" data-i18n-option="allRoutes">全部路线</option>
+          <option value="pending" data-i18n-option="pendingRoutes">待手调</option>
+          <option value="replaceable" data-i18n-option="replaceableRoutes">可替换投影</option>
+          <option value="manual-review" data-i18n-option="manualReviewRoutes">需人工复核</option>
+          <option value="hand-tuned" data-i18n-option="handTunedRoutes">已手调</option>
+          <option value="mismatch" data-i18n-option="mismatchRoutes">数据不一致</option>
+        </select>
+      </label>
+    </div>
+    <div class="stat-grid" id="routeReviewStats">
+      <div class="stat"><strong>--</strong><span>路线总数</span></div>
+      <div class="stat"><strong>--</strong><span>待手调</span></div>
+      <div class="stat"><strong>--</strong><span>可替换投影</span></div>
+      <div class="stat"><strong>--</strong><span>需人工复核</span></div>
+      <div class="stat"><strong>--</strong><span>复核说明</span></div>
+      <div class="stat"><strong>--</strong><span>数据不一致</span></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="tableTitle">路线复核表</h2>
+    <p class="muted" id="routeReviewSummary" data-i18n="loading">读取中...</p>
+    <table>
+      <thead>
+        <tr>
+          <th data-i18n="buildStageCol">BD / 阶段</th>
+          <th data-i18n="sourcePolicyCol">来源与保护</th>
+          <th data-i18n="nodesCol">节点</th>
+          <th data-i18n="reviewCol">复核说明</th>
+          <th data-i18n="entryCol">入口</th>
+        </tr>
+      </thead>
+      <tbody id="routeReviewRows">
+        <tr><td colspan="5" data-i18n="loading">读取中...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="priorityTitle">手调优先队列</h2>
+    <p class="muted" data-i18n="priorityDesc">把还没手调的路线按风险和收益排序：数据不一致优先，其次是可替换投影，再看节点规模。这里是工作队列，不会修改路线文件。</p>
+    <div class="queue-grid" id="routePriorityQueue">
+      <div class="queue-card"><strong>--</strong><p data-i18n="loading">读取中...</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="candidateTitle">未登记候选路线</h2>
+    <p class="muted" data-i18n="candidateDesc">这里读取 BD 候选清单和本地 <code>.candidate.json</code> 路线文件。候选路线只能用于人工预览和校验，不会进入正式路线统计，也不会让候选 BD 出现在首页正式开荒列表。</p>
+    <div class="stat-grid" id="routeCandidateStats">
+      <div class="stat"><strong>--</strong><span>候选阶段</span></div>
+      <div class="stat"><strong>--</strong><span>候选文件</span></div>
+      <div class="stat"><strong>--</strong><span>缺失文件</span></div>
+      <div class="stat"><strong>--</strong><span>已手调候选</span></div>
+      <div class="stat"><strong>--</strong><span>需人工复核</span></div>
+      <div class="stat"><strong>--</strong><span>节点总数</span></div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th data-i18n="candidateStageCol">候选 BD / 阶段</th>
+          <th data-i18n="candidateFileCol">候选文件</th>
+          <th data-i18n="nodesCol">节点</th>
+          <th data-i18n="reviewCol">复核说明</th>
+          <th data-i18n="entryCol">入口</th>
+        </tr>
+      </thead>
+      <tbody id="routeCandidateRows">
+        <tr><td colspan="5" data-i18n="loading">读取中...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="reportTitle">路线复核报告 Markdown</h2>
+    <p class="muted" data-i18n="reportDesc">生成当前版本全量路线的 Markdown 复核报告，方便粘到任务、PR 或版本日志里。筛选只影响上方表格，不影响报告完整性。</p>
+    <pre id="routeReviewReportBlock" data-i18n="loading">读取中...</pre>
+    <div class="inline-actions">
+      <button class="btn disabled" type="button" id="copyRouteReviewReportBtn" aria-disabled="true" data-i18n="copyReport">复制 Markdown 报告</button>
+      <button class="btn disabled" type="button" id="downloadRouteReviewReportBtn" aria-disabled="true" data-i18n="downloadReport">下载 Markdown</button>
+      <span class="muted" id="routeReviewReportCopyStatus"></span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="commandTitle">路线复核命令</h2>
+    <p class="muted" data-i18n="commandDesc">先校验未登记候选路线，再为 <code>replaceable-until-hand-tuned</code> 且尚未手调的正式路线生成归档命令。候选校验不会登记 manifest；正式路线归档先 dry-run 检查 meta、节点数和复核字段，再执行 <code>--write</code>。</p>
+    <pre id="routeReviewCommandBlock" data-i18n="loading">读取中...</pre>
+    <div class="inline-actions">
+      <button class="btn disabled" type="button" id="copyRouteReviewCommandsBtn" aria-disabled="true" data-i18n="copyCommands">复制路线复核命令</button>
+      <span class="muted" id="routeReviewCommandCopyStatus"></span>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+let currentLang = 'zhCN';
+
+const i18n = {
+  zhCN: {
+    pageTitle: '路线复核',
+    title: 'POE2 Tools - 路线复核',
+    home: '首页',
+    dataUpdate: '数据更新',
+    versionHistory: '版本历史',
+    languageSelect: '语言选择',
+    currentRoutesTitle: '当前版本路线',
+    currentRoutesDesc: '这里集中检查当前版本 manifest、BD 阶段配置和路线 JSON meta 是否一致。终局投影路线可以继续展示，但必须标记待手调；真正实战修正后再通过归档脚本写入并切换为手调路线。',
+    versionLabel: '版本',
+    buildLabel: 'BD',
+    statusLabel: '状态',
+    allBuilds: '全部 BD',
+    allRoutes: '全部路线',
+    pendingRoutes: '待手调',
+    replaceableRoutes: '可替换投影',
+    manualReviewRoutes: '需人工复核',
+    handTunedRoutes: '已手调',
+    mismatchRoutes: '数据不一致',
+    loading: '读取中...',
+    tableTitle: '路线复核表',
+    buildStageCol: 'BD / 阶段',
+    sourcePolicyCol: '来源与保护',
+    nodesCol: '节点',
+    reviewCol: '复核说明',
+    entryCol: '入口',
+    commandTitle: '路线复核命令',
+    commandDesc: '先校验未登记候选路线，再为 <code>replaceable-until-hand-tuned</code> 且尚未手调的正式路线生成归档命令。候选校验不会登记 manifest；正式路线归档先 dry-run 检查 meta、节点数和复核字段，再执行 <code>--write</code>。',
+    reportTitle: '路线复核报告 Markdown',
+    reportDesc: '生成当前版本全量路线的 Markdown 复核报告，方便粘到任务、PR 或版本日志里。筛选只影响上方表格，不影响报告完整性。',
+    copyReport: '复制 Markdown 报告',
+    copiedReport: '已复制 Markdown 报告',
+    downloadReport: '下载 Markdown',
+    reportCopyFailed: '复制失败，请手动选择报告。',
+    reportCaution: '本报告来自本地版本化数据，只用于路线复核和归档决策；投影路线不等同于已实战手调。',
+    reportSummaryTitle: '版本摘要',
+    reportStatsTitle: '路线统计',
+    reportRoutesTitle: '路线明细',
+    reportCommandsTitle: '路线复核命令',
+    reportPriorityTitle: '手调优先队列',
+    reportCommandCount: '命令数',
+    reportNoCommands: '没有路线复核命令。',
+    reportFilePrefix: 'route-review',
+    copyCommands: '复制路线复核命令',
+    copiedCommands: '已复制路线复核命令',
+    copyFailed: '复制失败，请手动选择命令。',
+    totalRoutes: '路线总数',
+    pendingStat: '待手调',
+    replaceableStat: '可替换投影',
+    manualReviewStat: '需人工复核',
+    reviewNotesStat: '复核说明',
+    mismatchStat: '数据不一致',
+    currentVersionSummary: '当前版本',
+    showing: '显示',
+    routeUnit: '条路线',
+    priorityTitle: '手调优先队列',
+    priorityDesc: '把还没手调的路线按风险和收益排序：数据不一致优先，其次是可替换投影，再看节点规模。这里是工作队列，不会修改路线文件。',
+    priorityReasonMismatch: '先修数据不一致',
+    priorityReasonReplaceable: '可替换投影路线',
+    priorityReasonManualReview: '终局导入需人工复核',
+    priorityReasonPending: '待手调路线',
+    priorityReasonFallback: '路线待确认',
+    priorityNoRows: '当前没有待手调路线。',
+    priorityStage: '阶段',
+    priorityNodes: '节点',
+    priorityAction: '建议动作',
+    priorityActionReplace: '手调后用 archive-route 归档',
+    priorityActionReview: '先人工复核 PoB 导入和节点顺序',
+    priorityActionFix: '先修复 manifest、BD 阶段或路线 JSON 不一致',
+    candidateTitle: '未登记候选路线',
+    candidateDesc: '这里读取 BD 候选清单和本地 <code>.candidate.json</code> 路线文件。候选路线只能用于人工预览和校验，不会进入正式路线统计，也不会让候选 BD 出现在首页正式开荒列表。',
+    candidateStageCol: '候选 BD / 阶段',
+    candidateFileCol: '候选文件',
+    candidateStagesStat: '候选阶段',
+    candidateFilesStat: '候选文件',
+    candidateMissingStat: '缺失文件',
+    candidateHandTunedStat: '已手调候选',
+    candidateManualReviewStat: '需人工复核',
+    candidateNodeStat: '节点总数',
+    candidateNotFound: '候选文件未生成',
+    candidatePreview: '预览候选天赋树',
+    candidateValidate: '校验命令',
+    candidateBoundary: '候选，不发布',
+    candidateNoRows: '当前没有 BD 候选阶段。',
+    noRows: '没有符合筛选条件的路线。',
+    noCommands: '当前没有可替换的投影路线。',
+    readFailed: '读取失败',
+    nodeMatched: '节点一致',
+    nodeMismatch: '节点数不一致',
+    metaMatched: 'meta 一致',
+    metaMismatch: 'meta 不一致',
+    manifestNodes: 'manifest',
+    jsonNodes: 'JSON',
+    missingReview: '缺少阶段复核说明',
+    openTree: '打开天赋树',
+    guide: '攻略',
+    handTuned: '已手调',
+    pendingTune: '待手调',
+    originProjected: '终局顺序投影',
+    originPob: 'PoB 终局导入',
+    originManual: '手调路线',
+    originUnknown: '来源未标注'
+  },
+  zhTW: {
+    pageTitle: '路線複核',
+    title: 'POE2 Tools - 路線複核',
+    home: '首頁',
+    dataUpdate: '資料更新',
+    versionHistory: '版本歷史',
+    languageSelect: '語言選擇',
+    currentRoutesTitle: '目前版本路線',
+    currentRoutesDesc: '這裡集中檢查目前版本 manifest、BD 階段設定和路線 JSON meta 是否一致。終局投影路線可以繼續展示，但必須標記待手調；真正實戰修正後再透過歸檔腳本寫入並切換為手調路線。',
+    versionLabel: '版本',
+    buildLabel: 'BD',
+    statusLabel: '狀態',
+    allBuilds: '全部 BD',
+    allRoutes: '全部路線',
+    pendingRoutes: '待手調',
+    replaceableRoutes: '可替換投影',
+    manualReviewRoutes: '需人工複核',
+    handTunedRoutes: '已手調',
+    mismatchRoutes: '資料不一致',
+    loading: '讀取中...',
+    tableTitle: '路線複核表',
+    buildStageCol: 'BD / 階段',
+    sourcePolicyCol: '來源與保護',
+    nodesCol: '節點',
+    reviewCol: '複核說明',
+    entryCol: '入口',
+    commandTitle: '路線複核命令',
+    commandDesc: '先校驗未登記候選路線，再為 <code>replaceable-until-hand-tuned</code> 且尚未手調的正式路線生成歸檔命令。候選校驗不會登記 manifest；正式路線歸檔先 dry-run 檢查 meta、節點數和複核欄位，再執行 <code>--write</code>。',
+    reportTitle: '路線複核報告 Markdown',
+    reportDesc: '生成目前版本全量路線的 Markdown 複核報告，方便貼到任務、PR 或版本日誌裡。篩選只影響上方表格，不影響報告完整性。',
+    copyReport: '複製 Markdown 報告',
+    copiedReport: '已複製 Markdown 報告',
+    downloadReport: '下載 Markdown',
+    reportCopyFailed: '複製失敗，請手動選取報告。',
+    reportCaution: '本報告來自本地版本化資料，只用於路線複核和歸檔決策；投影路線不等同於已實戰手調。',
+    reportSummaryTitle: '版本摘要',
+    reportStatsTitle: '路線統計',
+    reportRoutesTitle: '路線明細',
+    reportCommandsTitle: '路線複核命令',
+    reportPriorityTitle: '手調優先隊列',
+    reportCommandCount: '命令數',
+    reportNoCommands: '沒有路線複核命令。',
+    reportFilePrefix: 'route-review',
+    copyCommands: '複製路線複核命令',
+    copiedCommands: '已複製路線複核命令',
+    copyFailed: '複製失敗，請手動選取命令。',
+    totalRoutes: '路線總數',
+    pendingStat: '待手調',
+    replaceableStat: '可替換投影',
+    manualReviewStat: '需人工複核',
+    reviewNotesStat: '複核說明',
+    mismatchStat: '資料不一致',
+    currentVersionSummary: '目前版本',
+    showing: '顯示',
+    routeUnit: '條路線',
+    priorityTitle: '手調優先隊列',
+    priorityDesc: '把還沒手調的路線按風險和收益排序：資料不一致優先，其次是可替換投影，再看節點規模。這裡是工作隊列，不會修改路線檔案。',
+    priorityReasonMismatch: '先修資料不一致',
+    priorityReasonReplaceable: '可替換投影路線',
+    priorityReasonManualReview: '終局匯入需人工複核',
+    priorityReasonPending: '待手調路線',
+    priorityReasonFallback: '路線待確認',
+    priorityNoRows: '目前沒有待手調路線。',
+    priorityStage: '階段',
+    priorityNodes: '節點',
+    priorityAction: '建議動作',
+    priorityActionReplace: '手調後用 archive-route 歸檔',
+    priorityActionReview: '先人工複核 PoB 匯入和節點順序',
+    priorityActionFix: '先修復 manifest、BD 階段或路線 JSON 不一致',
+    candidateTitle: '未登記候選路線',
+    candidateDesc: '這裡讀取 BD 候選清單和本地 <code>.candidate.json</code> 路線檔案。候選路線只能用於人工預覽和校驗，不會進入正式路線統計，也不會讓候選 BD 出現在首頁正式開荒列表。',
+    candidateStageCol: '候選 BD / 階段',
+    candidateFileCol: '候選檔案',
+    candidateStagesStat: '候選階段',
+    candidateFilesStat: '候選檔案',
+    candidateMissingStat: '缺失檔案',
+    candidateHandTunedStat: '已手調候選',
+    candidateManualReviewStat: '需人工複核',
+    candidateNodeStat: '節點總數',
+    candidateNotFound: '候選檔案未生成',
+    candidatePreview: '預覽候選天賦樹',
+    candidateValidate: '校驗命令',
+    candidateBoundary: '候選，不發布',
+    candidateNoRows: '目前沒有 BD 候選階段。',
+    noRows: '沒有符合篩選條件的路線。',
+    noCommands: '目前沒有可替換的投影路線。',
+    readFailed: '讀取失敗',
+    nodeMatched: '節點一致',
+    nodeMismatch: '節點數不一致',
+    metaMatched: 'meta 一致',
+    metaMismatch: 'meta 不一致',
+    manifestNodes: 'manifest',
+    jsonNodes: 'JSON',
+    missingReview: '缺少階段複核說明',
+    openTree: '打開天賦樹',
+    guide: '攻略',
+    handTuned: '已手調',
+    pendingTune: '待手調',
+    originProjected: '終局順序投影',
+    originPob: 'PoB 終局匯入',
+    originManual: '手調路線',
+    originUnknown: '來源未標註'
+  },
+  en: {
+    pageTitle: 'Route Review',
+    title: 'POE2 Tools - Route Review',
+    home: 'Home',
+    dataUpdate: 'Data Update',
+    versionHistory: 'Version History',
+    languageSelect: 'Language selector',
+    currentRoutesTitle: 'Current Version Routes',
+    currentRoutesDesc: 'This page checks whether the current manifest routes, build-stage route notes, and route JSON meta agree. Endgame-projected routes can stay visible, but they must remain marked as pending hand tuning until a reviewed route is archived.',
+    versionLabel: 'Version',
+    buildLabel: 'Build',
+    statusLabel: 'Status',
+    allBuilds: 'All builds',
+    allRoutes: 'All routes',
+    pendingRoutes: 'Pending tuning',
+    replaceableRoutes: 'Replaceable projections',
+    manualReviewRoutes: 'Manual review',
+    handTunedRoutes: 'Hand tuned',
+    mismatchRoutes: 'Data mismatch',
+    loading: 'Loading...',
+    tableTitle: 'Route Review Table',
+    buildStageCol: 'Build / Stage',
+    sourcePolicyCol: 'Source and Policy',
+    nodesCol: 'Nodes',
+    reviewCol: 'Review Notes',
+    entryCol: 'Entry',
+    commandTitle: 'Route Review Commands',
+    commandDesc: 'Validate unregistered candidate routes first, then generate archive commands for official <code>replaceable-until-hand-tuned</code> routes that are not hand tuned yet. Candidate validation does not register manifest routes; official route archives should be dry-run before <code>--write</code>.',
+    reportTitle: 'Route Review Markdown',
+    reportDesc: 'Generate a full Markdown route-review report for the current version. Filters affect only the table above; the report stays complete for tasks, PRs, and version notes.',
+    copyReport: 'Copy Markdown Report',
+    copiedReport: 'Copied Markdown report',
+    downloadReport: 'Download Markdown',
+    reportCopyFailed: 'Copy failed. Select the report manually.',
+    reportCaution: 'This report is generated from local versioned data for route review and archive decisions. Projected routes are not treated as hand-tested routes.',
+    reportSummaryTitle: 'Version Summary',
+    reportStatsTitle: 'Route Stats',
+    reportRoutesTitle: 'Route Details',
+    reportCommandsTitle: 'Route Review Commands',
+    reportPriorityTitle: 'Hand-Tuning Priority Queue',
+    reportCommandCount: 'Command count',
+    reportNoCommands: 'No route review commands.',
+    reportFilePrefix: 'route-review',
+    copyCommands: 'Copy Route Review Commands',
+    copiedCommands: 'Copied route review commands',
+    copyFailed: 'Copy failed. Select the commands manually.',
+    totalRoutes: 'Total routes',
+    pendingStat: 'Pending tuning',
+    replaceableStat: 'Replaceable',
+    manualReviewStat: 'Manual review',
+    reviewNotesStat: 'Review notes',
+    mismatchStat: 'Mismatches',
+    currentVersionSummary: 'Current version',
+    showing: 'showing',
+    routeUnit: 'routes',
+    priorityTitle: 'Hand-Tuning Priority Queue',
+    priorityDesc: 'Sort pending routes by risk and payoff: data mismatches first, then replaceable projections, then larger node counts. This is a work queue only; it does not edit route files.',
+    priorityReasonMismatch: 'Fix data mismatch first',
+    priorityReasonReplaceable: 'Replaceable projected route',
+    priorityReasonManualReview: 'Endgame import needs manual review',
+    priorityReasonPending: 'Pending hand tuning',
+    priorityReasonFallback: 'Route needs confirmation',
+    priorityNoRows: 'No pending hand-tuning routes right now.',
+    priorityStage: 'Stage',
+    priorityNodes: 'Nodes',
+    priorityAction: 'Suggested action',
+    priorityActionReplace: 'Hand tune, then archive with archive-route',
+    priorityActionReview: 'Review the PoB import and node order first',
+    priorityActionFix: 'Fix manifest, build stage, or route JSON mismatch first',
+    candidateTitle: 'Unregistered Candidate Routes',
+    candidateDesc: 'This section reads the build-candidate queue and local <code>.candidate.json</code> route files. Candidate routes are for preview and validation only; they are excluded from official route stats and do not publish candidate builds to the homepage.',
+    candidateStageCol: 'Candidate Build / Stage',
+    candidateFileCol: 'Candidate File',
+    candidateStagesStat: 'Candidate stages',
+    candidateFilesStat: 'Candidate files',
+    candidateMissingStat: 'Missing files',
+    candidateHandTunedStat: 'Hand-tuned candidates',
+    candidateManualReviewStat: 'Manual review',
+    candidateNodeStat: 'Total nodes',
+    candidateNotFound: 'Candidate file not generated',
+    candidatePreview: 'Preview Candidate Tree',
+    candidateValidate: 'Validate command',
+    candidateBoundary: 'Candidate, unpublished',
+    candidateNoRows: 'No build-candidate stages right now.',
+    noRows: 'No routes match the current filters.',
+    noCommands: 'No replaceable projected routes right now.',
+    readFailed: 'Read failed',
+    nodeMatched: 'Nodes match',
+    nodeMismatch: 'Node count mismatch',
+    metaMatched: 'meta matches',
+    metaMismatch: 'meta mismatch',
+    manifestNodes: 'manifest',
+    jsonNodes: 'JSON',
+    missingReview: 'Missing stage review notes',
+    openTree: 'Open Passive Tree',
+    guide: 'Guide',
+    handTuned: 'Hand tuned',
+    pendingTune: 'Pending tuning',
+    originProjected: 'Projected from endgame order',
+    originPob: 'Imported from endgame PoB',
+    originManual: 'Hand-tuned route',
+    originUnknown: 'Source not marked'
+  }
+};
+
+function text(key) {
+  return i18n[currentLang]?.[key] || i18n.zhCN[key] || key;
+}
+
+function applyStaticI18n() {
+  document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.title = text('title');
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    const key = node.dataset.i18n;
+    if (key === 'commandDesc' || key === 'candidateDesc') node.innerHTML = text(key);
+    else node.textContent = text(key);
+  });
+  document.querySelectorAll('[data-i18n-option]').forEach((node) => {
+    node.textContent = text(node.dataset.i18nOption);
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach((node) => {
+    node.setAttribute('aria-label', text(node.dataset.i18nAria));
+  });
+  document.querySelectorAll('[data-lang]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.lang === currentLang);
+  });
+  document.body.dataset.routeReviewLang = currentLang;
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function selectedText(value, fallback) {
+  if (!value) return fallback || '-';
+  if (typeof value === 'string') return value;
+  return value[currentLang] || value.zhCN || value.zhTW || value.en || fallback || '-';
+}
+
+function routeOriginLabel(origin) {
+  if (origin === 'projected-from-endgame-order') return text('originProjected');
+  if (origin === 'imported-from-pob-endgame') return text('originPob');
+  if (origin === 'hand-tuned-manual') return text('originManual');
+  return origin || text('originUnknown');
+}
+
+function setCopyButton(enabled) {
+  const button = document.getElementById('copyRouteReviewCommandsBtn');
+  button.classList.toggle('disabled', !enabled);
+  button.setAttribute('aria-disabled', String(!enabled));
+}
+
+function setReportButtons(enabled) {
+  ['copyRouteReviewReportBtn', 'downloadRouteReviewReportBtn'].forEach((id) => {
+    const button = document.getElementById(id);
+    button.classList.toggle('disabled', !enabled);
+    button.setAttribute('aria-disabled', String(!enabled));
+  });
+}
+
+async function copyText(value) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+  const textarea = document.createElement('textarea');
+  textarea.value = value;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand('copy');
+  textarea.remove();
+  if (!copied) throw new Error('copy failed');
+}
+
+function routeArchiveCommand(route, season, write) {
+  const file = `/tmp/${route.buildId}-${route.stageId}-hand-tuned.json`;
+  const args = [
+    'node scripts/archive-route.mjs',
+    `--season ${season}`,
+    `--build ${route.buildId}`,
+    `--stage ${route.stageId}`,
+    `--file ${file}`
+  ];
+  if (write) args.push('--write');
+  return args.join(' ');
+}
+
+function stageForRoute(builds, route) {
+  const build = builds.find((item) => item.id === route.buildId);
+  const stage = (build?.stages || []).find((item) => item.treeStage === route.stageId || item.id === route.stageId);
+  return { build, stage };
+}
+
+async function collectRouteRows(version, manifest) {
+  const buildData = await Promise.all((manifest.builds || []).map(async (entry) => ({
+    entry,
+    data: await window.POE2Versions.readJson(`../${version.dataRoot}/${entry.data}`)
+  })));
+  const builds = buildData.map((item) => item.data);
+  const routeRows = await Promise.all((manifest.tree?.routes || []).map(async (route) => {
+    const { build, stage } = stageForRoute(builds, route);
+    let routeData = null;
+    let loadError = '';
+    try {
+      routeData = await window.POE2Versions.readJson(`../${version.dataRoot}/${route.data}`);
+    } catch (error) {
+      loadError = error.message;
+    }
+    const meta = routeData?.meta || {};
+    const nodeCount = Array.isArray(routeData?.nodeIds) ? routeData.nodeIds.length : 0;
+    const expectedNodes = Number(route.nodes || stage?.treeNodes || meta.nodeCount || 0);
+    const nodeMismatch = Boolean(routeData) && expectedNodes > 0 && nodeCount !== expectedNodes;
+    const metaMismatch = Boolean(routeData) && (
+      meta.buildId !== route.buildId ||
+      meta.stageId !== route.stageId ||
+      meta.origin !== route.origin ||
+      meta.overridePolicy !== route.overridePolicy ||
+      Boolean(meta.handTuned) !== Boolean(route.handTuned)
+    );
+    return {
+      route,
+      build,
+      stage,
+      routeData,
+      loadError,
+      nodeCount,
+      expectedNodes,
+      nodeMismatch,
+      metaMismatch,
+      review: stage?.routeReview || null
+    };
+  }));
+  return { builds, routeRows };
+}
+
+function candidateRouteFile(buildId, stageId) {
+  return `tree/${buildId}-${stageId}.candidate.json`;
+}
+
+function candidateRoutePreviewHref(version, file) {
+  return `passive-tree.html?route=${encodeURIComponent(`${version.dataRoot}/${file}`)}`;
+}
+
+function candidateRouteValidateCommand(candidate, stageId, season, file) {
+  return [
+    'node scripts/validate-route-candidate.mjs',
+    `--season ${season}`,
+    `--build ${candidate.id}`,
+    `--stage ${stageId}`,
+    `--file ${file}`
+  ].join(' ');
+}
+
+function candidateRouteReviewCommands(rows, season) {
+  const existing = rows.filter((row) => row.exists);
+  if (!existing.length) return [];
+  const candidateIds = [...new Set(existing.map((row) => row.candidate.id))];
+  return [
+    `node scripts/validate-build-candidate-routes.mjs --season ${season}`,
+    ...candidateIds.map((id) => `node scripts/validate-build-candidate-routes.mjs --season ${season} --build ${id}`),
+    ...existing.map((row) => candidateRouteValidateCommand(row.candidate, row.stageId, season, row.file))
+  ];
+}
+
+async function collectCandidateRoutes(version, manifest) {
+  const candidateFile = manifest.buildCandidates || 'builds/candidates.json';
+  let queue = { candidates: [] };
+  try {
+    queue = await window.POE2Versions.readJson(`../${version.dataRoot}/${candidateFile}`);
+  } catch (_) {
+    return [];
+  }
+  const registered = new Set((manifest.builds || []).map((entry) => entry.id));
+  const candidates = (queue.candidates || [])
+    .filter((candidate) => candidate.status === 'draft' && !registered.has(candidate.id));
+  const rows = [];
+  for (const candidate of candidates) {
+    let buildData = null;
+    try {
+      buildData = await window.POE2Versions.readJson(`../${version.dataRoot}/${candidate.data}`);
+    } catch (error) {
+      rows.push({
+        candidate,
+        stage: null,
+        stageId: 'build-data',
+        file: candidate.data || '',
+        data: null,
+        loadError: error.message,
+        exists: false
+      });
+      continue;
+    }
+    const candidateFiles = new Map((candidate.routeCandidates || [])
+      .filter((route) => route?.stageId && route?.file)
+      .map((route) => [route.stageId, route]));
+    for (const stage of buildData.stages || []) {
+      const stageId = stage.treeStage || stage.id;
+      const candidateRoute = candidateFiles.get(stageId);
+      const file = candidateRoute?.file || candidateRouteFile(candidate.id, stageId);
+      let data = null;
+      let loadError = '';
+      if (candidateRoute) {
+        try {
+          data = await window.POE2Versions.readJson(`../${version.dataRoot}/${file}`);
+        } catch (error) {
+          loadError = error.message;
+        }
+      }
+      rows.push({
+        candidate,
+        build: buildData,
+        stage,
+        stageId,
+        file,
+        candidateRoute,
+        data,
+        loadError,
+        exists: Boolean(data)
+      });
+    }
+  }
+  return rows;
+}
+
+function renderCandidateRoutes(rows, version) {
+  const total = rows.length;
+  const existing = rows.filter((row) => row.exists).length;
+  const missing = total - existing;
+  const handTuned = rows.filter((row) => row.data?.meta?.handTuned).length;
+  const manualReview = rows.filter((row) => row.data?.meta?.overridePolicy === 'manual-review-required' || row.data?.meta?.review).length;
+  const nodes = rows.reduce((sum, row) => sum + (Array.isArray(row.data?.nodeIds) ? row.data.nodeIds.length : 0), 0);
+  document.getElementById('routeCandidateStats').innerHTML = [
+    { value: total, label: text('candidateStagesStat') },
+    { value: existing, label: text('candidateFilesStat') },
+    { value: missing, label: text('candidateMissingStat') },
+    { value: handTuned, label: text('candidateHandTunedStat') },
+    { value: manualReview, label: text('candidateManualReviewStat') },
+    { value: nodes, label: text('candidateNodeStat') }
+  ].map((item) => `<div class="stat"><strong>${esc(item.value)}</strong><span>${esc(item.label)}</span></div>`).join('');
+  document.body.dataset.routeCandidateStageCount = String(total);
+  document.body.dataset.routeCandidateFileCount = String(existing);
+  document.body.dataset.routeCandidateMissingCount = String(missing);
+  document.body.dataset.routeCandidateHandTunedCount = String(handTuned);
+  document.body.dataset.routeCandidateManualReviewCount = String(manualReview);
+  document.body.dataset.routeCandidateNodeCount = String(nodes);
+  document.body.dataset.routeCandidateFiles = rows.filter((row) => row.exists).map((row) => row.file).join(',');
+  document.body.dataset.routeCandidateStages = rows.map((row) => `${row.candidate.id}:${row.stageId}`).join(',');
+  document.body.dataset.routeCandidatePreviewLinks = rows.filter((row) => row.exists).map((row) => candidateRoutePreviewHref(version, row.file)).join(',');
+  document.body.dataset.routeCandidateValidateCommands = rows.filter((row) => row.exists).map((row) => candidateRouteValidateCommand(row.candidate, row.stageId, version.season.toLowerCase(), row.file)).join('\n');
+
+  const tbody = document.getElementById('routeCandidateRows');
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="5">${esc(text('candidateNoRows'))}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map((row) => {
+    const title = selectedText(row.build?.title, row.candidate.id);
+    const stageTitle = selectedText(row.stage?.title, row.stageId);
+    const review = row.data?.meta?.review;
+    const previewHref = row.exists ? candidateRoutePreviewHref(version, row.file) : '';
+    const validateCommand = row.exists ? candidateRouteValidateCommand(row.candidate, row.stageId, version.season.toLowerCase(), row.file) : '';
+    return `<tr>
+      <td>
+        <strong>${esc(title)}</strong><br>
+        <code>${esc(row.candidate.id)}:${esc(row.stageId)}</code><br>
+        <span class="badge">${esc(stageTitle)}</span>
+        <span class="badge">${esc(text('candidateBoundary'))}</span>
+      </td>
+      <td>
+        <code>${esc(row.file)}</code><br>
+        ${row.exists ? `<span class="ok">${esc(text('nodeMatched'))}</span>` : `<span class="warn">${esc(text('candidateNotFound'))}</span>`}
+      </td>
+      <td>
+        ${esc(text('jsonNodes'))} <code>${esc(Array.isArray(row.data?.nodeIds) ? row.data.nodeIds.length : '-')}</code><br>
+        ${row.data?.meta?.origin ? esc(routeOriginLabel(row.data.meta.origin)) : '-'}<br>
+        ${row.data?.meta?.handTuned ? `<span class="badge">${esc(text('handTuned'))}</span>` : `<span class="badge">${esc(text('pendingTune'))}</span>`}
+      </td>
+      <td>
+        ${review ? `<strong>${esc(review.status || '-')}</strong><br>${esc(review.reason || '')}<br><span class="muted">${esc(review.useUntil || '')}</span>` : `<span class="warn">${esc(row.loadError || text('missingReview'))}</span>`}
+      </td>
+      <td>
+        ${row.exists ? `<a class="btn primary" href="${esc(previewHref)}">${esc(text('candidatePreview'))}</a>` : ''}
+        ${validateCommand ? `<br><code>${esc(validateCommand)}</code>` : ''}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function routeMatchesFilter(row, buildFilter, routeFilter) {
+  if (buildFilter !== 'all' && row.route.buildId !== buildFilter) return false;
+  if (routeFilter === 'pending') return !row.route.handTuned;
+  if (routeFilter === 'replaceable') return row.route.overridePolicy === 'replaceable-until-hand-tuned' && !row.route.handTuned;
+  if (routeFilter === 'manual-review') return row.route.overridePolicy === 'manual-review-required';
+  if (routeFilter === 'hand-tuned') return row.route.handTuned;
+  if (routeFilter === 'mismatch') return row.nodeMismatch || row.metaMismatch || Boolean(row.loadError);
+  return true;
+}
+
+function renderStats(rows) {
+  const total = rows.length;
+  const handTuned = rows.filter((row) => row.route.handTuned).length;
+  const replaceable = rows.filter((row) => row.route.overridePolicy === 'replaceable-until-hand-tuned' && !row.route.handTuned).length;
+  const manualReview = rows.filter((row) => row.route.overridePolicy === 'manual-review-required').length;
+  const reviewCount = rows.filter((row) => row.review).length;
+  const mismatch = rows.filter((row) => row.nodeMismatch || row.metaMismatch || row.loadError).length;
+  document.getElementById('routeReviewStats').innerHTML = [
+    { value: total, label: text('totalRoutes') },
+    { value: total - handTuned, label: text('pendingStat') },
+    { value: replaceable, label: text('replaceableStat') },
+    { value: manualReview, label: text('manualReviewStat') },
+    { value: `${reviewCount}/${total}`, label: text('reviewNotesStat') },
+    { value: mismatch, label: text('mismatchStat') }
+  ].map((item) => `<div class="stat"><strong>${esc(item.value)}</strong><span>${esc(item.label)}</span></div>`).join('');
+  document.body.dataset.routeReviewTotal = String(total);
+  document.body.dataset.routeReviewHandTuned = String(handTuned);
+  document.body.dataset.routeReviewPending = String(total - handTuned);
+  document.body.dataset.routeReviewReplaceable = String(replaceable);
+  document.body.dataset.routeReviewManualReview = String(manualReview);
+  document.body.dataset.routeReviewReviewCount = String(reviewCount);
+  document.body.dataset.routeReviewReviewMissing = String(total - reviewCount);
+  document.body.dataset.routeReviewMismatchCount = String(mismatch);
+  document.body.dataset.routeReviewNodeMismatch = String(rows.filter((row) => row.nodeMismatch).length);
+  document.body.dataset.routeReviewMetaMismatch = String(rows.filter((row) => row.metaMismatch || row.loadError).length);
+}
+
+function renderRows(rows) {
+  const tbody = document.getElementById('routeReviewRows');
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="5">${esc(text('noRows'))}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map((row) => {
+    const route = row.route;
+    const stageTitle = selectedText(row.stage?.title, route.stageId);
+    const buildTitle = selectedText(row.build?.title, route.buildId);
+    const review = row.review;
+    const consistency = row.loadError
+      ? `<span class="bad">${esc(text('readFailed'))}：${esc(row.loadError)}</span>`
+      : [
+          row.nodeMismatch ? `<span class="bad">${esc(text('nodeMismatch'))}</span>` : `<span class="ok">${esc(text('nodeMatched'))}</span>`,
+          row.metaMismatch ? `<span class="bad">${esc(text('metaMismatch'))}</span>` : `<span class="ok">${esc(text('metaMatched'))}</span>`
+        ].join('<br>');
+    const passiveHref = `passive-tree.html?build=${encodeURIComponent(route.buildId)}&stage=${encodeURIComponent(route.stageId)}`;
+    const guideHref = row.build ? `../builds/${encodeURIComponent(row.build.id)}.html` : '../builds/index.html';
+    return `<tr>
+      <td>
+        <strong>${esc(buildTitle)}</strong><br>
+        <code>${esc(route.buildId)}:${esc(route.stageId)}</code><br>
+        <span class="badge">${esc(stageTitle)}</span>
+      </td>
+      <td>
+        ${esc(routeOriginLabel(route.origin))}<br>
+        <code>${esc(route.overridePolicy)}</code><br>
+        <span class="badge">${esc(route.handTuned ? text('handTuned') : text('pendingTune'))}</span>
+      </td>
+      <td>
+        ${esc(text('manifestNodes'))} <code>${esc(route.nodes || '-')}</code><br>
+        ${esc(text('jsonNodes'))} <code>${esc(row.nodeCount || '-')}</code><br>
+        ${consistency}
+      </td>
+      <td>
+        ${review ? `<strong>${esc(review.status)}</strong><br>${esc(review.reason)}<br><span class="muted">${esc(review.useUntil || '')}</span>` : `<span class="warn">${esc(text('missingReview'))}</span>`}
+      </td>
+      <td>
+        <a class="btn primary" href="${esc(passiveHref)}">${esc(text('openTree'))}</a>
+        <a class="btn" href="${esc(guideHref)}">${esc(text('guide'))}</a>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function routePriorityReason(row) {
+  if (row.nodeMismatch || row.metaMismatch || row.loadError) return text('priorityReasonMismatch');
+  if (row.route.overridePolicy === 'replaceable-until-hand-tuned') return text('priorityReasonReplaceable');
+  if (row.route.overridePolicy === 'manual-review-required') return text('priorityReasonManualReview');
+  if (!row.route.handTuned) return text('priorityReasonPending');
+  return text('priorityReasonFallback');
+}
+
+function routePriorityAction(row) {
+  if (row.nodeMismatch || row.metaMismatch || row.loadError) return text('priorityActionFix');
+  if (row.route.overridePolicy === 'manual-review-required') return text('priorityActionReview');
+  return text('priorityActionReplace');
+}
+
+function priorityScore(row) {
+  const mismatchScore = row.nodeMismatch || row.metaMismatch || row.loadError ? 100000 : 0;
+  const replaceableScore = row.route.overridePolicy === 'replaceable-until-hand-tuned' ? 10000 : 0;
+  const manualReviewScore = row.route.overridePolicy === 'manual-review-required' ? 5000 : 0;
+  return mismatchScore + replaceableScore + manualReviewScore + Number(row.route.nodes || row.expectedNodes || row.nodeCount || 0);
+}
+
+function priorityRows(rows) {
+  return rows
+    .filter((row) => !row.route.handTuned)
+    .slice()
+    .sort((left, right) => priorityScore(right) - priorityScore(left));
+}
+
+function renderPriorityQueue(rows) {
+  const queue = priorityRows(rows);
+  const root = document.getElementById('routePriorityQueue');
+  if (!queue.length) {
+    root.innerHTML = `<div class="queue-card"><strong>${esc(text('priorityNoRows'))}</strong></div>`;
+  } else {
+    root.innerHTML = queue.slice(0, 4).map((row, index) => {
+      const route = row.route;
+      const buildTitle = selectedText(row.build?.title, route.buildId);
+      const stageTitle = selectedText(row.stage?.title, route.stageId);
+      return `<article class="queue-card" data-priority-route="${esc(route.stageId)}">
+        <span class="badge">#${index + 1}</span>
+        <strong>${esc(buildTitle)}</strong>
+        <p>${esc(text('priorityStage'))}：${esc(stageTitle)} <code>${esc(route.stageId)}</code></p>
+        <p>${esc(routePriorityReason(row))}；${esc(text('priorityNodes'))} <code>${esc(route.nodes || row.nodeCount || '-')}</code></p>
+        <p>${esc(text('priorityAction'))}：${esc(routePriorityAction(row))}</p>
+      </article>`;
+    }).join('');
+  }
+  document.body.dataset.routeReviewPriorityCount = String(queue.length);
+  document.body.dataset.routeReviewPriorityTopStage = queue[0]?.route.stageId || '';
+  document.body.dataset.routeReviewPriorityStages = queue.map((row) => row.route.stageId).join(',');
+  document.body.dataset.routeReviewPriorityReasons = queue.map(routePriorityReason).join('|');
+}
+
+function renderCommands(rows, season, candidateRows = []) {
+  const candidates = rows.filter((row) => row.route.overridePolicy === 'replaceable-until-hand-tuned' && !row.route.handTuned);
+  const candidateCommands = candidateRouteReviewCommands(candidateRows, season);
+  const archiveCommands = candidates.flatMap((row) => [
+    routeArchiveCommand(row.route, season, false),
+    routeArchiveCommand(row.route, season, true)
+  ]);
+  const commands = [...candidateCommands, ...archiveCommands];
+  const commandText = commands.join('\n');
+  document.getElementById('routeReviewCommandBlock').textContent = commandText || text('noCommands');
+  document.body.dataset.routeReviewCommandText = commandText;
+  document.body.dataset.routeReviewCommandCount = String(commands.length);
+  document.body.dataset.routeReviewCandidateCommandCount = String(candidateCommands.length);
+  document.body.dataset.routeReviewArchiveCommandCount = String(archiveCommands.length);
+  document.body.dataset.routeReviewCommandStages = candidates.map((row) => row.route.stageId).join(',');
+  document.body.dataset.routeReviewCandidateCommandBuilds = [...new Set(candidateRows.filter((row) => row.exists).map((row) => row.candidate.id))].join(',');
+  document.body.dataset.routeReviewCommandCopyStatus = '';
+  setCopyButton(commands.length > 0);
+}
+
+function markdownText(value) {
+  return String(value ?? '-').replace(/\s+/g, ' ').replace(/[|`]/g, ' ').trim() || '-';
+}
+
+function markdownLink(label, href) {
+  if (!href) return '-';
+  const cleanLabel = markdownText(label);
+  const cleanHref = String(href).replace(/[()\s]/g, encodeURIComponent);
+  return `[${cleanLabel}](${cleanHref})`;
+}
+
+function manifestRoutePreviewHref(route) {
+  return `passive-tree.html?build=${encodeURIComponent(route.buildId)}&stage=${encodeURIComponent(route.stageId)}`;
+}
+
+function routeReviewFileName(version) {
+  return `${text('reportFilePrefix')}-${version.id}.md`.replace(/[^a-z0-9_.-]+/gi, '-');
+}
+
+function routeStats(rows) {
+  const total = rows.length;
+  const handTuned = rows.filter((row) => row.route.handTuned).length;
+  const replaceable = rows.filter((row) => row.route.overridePolicy === 'replaceable-until-hand-tuned' && !row.route.handTuned).length;
+  const manualReview = rows.filter((row) => row.route.overridePolicy === 'manual-review-required').length;
+  const reviewCount = rows.filter((row) => row.review).length;
+  const mismatch = rows.filter((row) => row.nodeMismatch || row.metaMismatch || row.loadError).length;
+  return {
+    total,
+    handTuned,
+    pending: total - handTuned,
+    replaceable,
+    manualReview,
+    reviewCount,
+    reviewMissing: total - reviewCount,
+    mismatch
+  };
+}
+
+function buildRouteReviewMarkdown(version, rows, candidateRows = []) {
+  const stats = routeStats(rows);
+  const candidates = rows.filter((row) => row.route.overridePolicy === 'replaceable-until-hand-tuned' && !row.route.handTuned);
+  const queue = priorityRows(rows);
+  const candidateCommands = candidateRouteReviewCommands(candidateRows, version.season.toLowerCase());
+  const archiveCommands = candidates.flatMap((row) => [
+    routeArchiveCommand(row.route, version.season.toLowerCase(), false),
+    routeArchiveCommand(row.route, version.season.toLowerCase(), true)
+  ]);
+  const commands = [...candidateCommands, ...archiveCommands];
+  const existingCandidateRows = candidateRows.filter((row) => row.exists);
+  const missingCandidateRows = candidateRows.filter((row) => !row.exists);
+  const lines = [
+    `# ${text('reportTitle')} - ${markdownText(version.id)}`,
+    '',
+    `> ${text('reportCaution')}`,
+    '',
+    `## ${text('reportSummaryTitle')}`,
+    '',
+    `- ${text('versionLabel')}: ${markdownText(version.id)}`,
+    `- Season: ${markdownText(version.season)}`,
+    `- PoE2DB: ${markdownText(version.poe2dbVersion || '-')}`,
+    '',
+    `## ${text('reportStatsTitle')}`,
+    '',
+    `- ${text('totalRoutes')}: ${stats.total}`,
+    `- ${text('pendingStat')}: ${stats.pending}`,
+    `- ${text('replaceableStat')}: ${stats.replaceable}`,
+    `- ${text('manualReviewStat')}: ${stats.manualReview}`,
+    `- ${text('reviewNotesStat')}: ${stats.reviewCount}/${stats.total}`,
+    `- ${text('mismatchStat')}: ${stats.mismatch}`,
+    '',
+    `## ${text('reportRoutesTitle')}`,
+    '',
+    `| ${text('buildStageCol')} | ${text('sourcePolicyCol')} | ${text('nodesCol')} | ${text('reviewCol')} | ${text('entryCol')} |`,
+    '| --- | --- | --- | --- | --- |'
+  ];
+  rows.forEach((row) => {
+    const route = row.route;
+    const buildTitle = selectedText(row.build?.title, route.buildId);
+    const stageTitle = selectedText(row.stage?.title, route.stageId);
+    const consistency = row.loadError
+      ? `${text('readFailed')}: ${row.loadError}`
+      : `${row.nodeMismatch ? text('nodeMismatch') : text('nodeMatched')} / ${row.metaMismatch ? text('metaMismatch') : text('metaMatched')}`;
+    const review = row.review
+      ? `${row.review.status}; ${row.review.reason}; ${row.review.useUntil || '-'}`
+      : text('missingReview');
+    lines.push([
+      `${markdownText(buildTitle)} / ${markdownText(stageTitle)} (${markdownText(route.buildId)}:${markdownText(route.stageId)})`,
+      `${markdownText(routeOriginLabel(route.origin))}; ${markdownText(route.overridePolicy)}; ${route.handTuned ? text('handTuned') : text('pendingTune')}`,
+      `${text('manifestNodes')} ${route.nodes || '-'} / ${text('jsonNodes')} ${row.nodeCount || '-'}; ${markdownText(consistency)}`,
+      markdownText(review),
+      markdownLink(text('openTree'), manifestRoutePreviewHref(route))
+    ].join(' | ').replace(/^/, '| ').replace(/$/, ' |'));
+  });
+  lines.push('', `## ${text('candidateTitle')}`, '');
+  lines.push(`- ${text('candidateStagesStat')}: ${candidateRows.length}`);
+  lines.push(`- ${text('candidateFilesStat')}: ${existingCandidateRows.length}`);
+  lines.push(`- ${text('candidateMissingStat')}: ${missingCandidateRows.length}`);
+  lines.push(`- ${text('candidateNodeStat')}: ${existingCandidateRows.reduce((sum, row) => sum + (Array.isArray(row.data?.nodeIds) ? row.data.nodeIds.length : 0), 0)}`);
+  if (candidateRows.length) {
+    lines.push('', `| ${text('candidateStageCol')} | ${text('candidateFileCol')} | ${text('nodesCol')} | ${text('reviewCol')} | ${text('entryCol')} |`, '| --- | --- | --- | --- | --- |');
+    candidateRows.forEach((row) => {
+      const title = selectedText(row.build?.title, row.candidate.id);
+      const stageTitle = selectedText(row.stage?.title, row.stageId);
+      const review = row.data?.meta?.review
+        ? `${row.data.meta.review.status || '-'}; ${row.data.meta.review.reason || '-'}; ${row.data.meta.review.useUntil || '-'}`
+        : row.loadError || text('candidateNotFound');
+      const previewHref = row.exists ? candidateRoutePreviewHref(version, row.file) : '';
+      lines.push([
+        `${markdownText(title)} / ${markdownText(stageTitle)} (${markdownText(row.candidate.id)}:${markdownText(row.stageId)})`,
+        `${markdownText(row.file)}; ${row.exists ? text('nodeMatched') : text('candidateNotFound')}`,
+        `${text('jsonNodes')} ${Array.isArray(row.data?.nodeIds) ? row.data.nodeIds.length : '-'}`,
+        markdownText(review),
+        markdownLink(text('candidatePreview'), previewHref)
+      ].join(' | ').replace(/^/, '| ').replace(/$/, ' |'));
+    });
+  } else {
+    lines.push(`- ${text('candidateNoRows')}`);
+  }
+  lines.push('', `## ${text('reportPriorityTitle')}`, '');
+  if (queue.length) {
+    queue.forEach((row, index) => {
+      const route = row.route;
+      const buildTitle = selectedText(row.build?.title, route.buildId);
+      const stageTitle = selectedText(row.stage?.title, route.stageId);
+      lines.push(`- #${index + 1} ${markdownText(buildTitle)} / ${markdownText(stageTitle)} (${markdownText(route.stageId)}): ${markdownText(routePriorityReason(row))}; ${text('priorityAction')}: ${markdownText(routePriorityAction(row))}`);
+    });
+  } else {
+    lines.push(`- ${text('priorityNoRows')}`);
+  }
+  lines.push('', `## ${text('reportCommandsTitle')}`, '');
+  lines.push(`- ${text('reportCommandCount')}: ${commands.length}`);
+  if (commands.length) {
+    lines.push('', '```sh', ...commands, '```');
+  } else {
+    lines.push(`- ${text('reportNoCommands')}`);
+  }
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+
+function updateRouteReviewReportDataset(version, rows, candidateRows = []) {
+  const report = version ? buildRouteReviewMarkdown(version, rows, candidateRows) : '';
+  const sections = (report.match(/^## /gm) || []).length;
+  document.getElementById('routeReviewReportBlock').textContent = report || text('loading');
+  document.getElementById('routeReviewReportCopyStatus').textContent = '';
+  setReportButtons(Boolean(report));
+  document.body.dataset.routeReviewReportReady = report ? 'true' : 'false';
+  document.body.dataset.routeReviewReportFormat = report ? 'markdown' : '';
+  document.body.dataset.routeReviewReportLineCount = report ? String(report.trim().split(/\r?\n/).length) : '0';
+  document.body.dataset.routeReviewReportSectionCount = String(sections);
+  document.body.dataset.routeReviewReportFileName = report ? routeReviewFileName(version) : '';
+  document.body.dataset.routeReviewReportPreviewChars = String(report.length);
+  document.body.dataset.routeReviewReportPreview = report.slice(0, 6000);
+  document.body.dataset.routeReviewReportCandidateRows = String(candidateRows.length);
+  document.body.dataset.routeReviewReportCandidateFiles = String(candidateRows.filter((row) => row.exists).length);
+  document.body.dataset.routeReviewReportCandidateMissing = String(candidateRows.filter((row) => !row.exists).length);
+  document.body.dataset.routeReviewReportCopyStatus = '';
+}
+
+function renderFilters(builds) {
+  const select = document.getElementById('buildFilter');
+  const selected = select.value || 'all';
+  select.innerHTML = `<option value="all">${esc(text('allBuilds'))}</option>` + builds.map((build) => (
+    `<option value="${esc(build.id)}">${esc(selectedText(build.title, build.id))}</option>`
+  )).join('');
+  select.value = [...select.options].some((option) => option.value === selected) ? selected : 'all';
+}
+
+function renderPage(version, builds, rows, candidateRows = []) {
+  renderFilters(builds);
+  renderStats(rows);
+  renderPriorityQueue(rows);
+  const buildFilter = document.getElementById('buildFilter').value;
+  const routeFilter = document.getElementById('routeFilter').value;
+  const visible = rows.filter((row) => routeMatchesFilter(row, buildFilter, routeFilter));
+  document.getElementById('routeReviewSummary').innerHTML = `${esc(text('currentVersionSummary'))} <code>${esc(version.id)}</code>，${esc(text('showing'))} <code>${esc(visible.length)}</code> / <code>${esc(rows.length)}</code> ${esc(text('routeUnit'))}。`;
+  document.body.dataset.routeReviewVersion = version.id;
+  document.body.dataset.routeReviewVisibleCount = String(visible.length);
+  document.body.dataset.routeReviewFilterBuild = buildFilter;
+  document.body.dataset.routeReviewFilterStatus = routeFilter;
+  renderRows(visible);
+  renderCommands(rows, version.season.toLowerCase(), candidateRows);
+  updateRouteReviewReportDataset(version, rows, candidateRows);
+}
+
+let currentState = null;
+
+async function loadVersion(version) {
+  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const { builds, routeRows } = await collectRouteRows(version, manifest);
+  const candidateRoutes = await collectCandidateRoutes(version, manifest);
+  currentState = { version, builds, routeRows, candidateRoutes };
+  renderCandidateRoutes(candidateRoutes, version);
+  renderPage(version, builds, routeRows, candidateRoutes);
+  document.body.dataset.routeReviewReady = 'true';
+}
+
+async function main() {
+  applyStaticI18n();
+  const versions = await window.POE2Versions.readJson('../data/versions.json');
+  const versionSelect = document.getElementById('versionSelect');
+  const selected = window.POE2Versions.fillSelect(versionSelect, versions);
+  await loadVersion(selected);
+  versionSelect.addEventListener('change', async () => {
+    const version = window.POE2Versions.history(versions).find((item) => item.id === versionSelect.value) || versions.current;
+    window.POE2Versions.saveVersionId(version.id);
+    document.body.dataset.routeReviewReady = 'loading';
+    await loadVersion(version);
+  });
+  document.getElementById('buildFilter').addEventListener('change', () => {
+    if (currentState) renderPage(currentState.version, currentState.builds, currentState.routeRows, currentState.candidateRoutes);
+  });
+  document.getElementById('routeFilter').addEventListener('change', () => {
+    if (currentState) renderPage(currentState.version, currentState.builds, currentState.routeRows, currentState.candidateRoutes);
+  });
+  document.querySelectorAll('[data-lang]').forEach((button) => {
+    button.addEventListener('click', () => {
+      currentLang = button.dataset.lang;
+      applyStaticI18n();
+      document.getElementById('routeReviewCommandCopyStatus').textContent = '';
+      if (currentState) {
+        renderCandidateRoutes(currentState.candidateRoutes, currentState.version);
+        renderPage(currentState.version, currentState.builds, currentState.routeRows, currentState.candidateRoutes);
+      }
+    });
+  });
+}
+
+document.getElementById('copyRouteReviewCommandsBtn').addEventListener('click', async (event) => {
+  if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
+  const status = document.getElementById('routeReviewCommandCopyStatus');
+  try {
+    await copyText(document.body.dataset.routeReviewCommandText || '');
+    status.textContent = text('copiedCommands');
+    document.body.dataset.routeReviewCommandCopyStatus = 'copied';
+  } catch (error) {
+    status.textContent = text('copyFailed');
+    document.body.dataset.routeReviewCommandCopyStatus = 'failed';
+  }
+});
+
+document.getElementById('copyRouteReviewReportBtn').addEventListener('click', async (event) => {
+  if (event.currentTarget.getAttribute('aria-disabled') === 'true' || !currentState) return;
+  const status = document.getElementById('routeReviewReportCopyStatus');
+  try {
+    await copyText(buildRouteReviewMarkdown(currentState.version, currentState.routeRows, currentState.candidateRoutes));
+    status.textContent = text('copiedReport');
+    document.body.dataset.routeReviewReportCopyStatus = 'copied';
+  } catch (error) {
+    status.textContent = text('reportCopyFailed');
+    document.body.dataset.routeReviewReportCopyStatus = 'failed';
+  }
+});
+
+document.getElementById('downloadRouteReviewReportBtn').addEventListener('click', (event) => {
+  if (event.currentTarget.getAttribute('aria-disabled') === 'true' || !currentState) return;
+  const report = buildRouteReviewMarkdown(currentState.version, currentState.routeRows, currentState.candidateRoutes);
+  const blob = new Blob([report], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = routeReviewFileName(currentState.version);
+  link.click();
+  URL.revokeObjectURL(url);
+  updateRouteReviewReportDataset(currentState.version, currentState.routeRows);
+});
+
+main().catch((error) => {
+  document.getElementById('routeReviewSummary').innerHTML = `<span class="bad">${esc(text('readFailed'))}：${esc(error.message)}</span>`;
+  document.getElementById('routeReviewRows').innerHTML = `<tr><td colspan="5">${esc(text('readFailed'))}：${esc(error.message)}</td></tr>`;
+  setCopyButton(false);
+  setReportButtons(false);
+  document.body.dataset.routeReviewReady = 'error';
+});
+</script>
+</body>
+</html>

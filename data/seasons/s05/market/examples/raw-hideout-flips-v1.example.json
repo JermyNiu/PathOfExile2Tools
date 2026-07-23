@@ -1,0 +1,43 @@
+{
+  "updatedAt": "2026-07-22T11:55:00+08:00",
+  "currency": "exalted",
+  "goldUnit": 10000,
+  "feeRate": 0.08,
+  "source": {
+    "filters": {
+      "minListingDepth": 5,
+      "abnormalPriceRules": [
+        "Drop single outlier listings below the visible cluster.",
+        "Drop items whose sell side has insufficient depth."
+      ]
+    },
+    "note": "Raw manual capture template for hideout gold arbitrage candidates. Fixture prices are not live."
+  },
+  "entries": [
+    {
+      "id": "greater-jewellers-orb-raw-example",
+      "category": "currency",
+      "name": {
+        "zhCN": "高级工匠石",
+        "zhTW": "高級工匠石",
+        "en": "Greater Jeweller's Orb"
+      },
+      "goldCost": 15000,
+      "cashCost": 4,
+      "sellPrice": 13,
+      "liquidity": 76,
+      "risk": 48,
+      "notes": {
+        "zhCN": "原始输入模板；价格不是实时行情。",
+        "zhTW": "原始輸入模板；價格不是即時行情。",
+        "en": "Raw input template; prices are not live."
+      },
+      "marketEvidence": {
+        "buyListingCount": 10,
+        "sellListingCount": 16,
+        "priceConfidence": 74,
+        "depthNote": "Fixture depth for raw snapshot normalization."
+      }
+    }
+  ]
+}

@@ -1,0 +1,694 @@
+{
+  "parserVersion": "local-ninja-import-v1",
+  "schemaVersion": 1,
+  "parsedAt": "2026-07-22T14:03:25.400Z",
+  "format": "json",
+  "selectedToolVersion": "s05-tree-4.5",
+  "explicitVersion": "s05-tree-4.5",
+  "assignedVersion": "s05-tree-4.5",
+  "versionSource": "export",
+  "versionCompatibility": {
+    "status": "matched",
+    "selectedToolVersion": "s05-tree-4.5",
+    "comparedVersion": "s05-tree-4.5",
+    "selectedSeason": "S05",
+    "selectedPoe2dbVersion": "4.5",
+    "selectedDataRoot": "data/seasons/s05",
+    "explicitVersion": "s05-tree-4.5",
+    "explicitVersionPath": "version",
+    "exportSeason": "S05",
+    "exportSeasonPath": "season",
+    "exportPoe2dbVersion": "4.5",
+    "exportPoe2dbVersionPath": "poe2dbVersion",
+    "warnings": []
+  },
+  "character": {
+    "name": "DemoTactician",
+    "class": "Mercenary",
+    "ascendancy": "Tactician",
+    "level": 90
+  },
+  "counts": {
+    "skills": 5,
+    "supports": 11,
+    "items": 5,
+    "passives": 5
+  },
+  "skills": [
+    {
+      "name": "Skeletal Warrior",
+      "context": "前排召唤物",
+      "raw": {
+        "name": "Skeletal Warrior",
+        "active": true
+      }
+    },
+    {
+      "name": "Frost Mage",
+      "context": "后排输出召唤物",
+      "raw": {
+        "name": "Frost Mage",
+        "active": true
+      }
+    },
+    {
+      "name": "Cleric",
+      "context": "功能补位召唤物",
+      "raw": {
+        "name": "Cleric",
+        "active": true
+      }
+    },
+    {
+      "name": "Supporting Fire",
+      "context": "技能",
+      "raw": {
+        "name": "Supporting Fire",
+        "level": 19,
+        "supports": [
+          "Kurgal's Leash",
+          "Muster",
+          "Heft",
+          "Bidding III"
+        ]
+      }
+    },
+    {
+      "name": "Vulnerability",
+      "context": "技能",
+      "raw": {
+        "name": "Vulnerability",
+        "supports": [
+          "Heightened Curse",
+          "Focused Curse"
+        ]
+      }
+    }
+  ],
+  "supports": [
+    {
+      "name": "Meat Shield",
+      "context": "Skeletal Warrior",
+      "raw": {
+        "name": "Meat Shield",
+        "support": true
+      }
+    },
+    {
+      "name": "Last Gasp",
+      "context": "Skeletal Warrior",
+      "raw": {
+        "name": "Last Gasp",
+        "support": true
+      }
+    },
+    {
+      "name": "Muster",
+      "context": "Frost Mage",
+      "raw": {
+        "name": "Muster",
+        "support": true
+      }
+    },
+    {
+      "name": "Heft",
+      "context": "Frost Mage",
+      "raw": {
+        "name": "Heft",
+        "support": true
+      }
+    },
+    {
+      "name": "Meat Shield",
+      "context": "Cleric",
+      "raw": {
+        "name": "Meat Shield",
+        "support": true
+      }
+    },
+    {
+      "name": "Kurgal's Leash",
+      "context": "Supporting Fire",
+      "raw": "Kurgal's Leash"
+    },
+    {
+      "name": "Muster",
+      "context": "Supporting Fire",
+      "raw": "Muster"
+    },
+    {
+      "name": "Heft",
+      "context": "Supporting Fire",
+      "raw": "Heft"
+    },
+    {
+      "name": "Bidding III",
+      "context": "Supporting Fire",
+      "raw": "Bidding III"
+    },
+    {
+      "name": "Heightened Curse",
+      "context": "Vulnerability",
+      "raw": "Heightened Curse"
+    },
+    {
+      "name": "Focused Curse",
+      "context": "Vulnerability",
+      "raw": "Focused Curse"
+    }
+  ],
+  "items": [
+    {
+      "name": "Trenchtimbre",
+      "context": "Main Hand",
+      "raw": {
+        "slot": "Main Hand",
+        "name": "Trenchtimbre",
+        "explicitMods": [
+          "+3 to Level of all Minion Skills",
+          "Minions deal 42% increased Damage",
+          "+85 to maximum Spirit"
+        ]
+      }
+    },
+    {
+      "name": "Astramentis",
+      "context": "Amulet",
+      "raw": {
+        "slot": "Amulet",
+        "name": "Astramentis",
+        "explicitMods": [
+          "+96 to all Attributes",
+          "+78 to Strength"
+        ]
+      }
+    },
+    {
+      "name": "Bones of Ullr",
+      "context": "Boots",
+      "raw": {
+        "slot": "Boots",
+        "name": "Bones of Ullr",
+        "explicitMods": [
+          "25% increased Movement Speed",
+          "+72 to maximum Life",
+          "+31% to Fire Resistance",
+          "+28% to Cold Resistance"
+        ]
+      }
+    },
+    {
+      "name": "Rare Armour",
+      "context": "Body Armour",
+      "raw": {
+        "slot": "Body Armour",
+        "name": "Rare Armour",
+        "explicitMods": [
+          "+104 to maximum Life",
+          "+38% to Lightning Resistance",
+          "+34% to Chaos Resistance",
+          "325 Armour and Evasion"
+        ]
+      }
+    },
+    {
+      "name": "Sapphire Jewel",
+      "context": "Jewel",
+      "raw": {
+        "slot": "Jewel",
+        "name": "Sapphire Jewel",
+        "explicitMods": [
+          "Minions have 18% increased Critical Hit Chance",
+          "Minions deal 14% increased Damage"
+        ]
+      }
+    }
+  ],
+  "passiveIds": [
+    6077,
+    27296,
+    26945,
+    2847,
+    49593
+  ],
+  "sourceEvidence": {
+    "skills": "skillGroups",
+    "supports": "skillGroups, supports",
+    "items": "items",
+    "passives": "passives",
+    "skillGroupsDetected": 3,
+    "parserHints": [
+      "pob-skill-groups",
+      "gear-container"
+    ]
+  },
+  "formatProfile": {
+    "inputFormat": "json",
+    "topLevelKeys": [
+      "version",
+      "season",
+      "poe2dbVersion",
+      "character",
+      "skills",
+      "skillGroups",
+      "items",
+      "passives"
+    ],
+    "explicitVersionPath": "version",
+    "characterPath": "character",
+    "skillGroupPath": "skillGroups",
+    "skillGroupCount": 3,
+    "skillSourcePath": "skillGroups",
+    "supportSourcePath": "skillGroups, supports",
+    "itemSourcePath": "items",
+    "passiveSourcePath": "passives",
+    "recognizedCounts": {
+      "skills": 5,
+      "supports": 11,
+      "items": 5,
+      "passives": 5
+    },
+    "parserHints": [
+      "pob-skill-groups",
+      "gear-container"
+    ],
+    "risks": []
+  },
+  "analysis": {
+    "comparedBuildId": "tactician-supporting-fire",
+    "comparedBuildTitle": {
+      "zhCN": "战术家支援火力召唤流",
+      "zhTW": "戰術家支援火力召喚流",
+      "en": "Tactician Supporting Fire Minions"
+    },
+    "catalog": {
+      "sourceType": "poe2db-snapshot-v1",
+      "skills": {
+        "matched": 5,
+        "imported": 5,
+        "unknown": []
+      },
+      "supports": {
+        "matched": 11,
+        "imported": 11,
+        "unknown": []
+      },
+      "aliasMatched": 0,
+      "pendingVerification": 0
+    },
+    "aliasMatchEnabled": true,
+    "aliasMatched": 0,
+    "skills": {
+      "matched": 5,
+      "expected": 11,
+      "missing": [
+        {
+          "zhCN": "狼群",
+          "zhTW": "狼群",
+          "en": "Wolf Pack"
+        },
+        {
+          "zhCN": "纵火者",
+          "zhTW": "縱火者",
+          "en": "Arsonist"
+        },
+        {
+          "zhCN": "风暴法师",
+          "zhTW": "風暴法師",
+          "en": "Storm Mage"
+        },
+        {
+          "zhCN": "掠夺者",
+          "zhTW": "掠奪者",
+          "en": "Reaver"
+        },
+        {
+          "zhCN": "狙击手",
+          "zhTW": "狙擊手",
+          "en": "Sniper"
+        },
+        {
+          "zhCN": "蛮兵",
+          "zhTW": "蠻兵",
+          "en": "Brute"
+        }
+      ]
+    },
+    "supports": {
+      "matched": 8,
+      "expected": 12,
+      "missing": [
+        {
+          "zhCN": "快速施法 II",
+          "zhTW": "快速施法 II",
+          "en": "Rapid Casting II"
+        },
+        {
+          "zhCN": "持续时间延长 II",
+          "zhTW": "持續時間延長 II",
+          "en": "Prolonged Duration II"
+        },
+        {
+          "zhCN": "凋零之触",
+          "zhTW": "凋零之觸",
+          "en": "Withering Touch"
+        },
+        {
+          "zhCN": "终结",
+          "zhTW": "終結",
+          "en": "Culling Strike"
+        }
+      ]
+    },
+    "items": {
+      "matched": 3,
+      "expected": 18,
+      "missing": [
+        "沟木棍",
+        "Rattling Sceptre",
+        "稀有响尾权杖",
+        "Fierce Greathelm",
+        "稀有凶猛巨盔",
+        "Morior Invictus",
+        "不败之人",
+        "Vaal Mitts",
+        "稀有瓦尔护手",
+        "乌勒尔之骨",
+        "均衡之符",
+        "黄玉戒指 + 裂隙戒指"
+      ]
+    },
+    "gear": {
+      "matched": 13,
+      "expected": 13,
+      "matchedCategories": [
+        "minionSkillLevel",
+        "minionDamage",
+        "spirit",
+        "attributes",
+        "strength",
+        "resistance",
+        "life",
+        "defense",
+        "fireResistance",
+        "lightningResistance",
+        "movementSpeed",
+        "chaosResistance",
+        "minionCrit"
+      ],
+      "missingCategories": [],
+      "detectedCategories": [
+        "spirit",
+        "minionSkillLevel",
+        "minionDamage",
+        "attributes",
+        "strength",
+        "life",
+        "resistance",
+        "movementSpeed",
+        "fireResistance",
+        "coldResistance",
+        "defense",
+        "chaosResistance",
+        "lightningResistance",
+        "minionCrit"
+      ],
+      "riskItems": []
+    },
+    "supportDecision": {
+      "rows": [
+        {
+          "id": "main-damage-minion",
+          "title": {
+            "zhCN": "主输出召唤物",
+            "zhTW": "主輸出召喚物",
+            "en": "Main Damage Minion"
+          },
+          "skillMatched": 1,
+          "skillExpected": 4,
+          "firstSupportMatched": 2,
+          "firstSupportExpected": 2,
+          "laterSupportMatched": 0,
+          "laterSupportExpected": 2,
+          "globalFirstSupportMatched": 2,
+          "globalLaterSupportMatched": 0,
+          "contextualSupportCount": 2,
+          "hasContextualSupports": true,
+          "missingSkills": [
+            {
+              "zhCN": "纵火者",
+              "zhTW": "縱火者",
+              "en": "Arsonist"
+            },
+            {
+              "zhCN": "风暴法师",
+              "zhTW": "風暴法師",
+              "en": "Storm Mage"
+            },
+            {
+              "zhCN": "狙击手",
+              "zhTW": "狙擊手",
+              "en": "Sniper"
+            }
+          ],
+          "missingFirstSupports": [],
+          "missingLaterSupports": [
+            {
+              "zhCN": "凋零之触",
+              "zhTW": "凋零之觸",
+              "en": "Withering Touch"
+            },
+            {
+              "zhCN": "终结",
+              "zhTW": "終結",
+              "en": "Culling Strike"
+            }
+          ],
+          "reviewNote": {
+            "zhCN": "伤害类型限制仍需按具体召唤物和版本技能标签复核。",
+            "zhTW": "傷害類型限制仍需按具體召喚物和版本技能標籤複核。",
+            "en": "Damage-type restrictions still need review per minion and patch skill tags."
+          }
+        },
+        {
+          "id": "frontline-minion",
+          "title": {
+            "zhCN": "前排承伤召唤物",
+            "zhTW": "前排承傷召喚物",
+            "en": "Frontline Minion"
+          },
+          "skillMatched": 1,
+          "skillExpected": 3,
+          "firstSupportMatched": 2,
+          "firstSupportExpected": 2,
+          "laterSupportMatched": 0,
+          "laterSupportExpected": 1,
+          "globalFirstSupportMatched": 2,
+          "globalLaterSupportMatched": 0,
+          "contextualSupportCount": 2,
+          "hasContextualSupports": true,
+          "missingSkills": [
+            {
+              "zhCN": "掠夺者",
+              "zhTW": "掠奪者",
+              "en": "Reaver"
+            },
+            {
+              "zhCN": "蛮兵",
+              "zhTW": "蠻兵",
+              "en": "Brute"
+            }
+          ],
+          "missingFirstSupports": [],
+          "missingLaterSupports": [
+            {
+              "zhCN": "终结",
+              "zhTW": "終結",
+              "en": "Culling Strike"
+            }
+          ],
+          "reviewNote": {
+            "zhCN": "红图死亡多时优先保留生存辅助，少一条输出也比召唤物反复死亡强。",
+            "zhTW": "紅圖死亡多時優先保留生存輔助，少一條輸出也比召喚物反覆死亡強。",
+            "en": "In red maps, survival supports are usually worth more than one extra damage line if minions are dying."
+          }
+        },
+        {
+          "id": "utility-minion",
+          "title": {
+            "zhCN": "功能补位召唤物",
+            "zhTW": "功能補位召喚物",
+            "en": "Utility Minion"
+          },
+          "skillMatched": 1,
+          "skillExpected": 2,
+          "firstSupportMatched": 1,
+          "firstSupportExpected": 1,
+          "laterSupportMatched": 0,
+          "laterSupportExpected": 1,
+          "globalFirstSupportMatched": 1,
+          "globalLaterSupportMatched": 1,
+          "contextualSupportCount": 1,
+          "hasContextualSupports": true,
+          "missingSkills": [
+            {
+              "zhCN": "狼群",
+              "zhTW": "狼群",
+              "en": "Wolf Pack"
+            }
+          ],
+          "missingFirstSupports": [],
+          "missingLaterSupports": [
+            {
+              "zhCN": "最后一息",
+              "zhTW": "最後一息",
+              "en": "Last Gasp"
+            }
+          ],
+          "reviewNote": {
+            "zhCN": "功能位是最后补，不是开荒转型的前置条件。",
+            "zhTW": "功能位是最後補，不是拓荒轉型的前置條件。",
+            "en": "Utility minions are a late add-on, not a requirement before switching into the build."
+          }
+        }
+      ],
+      "rowCount": 3,
+      "skillMatched": 3,
+      "skillExpected": 9,
+      "firstSupportMatched": 5,
+      "firstSupportExpected": 5,
+      "globalFirstSupportMatched": 5,
+      "contextualRows": 3
+    },
+    "passives": {
+      "matched": 5,
+      "expected": 122,
+      "matchedIds": [
+        6077,
+        27296,
+        26945,
+        2847,
+        49593
+      ],
+      "missingIds": [
+        35645,
+        8737,
+        63526,
+        33240,
+        25482,
+        39461,
+        29148,
+        18160,
+        26725,
+        54127,
+        54453,
+        28175,
+        95,
+        55190,
+        61419,
+        38972,
+        1988,
+        32474,
+        57703,
+        65328,
+        35560,
+        15885,
+        34493,
+        23382,
+        28458,
+        21755,
+        762,
+        49512,
+        45992,
+        27082,
+        21670,
+        46365,
+        32637,
+        30151,
+        34840,
+        28982,
+        33612,
+        7960,
+        61438,
+        60620,
+        64471,
+        14945,
+        24646,
+        28510,
+        32847,
+        11679,
+        15044,
+        30720,
+        54036,
+        8357,
+        63114,
+        4140,
+        36252,
+        8983,
+        50104,
+        57047,
+        13075,
+        37594,
+        54892,
+        29162,
+        17501,
+        25927,
+        65160,
+        48552,
+        61409,
+        15809,
+        2491,
+        61842,
+        21387,
+        10742,
+        29611,
+        54485,
+        33722,
+        54964,
+        44733,
+        44176,
+        29358,
+        52125,
+        54099,
+        31238,
+        42280,
+        53719,
+        31175,
+        44069,
+        41768,
+        59777,
+        8493,
+        41511,
+        45272,
+        59779,
+        229,
+        10247,
+        42350,
+        48565,
+        28370,
+        62498,
+        51561,
+        44371,
+        22783,
+        1433,
+        3446,
+        59785,
+        56910,
+        17029,
+        48635,
+        40200,
+        1200,
+        59093,
+        1447,
+        47931,
+        4725,
+        22393,
+        50986,
+        21205,
+        54282,
+        19006,
+        61042
+      ]
+    }
+  }
+}

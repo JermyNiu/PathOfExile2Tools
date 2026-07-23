@@ -1,0 +1,291 @@
+{
+  "id": "new-build-id",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "title": {
+    "zhCN": "新开荒 BD 名称",
+    "zhTW": "新拓荒 BD 名稱",
+    "en": "New League Starter Build"
+  },
+  "class": {
+    "base": {
+      "zhCN": "基础职业",
+      "zhTW": "基礎職業",
+      "en": "Base Class"
+    },
+    "ascendancy": {
+      "zhCN": "升华职业",
+      "zhTW": "昇華職業",
+      "en": "Ascendancy"
+    }
+  },
+  "source": {
+    "pobb": "",
+    "notes": "Replace this template with a researched source note before registering the build."
+  },
+  "overview": {
+    "difficulty": {
+      "zhCN": "待填写",
+      "zhTW": "待填寫",
+      "en": "TBD"
+    },
+    "budget": {
+      "zhCN": "待填写",
+      "zhTW": "待填寫",
+      "en": "TBD"
+    },
+    "bestFor": {
+      "zhCN": [
+        "说明适合什么玩家"
+      ],
+      "zhTW": [
+        "說明適合什麼玩家"
+      ],
+      "en": [
+        "Describe who this build is for"
+      ]
+    },
+    "strengths": {
+      "zhCN": [
+        "说明主要优点"
+      ],
+      "zhTW": [
+        "說明主要優點"
+      ],
+      "en": [
+        "Describe the main strengths"
+      ]
+    },
+    "risks": {
+      "zhCN": [
+        "说明当前风险或待复核点"
+      ],
+      "zhTW": [
+        "說明目前風險或待複核點"
+      ],
+      "en": [
+        "Describe current risks or review gaps"
+      ]
+    }
+  },
+  "guideArticle": {
+    "title": {
+      "zhCN": "开荒正文速读",
+      "zhTW": "拓荒正文速讀",
+      "en": "Leveling Guide Read First"
+    },
+    "intro": {
+      "zhCN": "先写攻略正文，再接天赋树按钮。这里说明起号、转型、技能、装备和制作的总规则。",
+      "zhTW": "先寫攻略正文，再接天賦樹按鈕。這裡說明起號、轉型、技能、裝備和製作的總規則。",
+      "en": "Write the guide article before passive-tree buttons. Explain start choice, transition timing, skills, gear, and crafting rules."
+    },
+    "sections": [
+      {
+        "id": "start-class",
+        "title": {
+          "zhCN": "起什么职业",
+          "zhTW": "起什麼職業",
+          "en": "What to Start"
+        },
+        "body": {
+          "zhCN": "写清楚起号职业、升华和剧情早期过渡方式。",
+          "zhTW": "寫清楚起號職業、昇華和劇情早期過渡方式。",
+          "en": "Explain class, ascendancy, and early campaign transition."
+        },
+        "checks": {
+          "zhCN": [
+            "列出前期最重要的三到五个判断。"
+          ],
+          "zhTW": [
+            "列出前期最重要的三到五個判斷。"
+          ],
+          "en": [
+            "List the three to five most important early checks."
+          ]
+        }
+      }
+    ]
+  },
+  "evidenceSummary": {
+    "title": {
+      "zhCN": "资料可信度与待复核",
+      "zhTW": "資料可信度與待複核",
+      "en": "Evidence Quality and Review Queue"
+    },
+    "intro": {
+      "zhCN": "标明哪些内容来自本地版本数据、PoE2DB、手工攻略或待复核来源。",
+      "zhTW": "標明哪些內容來自本地版本資料、PoE2DB、手工攻略或待複核來源。",
+      "en": "Mark what comes from local version data, PoE2DB, manual guide writing, or pending review."
+    },
+    "checks": [
+      {
+        "id": "source-review",
+        "status": {
+          "zhCN": "待复核",
+          "zhTW": "待複核",
+          "en": "Needs review"
+        },
+        "evidence": {
+          "zhCN": "模板占位，登记前必须替换。",
+          "zhTW": "模板佔位，登記前必須替換。",
+          "en": "Template placeholder; replace before registering."
+        },
+        "limitation": {
+          "zhCN": "不能把模板当成实战攻略。",
+          "zhTW": "不能把模板當成實戰攻略。",
+          "en": "Do not treat the template as a real guide."
+        },
+        "nextAction": {
+          "zhCN": "补数据来源、路线来源和待复核动作。",
+          "zhTW": "補資料來源、路線來源和待複核動作。",
+          "en": "Fill source evidence, route origin, and review action."
+        },
+        "severity": "pending"
+      }
+    ]
+  },
+  "guideStrategy": {
+    "coreLoop": {
+      "title": "核心循环",
+      "steps": [
+        "写清楚成型后每场战斗的主要循环。"
+      ]
+    },
+    "powerSignals": [
+      {
+        "id": "power-signal",
+        "title": "变强信号",
+        "good": "说明体感变强时应该是什么样。",
+        "check": "说明不达标时先检查哪里。"
+      }
+    ],
+    "failureDiagnosis": [
+      {
+        "symptom": "卡关症状",
+        "likelyCause": "常见原因",
+        "fix": "处理顺序",
+        "priority": "高"
+      }
+    ],
+    "decisionRules": [
+      {
+        "id": "transition-rule",
+        "title": "什么时候转型",
+        "rules": [
+          "写清楚可以转、不要转、卡住回退的条件。"
+        ]
+      }
+    ]
+  },
+  "executionPlan": {
+    "title": "新号照抄执行路线",
+    "intro": "每个阶段写主动作、先买什么、停止线、卡住回退和进入下一阶段条件。",
+    "stages": []
+  },
+  "routes": {},
+  "tags": [
+    "template"
+  ],
+  "stages": [],
+  "skills": {
+    "overview": {
+      "title": {
+        "zhCN": "这套技能到底怎么玩",
+        "zhTW": "這套技能到底怎麼玩",
+        "en": "How the Skill Setup Works"
+      },
+      "intro": {
+        "zhCN": "写清楚技能本体、召唤物技能和辅助宝石的边界。",
+        "zhTW": "寫清楚技能本體、召喚物技能和輔助寶石的邊界。",
+        "en": "Clarify active skills, minion skills, and support gems."
+      },
+      "cards": []
+    },
+    "active": [],
+    "supports": {},
+    "supportProfiles": {},
+    "recommendedLinks": [],
+    "supportSelectionRules": [],
+    "minionSelectionGuide": {
+      "title": {
+        "zhCN": "召唤物到底选哪几个",
+        "zhTW": "召喚物到底選哪幾個",
+        "en": "Which Minions to Pick"
+      },
+      "intro": {
+        "zhCN": "只在召唤物 BD 中保留并补实。这里回答主输出、前排和功能召唤物怎么选，技能本体和辅助宝石必须分开写。",
+        "zhTW": "只在召喚物 BD 中保留並補實。這裡回答主輸出、前排和功能召喚物怎麼選，技能本體和輔助寶石必須分開寫。",
+        "en": "Keep and fill this for minion builds. It explains main damage, frontline, and utility minion choices while keeping active skills separate from support gems."
+      },
+      "groups": [
+        {
+          "id": "main-damage",
+          "title": {
+            "zhCN": "主输出召唤物",
+            "zhTW": "主輸出召喚物",
+            "en": "Main Damage Minion"
+          },
+          "skillIds": [
+            "replace-with-active-minion-skill-id"
+          ],
+          "job": {
+            "zhCN": "负责主要清图和打王伤害。",
+            "zhTW": "負責主要清圖和打王傷害。",
+            "en": "Carries most clear and boss damage."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "需要一个稳定输出核心时优先保留。"
+            ],
+            "zhTW": [
+              "需要一個穩定輸出核心時優先保留。"
+            ],
+            "en": [
+              "Keep this first when the setup needs a stable damage core."
+            ]
+          },
+          "firstSupports": [
+            "replace-with-support-gem-id"
+          ],
+          "cutFirst": {
+            "zhCN": "不要先砍主输出召唤物；先从功能位或低收益辅助上让位。",
+            "zhTW": "不要先砍主輸出召喚物；先從功能位或低收益輔助上讓位。",
+            "en": "Do not cut the main damage minion first; free space from utility slots or lower-value supports."
+          }
+        }
+      ],
+      "rules": {
+        "zhCN": [
+          "至少保留一个主输出召唤物，再考虑前排和功能补位。",
+          "辅助宝石只能写在 firstSupports 或推荐链接里，不能写进 skillIds。"
+        ],
+        "zhTW": [
+          "至少保留一個主輸出召喚物，再考慮前排和功能補位。",
+          "輔助寶石只能寫在 firstSupports 或推薦連線裡，不能寫進 skillIds。"
+        ],
+        "en": [
+          "Keep at least one main damage minion before adding frontline or utility slots.",
+          "Support gems belong in firstSupports or recommended links, never in skillIds."
+        ]
+      }
+    },
+    "supportDecisionMatrix": []
+  },
+  "skillAcquisition": [],
+  "gearOverview": {
+    "title": "装备先解决短板，再追毕业件",
+    "intro": "写清楚装备过渡总规则。",
+    "cards": []
+  },
+  "gearPriorities": [],
+  "earlyGearStatPriority": [],
+  "gearStatThresholds": [],
+  "gearStagePlan": [],
+  "craftingPlan": [],
+  "transitionChecks": {
+    "canSwitch": [],
+    "waitBeforeSwitch": [],
+    "stuckFixes": []
+  },
+  "skillProgression": []
+}

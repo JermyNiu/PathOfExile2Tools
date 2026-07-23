@@ -1,0 +1,3494 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>S05 战术家支援火力开荒攻略</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --warn:#facc15;
+    --ok:#34d399;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  .nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+  }
+  .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .btn.disabled { color:var(--muted); cursor:not-allowed; opacity:.65; }
+  .shell {
+    width:min(1280px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 36px;
+    display:grid;
+    gap:16px;
+  }
+  .panel {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:13px;
+  }
+  .hero {
+    background:
+      radial-gradient(circle at 18% 20%, rgba(56,189,248,.15), transparent 32%),
+      linear-gradient(135deg, #111827, #172033);
+  }
+  .muted, .panel p, li { color:var(--muted); line-height:1.55; }
+  .pill-row, .button-row {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .inline-actions {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+  }
+  .toc-grid {
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:10px;
+  }
+  .toc-link {
+    min-height:58px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:4px;
+  }
+  .toc-link strong {
+    color:var(--text);
+    font-size:14px;
+  }
+  .toc-link span {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.35;
+  }
+  .pill {
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px 9px;
+    background:#0b1120;
+    color:var(--muted);
+    font-size:13px;
+  }
+  .section-head {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .segmented {
+    display:inline-flex;
+    gap:4px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+  }
+  .segmented button {
+    min-height:30px;
+    border:0;
+    border-radius:6px;
+    padding:5px 10px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font:inherit;
+    font-size:13px;
+  }
+  .segmented button.active {
+    background:#075985;
+    color:var(--text);
+  }
+  .header-lang {
+    min-height:36px;
+  }
+  .header-lang button {
+    min-width:44px;
+  }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:12px;
+  }
+  .grid.two { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:14px;
+    display:grid;
+    gap:9px;
+  }
+  .card.wide { grid-column:1 / -1; }
+  .wide-block {
+    grid-column:1 / -1;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:14px;
+    display:grid;
+    gap:10px;
+  }
+  .mini-block-card {
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    padding:12px;
+    display:grid;
+    gap:8px;
+  }
+  .skill-list {
+    display:grid;
+    gap:10px;
+    padding:0;
+    list-style:none;
+  }
+  .skill-list li {
+    display:grid;
+    gap:4px;
+    padding:10px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+  }
+  .skill-list strong { color:var(--text); }
+  .guide-alias {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.35;
+  }
+  .source-link {
+    color:#bae6fd;
+    font-size:12px;
+  }
+  .source-detail {
+    color:#cbd5e1;
+    font-size:12px;
+    line-height:1.4;
+  }
+  .source-cell {
+    display:grid;
+    gap:4px;
+    min-width:170px;
+  }
+  .source-cell strong {
+    color:var(--text);
+  }
+  .skill-tags {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .skill-tag {
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 8px;
+    color:var(--muted);
+    font-size:13px;
+  }
+  .skill-tag .guide-alias {
+    display:block;
+    margin-top:2px;
+  }
+  .link-list {
+    display:grid;
+    gap:10px;
+    padding:0;
+    list-style:none;
+  }
+  .link-list li {
+    display:grid;
+    gap:7px;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+  }
+  .link-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .link-head strong { color:var(--text); }
+  .slot-label {
+    border:1px solid rgba(56,189,248,.5);
+    border-radius:999px;
+    padding:3px 8px;
+    color:#bae6fd;
+    font-size:12px;
+    background:rgba(14,165,233,.12);
+  }
+  .verify-badge {
+    border:1px solid rgba(250,204,21,.55);
+    border-radius:999px;
+    padding:3px 8px;
+    color:#fde68a;
+    background:rgba(250,204,21,.1);
+    font-size:12px;
+  }
+  .verify-badge.ok {
+    border-color:rgba(52,211,153,.55);
+    color:#bbf7d0;
+    background:rgba(52,211,153,.1);
+  }
+  .verify-badge.partial {
+    border-color:rgba(56,189,248,.55);
+    color:#bae6fd;
+    background:rgba(14,165,233,.1);
+  }
+  .verify-badge.pending {
+    border-color:rgba(251,113,133,.55);
+    color:#fecdd3;
+    background:rgba(251,113,133,.1);
+  }
+  .link-note {
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+  }
+  .guide-flow {
+    display:grid;
+    gap:12px;
+  }
+  .guide-flow-intro {
+    border:1px solid rgba(56,189,248,.35);
+    border-radius:8px;
+    background:rgba(14,165,233,.08);
+    padding:12px;
+    color:#dbeafe;
+    line-height:1.55;
+  }
+  .guide-flow-card {
+    border-left:3px solid var(--accent);
+  }
+  .guide-article-grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .guide-article-card {
+    align-content:start;
+    border-left:3px solid var(--ok);
+  }
+  .mini-block {
+    display:grid;
+    gap:6px;
+  }
+  .mini-block strong {
+    color:var(--text);
+    font-size:13px;
+  }
+  .route-cell {
+    display:grid;
+    gap:6px;
+    min-width:150px;
+  }
+  .route-note {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.4;
+  }
+  ul, ol { margin:0; padding-left:20px; display:grid; gap:5px; }
+  .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:8px; }
+  table { min-width:900px; width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { padding:10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  th { color:var(--muted); font-weight:650; background:#0b1120; }
+  tr:last-child td { border-bottom:0; }
+  pre {
+    margin:0;
+    white-space:pre-wrap;
+    word-break:break-word;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    color:var(--text);
+    padding:12px;
+    max-height:360px;
+    overflow:auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13px;
+    line-height:1.5;
+  }
+  .status { color:#0b1120; background:var(--ok); border-radius:999px; padding:3px 8px; width:fit-content; font-size:12px; }
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:8px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:4px;
+  }
+  .stat strong {
+    color:var(--accent);
+    font-size:18px;
+  }
+  .stat span {
+    color:var(--muted);
+    font-size:12px;
+  }
+  .warn { color:var(--warn); }
+  .view-mode {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+  }
+  .view-mode button {
+    min-height:32px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:6px 10px;
+    background:#0b1120;
+    color:var(--muted);
+    cursor:pointer;
+    font:inherit;
+    font-size:13px;
+  }
+  .view-mode button.active {
+    border-color:#0ea5e9;
+    background:#075985;
+    color:var(--text);
+  }
+  .compact-note {
+    border:1px solid rgba(56,189,248,.35);
+    border-radius:8px;
+    background:rgba(14,165,233,.08);
+    padding:10px 12px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  body.guide-compact .advanced-panel {
+    display:none;
+  }
+  @media (max-width: 920px) {
+    .grid, .grid.two, .toc-grid, .guide-article-grid, .stat-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body class="guide-compact" data-guide-view="read">
+<header>
+  <h1>S05 战术家支援火力开荒攻略</h1>
+  <nav class="nav" aria-label="页面导航">
+    <a class="btn" href="../index.html">首页</a>
+    <a class="btn primary" href="#guide-article">阅读全文</a>
+    <a class="btn" href="#stage-tree">阶段天赋</a>
+    <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">终局天赋工具</a>
+    <div class="segmented header-lang" id="guideLangSwitch" aria-label="页面语言选择">
+      <button class="active" type="button" data-guide-lang="zh">简体</button>
+      <button type="button" data-guide-lang="tw">繁体</button>
+      <button type="button" data-guide-lang="en">English</button>
+    </div>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="panel hero">
+    <span class="status">已接入</span>
+    <h2>佣兵 / 战术家 / 支援火力（Supporting Fire）</h2>
+    <p>这页专注攻略本身：怎么起号、什么时候转型、阶段装备要什么、毕业怎么做。天赋树作为独立工具打开，阶段按钮会传入对应节点路线。</p>
+    <div class="view-mode" aria-label="攻略显示模式">
+      <button class="active" type="button" id="readGuideViewBtn" data-guide-view-mode="read">阅读版</button>
+      <button type="button" id="fullGuideViewBtn" data-guide-view-mode="full">完整数据</button>
+      <span class="pill" id="guideViewStatus">默认阅读版</span>
+    </div>
+    <p class="compact-note" id="compactGuideNote">默认只展示开荒决策、阶段路线、技能替换和装备优先级；Markdown 报告、证据矩阵、技能来源、属性门槛、装备阶段检查、制作细节和诊断表放在“完整数据”里。</p>
+    <div class="pill-row">
+      <span class="pill">S05</span>
+      <span class="pill">召唤 / 号令</span>
+      <span class="pill">精魂</span>
+      <span class="pill">力量属性</span>
+      <span class="pill">PoB 终局 122 点</span>
+    </div>
+  </section>
+
+  <section class="panel" id="guide-overview">
+    <div class="section-head">
+      <h2>攻略目录</h2>
+      <span class="pill" id="guideDataVersion">数据读取中...</span>
+    </div>
+    <div class="toc-grid" aria-label="攻略目录">
+      <a class="toc-link" href="#stage-tree">
+        <strong>阶段天赋</strong>
+        <span>按剧情、升华、异界阶段打开独立天赋树。</span>
+      </a>
+      <a class="toc-link" href="#guide-article">
+        <strong>攻略正文</strong>
+        <span>先看起号、转型、技能、装备和制作思路。</span>
+      </a>
+      <a class="toc-link" href="#leveling-stages">
+        <strong>开荒路线</strong>
+        <span>每个阶段看技能玩法、天赋优先级和换装门槛。</span>
+      </a>
+      <a class="toc-link" href="#guide-strategy">
+        <strong>攻略决策</strong>
+        <span>遇到卡关、换装、转型时按症状处理。</span>
+      </a>
+      <a class="toc-link" href="#execution-plan">
+        <strong>照抄路线</strong>
+        <span>每阶段看主动作、先买什么、停止线和回退动作。</span>
+      </a>
+      <a class="toc-link" href="#skill-progression">
+        <strong>技能替换</strong>
+        <span>说明主动技能、召唤物和辅助宝石什么时候替换。</span>
+      </a>
+      <a class="toc-link" href="#gear-priorities">
+        <strong>装备制作</strong>
+        <span>按装备部位、阶段检查和制作/购买顺序推进。</span>
+      </a>
+    </div>
+    <div class="stat-grid" id="guideStats">
+      <div class="stat"><strong>--</strong><span>阶段路线</span></div>
+      <div class="stat"><strong>--</strong><span>天赋节点</span></div>
+      <div class="stat"><strong>--</strong><span>技能本体</span></div>
+      <div class="stat"><strong>--</strong><span>辅助宝石</span></div>
+      <div class="stat"><strong>--</strong><span>装备槽位</span></div>
+      <div class="stat"><strong>--</strong><span>制作方案</span></div>
+    </div>
+  </section>
+
+  <section class="panel" id="guide-article">
+    <div class="section-head">
+      <h2>开荒正文速读</h2>
+      <span class="pill" id="guideArticleStatus">等待攻略正文</span>
+    </div>
+    <p class="guide-flow-intro" id="guideArticleIntro">先按攻略正文理解这套 BD，再打开阶段天赋树照节点。战术家的关键不是从 1 级就硬玩召唤，而是用佣兵过渡技能把剧情推进到第一次升华，再把支援火力、号令技能和召唤物分工接进来。</p>
+    <div class="guide-article-grid" id="guideArticleGrid">
+      <article class="card guide-article-card">
+        <h3>起什么职业</h3>
+        <p>起佣兵，升华走战术家。剧情早期先用最高伤害的佣兵弩、榴弹或范围技能推进。</p>
+      </article>
+      <article class="card guide-article-card">
+        <h3>什么时候转型</h3>
+        <p>第一次升华点出释放地狱后，再把支援火力、主输出召唤物和精魂装备接入循环。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="guide-markdown-report">
+    <div class="section-head">
+      <h2 id="guideMarkdownReportTitle">攻略 Markdown</h2>
+      <span class="pill" id="guideMarkdownReportStatus">等待数据注水</span>
+    </div>
+    <p id="guideMarkdownReportDesc">生成当前语言的结构化攻略报告，方便粘到任务记录、版本日志或后续攻略讨论里。报告会保留样例行情和投影路线的复核边界。</p>
+    <pre id="guideMarkdownReportBlock">等待数据注水</pre>
+    <div class="inline-actions">
+      <button class="btn disabled" type="button" id="copyGuideMarkdownBtn" aria-disabled="true">复制攻略 Markdown</button>
+      <button class="btn disabled" type="button" id="downloadGuideMarkdownBtn" aria-disabled="true">下载 Markdown</button>
+      <span class="muted" id="guideMarkdownCopyStatus"></span>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="evidence-summary">
+    <div class="section-head">
+      <h2>资料可信度与待复核</h2>
+      <span class="pill" id="evidenceSummaryStatus">等待数据注水</span>
+    </div>
+    <p>这块把攻略内容按证据来源分层：已接入本地数据或 PoE2DB 的内容可以作为当前版本资料使用；手工阶段计划、终局投影路线和样例行情必须继续标记待复核。</p>
+    <div class="stat-grid" id="evidenceSummaryStats">
+      <div class="stat"><strong>--</strong><span>待复核项</span></div>
+      <div class="stat"><strong>--</strong><span>投影路线</span></div>
+      <div class="stat"><strong>--</strong><span>已手调路线</span></div>
+      <div class="stat"><strong>--</strong><span>技能详情</span></div>
+      <div class="stat"><strong>--</strong><span>辅助证据</span></div>
+      <div class="stat"><strong>--</strong><span>市场状态</span></div>
+    </div>
+    <div class="grid two" id="evidenceSummaryGrid">
+      <article class="card">
+        <h3>天赋路线</h3>
+        <p>前中期路线仍是终局顺序投影，适合查看方向，不等于已验证最快开荒路线。</p>
+      </article>
+      <article class="card">
+        <h3>市场价格</h3>
+        <p>当前市场模块仍是样例数据，不能作为实时购买或倒卖建议。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="stage-tree">
+    <h2>阶段天赋按钮</h2>
+    <p>阶段快照已经接入通用天赋树查看器。当前前中期路线先按终局 PoB 点法顺序投影生成，适合查看大致走向；后续会继续按实战开荒手感微调。</p>
+    <div class="button-row" id="stageTreeLinks">
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=campaign-early">剧情早期 21 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=first-ascendancy">第一次升华 38 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=yellow-maps">白黄图 68 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=red-maps">红图 96 点</a>
+      <a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">毕业 122 点</a>
+    </div>
+  </section>
+
+  <section class="panel" id="build-positioning">
+    <h2>BD 定位</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>玩法核心</h3>
+        <p>升华点出 <strong>释放地狱（Unleash Hell!）</strong> 后获得支援火力（Supporting Fire）。成型后主要靠战术家号令和召唤体系输出，天赋大量堆召唤物伤害、号令技能伤害、号令冷却、精魂和力量。</p>
+      </article>
+      <article class="card">
+        <h3>适合人群</h3>
+        <p>适合想稳定推进异界、接受召唤物体系和装备逐步替换的玩家。不适合想全程一键秒图、完全不管召唤物配置的人。</p>
+      </article>
+      <article class="card">
+        <h3>当前状态</h3>
+        <p>终局天赋、阶段快照、节点属性、多语言树查看器已经可用。攻略页继续补开荒实战细节和装备成本区间。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="guide-strategy">
+    <h2>攻略决策手册</h2>
+    <p>这块用来回答“什么时候转、卡住先改哪、预算先花哪”。它不是天赋图，后续新增 BD 时也会作为攻略正文的必填模块。</p>
+    <div class="grid two" id="guideStrategyGrid">
+      <article class="card">
+        <h3>核心循环</h3>
+        <ol>
+          <li>用过渡武器技能或支援火力打开战斗节奏，召唤物负责持续输出和承伤。</li>
+          <li>稀有怪和首领前先保证脆弱诅咒覆盖，再让主输出召唤物吃到高价值辅助。</li>
+          <li>精魂不够时先保主输出召唤物和前排承伤召唤物，功能补位召唤物最后再加。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>卡关先查</h3>
+        <ul>
+          <li>剧情首领打不动：先换武器和技能等级，不急着洗整棵树。</li>
+          <li>转型后清图慢：保留过渡技能，优先补主输出召唤物链接。</li>
+          <li>换暗金后更脆：回头补抗性、属性和生命，不要硬穿毕业清单。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="execution-plan">
+    <div class="section-head">
+      <h2>新号照抄执行路线</h2>
+      <span class="pill" id="executionPlanStatus">等待数据注水</span>
+    </div>
+    <p>这里按真正起号时的顺序写：每个阶段只解决当前短板，不提前照搬毕业装备。看到停止线就先停，按回退动作修正后再继续升级。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>主动作</th><th>先买/先找</th><th>停止线</th><th>卡住回退</th><th>进入下一阶段</th></tr>
+        </thead>
+        <tbody id="executionPlanRows">
+          <tr>
+            <td>剧情早期</td>
+            <td>用当前最高伤害的佣兵弩、榴弹或顺手范围技能推剧情。</td>
+            <td>高秒伤过渡武器、移动速度鞋、生命抗性黄装。</td>
+            <td>低等级装备有一到两条有效词就停。</td>
+            <td>首领打不动先换武器和辅助，不先洗远端召唤路线。</td>
+            <td>过渡技能清怪顺，生命抗性没有明显短板。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="stage-data-coverage">
+    <h2>阶段数据覆盖</h2>
+    <p>这张表把每个阶段已经接入的数据列在一起：天赋按钮、装备检查、属性门槛、制作方案、技能获取和技能替换。后续新增 BD 时，这里可以快速看出攻略哪一段还没结构化。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>天赋路线</th><th>装备检查</th><th>属性门槛</th><th>制作方案</th><th>技能获取</th><th>技能替换</th></tr>
+        </thead>
+        <tbody id="stageDataCoverageRows">
+          <tr>
+            <td>剧情早期</td>
+            <td>已接入</td>
+            <td>已接入</td>
+            <td>4 条</td>
+            <td>无制作方案</td>
+            <td>已接入</td>
+            <td>已接入</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="leveling-stages">
+    <h2>开荒阶段路线</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>技能/玩法</th><th>天赋优先级</th><th>阶段天赋</th><th>装备目标</th><th>换装门槛</th></tr>
+        </thead>
+        <tbody id="levelingStageRows">
+          <tr>
+            <td>剧情早期</td>
+            <td>用佣兵弩、榴弹或任意高伤技能推进，不强行等支援火力。</td>
+            <td>近路伤害、生命、属性点；不要为了远端召唤大圈绕太远。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=campaign-early">打开 21 点</a></td>
+            <td>高秒伤武器、移速鞋、生命和抗性。</td>
+            <td>输出卡首领时先换武器，不要深做低级黄装。</td>
+          </tr>
+          <tr>
+            <td>第一次升华后</td>
+            <td>点出释放地狱，开始围绕支援火力转型。</td>
+            <td>升华起点、支援火力、召唤物伤害小点；主树开始靠近召唤物伤害和号令冷却。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=first-ascendancy">打开 38 点</a></td>
+            <td>找精魂、召唤物伤害、力量、抗性；保留能清图的过渡技能。</td>
+            <td>支援火力手感稳定后再完全转召唤/号令体系。</td>
+          </tr>
+          <tr>
+            <td>剧情后半</td>
+            <td>支援火力主输出，召唤物提供伤害和承伤。</td>
+            <td>恐惧之主（Lord of Horrors）、听你号令（At your Command）、人海战术（Growing Swarm）一类召唤/号令收益。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=yellow-maps">打开 68 点</a></td>
+            <td>补满抗性，优先生命、力量、精魂、召唤技能等级。</td>
+            <td>如果死亡频繁，先补防御和抗性，不要继续堆伤害。</td>
+          </tr>
+          <tr>
+            <td>白黄图</td>
+            <td>进入成型循环：号令技能、诅咒、召唤物协同。</td>
+            <td>补珠宝插槽、博学、泰坦、久经沙场等属性和防御。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=red-maps">打开 96 点</a></td>
+            <td>开始找暗金/稀有核心件：沟木棍（Trenchtimbre）、精魂权杖、均衡之符（Astramentis）。</td>
+            <td>抗性、生命池、精魂数量稳定后再冲红图。</td>
+          </tr>
+          <tr>
+            <td>红图/毕业</td>
+            <td>按 PoB 终局：支援火力 + 多召唤物 + 脆弱诅咒。</td>
+            <td>完成当前 122 点终局树，珠宝孔放召唤物伤害/召唤暴击相关蓝宝石珠宝。</td>
+            <td><a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">打开 122 点</a></td>
+            <td>不败之人（Morior Invictus）、乌勒尔之骨（Bones of Ullr）、高精魂响尾权杖（Rattling Sceptre）、稀有抗性力量防具。</td>
+            <td>毕业前先保证抗性和生存，再追珠宝和高词缀饰品。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="stage-playbook">
+    <h2>阶段操作手册</h2>
+    <div class="grid two" id="stagePlaybookGrid">
+      <article class="card">
+        <h3>剧情早期：先用武器通关</h3>
+        <ol>
+          <li>不要因为后期会接入召唤物协同就硬等召唤体系成型。剧情早期最重要的是武器秒伤、移速和抗性。</li>
+          <li>路上捡到高伤弩、榴弹相关技能或任意手感好的清怪技能，都可以先用来推剧情。</li>
+          <li>天赋先拿近路效率点、属性点和必要生命，不要为了远端召唤圈绕大路。</li>
+          <li>如果首领打不动，优先换武器；低等级黄装只要有生命/抗性/属性就够。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>第一次升华：开始转支援火力</h3>
+        <ol>
+          <li>升华点出释放地狱后，支援火力才真正进入构筑核心。</li>
+          <li>先保留一套能清图的过渡技能，等支援火力伤害和冷却手感稳定，再减少自打技能依赖。</li>
+          <li>装备开始找精魂、力量、召唤物伤害、召唤技能等级，但抗性缺口仍然优先补。</li>
+          <li>召唤物数量不要贪多，精魂不够时先保主输出召唤物和必要功能召唤物。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>白黄图：补齐循环</h3>
+        <ol>
+          <li>这阶段目标是让支援火力、诅咒、召唤物同时工作，而不是单独堆某一个数字。</li>
+          <li>先把元素抗性补满，再看生命池和护甲/闪避；死亡频繁时不要继续买纯输出珠宝。</li>
+          <li>开始寻找高精魂权杖、召唤技能等级、便宜双有效词珠宝。</li>
+          <li>如果清图慢，优先强化后排输出召唤物；如果经常被贴脸打死，先给前排召唤物补生存辅助。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>红图到毕业：先稳再贵</h3>
+        <ol>
+          <li>进入红图后，先检查抗性、生命池、精魂数量和召唤物存活，再追暗金和高价珠宝。</li>
+          <li>暗金优先级不是固定价格顺序，而是看当前短板：缺属性找均衡之符，缺体系件再看沟木棍和乌勒尔之骨。</li>
+          <li>毕业前不要为了单件高伤害词缀破坏抗性平衡；这套号令循环死亡一次通常会丢掉整轮输出节奏。</li>
+          <li>珠宝最后追召唤物伤害、召唤暴击、属性补位和防御补位，先买便宜双有效词过渡。</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="transition-checks">
+    <h2>转型检查清单</h2>
+    <div class="grid" id="transitionCheckGrid">
+      <article class="card">
+        <h3>可以转召唤/号令</h3>
+        <ul>
+          <li>已经拿到释放地狱，支援火力能稳定参与输出。</li>
+          <li>至少有一组能承担主要输出的召唤物，并且精魂足够维持它们。</li>
+          <li>抗性没有明显短板，首领战不会因为召唤物死亡后自己也立刻暴毙。</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>暂时不要硬转</h3>
+        <ul>
+          <li>支援火力冷却太长、伤害太低，清怪还不如过渡技能。</li>
+          <li>精魂不足，只能开少量召唤物，还把关键辅助孔位挤掉。</li>
+          <li>装备没有生命和抗性，进图被白怪摸死，这时先补防御。</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>卡关处理</h3>
+        <ul>
+          <li>卡伤害：先换武器/权杖，再补召唤技能等级和召唤物伤害珠宝。</li>
+          <li>卡生存：先补抗性、生命、护甲/闪避，再考虑肉盾和最后一息。</li>
+          <li>卡手感：减少召唤物种类，保主输出和功能召唤物，把按键循环先变顺。</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="skill-progression">
+    <h2>技能阶段替换</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>主动技能</th><th>召唤物配置</th><th>辅助宝石优先级</th><th>替换规则</th></tr>
+        </thead>
+        <tbody id="skillProgressionRows">
+          <tr>
+            <td>剧情早期</td>
+            <td>先用当前最高伤的佣兵弩、榴弹或任意顺手清怪技能。</td>
+            <td>召唤物只当补伤和承伤，不强求数量。</td>
+            <td>优先给主清怪技能接直接增伤、范围或频率辅助。</td>
+            <td>只要过渡技能清怪比召唤物快，就继续用过渡技能；不要为了最终形态牺牲剧情速度。</td>
+          </tr>
+          <tr>
+            <td>拿到释放地狱后</td>
+            <td>加入支援火力，先和过渡技能并行。</td>
+            <td>保留一组主输出召唤物，再带一组前排或功能召唤物。</td>
+            <td>支援火力先接集结、厚重、号令类辅助；前排召唤物先接肉盾或最后一息。</td>
+            <td>支援火力能稳定打稀有怪和首领后，再逐步减少自打技能的投入。</td>
+          </tr>
+          <tr>
+            <td>剧情后半/刚进图</td>
+            <td>支援火力成为主要输出按钮，脆弱诅咒用于稀有怪和首领。</td>
+            <td>后排输出召唤物优先，前排召唤物只保能活住的数量。</td>
+            <td>输出召唤物拿集结、厚重、终结；诅咒拿强化诅咒和专注诅咒。</td>
+            <td>如果精魂紧张，删功能召唤物，不删主输出召唤物；如果容易死，先删低收益输出辅助换生存辅助。</td>
+          </tr>
+          <tr>
+            <td>白黄图</td>
+            <td>固定支援火力 + 脆弱诅咒的循环。</td>
+            <td>补齐后排输出、前排承伤、功能召唤物三类分工。</td>
+            <td>主输出链优先满，再补前排生存，最后补凋零之触、施放频率等功能。</td>
+            <td>清图慢就强化后排输出；首领慢就补诅咒覆盖和终结；死亡多就先减少贪伤辅助。</td>
+          </tr>
+          <tr>
+            <td>红图/毕业</td>
+            <td>按终局支援火力、脆弱诅咒、多召唤物配置。</td>
+            <td>根据精魂和装备确定最终召唤物数量，不够时优先主输出和前排。</td>
+            <td>支援火力四连优先，召唤物按输出/前排/功能分组，不平均分配高价值辅助。</td>
+            <td>每次换装备后重新检查精魂、属性和抗性；如果少一个召唤物反而更稳，就先少带。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><span class="warn">说明：</span>技能存在性、宝石阶级、From 文本和需求已经接入本地 PoE2DB / 编年史快照；精确章节、商店和实际角色等级仍按攻略策略标注边界，不把快照需求误当成开荒等级。</p>
+  </section>
+
+  <section class="panel advanced-panel" id="skill-acquisition">
+    <div class="section-head">
+      <h2>技能获取与转型顺序</h2>
+      <span class="verify-badge" id="skillAcquisitionStatus">等待技能快照</span>
+    </div>
+    <div class="grid two" id="skillAcquisitionGrid">
+      <article class="card">
+        <h3>起号到第一次升华前</h3>
+        <p>先用任意当前伤害最高、手感最顺的佣兵弩技能或榴弹技能推进剧情，召唤物只作为补伤和挡怪。</p>
+        <p><span class="warn">不要硬转：</span>精魂和辅助孔位不足时，不要因为后期 BD 会接入召唤物协同就强行转召唤。</p>
+      </article>
+      <article class="card">
+        <h3>点出释放地狱后</h3>
+        <p>支援火力加入核心循环，但过渡清图技能先保留；等支援火力能稳定处理稀有怪后再逐步减少自打投入。</p>
+        <p><span class="warn">不要硬转：</span>不要同时养太多召唤物，先集中资源给主输出链。</p>
+      </article>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr id="skillAcquisitionEvidenceHead"><th>阶段</th><th>技能</th><th>类型/分工</th><th>编年史来源</th><th>需求</th><th>攻略边界</th></tr>
+        </thead>
+        <tbody id="skillAcquisitionEvidenceRows">
+          <tr><td colspan="6">等待数据注水</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="skill-source-matrix">
+    <div class="section-head">
+      <h2>技能来源与取舍矩阵</h2>
+      <span class="verify-badge" id="skillSourceMatrixStatus">等待技能快照</span>
+    </div>
+    <p><span class="warn">边界：</span>这里展示的是当前版本本地 PoE2DB / 编年史快照中的技能详情，用来确认技能存在、宝石阶级、来源文本和属性需求；不把需求等级当成角色实际开荒等级，也不把 From 字段当成商店章节。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>技能</th><th>类型/分工</th><th>宝石阶级</th><th>编年史来源</th><th>需求</th><th>攻略取舍</th></tr>
+        </thead>
+        <tbody id="skillSourceMatrixRows">
+          <tr><td colspan="6">等待数据注水</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="skill-config">
+    <div class="section-head">
+      <h2>技能配置</h2>
+      <div class="segmented" aria-label="技能语言选择">
+        <button class="active" type="button" data-skill-lang="zh">简体</button>
+        <button type="button" data-skill-lang="tw">繁体</button>
+        <button type="button" data-skill-lang="en">English</button>
+      </div>
+    </div>
+    <div class="guide-flow" id="skillOverviewGrid">
+      <h3>这套技能到底怎么玩</h3>
+      <p class="guide-flow-intro">这套 BD 是战术家号令 + 召唤物协同，不是纯粹只靠召唤物挂机。前期先用佣兵武器技能推剧情；第一次升华后把支援火力放进核心循环；进图后再按精魂、孔位和生存压力决定召唤物数量。</p>
+      <div class="grid">
+        <article class="card guide-flow-card">
+          <h3>先分清技能本体和辅助宝石</h3>
+          <p>支援火力、脆弱诅咒和各类召唤物是技能本体；集结、厚重、肉盾、最后一息是辅助宝石，必须接在对应技能下面。</p>
+        </article>
+        <article class="card guide-flow-card">
+          <h3>前期不是硬玩召唤</h3>
+          <p>第一次升华前优先武器秒伤、移速和抗性，召唤物只补伤或挡怪；支援火力稳定后再逐步减少过渡技能。</p>
+        </article>
+        <article class="card guide-flow-card">
+          <h3>辅助宝石按职责分配</h3>
+          <p>主输出召唤物吃增伤，前排召唤物吃生存，功能召唤物等精魂和孔位宽裕后再补。</p>
+        </article>
+      </div>
+    </div>
+    <div class="grid two" id="skillConfigGrid">
+      <article class="card">
+        <h3 data-i18n="activeSkillsTitle">技能本体</h3>
+        <ul class="skill-list">
+          <li>
+            <strong data-i18n="supportingFire">支援火力</strong>
+            <span data-i18n="mainSkillRole">主输出号令技能。</span>
+          </li>
+          <li>
+            <strong data-i18n="vulnerability">脆弱诅咒</strong>
+            <span data-i18n="curseRole">增伤诅咒，打稀有怪和首领时保持覆盖。</span>
+          </li>
+          <li>
+            <strong data-i18n="minionSkillsTitle">召唤物技能</strong>
+            <span data-i18n="minionSkillRole">这些是精魂保留/召唤技能本体，根据精魂和孔位选择，不是辅助宝石。</span>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="skeletalWarrior">骷髅战士</span>
+              <span class="skill-tag" data-i18n="frostMage">冰霜法师</span>
+              <span class="skill-tag" data-i18n="wolfPack">狼群</span>
+              <span class="skill-tag" data-i18n="cleric">牧师</span>
+              <span class="skill-tag" data-i18n="arsonist">纵火者</span>
+              <span class="skill-tag" data-i18n="stormMage">风暴法师</span>
+              <span class="skill-tag" data-i18n="reaver">掠夺者</span>
+              <span class="skill-tag" data-i18n="sniper">狙击手</span>
+              <span class="skill-tag" data-i18n="brute">蛮兵</span>
+            </span>
+          </li>
+          <li data-i18n="activeSkillNote">本页按“技能本体 → 推荐辅助宝石”展示。召唤物不是辅助宝石，辅助宝石必须接在对应召唤技能下面。</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3 data-i18n="supportGemsTitle">推荐链接</h3>
+        <ul class="link-list">
+          <li>
+            <div class="link-head">
+              <strong data-i18n="supportingFireLink">支援火力</strong>
+              <span class="slot-label" data-i18n="commandDamageSlot">号令输出</span>
+            </div>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="kurgalsLeash">库尔加的束缚</span>
+              <span class="skill-tag" data-i18n="muster">集结</span>
+              <span class="skill-tag" data-i18n="heft">厚重</span>
+              <span class="skill-tag" data-i18n="bidding3">号令 III</span>
+            </span>
+            <span class="link-note" data-i18n="supportingFireLinkNote">优先保证这组链接，支援火力是战术家号令输出核心。</span>
+          </li>
+          <li>
+            <div class="link-head">
+              <strong data-i18n="vulnerabilityLink">脆弱诅咒</strong>
+              <span class="slot-label" data-i18n="curseSlot">诅咒</span>
+            </div>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="heightenedCurse">强化诅咒</span>
+              <span class="skill-tag" data-i18n="focusedCurse">专注诅咒</span>
+              <span class="skill-tag" data-i18n="rapidCasting2">快速施法 II</span>
+              <span class="skill-tag" data-i18n="prolongedDuration2">持续时间延长 II</span>
+            </span>
+            <span class="link-note" data-i18n="curseLinkNote">打稀有怪和首领时保持覆盖，清小怪时不用为它牺牲主输出孔位。</span>
+          </li>
+          <li>
+            <div class="link-head">
+              <strong data-i18n="damageMinionLink">后排输出召唤物</strong>
+              <span class="slot-label" data-i18n="damageMinionSlot">召唤技能</span>
+            </div>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="frostMage">冰霜法师</span>
+              <span class="skill-tag" data-i18n="arsonist">纵火者</span>
+              <span class="skill-tag" data-i18n="stormMage">风暴法师</span>
+              <span class="skill-tag" data-i18n="sniper">狙击手</span>
+            </span>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="muster">集结</span>
+              <span class="skill-tag" data-i18n="heft">厚重</span>
+              <span class="skill-tag" data-i18n="witheringTouch">凋零之触</span>
+              <span class="skill-tag" data-i18n="cullingStrike">终结</span>
+            </span>
+            <span class="link-note" data-i18n="damageMinionLinkNote">从这些召唤物里选一到两组当主输出，优先把主输出链做满，不要每个召唤物平均分辅助。</span>
+          </li>
+          <li>
+            <div class="link-head">
+              <strong data-i18n="frontlineMinionLink">前排承伤召唤物</strong>
+              <span class="slot-label" data-i18n="frontlineMinionSlot">召唤技能</span>
+            </div>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="skeletalWarrior">骷髅战士</span>
+              <span class="skill-tag" data-i18n="reaver">掠夺者</span>
+              <span class="skill-tag" data-i18n="brute">蛮兵</span>
+            </span>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="meatShield">肉盾</span>
+              <span class="skill-tag" data-i18n="lastGasp">最后一息</span>
+              <span class="skill-tag" data-i18n="cullingStrike">终结</span>
+            </span>
+            <span class="link-note" data-i18n="frontlineMinionLinkNote">前排的任务是活住和挡怪，开荒不要为了伤害辅助牺牲存活。</span>
+          </li>
+          <li>
+            <div class="link-head">
+              <strong data-i18n="utilityMinionLink">功能补位召唤物</strong>
+              <span class="slot-label" data-i18n="utilityMinionSlot">按精魂补</span>
+            </div>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="cleric">牧师</span>
+              <span class="skill-tag" data-i18n="wolfPack">狼群</span>
+            </span>
+            <span class="skill-tags">
+              <span class="skill-tag" data-i18n="meatShield">肉盾</span>
+              <span class="skill-tag" data-i18n="lastGasp">最后一息</span>
+            </span>
+            <span class="link-note" data-i18n="utilityMinionLinkNote">功能位只在精魂和孔位允许时补，不抢主输出召唤物的高价值辅助。</span>
+          </li>
+        </ul>
+      </article>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h3>少孔优先级</h3>
+        <ol>
+          <li>主输出召唤物先拿直接增伤：厚重、集结、终结。</li>
+          <li>容易死的近战召唤物先补生存：肉盾、最后一息。</li>
+          <li>有多余孔位再补功能：凋零之触、异常状态、清图范围或施放频率。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>按召唤物分工</h3>
+        <ol>
+          <li>骷髅战士、掠夺者、蛮兵偏承伤和贴脸，优先肉盾、生存、终结。</li>
+          <li>冰霜法师、风暴法师、纵火者偏后排输出，优先伤害、施放频率和异常状态。</li>
+          <li>牧师、狼群偏功能和补位，不要抢主输出召唤物的高价值辅助。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>不要这样带</h3>
+        <ol>
+          <li>不要每个召唤物都平均分配昂贵辅助，先把主输出链做强。</li>
+          <li>不要为了多一个伤害辅助牺牲召唤物存活，召唤物死了等于没输出。</li>
+          <li>不要照抄终局孔位开荒，前期按手感和精魂数量动态减少召唤物种类。</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="gear-priorities">
+    <h2>装备选择</h2>
+    <div class="guide-flow" id="gearOverviewGrid">
+      <h3>装备先解决短板，再追毕业件</h3>
+      <p class="guide-flow-intro">这套战术家开荒装备不是按价格从贵到便宜买，而是每次只解决当前最卡的一两个问题。剧情先看武器秒伤、移速、生命和抗性；转支援火力后开始提高精魂、召唤技能等级和召唤物伤害权重；红图以后再逐件换暗金和高质量珠宝。</p>
+      <div class="grid">
+        <article class="card guide-flow-card">
+          <h3>前期装备一两条有效词就停</h3>
+          <p>剧情和第一次升华前，不要深做低等级黄装。武器、移速鞋、生命和抗性优先。</p>
+        </article>
+        <article class="card guide-flow-card">
+          <h3>转型后先买精魂和缺口属性</h3>
+          <p>高精魂和召唤词很好，但换上后不能少抗性、少属性或少关键召唤物。</p>
+        </article>
+        <article class="card guide-flow-card">
+          <h3>多数部位先买半成品</h3>
+          <p>开荒制作只补市场贵的缺口；底子便宜且能接受失败时再自己点。</p>
+        </article>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>部位</th><th>前期优先级</th><th>中期目标</th><th>PoB/毕业方向</th><th>词缀优先级</th><th>避坑</th></tr>
+        </thead>
+        <tbody id="gearRows">
+          <tr><td>主手</td><td>剧情用最高秒伤过渡武器。</td><td>换召唤技能等级、精魂、召唤物伤害。</td><td><strong>沟木棍（Trenchtimbre）</strong> 或等价 +召唤技能等级核心。</td><td>召唤技能等级 &gt; 召唤物伤害 &gt; 精魂/体系增益 &gt; 属性补位。</td><td>不要高价买只提升角色自己武器伤害的过渡武器。</td></tr>
+          <tr><td>副手</td><td>有精魂/抗性即可。</td><td>高精魂权杖，最好带召唤技能相关词。</td><td>稀有 <strong>响尾权杖（Rattling Sceptre）</strong>，PoB 中精魂 143。</td><td>高精魂 &gt; 召唤技能等级/召唤物伤害 &gt; 力量/全属性 &gt; 抗性补位。</td><td>精魂很低但词缀漂亮的权杖不要优先买。</td></tr>
+          <tr><td>头盔</td><td>生命、抗性、护甲。</td><td>力量、抗性、生命和高护甲。</td><td>稀有凶猛巨盔（Fierce Greathelm），优先高防御和抗性。</td><td>生命 &gt; 双抗/关键单抗 &gt; 力量 &gt; 护甲/闪避底子。</td><td>不要只看输出词，头盔经常负责补关键抗性。</td></tr>
+          <tr><td>胸甲</td><td>高防御底子即可，不追暗金。</td><td>生命/抗性/防御稳定后考虑暗金。</td><td><strong>不败之人（Morior Invictus）</strong> 作为毕业防御/属性核心。</td><td>生命/防御核心收益 &gt; 抗性缺口 &gt; 属性 &gt; 符文孔或加工空间。</td><td>过早买高价暗金会挤掉其它部位补抗预算。</td></tr>
+          <tr><td>手套</td><td>生命、抗性、力量。</td><td>高护甲、力量、火电抗。</td><td>稀有瓦尔护手（Vaal Mitts），补力量、抗性和符文。</td><td>力量 &gt; 生命 &gt; 火焰抗性 &gt; 闪电抗性。</td><td>只有一条有效抗性的手套不要当中后期核心。</td></tr>
+          <tr><td>鞋子</td><td>移速第一，抗性第二。</td><td>移速、生命、抗性；或用功能暗金。</td><td><strong>乌勒尔之骨（Bones of Ullr）</strong>，偏召唤体系收益。</td><td>移动速度 &gt; 生命 &gt; 抗性 &gt; 召唤体系收益。</td><td>剧情鞋没有移速会严重拖慢开荒。</td></tr>
+          <tr><td>项链</td><td>属性、抗性、生命。</td><td>大量属性解决力量/敏捷/智力门槛。</td><td><strong>均衡之符（Astramentis）</strong>，属性堆叠核心。</td><td>全属性 &gt; 力量 &gt; 抗性 &gt; 生命/精魂相关收益。</td><td>买贵项链前先确认它解决的是属性门槛而不是虚高面板。</td></tr>
+          <tr><td>戒指</td><td>补抗性和属性。</td><td>裂隙戒指 / 抗性戒，兼顾力量和混沌抗。</td><td>黄玉戒指 + 裂隙戒指，重点是力量、抗性和补位词。</td><td>缺口抗性 &gt; 力量/全属性 &gt; 生命 &gt; 混沌抗性。</td><td>两枚戒指不要重复堆已经溢出的抗性。</td></tr>
+          <tr><td>腰带</td><td>生命、抗性、力量。</td><td>高生命、力量、双抗。</td><td>稀有板甲腰带（Plate Belt），补生命、力量、冰电抗。</td><td>生命 &gt; 力量 &gt; 双抗 &gt; 护甲底子。</td><td>低生命腰带不要强行穿到红图。</td></tr>
+          <tr><td>珠宝</td><td>先用便宜召唤物伤害珠宝。</td><td>召唤物伤害 + 召唤暴击。</td><td>蓝宝石珠宝，优先召唤物伤害和召唤暴击相关词。</td><td>召唤物伤害 &gt; 召唤物暴击相关词 &gt; 属性补位 &gt; 防御补位。</td><td>前期不要把预算全砸进珠宝，先补装备抗性。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>前期装备规则</h3>
+        <ol>
+          <li>剧情阶段装备只服务通关速度：武器秒伤、移速鞋、生命、抗性。</li>
+          <li>第一次升华前不要为了最终召唤体系花大钱，低级黄装有两到三条有效词就能穿。</li>
+          <li>换进召唤装备前，先确认支援火力和至少一组主输出召唤物已经能稳定工作。</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>不要买错</h3>
+        <ol>
+          <li>不要买只提升角色自己武器伤害、但转型后不参与输出循环的高价武器。</li>
+          <li>不要过早穿多件暗金，暗金会挤掉戒指、腰带、手套本来要补的抗性和属性。</li>
+          <li>不要把预算全砸进珠宝，装备基础防御不够时，珠宝伤害无法解决死亡问题。</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel" id="early-gear-priority">
+    <h2>前期装备属性优先级</h2>
+    <div class="grid" id="earlyGearPriorityGrid">
+      <article class="card">
+        <h3>剧情捡装优先级</h3>
+        <ol>
+          <li>武器秒伤或当前主技能伤害提升</li>
+          <li>鞋子移动速度</li>
+          <li>生命</li>
+          <li>缺口抗性</li>
+          <li>力量/敏捷/智力门槛</li>
+        </ol>
+        <p>剧情期一件装备只要解决一个明显短板就可以穿，不要追完美词缀。</p>
+      </article>
+      <article class="card">
+        <h3>转支援火力后优先级</h3>
+        <ol>
+          <li>精魂</li>
+          <li>召唤技能等级</li>
+          <li>召唤物伤害</li>
+          <li>生命和抗性</li>
+          <li>力量或全属性</li>
+        </ol>
+        <p>支援火力稳定后才提高召唤词权重，抗性和属性仍是换装前置条件。</p>
+      </article>
+      <article class="card">
+        <h3>刚进图购物优先级</h3>
+        <ol>
+          <li>补满元素抗性</li>
+          <li>高精魂权杖或等价精魂来源</li>
+          <li>便宜双有效词珠宝</li>
+          <li>腰带/戒指/手套补属性</li>
+          <li>主输出召唤物链接完整</li>
+        </ol>
+        <p>白黄图先买能同时补两个短板的便宜装备，毕业暗金等抗性和精魂稳定后再换。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="gear-stage-checks">
+    <h2>阶段装备检查</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>预算</th><th>核心目标</th><th>必须满足</th><th>什么时候升级</th></tr>
+        </thead>
+        <tbody id="gearStageRows">
+          <tr><td>剧情早期</td><td>低</td><td>剧情速度</td><td>最高秒伤武器、移速鞋、生命/抗性、属性够穿装备和技能。</td><td>首领明显刮痧、跑图速度慢、抗性出现大缺口时再换。</td></tr>
+          <tr><td>第一次升华</td><td>低到中</td><td>支援火力转型</td><td>支援火力能稳定输出，精魂足够维持主输出召唤物，抗性优先于珠宝。</td><td>支援火力冷却、精魂数量或召唤物存活成为短板时换。</td></tr>
+          <tr><td>白黄图</td><td>中</td><td>补齐抗性和精魂</td><td>元素抗性补满，权杖/主手有召唤收益，戒指腰带手套负责补属性和抗性。</td><td>清图慢先看输出召唤链；死亡多先看抗性、生命和前排生存。</td></tr>
+          <tr><td>红图</td><td>中到高</td><td>稳住红图</td><td>生命池和防御底子达标，高精魂来源，主输出召唤物链接完整，诅咒覆盖稳定。</td><td>只有不破坏抗性、属性、精魂时才换高价暗金。</td></tr>
+          <tr><td>毕业</td><td>高</td><td>毕业微调</td><td>沟木棍/等价核心、不败之人、乌勒尔之骨、均衡之符、高精魂响尾权杖和高质量珠宝。</td><td>每次只换一到两件，换完重算精魂、属性、抗性和召唤物数量。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="gear-stat-thresholds">
+    <div class="section-head">
+      <h2>阶段属性门槛</h2>
+      <span class="verify-badge">攻略手工阈值</span>
+    </div>
+    <p><span class="warn">边界：</span>这里是战术家开荒换装的最低可用线和升级线，用来判断“现在该不该换装”。它不是实时市场价格，也不是忍者解析器的唯一评分规则。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>属性</th><th>最低可用线</th><th>升级线</th><th>优先级</th><th>原因</th></tr>
+        </thead>
+        <tbody id="gearStatThresholdRows">
+          <tr><td colspan="6">等待数据注水</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="gear-troubleshooting">
+    <div class="section-head">
+      <h2>装备卡关处理</h2>
+      <span class="verify-badge">按问题选择动作</span>
+    </div>
+    <p><span class="warn">使用方法：</span>先找最像当前体感的问题，按检查顺序排除，再执行装备动作。不要看到毕业词就买，开荒阶段每次只解决一个明确短板。</p>
+    <div class="grid two" id="gearTroubleshootingGrid">
+      <article class="card">
+        <h3>等待装备诊断数据</h3>
+        <p>页面加载后会从当前版本 BD JSON 注水。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel advanced-panel" id="crafting-plan">
+    <h2>制作与购买顺序</h2>
+    <div class="grid two" id="craftingPlanGrid">
+      <article class="card">
+        <h3>1. 高精魂权杖</h3>
+        <ol>
+          <li>先用交易筛选高精魂底子，价格低时直接买半成品。</li>
+          <li>底子只有精魂但其它词差时，只作为过渡，不继续重投入。</li>
+          <li>有精魂加召唤技能等级或召唤物伤害时，再考虑继续加工。</li>
+          <li>加工后先检查是否能多开关键召唤物，再决定是否替换。</li>
+        </ol>
+        <p><span class="warn">停止线：</span>换上后少抗性、少属性或少召唤物数量，就先不要换。</p>
+      </article>
+      <article class="card">
+        <h3>2. 稀有防具</h3>
+        <ol>
+          <li>先列当前最低的两条抗性和缺少的属性。</li>
+          <li>购买或制作时只找能同时补两个以上缺口的装备。</li>
+          <li>有生命、关键抗性、力量三类中的两类就可先穿。</li>
+          <li>红图前再把低生命、低防御底子的过渡件换掉。</li>
+        </ol>
+        <p><span class="warn">停止线：</span>不要为了一条召唤伤害词损失大量抗性和生命。</p>
+      </article>
+      <article class="card">
+        <h3>3. 蓝宝石珠宝</h3>
+        <ol>
+          <li>先买低价双有效词，不追满数值。</li>
+          <li>每个珠宝至少要有一条召唤物伤害或召唤暴击相关词。</li>
+          <li>属性和防御缺口没补完前，不买高价单纯输出珠宝。</li>
+          <li>毕业期再按 PoB 模板替换成高数值权威的蓝宝石珠宝。</li>
+        </ol>
+        <p><span class="warn">停止线：</span>珠宝不能替代装备基础防御；死亡多时先停珠宝投入。</p>
+      </article>
+      <article class="card">
+        <h3>4. 暗金替换</h3>
+        <ol>
+          <li>缺召唤技能等级或输出核心时看沟木棍。</li>
+          <li>缺属性门槛时看均衡之符。</li>
+          <li>防御和体系件稳定后再看不败之人和乌勒尔之骨。</li>
+          <li>每换一件暗金，都用戒指、腰带、手套重新补抗性。</li>
+        </ol>
+        <p><span class="warn">停止线：</span>换暗金导致抗性不满或精魂不够时，先回退到稀有装。</p>
+      </article>
+    </div>
+    <p><span class="warn">注意：</span>当前 PoB 更偏终局模板。新号开荒不要第一天强追不败之人、均衡之符、乌勒尔之骨；先保证剧情速度、抗性和精魂，再逐步替换。</p>
+  </section>
+</main>
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+  const buildId = 'tactician-supporting-fire';
+  let hydratedSkillCatalog = null;
+
+  function esc(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char]));
+  }
+
+  const localeBySkillLang = {
+    zh: 'zhCN',
+    tw: 'zhTW',
+    en: 'en'
+  };
+
+  const guideViewLabels = {
+    read: {
+      zh: '阅读版：隐藏详细数据',
+      tw: '閱讀版：隱藏詳細資料',
+      en: 'Reader view: detailed data hidden'
+    },
+    full: {
+      zh: '完整数据：显示全部模块',
+      tw: '完整資料：顯示全部模組',
+      en: 'Full data: all modules visible'
+    }
+  };
+
+  function setGuideViewMode(mode) {
+    const normalized = mode === 'full' ? 'full' : 'read';
+    document.body.classList.toggle('guide-compact', normalized === 'read');
+    document.body.dataset.guideViewMode = normalized;
+    document.body.dataset.guideAdvancedPanelCount = String(document.querySelectorAll('.advanced-panel').length);
+    document.body.dataset.guideAdvancedPanelsVisible = normalized === 'full' ? 'true' : 'false';
+    document.querySelectorAll('[data-guide-view-mode]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.guideViewMode === normalized);
+    });
+    const status = document.getElementById('guideViewStatus');
+    if (status) {
+      const lang = currentSkillLang || 'zh';
+      status.textContent = guideViewLabels[normalized][lang] || guideViewLabels[normalized].zh;
+    }
+  }
+
+  const roleLabels = {
+    zh: {
+      'main-damage': '主输出号令技能。',
+      curse: '增伤诅咒，打稀有怪和首领时保持覆盖。',
+      'damage-minion': '后排输出召唤物，根据精魂选择一到两组做主输出。',
+      'frontline-minion': '前排承伤召唤物，优先保证存活和挡怪。',
+      'utility-minion': '功能补位召唤物，只在精魂和孔位允许时补。'
+    },
+    tw: {
+      'main-damage': '主輸出號令技能。',
+      curse: '增傷詛咒，打稀有怪和首領時保持覆蓋。',
+      'damage-minion': '後排輸出召喚物，依精魂選一到兩組做主輸出。',
+      'frontline-minion': '前排承傷召喚物，優先保證存活和擋怪。',
+      'utility-minion': '功能補位召喚物，只在精魂和孔位允許時補。'
+    },
+    en: {
+      'main-damage': 'Main command damage skill.',
+      curse: 'Damage curse; keep it up on rares and bosses.',
+      'damage-minion': 'Backline damage minion. Pick one or two as main damage based on Spirit.',
+      'frontline-minion': 'Frontline tank minion. Prioritize survival and enemy control.',
+      'utility-minion': 'Utility minion. Add only when Spirit and sockets allow it.'
+    }
+  };
+
+  const slotTypeLabels = {
+    zh: {
+      'command-damage': '号令输出',
+      curse: '诅咒',
+      'summon-damage': '召唤输出',
+      'summon-frontline': '召唤前排',
+      'summon-utility': '按精魂补'
+    },
+    tw: {
+      'command-damage': '號令輸出',
+      curse: '詛咒',
+      'summon-damage': '召喚輸出',
+      'summon-frontline': '召喚前排',
+      'summon-utility': '按精魂補'
+    },
+    en: {
+      'command-damage': 'Command Damage',
+      curse: 'Curse',
+      'summon-damage': 'Summon Damage',
+      'summon-frontline': 'Summon Frontline',
+      'summon-utility': 'Add with Spirit'
+    }
+  };
+
+  let hydratedBuild = null;
+  let hydratedManifest = null;
+  let hydratedVersion = null;
+  let hydratedBuildEntry = null;
+  let currentSkillLang = 'zh';
+
+  function localizedName(value, lang) {
+    const locale = localeBySkillLang[lang] || 'zhCN';
+    return value?.[locale] || value?.zhCN || value?.en || '';
+  }
+
+  function localizedValue(value, lang) {
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') return value;
+    return localizedName(value, lang);
+  }
+
+  function markdownText(value) {
+    return String(value ?? '-').replace(/\s+/g, ' ').replace(/[|`]/g, ' ').trim() || '-';
+  }
+
+  function markdownList(items) {
+    return (items || []).filter(Boolean).map((item) => `- ${markdownText(item)}`);
+  }
+
+  function guideReportLabels(lang) {
+    if (lang === 'en') {
+      return {
+        title: 'Guide Markdown',
+        statusReady: 'Markdown ready',
+        waiting: 'Waiting for data hydration',
+        desc: 'Generate a structured guide report in the current language for task notes, version logs, and guide discussion. Sample market data and projected routes stay clearly marked.',
+        copy: 'Copy Guide Markdown',
+        copied: 'Copied guide Markdown',
+        download: 'Download Markdown',
+        copyFailed: 'Copy failed. Select the report manually.',
+        caution: 'This is a local structured guide report. Projected passive routes and sample market data still require review before being treated as live advice.',
+        summary: 'Summary',
+        overview: 'Overview',
+        guideArticle: 'Guide Article',
+        stageRoutes: 'Stage Routes',
+        execution: 'Execution Plan',
+        skillPlan: 'Skills and Supports',
+        gearPlan: 'Gear Priorities',
+        crafting: 'Crafting Plan',
+        evidence: 'Evidence and Review Boundaries',
+        version: 'Version',
+        build: 'Build',
+        className: 'Class',
+        ascendancy: 'Ascendancy',
+        stage: 'Stage',
+        tree: 'Passive tree',
+        routeStatus: 'Route status',
+        mainAction: 'Main action',
+        buyFirst: 'Buy first',
+        stopLine: 'Stop line',
+        fallback: 'Fallback',
+        activeSkills: 'Active skills',
+        supports: 'Support groups',
+        routeProjected: 'projected route',
+        handTuned: 'hand tuned',
+        pendingTune: 'pending tuning',
+        filePrefix: 'guide-report'
+      };
+    }
+    if (lang === 'tw') {
+      return {
+        title: '攻略 Markdown',
+        statusReady: 'Markdown 已生成',
+        waiting: '等待資料注入',
+        desc: '生成目前語言的結構化攻略報告，方便貼到任務記錄、版本日誌或後續攻略討論裡。報告會保留範例行情和投影路線的複核邊界。',
+        copy: '複製攻略 Markdown',
+        copied: '已複製攻略 Markdown',
+        download: '下載 Markdown',
+        copyFailed: '複製失敗，請手動選取報告。',
+        caution: '這是本地結構化攻略報告；投影天賦路線和範例行情仍需複核，不能直接當即時建議。',
+        summary: '摘要',
+        overview: 'BD 概覽',
+        guideArticle: '攻略正文',
+        stageRoutes: '階段路線',
+        execution: '照抄執行路線',
+        skillPlan: '技能與輔助',
+        gearPlan: '裝備優先級',
+        crafting: '製作方案',
+        evidence: '依據與複核邊界',
+        version: '版本',
+        build: 'BD',
+        className: '職業',
+        ascendancy: '昇華',
+        stage: '階段',
+        tree: '天賦',
+        routeStatus: '路線狀態',
+        mainAction: '主動作',
+        buyFirst: '先買/先找',
+        stopLine: '停止線',
+        fallback: '卡住回退',
+        activeSkills: '技能本體',
+        supports: '輔助分組',
+        routeProjected: '投影路線',
+        handTuned: '已手調',
+        pendingTune: '待手調',
+        filePrefix: 'guide-report'
+      };
+    }
+    return {
+      title: '攻略 Markdown',
+      statusReady: 'Markdown 已生成',
+      waiting: '等待数据注水',
+      desc: '生成当前语言的结构化攻略报告，方便粘到任务记录、版本日志或后续攻略讨论里。报告会保留样例行情和投影路线的复核边界。',
+      copy: '复制攻略 Markdown',
+      copied: '已复制攻略 Markdown',
+      download: '下载 Markdown',
+      copyFailed: '复制失败，请手动选择报告。',
+      caution: '这是本地结构化攻略报告；投影天赋路线和样例行情仍需复核，不能直接当实时建议。',
+      summary: '摘要',
+      overview: 'BD 概览',
+      guideArticle: '攻略正文',
+      stageRoutes: '阶段路线',
+      execution: '照抄执行路线',
+      skillPlan: '技能与辅助',
+      gearPlan: '装备优先级',
+      crafting: '制作方案',
+      evidence: '依据与复核边界',
+      version: '版本',
+      build: 'BD',
+      className: '职业',
+      ascendancy: '升华',
+      stage: '阶段',
+      tree: '天赋',
+      routeStatus: '路线状态',
+      mainAction: '主动作',
+      buyFirst: '先买/先找',
+      stopLine: '停止线',
+      fallback: '卡住回退',
+      activeSkills: '技能本体',
+      supports: '辅助分组',
+      routeProjected: '投影路线',
+      handTuned: '已手调',
+      pendingTune: '待手调',
+      filePrefix: 'guide-report'
+    };
+  }
+
+  function setGuideMarkdownButtons(enabled) {
+    ['copyGuideMarkdownBtn', 'downloadGuideMarkdownBtn'].forEach((id) => {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.classList.toggle('disabled', !enabled);
+      button.setAttribute('aria-disabled', String(!enabled));
+    });
+  }
+
+  function displayNameFromCatalog(entry, fallbackName, lang) {
+    return localizedName(entry?.name, lang) || localizedName(fallbackName, lang);
+  }
+
+  function aliasFromFallback(entry, fallbackName, lang) {
+    const primary = displayNameFromCatalog(entry, fallbackName, lang);
+    const fallback = localizedName(fallbackName, lang);
+    return fallback && fallback !== primary ? fallback : '';
+  }
+
+  function aliasLabel(lang) {
+    if (lang === 'en') return 'Guide alias';
+    if (lang === 'tw') return '攻略簡稱';
+    return '攻略简称';
+  }
+
+  function renderAlias(entry, fallbackName, lang) {
+    const alias = aliasFromFallback(entry, fallbackName, lang);
+    return alias ? `<span class="guide-alias">${esc(aliasLabel(lang))}：${esc(alias)}</span>` : '';
+  }
+
+  function sourceRef(entry) {
+    return entry?.acquisition?.sourceRef || entry?.supportRequirements?.sourceRef || '';
+  }
+
+  function detailFrom(entry) {
+    return entry?.poe2db?.detail?.from?.text || '';
+  }
+
+  function detailRequirement(entry) {
+    return entry?.poe2db?.detail?.requirementsText || '';
+  }
+
+  function acquisitionLabels(lang) {
+    if (lang === 'en') {
+      return {
+        take: 'Take',
+        doNotForce: 'Do Not Force',
+        confirmBefore: 'Confirm Before Switching',
+        sourceUse: 'How To Use Sources',
+        fallback: 'Fallback',
+        evidenceNote: 'Evidence note',
+        sourceAndRequirement: 'PoE2DB source and requirement',
+        source: 'Source',
+        requirement: 'Requirement',
+        note: 'Note',
+        stage: 'Stage',
+        skill: 'Skill',
+        kindRole: 'Type / Role',
+        guideBoundary: 'Guide Boundary',
+        noSource: 'No source text in snapshot',
+        noRequirement: 'No requirement text in snapshot'
+      };
+    }
+    if (lang === 'tw') {
+      return {
+        take: '拿什麼',
+        doNotForce: '不要硬轉',
+        confirmBefore: '轉入前確認',
+        sourceUse: '資料使用規則',
+        fallback: '卡住時兜底',
+        evidenceNote: '證據說明',
+        sourceAndRequirement: '編年史來源與需求',
+        source: '來源',
+        requirement: '需求',
+        note: '說明',
+        stage: '階段',
+        skill: '技能',
+        kindRole: '類型/分工',
+        guideBoundary: '攻略邊界',
+        noSource: '快照無來源文字',
+        noRequirement: '快照無需求文字'
+      };
+    }
+    return {
+      take: '拿什么',
+      doNotForce: '不要硬转',
+      confirmBefore: '转入前确认',
+      sourceUse: '资料使用规则',
+      fallback: '卡住时兜底',
+      evidenceNote: '证据说明',
+      sourceAndRequirement: '编年史来源与需求',
+      source: '来源',
+      requirement: '需求',
+      note: '说明',
+      stage: '阶段',
+      skill: '技能',
+      kindRole: '类型/分工',
+      guideBoundary: '攻略边界',
+      noSource: '快照无来源文字',
+      noRequirement: '快照无需求文字'
+    };
+  }
+
+  function acquisitionEvidenceLine(entry, fallbackName, lang) {
+    if (!entry?.poe2db?.detail) return '';
+    const name = displayNameFromCatalog(entry, fallbackName, lang);
+    const labels = acquisitionLabels(lang);
+    const parts = [];
+    const from = detailFrom(entry);
+    const requirement = detailRequirement(entry);
+    if (from) parts.push(`${labels.source}: ${from}`);
+    if (requirement) parts.push(`${labels.requirement}: ${requirement}`);
+    parts.push(`${labels.note}: ${sourceBoundaryText(lang)}`);
+    return `${name}: ${parts.join(' / ')}`;
+  }
+
+  function acquisitionStatusText(detailCount, rowCount, lang) {
+    if (!rowCount) {
+      if (lang === 'en') return 'No acquisition evidence rows';
+      if (lang === 'tw') return '無技能取得證據列';
+      return '无技能获取证据行';
+    }
+    if (detailCount >= rowCount) {
+      if (lang === 'en') return `PoE2DB evidence ${detailCount}/${rowCount}`;
+      if (lang === 'tw') return `編年史證據 ${detailCount}/${rowCount}`;
+      return `编年史证据 ${detailCount}/${rowCount}`;
+    }
+    if (lang === 'en') return `Partial PoE2DB evidence ${detailCount}/${rowCount}`;
+    if (lang === 'tw') return `部分編年史證據 ${detailCount}/${rowCount}`;
+    return `部分编年史证据 ${detailCount}/${rowCount}`;
+  }
+
+  function detailSummary(entry, lang) {
+    const detail = entry?.poe2db?.detail;
+    if (!detail) return '';
+    const parts = [];
+    if (detail.from?.text) {
+      const label = lang === 'en' ? 'Source' : lang === 'tw' ? '來源' : '来源';
+      parts.push(`${label}: ${detail.from.text}`);
+    }
+    if (detail.requirementsText) {
+      const label = lang === 'en' ? 'Requires' : lang === 'tw' ? '需求' : '需求';
+      parts.push(`${label}: ${detail.requirementsText}`);
+    }
+    if (detail.reservation) {
+      const label = lang === 'en' ? 'Reservation' : lang === 'tw' ? '保留' : '保留';
+      parts.push(`${label}: ${detail.reservation}`);
+    }
+    return parts.join(' / ');
+  }
+
+  function skillKindLabel(entry, lang) {
+    if (entry?.kind === 'support') {
+      if (lang === 'en') return 'Support gem';
+      if (lang === 'tw') return '輔助寶石';
+      return '辅助宝石';
+    }
+    if (lang === 'en') return 'Active skill';
+    if (lang === 'tw') return '技能本體';
+    return '技能本体';
+  }
+
+  function gemTierText(entry, lang) {
+    const tier = entry?.poe2db?.gemTier ?? entry?.poe2db?.detail?.from?.tier;
+    if (!tier) {
+      if (lang === 'en') return 'No tier in snapshot';
+      if (lang === 'tw') return '快照無階級';
+      return '快照无阶级';
+    }
+    if (lang === 'en') return `Tier ${tier}`;
+    if (lang === 'tw') return `階級 ${tier}`;
+    return `阶级 ${tier}`;
+  }
+
+  function sourceBoundaryText(lang) {
+    if (lang === 'en') return 'Snapshot evidence, not an actual character level or vendor act.';
+    if (lang === 'tw') return '快照證據，不等同實際角色等級或商店章節。';
+    return '快照证据，不等同实际角色等级或商店章节。';
+  }
+
+  function sourceMatrixLabels(lang) {
+    if (lang === 'en') {
+      return {
+        status: 'PoE2DB snapshot',
+        skill: 'Skill',
+        kindRole: 'Type / Role',
+        gemTier: 'Gem Tier',
+        source: 'PoE2DB Source',
+        requirement: 'Requirement',
+        guideUse: 'Guide Use',
+        missing: 'Missing from local skill snapshot',
+        noSource: 'No source text in snapshot',
+        noRequirement: 'No requirement text in snapshot'
+      };
+    }
+    if (lang === 'tw') {
+      return {
+        status: '編年史快照',
+        skill: '技能',
+        kindRole: '類型/分工',
+        gemTier: '寶石階級',
+        source: '編年史來源',
+        requirement: '需求',
+        guideUse: '攻略取捨',
+        missing: '本地技能快照缺失',
+        noSource: '快照無來源文字',
+        noRequirement: '快照無需求文字'
+      };
+    }
+    return {
+      status: '编年史快照',
+      skill: '技能',
+      kindRole: '类型/分工',
+      gemTier: '宝石阶级',
+      source: '编年史来源',
+      requirement: '需求',
+      guideUse: '攻略取舍',
+      missing: '本地技能快照缺失',
+      noSource: '快照无来源文字',
+      noRequirement: '快照无需求文字'
+    };
+  }
+
+  function guideUseText(id, build, lang) {
+    const active = (build.skills?.active || []).find((skill) => skill.id === id);
+    if (active) {
+      if (active.role === 'main-damage') {
+        if (lang === 'en') return 'Core command damage; complete this link before spreading sockets.';
+        if (lang === 'tw') return '核心號令輸出；先補完整這組連線，再分配其他孔位。';
+        return '核心号令输出；先补完整这组链接，再分配其他孔位。';
+      }
+      if (active.role === 'curse') {
+        if (lang === 'en') return 'Boss and rare debuff; keep coverage without stealing main damage sockets.';
+        if (lang === 'tw') return '稀有怪和首領增傷；保持覆蓋，但不搶主輸出孔位。';
+        return '稀有怪和首领增伤；保持覆盖，但不抢主输出孔位。';
+      }
+      return roleLabels[lang]?.[active.role] || active.role;
+    }
+    const links = build.skills?.recommendedLinks || [];
+    const usedBy = links.filter((link) => (link.supports || []).includes(id));
+    if (usedBy.length) {
+      const first = usedBy
+        .map((link) => link.skill || link.slotType)
+        .map((slot) => slotTypeLabels[lang]?.[slot] || roleLabels[lang]?.[slot] || slot)
+        .join('、');
+      if (lang === 'en') return `Support candidate for: ${first}. Check compatibility before using type-limited supports.`;
+      if (lang === 'tw') return `推薦連線用途：${first}。帶類型限制的輔助要先核對相容性。`;
+      return `推荐链接用途：${first}。带类型限制的辅助要先核对兼容性。`;
+    }
+    return sourceBoundaryText(lang);
+  }
+
+  function sourceLabel(lang) {
+    if (lang === 'en') return 'PoE2DB';
+    if (lang === 'tw') return '編年史';
+    return '编年史';
+  }
+
+  function normalizeHref(value) {
+    return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  }
+
+  function detailGemHrefs(rows) {
+    return new Set((rows || []).flatMap((row) => row.gems || []).map((gem) => normalizeHref(gem.href)));
+  }
+
+  function linkEvidenceText(evidence, lang) {
+    if (lang === 'en') {
+      if (!evidence.total) return 'No supports to check';
+      if (evidence.matched === evidence.total) return `PoE2DB evidence ${evidence.matched}/${evidence.total}`;
+      if (evidence.matched > 0) return `PoE2DB partial ${evidence.matched}/${evidence.total}`;
+      return `Manual review ${evidence.total}`;
+    }
+    if (lang === 'tw') {
+      if (!evidence.total) return '無輔助可檢查';
+      if (evidence.matched === evidence.total) return `編年史依據 ${evidence.matched}/${evidence.total}`;
+      if (evidence.matched > 0) return `編年史部分命中 ${evidence.matched}/${evidence.total}`;
+      return `待手動複核 ${evidence.total}`;
+    }
+    if (!evidence.total) return '无辅助可检查';
+    if (evidence.matched === evidence.total) return `编年史依据 ${evidence.matched}/${evidence.total}`;
+    if (evidence.matched > 0) return `编年史部分命中 ${evidence.matched}/${evidence.total}`;
+    return `待手动复核 ${evidence.total}`;
+  }
+
+  function linkEvidenceClass(evidence) {
+    if (!evidence.total) return '';
+    if (evidence.matched === evidence.total) return ' ok';
+    if (evidence.matched > 0) return ' partial';
+    return '';
+  }
+
+  function supportEvidence(link, catalogById) {
+    const skillIds = link.skill ? [link.skill] : (link.chooseFrom || []);
+    const supportIds = link.supports || [];
+    const pairs = [];
+    for (const skillId of skillIds) {
+      const skillEntry = catalogById.get(skillId);
+      const recommendedSupports = detailGemHrefs(skillEntry?.poe2db?.detail?.recommendedSupportRows);
+      const skillHref = normalizeHref(skillEntry?.poe2db?.href);
+      for (const supportId of supportIds) {
+        const supportEntry = catalogById.get(supportId);
+        const supportHref = normalizeHref(supportEntry?.poe2db?.href);
+        const compatibleSkills = detailGemHrefs(supportEntry?.poe2db?.detail?.compatibleSkillRows);
+        const viaSkillRecommendation = supportHref && recommendedSupports.has(supportHref);
+        const viaSupportCompatibility = skillHref && compatibleSkills.has(skillHref);
+        pairs.push({
+          skillId,
+          supportId,
+          matched: Boolean(viaSkillRecommendation || viaSupportCompatibility),
+          viaSkillRecommendation,
+          viaSupportCompatibility
+        });
+      }
+    }
+    return {
+      total: pairs.length,
+      matched: pairs.filter((pair) => pair.matched).length,
+      pairs,
+      unmatched: pairs.filter((pair) => !pair.matched)
+    };
+  }
+
+  function renderTags(values) {
+    return `<span class="skill-tags">${values.map((value) => `<span class="skill-tag">${esc(value)}</span>`).join('')}</span>`;
+  }
+
+  function renderNameTags(items) {
+    return `<span class="skill-tags">${items.map((item) => `
+      <span class="skill-tag">
+        ${esc(item.name)}
+        ${item.alias ? `<span class="guide-alias">${esc(item.aliasLabel)}：${esc(item.alias)}</span>` : ''}
+      </span>
+    `).join('')}</span>`;
+  }
+
+  function localizedList(value, lang) {
+    const locale = localeBySkillLang[lang] || 'zhCN';
+    return value?.[locale] || value?.zhCN || value?.en || [];
+  }
+
+  function renderRuleItems(items) {
+    return `<ul class="rule-list">${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
+  }
+
+  function renderOrderedItems(items) {
+    return `<ol>${(items || []).map((item) => `<li>${esc(item)}</li>`).join('')}</ol>`;
+  }
+
+  function catalogEntriesById(catalog) {
+    return new Map((catalog?.entries || []).map((entry) => [entry.id, entry]));
+  }
+
+  function verificationText(status, lang) {
+    if (status === 'verified') {
+      if (lang === 'en') return 'Verified';
+      if (lang === 'tw') return '已核驗';
+      return '已核验';
+    }
+    if (lang === 'en') return 'Needs PoE2DB';
+    if (lang === 'tw') return '待編年史';
+    return '待编年史';
+  }
+
+  function verificationBadge(entry, lang) {
+    if (!entry) return `<span class="verify-badge">${esc(verificationText('needs-poe2db-verification', lang))}</span>`;
+    const ok = entry.verificationStatus === 'verified';
+    return `<span class="verify-badge${ok ? ' ok' : ''}">${esc(verificationText(entry.verificationStatus, lang))}</span>`;
+  }
+
+  function verificationRatioText(total, pending, lang) {
+    const verified = Math.max(0, total - pending);
+    if (pending === 0) {
+      if (lang === 'en') return `${verified}/${total} verified`;
+      if (lang === 'tw') return `${verified}/${total} 已核驗`;
+      return `${verified}/${total} 已核验`;
+    }
+    if (lang === 'en') return `${pending}/${total} pending`;
+    if (lang === 'tw') return `${pending}/${total} 待複核`;
+    return `${pending}/${total} 待复核`;
+  }
+
+  function catalogStatusLabel(catalog, lang) {
+    if (!catalog) {
+      if (lang === 'en') return 'Skill catalog not loaded';
+      if (lang === 'tw') return '技能目錄未載入';
+      return '技能目录未载入';
+    }
+    if (catalog.source?.type === 'manual-seed-needs-poe2db') {
+      if (lang === 'en') return 'Manual skill seed, all compatibility and unlock data need PoE2DB verification.';
+      if (lang === 'tw') return '技能目錄仍是手工種子，兼容性和取得資料都待編年史複核。';
+      return '技能目录仍是手工种子，兼容性和获取资料都待编年史复核。';
+    }
+    if (lang === 'en') return 'Skill catalog is sourced from PoE2DB snapshot.';
+    if (lang === 'tw') return '技能目錄來自編年史快照。';
+    return '技能目录来自编年史快照。';
+  }
+
+  function renderGuideSummary(build, version, buildEntry) {
+    const dataVersion = document.getElementById('guideDataVersion');
+    const stats = document.getElementById('guideStats');
+    const stages = build.stages || [];
+    const activeSkills = build.skills?.active || [];
+    const supportCount = Object.keys(build.skills?.supports || {}).length;
+    const maxNodes = Math.max(0, ...stages.map((stage) => stage.treeNodes || 0));
+    const values = [
+      { value: stages.length, label: '阶段路线' },
+      { value: maxNodes, label: '终局天赋节点' },
+      { value: activeSkills.length, label: '技能本体' },
+      { value: supportCount, label: '辅助宝石' },
+      { value: build.gearPriorities?.length || 0, label: '装备槽位' },
+      { value: build.craftingPlan?.length || 0, label: '制作方案' }
+    ];
+
+    if (dataVersion) {
+      dataVersion.textContent = `当前数据：${version.id}`;
+      dataVersion.title = buildEntry.data;
+    }
+
+    if (stats) {
+      stats.innerHTML = values.map((item) => `
+        <div class="stat">
+          <strong>${esc(item.value)}</strong>
+          <span>${esc(item.label)}</span>
+        </div>
+      `).join('');
+    }
+
+    document.body.dataset.guideSummaryStages = String(stages.length);
+    document.body.dataset.guideSummaryMaxNodes = String(maxNodes);
+    document.body.dataset.guideSummaryActiveSkills = String(activeSkills.length);
+    document.body.dataset.guideSummarySupports = String(supportCount);
+    document.body.dataset.guideSummaryGearSlots = String(build.gearPriorities?.length || 0);
+    document.body.dataset.guideSummaryCraftPlans = String(build.craftingPlan?.length || 0);
+  }
+
+  function renderGuideArticle(build, lang) {
+    const article = build.guideArticle;
+    const section = document.getElementById('guide-article');
+    const title = section?.querySelector('h2');
+    const intro = document.getElementById('guideArticleIntro');
+    const grid = document.getElementById('guideArticleGrid');
+    const status = document.getElementById('guideArticleStatus');
+    if (!article || !grid) return;
+
+    const sections = article.sections || [];
+    const checkCount = sections.reduce((sum, item) => sum + localizedList(item.checks, lang).length, 0);
+
+    if (title) title.textContent = localizedName(article.title, lang);
+    if (intro) intro.textContent = localizedName(article.intro, lang);
+    if (status) {
+      if (lang === 'en') status.textContent = `${sections.length} sections / ${checkCount} checks`;
+      else if (lang === 'tw') status.textContent = `${sections.length} 段正文 / ${checkCount} 條檢查`;
+      else status.textContent = `${sections.length} 段正文 / ${checkCount} 条检查`;
+    }
+
+    grid.innerHTML = sections.map((item) => `
+      <article class="card guide-article-card" data-guide-article="${esc(item.id)}">
+        <h3>${esc(localizedName(item.title, lang))}</h3>
+        <p>${esc(localizedName(item.body, lang))}</p>
+        ${localizedList(item.checks, lang).length ? renderRuleItems(localizedList(item.checks, lang)) : ''}
+      </article>
+    `).join('');
+
+    document.body.dataset.guideArticleSections = String(sections.length);
+    document.body.dataset.guideArticleCheckCount = String(checkCount);
+    document.body.dataset.guideArticleLang = lang;
+    document.body.dataset.guideArticleSourceStatus = 'manual-guide-article';
+  }
+
+  function evidenceSeverityClass(severity) {
+    if (severity === 'ok') return ' ok';
+    if (severity === 'pending') return ' pending';
+    return ' partial';
+  }
+
+  function severityLabel(severity) {
+    if (severity === 'ok') return '已接入';
+    if (severity === 'pending') return '待复核';
+    return '需注意';
+  }
+
+  function renderEvidenceSummary(build, manifest, catalog) {
+    const section = build.evidenceSummary;
+    const grid = document.getElementById('evidenceSummaryGrid');
+    const stats = document.getElementById('evidenceSummaryStats');
+    const status = document.getElementById('evidenceSummaryStatus');
+    if (!section || !grid || !stats) return;
+
+    const routes = (manifest?.tree?.routes || []).filter((route) => route.buildId === build.id);
+    const projectedRoutes = routes.filter((route) => route.origin === 'projected-from-endgame-order').length;
+    const handTunedRoutes = routes.filter((route) => route.handTuned).length;
+    const manualReviewRoutes = (build.stages || []).filter((stage) => stage.routeReview?.status && stage.routeReview.status !== '已手调').length;
+    const catalogEntries = catalog?.entries || [];
+    const catalogDetailCount = catalogEntries.filter((entry) => entry.poe2db?.detail).length;
+    const supportMatched = Number(document.body.dataset.guideSupportEvidenceMatched || 0);
+    const supportTotal = Number(document.body.dataset.guideSupportEvidenceTotal || 0);
+    const pendingChecks = (section.checks || []).filter((check) => check.severity !== 'ok').length;
+    const marketStatus = 'sample-not-live';
+    const values = [
+      { value: pendingChecks, label: '待复核项' },
+      { value: projectedRoutes, label: '投影路线' },
+      { value: handTunedRoutes, label: '已手调路线' },
+      { value: `${catalogDetailCount}/${catalogEntries.length}`, label: '技能详情' },
+      { value: `${supportMatched}/${supportTotal}`, label: '辅助证据' },
+      { value: marketStatus, label: '市场状态' }
+    ];
+
+    if (status) {
+      status.textContent = `路线待复核 ${manualReviewRoutes} / 技能详情 ${catalogDetailCount}/${catalogEntries.length}`;
+    }
+    stats.innerHTML = values.map((item) => `
+      <div class="stat">
+        <strong>${esc(item.value)}</strong>
+        <span>${esc(item.label)}</span>
+      </div>
+    `).join('');
+    grid.innerHTML = (section.checks || []).map((check) => `
+      <article class="card" data-evidence-check="${esc(check.id)}">
+        <div class="link-head">
+          <h3>${esc(localizedName(check.status, currentSkillLang))}</h3>
+          <span class="verify-badge${evidenceSeverityClass(check.severity)}">${esc(severityLabel(check.severity))}</span>
+        </div>
+        <p>${esc(localizedName(check.evidence, currentSkillLang))}</p>
+        <p><span class="warn">限制：</span>${esc(localizedName(check.limitation, currentSkillLang))}</p>
+        <p><span class="warn">下一步：</span>${esc(localizedName(check.nextAction, currentSkillLang))}</p>
+      </article>
+    `).join('');
+
+    document.body.dataset.guideEvidenceSummaryCount = String(section.checks?.length || 0);
+    document.body.dataset.guideEvidencePendingCount = String(pendingChecks);
+    document.body.dataset.guideEvidenceProjectedRoutes = String(projectedRoutes);
+    document.body.dataset.guideEvidenceHandTunedRoutes = String(handTunedRoutes);
+    document.body.dataset.guideEvidenceManualReviewRoutes = String(manualReviewRoutes);
+    document.body.dataset.guideEvidenceCatalogDetailCount = String(catalogDetailCount);
+    document.body.dataset.guideEvidenceCatalogEntryCount = String(catalogEntries.length);
+    document.body.dataset.guideEvidenceMarketStatus = marketStatus;
+  }
+
+  function renderGuideStrategy(build) {
+    const container = document.getElementById('guideStrategyGrid');
+    const strategy = build.guideStrategy;
+    if (!container || !strategy) return;
+    const coreSteps = strategy.coreLoop?.steps || [];
+    const powerSignals = strategy.powerSignals || [];
+    const failureRows = strategy.failureDiagnosis || [];
+    const decisionRules = strategy.decisionRules || [];
+
+    container.innerHTML = `
+      <article class="card">
+        <h3>${esc(strategy.coreLoop?.title || '核心循环')}</h3>
+        <ol>${coreSteps.map((step) => `<li>${esc(step)}</li>`).join('')}</ol>
+      </article>
+      <article class="card">
+        <h3>变强信号</h3>
+        <ul>
+          ${powerSignals.map((item) => `
+            <li>
+              <strong>${esc(item.title)}</strong>
+              <span class="route-note">${esc(item.good)}</span>
+              <span class="route-note">检查：${esc(item.check)}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </article>
+      <article class="card wide">
+        <h3>卡关诊断</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>症状</th><th>常见原因</th><th>处理顺序</th><th>优先级</th></tr>
+            </thead>
+            <tbody>
+              ${failureRows.map((item) => `
+                <tr>
+                  <td>${esc(item.symptom)}</td>
+                  <td>${esc(item.likelyCause)}</td>
+                  <td>${esc(item.fix)}</td>
+                  <td>${esc(item.priority)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </article>
+      ${decisionRules.map((group) => `
+        <article class="card">
+          <h3>${esc(group.title)}</h3>
+          <ul>${(group.rules || []).map((rule) => `<li>${esc(rule)}</li>`).join('')}</ul>
+        </article>
+      `).join('')}
+    `;
+
+    document.body.dataset.guideStrategyCoreSteps = String(coreSteps.length);
+    document.body.dataset.guideStrategyPowerSignals = String(powerSignals.length);
+    document.body.dataset.guideStrategyFailureRows = String(failureRows.length);
+    document.body.dataset.guideStrategyDecisionRules = String(decisionRules.length);
+    document.body.dataset.guideStrategyDecisionItems = String(decisionRules.reduce((sum, group) => sum + (group.rules?.length || 0), 0));
+  }
+
+  function renderExecutionPlan(build) {
+    const rows = document.getElementById('executionPlanRows');
+    const status = document.getElementById('executionPlanStatus');
+    const plan = build.executionPlan;
+    if (!rows || !plan || !Array.isArray(plan.stages)) return;
+    const stageTitles = new Map((build.stages || []).map((stage) => [stage.id, stage.title]));
+    rows.innerHTML = plan.stages.map((item) => `
+      <tr>
+        <td>${esc(stageTitles.get(item.stageId) || item.stageId)}</td>
+        <td>${esc(item.mainAction)}</td>
+        <td>${esc((item.buyFirst || []).join('、'))}</td>
+        <td>${esc(item.stopLine)}</td>
+        <td>${esc(item.fallback)}</td>
+        <td>${esc(item.nextGate)}</td>
+      </tr>
+    `).join('');
+    if (status) status.textContent = `${plan.stages.length} 个阶段`;
+    document.body.dataset.executionPlanCount = String(plan.stages.length);
+    document.body.dataset.executionPlanBuyFirstCount = String(plan.stages.reduce((sum, item) => sum + (item.buyFirst?.length || 0), 0));
+    document.body.dataset.executionPlanStopLineCount = String(plan.stages.filter((item) => item.stopLine).length);
+    document.body.dataset.executionPlanFallbackCount = String(plan.stages.filter((item) => item.fallback).length);
+    document.body.dataset.executionPlanNextGateCount = String(plan.stages.filter((item) => item.nextGate).length);
+  }
+
+  function renderSkillOverview(build, lang) {
+    const container = document.getElementById('skillOverviewGrid');
+    const overview = build.skills?.overview;
+    if (!container || !overview) return;
+    const cards = overview.cards || [];
+    const checkCount = cards.reduce((sum, card) => sum + localizedList(card.checks, lang).length, 0);
+
+    container.innerHTML = `
+      <h3>${esc(localizedName(overview.title, lang))}</h3>
+      <p class="guide-flow-intro">${esc(localizedName(overview.intro, lang))}</p>
+      <div class="grid">
+        ${cards.map((card) => `
+          <article class="card guide-flow-card" data-skill-overview="${esc(card.id)}">
+            <h3>${esc(localizedName(card.title, lang))}</h3>
+            <p>${esc(localizedName(card.body, lang))}</p>
+            ${localizedList(card.checks, lang).length ? renderRuleItems(localizedList(card.checks, lang)) : ''}
+          </article>
+        `).join('')}
+      </div>
+    `;
+
+    document.body.dataset.skillOverviewCardCount = String(cards.length);
+    document.body.dataset.skillOverviewCheckCount = String(checkCount);
+    document.body.dataset.skillOverviewLang = lang;
+    document.body.dataset.skillOverviewSourceStatus = 'manual-guide-skill-flow';
+  }
+
+  function renderBuildSkills(build, lang) {
+    const container = document.getElementById('skillConfigGrid');
+    if (!container || !build.skills) return;
+    const dict = skillText[lang] || skillText.zh;
+    const catalog = hydratedSkillCatalog;
+    const catalogById = catalogEntriesById(catalog);
+    const activeSkills = build.skills.active || [];
+    const skillById = new Map(activeSkills.map((skill) => [skill.id, skill]));
+    const supports = build.skills.supports || {};
+    const nonMinions = activeSkills.filter((skill) => !skill.role.includes('minion'));
+    const minions = activeSkills.filter((skill) => skill.role.includes('minion'));
+    const links = [...(build.skills.recommendedLinks || [])].sort((a, b) => a.priority - b.priority);
+    const supportSelectionRules = build.skills.supportSelectionRules || [];
+    const minionSelectionGuide = build.skills.minionSelectionGuide || null;
+    const minionSelectionGroups = minionSelectionGuide?.groups || [];
+    const supportDecisionMatrix = build.skills.supportDecisionMatrix || [];
+    const troubleshooting = build.skills.troubleshooting || [];
+    const matrixById = new Map(supportDecisionMatrix.map((row) => [row.id, row]));
+    const linkRuleCount = links.reduce((count, link) => count + localizedList(link.rules, lang).length, 0);
+    const supportRuleItemCount = supportSelectionRules.reduce((count, rule) => count + localizedList(rule.items, lang).length, 0);
+    const minionSelectionSkillRefs = minionSelectionGroups.reduce((count, group) => count + (group.skillIds || []).length, 0);
+    const minionSelectionSupportRefs = minionSelectionGroups.reduce((count, group) => count + (group.firstSupports || []).length, 0);
+    const minionSelectionRuleCount = localizedList(minionSelectionGuide?.rules, lang).length;
+    const minionSelectionChooseWhenCount = minionSelectionGroups.reduce((count, group) => count + localizedList(group.chooseWhen, lang).length, 0);
+    const supportDecisionSkillRefs = supportDecisionMatrix.reduce((count, row) => count + (row.skillIds || []).length, 0);
+    const supportDecisionSupportRefs = supportDecisionMatrix.reduce((count, row) => count + (row.firstSupports || []).length + (row.addLater || []).length, 0);
+    const troubleshootingCheckCount = troubleshooting.reduce((count, item) => count + localizedList(item.check, lang).length, 0);
+    const troubleshootingAddRefs = troubleshooting.reduce((count, item) => count + (item.add || []).length, 0);
+    const troubleshootingCutRefs = troubleshooting.reduce((count, item) => count + (item.cut || []).length, 0);
+    const linkEvidence = links.map((link) => [link.id, supportEvidence(link, catalogById)]);
+    const linkEvidenceMatched = linkEvidence.reduce((count, [, evidence]) => count + evidence.matched, 0);
+    const linkEvidenceTotal = linkEvidence.reduce((count, [, evidence]) => count + evidence.total, 0);
+    const catalogEntries = catalog?.entries || [];
+    const catalogNeedsReview = catalogEntries.filter((entry) => entry.verificationStatus === 'needs-poe2db-verification').length;
+    const catalogDetailCount = catalogEntries.filter((entry) => entry.poe2db?.detail).length;
+    const activeAliasCount = activeSkills.filter((skill) => aliasFromFallback(catalogById.get(skill.id), skill.name, lang)).length;
+    const supportAliasCount = Object.entries(supports).filter(([supportId, supportName]) => aliasFromFallback(catalogById.get(supportId), supportName, lang)).length;
+    renderSkillOverview(build, lang);
+    document.body.dataset.activeSkillCount = String(activeSkills.length);
+    document.body.dataset.supportGemCount = String(Object.keys(supports).length);
+    document.body.dataset.recommendedLinkCount = String(links.length);
+    document.body.dataset.linkRuleCount = String(linkRuleCount);
+    document.body.dataset.supportSelectionRuleCount = String(supportSelectionRules.length);
+    document.body.dataset.supportSelectionRuleItemCount = String(supportRuleItemCount);
+    document.body.dataset.minionSelectionGroupCount = String(minionSelectionGroups.length);
+    document.body.dataset.minionSelectionSkillRefs = String(minionSelectionSkillRefs);
+    document.body.dataset.minionSelectionSupportRefs = String(minionSelectionSupportRefs);
+    document.body.dataset.minionSelectionRuleCount = String(minionSelectionRuleCount);
+    document.body.dataset.minionSelectionChooseWhenCount = String(minionSelectionChooseWhenCount);
+    document.body.dataset.minionSelectionLang = lang;
+    document.body.dataset.minionSelectionSourceStatus = minionSelectionGuide ? 'manual-guide-minion-selection' : 'missing';
+    document.body.dataset.supportDecisionMatrixCount = String(supportDecisionMatrix.length);
+    document.body.dataset.supportDecisionMatrixSkillRefs = String(supportDecisionSkillRefs);
+    document.body.dataset.supportDecisionMatrixSupportRefs = String(supportDecisionSupportRefs);
+    document.body.dataset.skillTroubleshootingCount = String(troubleshooting.length);
+    document.body.dataset.skillTroubleshootingCheckCount = String(troubleshootingCheckCount);
+    document.body.dataset.skillTroubleshootingAddRefs = String(troubleshootingAddRefs);
+    document.body.dataset.skillTroubleshootingCutRefs = String(troubleshootingCutRefs);
+    document.body.dataset.guideSkillCatalogSourceType = catalog?.source?.type || 'missing';
+    document.body.dataset.guideSkillCatalogEntryCount = String(catalogEntries.length);
+    document.body.dataset.guideSkillCatalogNeedsReviewCount = String(catalogNeedsReview);
+    document.body.dataset.guideSkillCatalogDetailCount = String(catalogDetailCount);
+    document.body.dataset.guideSkillOfficialAliasCount = String(activeAliasCount + supportAliasCount);
+    document.body.dataset.guideSupportEvidenceMatched = String(linkEvidenceMatched);
+    document.body.dataset.guideSupportEvidenceTotal = String(linkEvidenceTotal);
+    document.body.dataset.guideSupportEvidencePartialLinks = String(linkEvidence.filter(([, evidence]) => evidence.matched > 0 && evidence.matched < evidence.total).length);
+    document.body.dataset.guideSupportEvidenceUnmatchedLinks = String(linkEvidence.filter(([, evidence]) => evidence.total > 0 && evidence.matched === 0).length);
+    const troubleTags = (ids) => renderNameTags((ids || []).map((id) => {
+      const support = supports[id];
+      const skill = skillById.get(id);
+      const matrix = matrixById.get(id);
+      const entry = catalogById.get(id);
+      if (support) {
+        return {
+          name: displayNameFromCatalog(entry, support, lang),
+          alias: aliasFromFallback(entry, support, lang),
+          aliasLabel: aliasLabel(lang)
+        };
+      }
+      if (skill) {
+        return {
+          name: displayNameFromCatalog(catalogById.get(id), skill.name, lang),
+          alias: aliasFromFallback(catalogById.get(id), skill.name, lang),
+          aliasLabel: aliasLabel(lang)
+        };
+      }
+      if (matrix) {
+        return { name: localizedName(matrix.title, lang) };
+      }
+      return { name: id };
+    }).filter((item) => item.name));
+
+    container.innerHTML = `
+      <article class="card">
+        <h3>${esc(dict.activeSkillsTitle)}</h3>
+        <p class="link-note">${esc(catalogStatusLabel(catalog, lang))} <a href="../tools/skill-catalog.html">${esc(dict.openSkillCatalog)}</a></p>
+        <ul class="skill-list">
+          ${nonMinions.map((skill) => `
+            <li>
+              <div class="link-head">
+                <strong>${esc(displayNameFromCatalog(catalogById.get(skill.id), skill.name, lang))}</strong>
+                ${verificationBadge(catalogById.get(skill.id), lang)}
+              </div>
+              ${renderAlias(catalogById.get(skill.id), skill.name, lang)}
+              <span>${esc(roleLabels[lang]?.[skill.role] || skill.role)}</span>
+              ${detailSummary(catalogById.get(skill.id), lang) ? `<span class="source-detail">${esc(detailSummary(catalogById.get(skill.id), lang))}</span>` : ''}
+              ${sourceRef(catalogById.get(skill.id)) ? `<a class="source-link" href="${esc(sourceRef(catalogById.get(skill.id)))}">${esc(sourceLabel(lang))}</a>` : ''}
+            </li>
+          `).join('')}
+          <li>
+            <div class="link-head">
+              <strong>${esc(dict.minionSkillsTitle)}</strong>
+              <span class="verify-badge${catalogNeedsReview === 0 ? ' ok' : ''}">${esc(verificationRatioText(catalogEntries.length || 0, catalogNeedsReview, lang))}</span>
+            </div>
+            <span>${esc(dict.minionSkillRole)}</span>
+            ${renderNameTags(minions.map((skill) => {
+              const entry = catalogById.get(skill.id);
+              return {
+                name: displayNameFromCatalog(entry, skill.name, lang),
+                alias: aliasFromFallback(entry, skill.name, lang),
+                aliasLabel: aliasLabel(lang)
+              };
+            }))}
+          </li>
+          <li>${esc(dict.activeSkillNote)}</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>${esc(dict.supportGemsTitle)}</h3>
+        <ul class="link-list">
+          ${links.map((link) => {
+            const skillNames = link.skill
+              ? [{
+                  name: displayNameFromCatalog(catalogById.get(link.skill), skillById.get(link.skill)?.name, lang),
+                  alias: aliasFromFallback(catalogById.get(link.skill), skillById.get(link.skill)?.name, lang),
+                  aliasLabel: aliasLabel(lang)
+                }]
+              : (link.chooseFrom || []).map((skillId) => {
+                  const skill = skillById.get(skillId);
+                  const entry = catalogById.get(skillId);
+                  return {
+                    name: displayNameFromCatalog(entry, skill?.name, lang),
+                    alias: aliasFromFallback(entry, skill?.name, lang),
+                    aliasLabel: aliasLabel(lang)
+                  };
+                });
+            const supportNames = (link.supports || []).map((supportId) => {
+              const entry = catalogById.get(supportId);
+              return {
+                name: displayNameFromCatalog(entry, supports[supportId], lang),
+                alias: aliasFromFallback(entry, supports[supportId], lang),
+                aliasLabel: aliasLabel(lang)
+              };
+            });
+            const supportNeedsReview = (link.supports || []).filter((supportId) => catalogById.get(supportId)?.verificationStatus !== 'verified').length;
+            const evidence = supportEvidence(link, catalogById);
+            const title = link.skill ? skillNames[0]?.name : slotTypeLabels[lang]?.[link.slotType] || link.slotType;
+            return `
+              <li>
+                <div class="link-head">
+                  <strong>${esc(title)}</strong>
+                  <span class="slot-label">${esc(slotTypeLabels[lang]?.[link.slotType] || link.slotType)}</span>
+                </div>
+                ${link.skill && skillNames[0]?.alias ? `<span class="guide-alias">${esc(skillNames[0].aliasLabel)}：${esc(skillNames[0].alias)}</span>` : ''}
+                ${link.chooseFrom ? renderNameTags(skillNames.filter((item) => item.name)) : ''}
+                <span class="verify-badge${supportNeedsReview === 0 ? ' ok' : ''}">${esc(verificationRatioText((link.supports || []).length, supportNeedsReview, lang))}</span>
+                <span class="verify-badge${linkEvidenceClass(evidence)}">${esc(linkEvidenceText(evidence, lang))}</span>
+                ${renderNameTags(supportNames.filter((item) => item.name))}
+                <span class="link-note">${esc(localizedName(link.note, lang))}</span>
+                ${localizedList(link.rules, lang).length ? renderRuleItems(localizedList(link.rules, lang)) : ''}
+              </li>
+            `;
+          }).join('')}
+        </ul>
+      </article>
+      <article class="card">
+        <h3>${esc(dict.supportSelectionRulesTitle)}</h3>
+        <ul class="link-list">
+          ${supportSelectionRules.map((rule) => `
+            <li>
+              <div class="link-head">
+                <strong>${esc(localizedName(rule.title, lang))}</strong>
+                <span class="slot-label">${esc(dict.ruleSlotLabel)}</span>
+              </div>
+              ${renderRuleItems(localizedList(rule.items, lang))}
+            </li>
+          `).join('')}
+        </ul>
+      </article>
+      ${minionSelectionGuide ? `
+        <article class="wide-block" id="minion-selection-guide">
+          <h3>${esc(localizedName(minionSelectionGuide.title, lang))}</h3>
+          <p class="guide-flow-intro">${esc(localizedName(minionSelectionGuide.intro, lang))}</p>
+          <div class="grid">
+            ${minionSelectionGroups.map((group) => {
+              const groupSkills = (group.skillIds || []).map((skillId) => {
+                const skill = skillById.get(skillId);
+                const entry = catalogById.get(skillId);
+                return {
+                  name: displayNameFromCatalog(entry, skill?.name, lang),
+                  alias: aliasFromFallback(entry, skill?.name, lang),
+                  aliasLabel: aliasLabel(lang)
+                };
+              });
+              const firstSupports = (group.firstSupports || []).map((supportId) => {
+                const entry = catalogById.get(supportId);
+                return {
+                  name: displayNameFromCatalog(entry, supports[supportId], lang),
+                  alias: aliasFromFallback(entry, supports[supportId], lang),
+                  aliasLabel: aliasLabel(lang)
+                };
+              });
+              return `
+                <article class="card guide-flow-card" data-minion-selection="${esc(group.id)}">
+                  <div class="link-head">
+                    <strong>${esc(localizedName(group.title, lang))}</strong>
+                    <span class="slot-label">${esc(dict.minionSelectionSlotLabel)}</span>
+                  </div>
+                  <p>${esc(localizedName(group.job, lang))}</p>
+                  ${renderNameTags(groupSkills.filter((item) => item.name))}
+                  <h3>${esc(dict.minionSelectionChooseWhen)}</h3>
+                  ${renderRuleItems(localizedList(group.chooseWhen, lang))}
+                  <p><span class="warn">${esc(dict.minionSelectionFirstSupports)}：</span>${renderNameTags(firstSupports.filter((item) => item.name))}</p>
+                  <p class="route-note">${esc(localizedName(group.cutFirst, lang))}</p>
+                </article>
+              `;
+            }).join('')}
+          </div>
+          <div class="mini-block-card">
+            <h3>${esc(dict.minionSelectionRulesTitle)}</h3>
+            ${renderRuleItems(localizedList(minionSelectionGuide.rules, lang))}
+          </div>
+        </article>
+      ` : ''}
+      <article class="card wide">
+        <h3>${esc(dict.supportDecisionMatrixTitle)}</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>${esc(dict.matrixRole)}</th>
+                <th>${esc(dict.matrixMinions)}</th>
+                <th>${esc(dict.matrixUseWhen)}</th>
+                <th>${esc(dict.matrixFirstSupports)}</th>
+                <th>${esc(dict.matrixAddLater)}</th>
+                <th>${esc(dict.matrixCutWhen)}</th>
+                <th>${esc(dict.matrixReviewNote)}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${supportDecisionMatrix.map((row) => {
+                const rowSkills = (row.skillIds || []).map((skillId) => {
+                  const skill = skillById.get(skillId);
+                  const entry = catalogById.get(skillId);
+                  return {
+                    name: displayNameFromCatalog(entry, skill?.name, lang),
+                    alias: aliasFromFallback(entry, skill?.name, lang),
+                    aliasLabel: aliasLabel(lang)
+                  };
+                });
+                const firstSupports = (row.firstSupports || []).map((supportId) => {
+                  const entry = catalogById.get(supportId);
+                  return {
+                    name: displayNameFromCatalog(entry, supports[supportId], lang),
+                    alias: aliasFromFallback(entry, supports[supportId], lang),
+                    aliasLabel: aliasLabel(lang)
+                  };
+                });
+                const laterSupports = (row.addLater || []).map((supportId) => {
+                  const entry = catalogById.get(supportId);
+                  return {
+                    name: displayNameFromCatalog(entry, supports[supportId], lang),
+                    alias: aliasFromFallback(entry, supports[supportId], lang),
+                    aliasLabel: aliasLabel(lang)
+                  };
+                });
+                return `
+                  <tr>
+                    <td><strong>${esc(localizedName(row.title, lang))}</strong><br><span class="link-note">${esc(localizedName(row.role, lang))}</span></td>
+                    <td>${renderNameTags(rowSkills.filter((item) => item.name))}</td>
+                    <td>${renderRuleItems(localizedList(row.useWhen, lang))}</td>
+                    <td>${renderNameTags(firstSupports.filter((item) => item.name))}</td>
+                    <td>${renderNameTags(laterSupports.filter((item) => item.name))}</td>
+                    <td>${renderRuleItems(localizedList(row.cutWhen, lang))}</td>
+                    <td><span class="route-note">${esc(localizedName(row.reviewNote, lang))}</span></td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="wide-block">
+        <h3>${esc(dict.skillTroubleshootingTitle)}</h3>
+        <div class="grid two">
+          ${troubleshooting.map((item) => `
+            <article class="mini-block-card" data-skill-troubleshooting="${esc(item.id)}">
+              <div class="link-head">
+                <strong>${esc(localizedName(item.problem, lang))}</strong>
+                <span class="slot-label">${esc(dict.troubleshootingSlotLabel)}</span>
+              </div>
+              ${renderRuleItems(localizedList(item.check, lang))}
+              <p><span class="warn">${esc(dict.troubleshootingAddLabel)}：</span>${troubleTags(item.add)}</p>
+              <p><span class="warn">${esc(dict.troubleshootingCutLabel)}：</span>${troubleTags(item.cut)}</p>
+              <p class="route-note">${esc(localizedName(item.note, lang))}</p>
+            </article>
+          `).join('')}
+        </div>
+      </article>
+    `;
+  }
+
+  function renderSkillSourceMatrix(build, lang) {
+    const rows = document.getElementById('skillSourceMatrixRows');
+    const status = document.getElementById('skillSourceMatrixStatus');
+    if (!rows || !build.skills) return;
+    const labels = sourceMatrixLabels(lang);
+    const catalogById = catalogEntriesById(hydratedSkillCatalog);
+    const activeSkills = build.skills.active || [];
+    const supportEntries = Object.entries(build.skills.supports || {}).map(([id, name]) => ({ id, name }));
+    const sourceRows = [
+      ...activeSkills.map((skill) => ({ id: skill.id, kind: 'active', fallbackName: skill.name, role: roleLabels[lang]?.[skill.role] || skill.role })),
+      ...supportEntries.map((support) => ({ id: support.id, kind: 'support', fallbackName: support.name, role: skillKindLabel({ kind: 'support' }, lang) }))
+    ];
+    const detailCount = sourceRows.filter((row) => catalogById.get(row.id)?.poe2db?.detail).length;
+    const requirementCount = sourceRows.filter((row) => detailRequirement(catalogById.get(row.id))).length;
+    const fromCount = sourceRows.filter((row) => detailFrom(catalogById.get(row.id))).length;
+
+    const header = document.querySelector('#skill-source-matrix thead tr');
+    if (header) {
+      header.innerHTML = `
+        <th>${esc(labels.skill)}</th>
+        <th>${esc(labels.kindRole)}</th>
+        <th>${esc(labels.gemTier)}</th>
+        <th>${esc(labels.source)}</th>
+        <th>${esc(labels.requirement)}</th>
+        <th>${esc(labels.guideUse)}</th>
+      `;
+    }
+    if (status) status.textContent = `${labels.status} ${detailCount}/${sourceRows.length}`;
+
+    rows.innerHTML = sourceRows.map((row) => {
+      const entry = catalogById.get(row.id);
+      const kindLabel = skillKindLabel(entry || { kind: row.kind }, lang);
+      const name = displayNameFromCatalog(entry, row.fallbackName, lang);
+      const alias = aliasFromFallback(entry, row.fallbackName, lang);
+      const from = detailFrom(entry);
+      const requirement = detailRequirement(entry);
+      return `
+        <tr>
+          <td>
+            <div class="source-cell">
+              <strong>${esc(name || row.id)}</strong>
+              ${alias ? `<span class="guide-alias">${esc(aliasLabel(lang))}：${esc(alias)}</span>` : ''}
+              ${sourceRef(entry) ? `<a class="source-link" href="${esc(sourceRef(entry))}">${esc(sourceLabel(lang))}</a>` : ''}
+            </div>
+          </td>
+          <td>
+            <div class="source-cell">
+              <span>${esc(kindLabel)}</span>
+              <span class="route-note">${esc(row.role)}</span>
+            </div>
+          </td>
+          <td>${esc(entry ? gemTierText(entry, lang) : labels.missing)}</td>
+          <td>${esc(from || labels.noSource)}</td>
+          <td>${esc(requirement || labels.noRequirement)}</td>
+          <td>
+            <div class="source-cell">
+              <span>${esc(guideUseText(row.id, build, lang))}</span>
+              <span class="route-note">${esc(sourceBoundaryText(lang))}</span>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    document.body.dataset.skillSourceMatrixRows = String(sourceRows.length);
+    document.body.dataset.skillSourceMatrixDetailCount = String(detailCount);
+    document.body.dataset.skillSourceMatrixRequirementCount = String(requirementCount);
+    document.body.dataset.skillSourceMatrixFromCount = String(fromCount);
+    document.body.dataset.skillSourceMatrixLang = lang;
+  }
+
+  function routeSourceLabel(route) {
+    if (!route) return '未登记路线';
+    if (route.handTuned) return '已手调';
+    if (route.origin === 'imported-from-pob-endgame') return 'PoB 终局导入';
+    if (route.origin === 'projected-from-endgame-order') return '终局顺序投影';
+    return route.origin || '来源未标注';
+  }
+
+  function renderStageRouteCell(build, stage, route) {
+    if (!stage.treeStage || !route) {
+      return '<span class="route-note">该阶段暂未接入天赋路线</span>';
+    }
+    const href = `../tools/passive-tree.html?build=${encodeURIComponent(build.id)}&stage=${encodeURIComponent(stage.treeStage)}`;
+    const primary = stage.treeStage === 'endgame' ? ' primary' : '';
+    const tuned = route.handTuned ? '已手调' : '待手调';
+    const review = stage.routeReview || {};
+    const checks = (review.manualChecks || []).slice(0, 2);
+    return `
+      <div class="route-cell">
+        <a class="btn${primary}" href="${href}" data-stage-route="${esc(stage.treeStage)}" data-stage-route-nodes="${route.nodes}" data-stage-route-origin="${esc(route.origin || '')}">打开 ${esc(route.nodes)} 点</a>
+        <span class="route-note">${esc(routeSourceLabel(route))} / ${esc(tuned)}</span>
+        ${review.reason ? `<span class="route-note" data-route-review="${esc(stage.treeStage)}">${esc(review.reason)}</span>` : ''}
+        ${checks.length ? `<span class="route-note">手调检查：${esc(checks.join('；'))}</span>` : ''}
+      </div>
+    `;
+  }
+
+  function renderStageDataCoverage(build, manifest) {
+    const rows = document.getElementById('stageDataCoverageRows');
+    const stages = build.stages || [];
+    if (!rows || !stages.length) return;
+
+    const routes = new Map((manifest?.tree?.routes || [])
+      .filter((route) => route.buildId === build.id)
+      .map((route) => [route.stageId, route]));
+    const gearPlanStages = new Set((build.gearStagePlan || []).map((item) => item.stageId));
+    const thresholdCounts = new Map((build.gearStatThresholds || []).map((group) => [group.stageId, group.thresholds?.length || 0]));
+    const craftCounts = new Map();
+    for (const craft of build.craftingPlan || []) {
+      craftCounts.set(craft.stageId, (craftCounts.get(craft.stageId) || 0) + 1);
+    }
+    const acquisitionStages = new Set((build.skillAcquisition || []).map((item) => item.stageId));
+    const progressionStages = new Set((build.skillProgression || []).map((item) => item.stageId));
+    const yes = '<span class="pill">已接入</span>';
+    const no = '<span class="route-note">未接入</span>';
+
+    rows.innerHTML = stages.map((stage) => {
+      const route = stage.treeStage ? routes.get(stage.treeStage) : null;
+      const thresholdCount = thresholdCounts.get(stage.id) || 0;
+      const craftCount = craftCounts.get(stage.id) || 0;
+      return `
+        <tr>
+          <td>${esc(stage.title)}</td>
+          <td>${route ? `${yes}<br><span class="route-note">${esc(route.nodes)} 点 / ${esc(routeSourceLabel(route))}</span>` : no}</td>
+          <td>${gearPlanStages.has(stage.id) ? yes : no}</td>
+          <td>${thresholdCount ? `<span class="pill">${esc(thresholdCount)} 条</span>` : no}</td>
+          <td>${craftCount ? `<span class="pill">${esc(craftCount)} 套</span>` : '<span class="route-note">无制作方案</span>'}</td>
+          <td>${acquisitionStages.has(stage.id) ? yes : no}</td>
+          <td>${progressionStages.has(stage.id) ? yes : no}</td>
+        </tr>
+      `;
+    }).join('');
+
+    const routeCount = stages.filter((stage) => stage.treeStage && routes.has(stage.treeStage)).length;
+    const gearStageCount = stages.filter((stage) => gearPlanStages.has(stage.id)).length;
+    const thresholdStageCount = stages.filter((stage) => (thresholdCounts.get(stage.id) || 0) > 0).length;
+    const thresholdRowCount = stages.reduce((sum, stage) => sum + (thresholdCounts.get(stage.id) || 0), 0);
+    const craftStageCount = stages.filter((stage) => (craftCounts.get(stage.id) || 0) > 0).length;
+    const craftPlanCount = stages.reduce((sum, stage) => sum + (craftCounts.get(stage.id) || 0), 0);
+    const acquisitionStageCount = stages.filter((stage) => acquisitionStages.has(stage.id)).length;
+    const progressionStageCount = stages.filter((stage) => progressionStages.has(stage.id)).length;
+    const fullyCoveredCount = stages.filter((stage) => (
+      stage.treeStage
+      && routes.has(stage.treeStage)
+      && gearPlanStages.has(stage.id)
+      && (thresholdCounts.get(stage.id) || 0) > 0
+      && progressionStages.has(stage.id)
+    )).length;
+
+    document.body.dataset.stageDataCoverageStageCount = String(stages.length);
+    document.body.dataset.stageDataCoverageRouteCount = String(routeCount);
+    document.body.dataset.stageDataCoverageGearStageCount = String(gearStageCount);
+    document.body.dataset.stageDataCoverageThresholdStageCount = String(thresholdStageCount);
+    document.body.dataset.stageDataCoverageThresholdRowCount = String(thresholdRowCount);
+    document.body.dataset.stageDataCoverageCraftStageCount = String(craftStageCount);
+    document.body.dataset.stageDataCoverageCraftPlanCount = String(craftPlanCount);
+    document.body.dataset.stageDataCoverageSkillAcquisitionStageCount = String(acquisitionStageCount);
+    document.body.dataset.stageDataCoverageSkillProgressionStageCount = String(progressionStageCount);
+    document.body.dataset.stageDataCoverageFullyCoveredCount = String(fullyCoveredCount);
+  }
+
+  function renderBuildStages(build, manifest) {
+    const levelingRows = document.getElementById('levelingStageRows');
+    const playbookGrid = document.getElementById('stagePlaybookGrid');
+    const transitionGrid = document.getElementById('transitionCheckGrid');
+    const stages = build.stages || [];
+    const gearPlanByStage = new Map((build.gearStagePlan || []).map((item) => [item.stageId, item]));
+    const routes = new Map((manifest?.tree?.routes || [])
+      .filter((route) => route.buildId === build.id)
+      .map((route) => [route.stageId, route]));
+
+    renderStageDataCoverage(build, manifest);
+
+    if (levelingRows && stages.length) {
+      levelingRows.innerHTML = stages.map((stage) => {
+        const gearPlan = gearPlanByStage.get(stage.id);
+        const route = routes.get(stage.treeStage);
+        return `
+          <tr>
+            <td>${esc(stage.title)}</td>
+            <td>${esc(stage.summary)}</td>
+            <td>${esc((stage.priorities || []).join('、'))}</td>
+            <td>${renderStageRouteCell(build, stage, route)}</td>
+            <td>${esc((gearPlan?.mustHave || []).join('、'))}</td>
+            <td>${esc(gearPlan?.upgradeWhen || stage.playbook?.steps?.[stage.playbook.steps.length - 1] || '')}</td>
+          </tr>
+        `;
+      }).join('');
+      document.body.dataset.levelingStageCount = String(stages.length);
+      document.body.dataset.levelingStageRouteCount = String(stages.filter((stage) => stage.treeStage && routes.has(stage.treeStage)).length);
+      document.body.dataset.levelingStageRouteOrigins = stages
+        .map((stage) => routes.get(stage.treeStage)?.origin)
+        .filter(Boolean)
+        .join(',');
+      document.body.dataset.levelingStageHandTunedCount = String(stages.filter((stage) => routes.get(stage.treeStage)?.handTuned).length);
+      document.body.dataset.levelingStageRouteReviewCount = String(stages.filter((stage) => stage.routeReview?.reason).length);
+      document.body.dataset.levelingStageRouteReviewCheckCount = String(stages.reduce((sum, stage) => sum + (stage.routeReview?.manualChecks?.length || 0), 0));
+    }
+
+    if (playbookGrid && stages.length) {
+      playbookGrid.innerHTML = stages.map((stage) => `
+        <article class="card">
+          <h3>${esc(stage.title)}：${esc(stage.playbook?.title || '')}</h3>
+          <ol>${(stage.playbook?.steps || []).map((step) => `<li>${esc(step)}</li>`).join('')}</ol>
+          ${(stage.playbook?.checks || []).length ? `
+            <div class="mini-block">
+              <strong>出阶段检查</strong>
+              <ul>${stage.playbook.checks.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+            </div>
+          ` : ''}
+          ${(stage.playbook?.mistakes || []).length ? `
+            <div class="mini-block">
+              <strong>常见误区</strong>
+              <ul>${stage.playbook.mistakes.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+            </div>
+          ` : ''}
+        </article>
+      `).join('');
+      document.body.dataset.stagePlaybookCount = String(stages.length);
+      document.body.dataset.stagePlaybookCheckCount = String(stages.reduce((sum, stage) => sum + (stage.playbook?.checks?.length || 0), 0));
+      document.body.dataset.stagePlaybookMistakeCount = String(stages.reduce((sum, stage) => sum + (stage.playbook?.mistakes?.length || 0), 0));
+    }
+
+    if (transitionGrid && build.transitionChecks) {
+      const groups = [
+        { title: '可以转召唤/号令', items: build.transitionChecks.canSwitch || [] },
+        { title: '暂时不要硬转', items: build.transitionChecks.waitBeforeSwitch || [] },
+        { title: '卡关处理', items: build.transitionChecks.stuckFixes || [] }
+      ];
+      transitionGrid.innerHTML = groups.map((group) => `
+        <article class="card">
+          <h3>${esc(group.title)}</h3>
+          <ul>${group.items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+        </article>
+      `).join('');
+      document.body.dataset.transitionCheckGroupCount = String(groups.length);
+      document.body.dataset.transitionCheckItemCount = String(groups.reduce((sum, group) => sum + group.items.length, 0));
+    }
+  }
+
+  function renderStageTreeLinks(build, manifest) {
+    const container = document.getElementById('stageTreeLinks');
+    if (!container || !Array.isArray(build.stages)) return;
+    const routes = new Map((manifest.tree?.routes || [])
+      .filter((route) => route.buildId === build.id)
+      .map((route) => [route.stageId, route]));
+    const stagesWithRoutes = build.stages.filter((stage) => stage.treeStage && routes.has(stage.treeStage));
+    if (!stagesWithRoutes.length) return;
+
+    container.innerHTML = stagesWithRoutes.map((stage) => {
+      const route = routes.get(stage.treeStage);
+      const href = `../tools/passive-tree.html?build=${encodeURIComponent(build.id)}&stage=${encodeURIComponent(stage.treeStage)}`;
+      const title = String(stage.title || stage.treeStage);
+      const label = title.includes(String(route.nodes)) ? title : `${title} ${route.nodes} 点`;
+      const primary = stage.treeStage === 'endgame' ? ' primary' : '';
+      return `<a class="btn${primary}" href="${href}" data-tree-stage="${esc(stage.treeStage)}" data-tree-nodes="${route.nodes}" data-route-origin="${esc(route.origin || '')}">${esc(label)}</a>`;
+    }).join('');
+    document.body.dataset.stageTreeLinkCount = String(stagesWithRoutes.length);
+    document.body.dataset.stageTreeStages = stagesWithRoutes.map((stage) => stage.treeStage).join(',');
+  }
+
+  function renderSkillProgression(build) {
+    const rows = document.getElementById('skillProgressionRows');
+    if (!rows || !Array.isArray(build.skillProgression)) return;
+    rows.innerHTML = build.skillProgression.map((item) => `
+      <tr>
+        <td>${esc(item.stage)}</td>
+        <td>${esc((item.activeSkills || []).join('、'))}</td>
+        <td>${esc((item.minions || []).join('、'))}</td>
+        <td>${esc((item.supportPriority || []).join('、'))}</td>
+        <td>${esc(item.swapRule)}</td>
+      </tr>
+    `).join('');
+    document.body.dataset.skillProgressionCount = String(build.skillProgression.length);
+  }
+
+  function renderSkillAcquisition(build) {
+    const grid = document.getElementById('skillAcquisitionGrid');
+    const status = document.getElementById('skillAcquisitionStatus');
+    const evidenceHead = document.getElementById('skillAcquisitionEvidenceHead');
+    const evidenceRows = document.getElementById('skillAcquisitionEvidenceRows');
+    if (!grid || !Array.isArray(build.skillAcquisition)) return;
+    const labels = acquisitionLabels(currentSkillLang);
+    const stageTitles = new Map((build.stages || []).map((stage) => [stage.id, stage.title]));
+    const catalogById = catalogEntriesById(hydratedSkillCatalog);
+    const acquisitionDetailRows = [];
+    const acquisitionFromRows = [];
+    const acquisitionRequirementRows = [];
+    const evidenceTableRows = [];
+    grid.innerHTML = build.skillAcquisition.map((item) => `
+      <article class="card">
+        <div class="link-head">
+          <h3>${esc(item.timing || stageTitles.get(item.stageId) || item.stageId)}</h3>
+          <span class="verify-badge">${esc(item.sourceStatus || 'manual-seed-needs-review')}</span>
+        </div>
+        <div class="mini-block">
+          <strong>${esc(labels.take)}</strong>
+          ${renderOrderedItems(item.take)}
+        </div>
+        <div class="mini-block">
+          <strong>${esc(labels.doNotForce)}</strong>
+          ${renderRuleItems(item.doNotForce || [])}
+        </div>
+        ${(item.confirmBefore || []).length ? `<div class="mini-block"><strong>${esc(labels.confirmBefore)}</strong>${renderRuleItems(item.confirmBefore)}</div>` : ''}
+        ${(item.sourceUse || []).length ? `<div class="mini-block"><strong>${esc(labels.sourceUse)}</strong>${renderRuleItems(item.sourceUse)}</div>` : ''}
+        ${(item.fallback || []).length ? `<div class="mini-block"><strong>${esc(labels.fallback)}</strong>${renderRuleItems(item.fallback)}</div>` : ''}
+        ${item.evidenceNote ? `<p><span class="warn">${esc(labels.evidenceNote)}：</span>${esc(item.evidenceNote)}</p>` : ''}
+        ${(() => {
+          const rows = (item.activeSkillIds || [])
+            .map((skillId) => {
+              const entry = catalogById.get(skillId);
+              const evidence = acquisitionEvidenceLine(entry, { zhCN: skillId, zhTW: skillId, en: skillId }, currentSkillLang);
+              if (!evidence) return null;
+              acquisitionDetailRows.push(skillId);
+              if (detailFrom(entry)) acquisitionFromRows.push(skillId);
+              if (detailRequirement(entry)) acquisitionRequirementRows.push(skillId);
+              evidenceTableRows.push({ stageId: item.stageId, skillId, entry });
+              return evidence;
+            })
+            .filter(Boolean);
+          return rows.length ? `<div class="mini-block"><strong>${esc(labels.sourceAndRequirement)}</strong>${renderRuleItems(rows)}</div>` : '';
+        })()}
+      </article>
+    `).join('');
+    if (evidenceHead) {
+      evidenceHead.innerHTML = `
+        <th>${esc(labels.stage)}</th>
+        <th>${esc(labels.skill)}</th>
+        <th>${esc(labels.kindRole)}</th>
+        <th>${esc(labels.source)}</th>
+        <th>${esc(labels.requirement)}</th>
+        <th>${esc(labels.guideBoundary)}</th>
+      `;
+    }
+    if (evidenceRows) {
+      evidenceRows.innerHTML = evidenceTableRows.map((row) => {
+        const skill = (build.skills?.active || []).find((item) => item.id === row.skillId);
+        const name = displayNameFromCatalog(row.entry, skill?.name || { zhCN: row.skillId, zhTW: row.skillId, en: row.skillId }, currentSkillLang);
+        const role = roleLabels[currentSkillLang]?.[skill?.role] || skill?.role || '';
+        return `
+          <tr>
+            <td>${esc(stageTitles.get(row.stageId) || row.stageId)}</td>
+            <td>${esc(name)}</td>
+            <td>${esc(skillKindLabel(row.entry || { kind: 'active' }, currentSkillLang))}<br><span class="route-note">${esc(role)}</span></td>
+            <td>${esc(detailFrom(row.entry) || labels.noSource)}</td>
+            <td>${esc(detailRequirement(row.entry) || labels.noRequirement)}</td>
+            <td>${esc(sourceBoundaryText(currentSkillLang))}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+    if (status) {
+      const hasFullDetail = acquisitionDetailRows.length >= evidenceTableRows.length && evidenceTableRows.length > 0;
+      status.textContent = acquisitionStatusText(acquisitionDetailRows.length, evidenceTableRows.length, currentSkillLang);
+      status.className = `verify-badge${hasFullDetail ? ' ok' : ''}`;
+    }
+    document.body.dataset.skillAcquisitionCount = String(build.skillAcquisition.length);
+    document.body.dataset.skillAcquisitionSourceStatus = [...new Set(build.skillAcquisition.map((item) => item.sourceStatus || 'unknown'))].join(',');
+    document.body.dataset.skillAcquisitionSnapshotStatus = hydratedSkillCatalog?.source?.type || 'missing';
+    document.body.dataset.skillAcquisitionDetailCount = String(new Set(acquisitionDetailRows).size);
+    document.body.dataset.skillAcquisitionFromCount = String(new Set(acquisitionFromRows).size);
+    document.body.dataset.skillAcquisitionRequirementCount = String(new Set(acquisitionRequirementRows).size);
+    document.body.dataset.skillAcquisitionEvidenceCoverage = `${acquisitionDetailRows.length}/${evidenceTableRows.length}`;
+    document.body.dataset.skillAcquisitionBoundaryStatus = 'snapshot-evidence-not-vendor-act';
+    document.body.dataset.skillAcquisitionEvidenceRows = String(evidenceTableRows.length);
+    document.body.dataset.skillAcquisitionEvidenceLang = currentSkillLang;
+    document.body.dataset.skillAcquisitionEvidenceNoteCount = String(build.skillAcquisition.filter((item) => item.evidenceNote).length);
+    document.body.dataset.skillAcquisitionConfirmCount = String(build.skillAcquisition.reduce((sum, item) => sum + (item.confirmBefore?.length || 0), 0));
+    document.body.dataset.skillAcquisitionSourceUseCount = String(build.skillAcquisition.reduce((sum, item) => sum + (item.sourceUse?.length || 0), 0));
+    document.body.dataset.skillAcquisitionFallbackCount = String(build.skillAcquisition.reduce((sum, item) => sum + (item.fallback?.length || 0), 0));
+  }
+
+  function renderBuildGear(build) {
+    const gearOverviewGrid = document.getElementById('gearOverviewGrid');
+    const gearRows = document.getElementById('gearRows');
+    const stageRows = document.getElementById('gearStageRows');
+    const thresholdRows = document.getElementById('gearStatThresholdRows');
+    const troubleshootingGrid = document.getElementById('gearTroubleshootingGrid');
+    const craftingPlanGrid = document.getElementById('craftingPlanGrid');
+
+    if (gearOverviewGrid && build.gearOverview) {
+      const overview = build.gearOverview;
+      const cards = overview.cards || [];
+      const checkCount = cards.reduce((sum, card) => sum + (card.checks?.length || 0), 0);
+      gearOverviewGrid.innerHTML = `
+        <h3>${esc(overview.title)}</h3>
+        <p class="guide-flow-intro">${esc(overview.intro)}</p>
+        <div class="grid">
+          ${cards.map((card) => `
+            <article class="card guide-flow-card" data-gear-overview="${esc(card.id)}">
+              <h3>${esc(card.title)}</h3>
+              <p>${esc(card.body)}</p>
+              ${card.checks?.length ? renderRuleItems(card.checks) : ''}
+            </article>
+          `).join('')}
+        </div>
+      `;
+      document.body.dataset.gearOverviewCardCount = String(cards.length);
+      document.body.dataset.gearOverviewCheckCount = String(checkCount);
+      document.body.dataset.gearOverviewSourceStatus = 'manual-guide-gear-flow';
+    }
+
+    if (gearRows && Array.isArray(build.gearPriorities)) {
+      gearRows.innerHTML = build.gearPriorities.map((item) => `
+        <tr>
+          <td>${esc(item.slot)}</td>
+          <td>${esc(item.early)}</td>
+          <td>${esc(item.mid)}</td>
+          <td>${esc(item.endgame)}</td>
+          <td>${esc((item.priorityStats || []).join(' > '))}</td>
+          <td>${esc((item.avoid || []).join('；'))}</td>
+        </tr>
+      `).join('');
+      document.body.dataset.gearAvoidCount = String(build.gearPriorities.reduce((sum, item) => sum + (item.avoid?.length || 0), 0));
+    }
+
+    if (stageRows && Array.isArray(build.gearStagePlan)) {
+      const stageTitles = new Map((build.stages || []).map((stage) => [stage.id, stage.title]));
+      stageRows.innerHTML = build.gearStagePlan.map((item) => `
+        <tr>
+          <td>${esc(stageTitles.get(item.stageId) || item.stageId)}</td>
+          <td>${esc(item.budgetTier)}</td>
+          <td>${esc(item.focus)}</td>
+          <td>${esc((item.mustHave || []).join('、'))}</td>
+          <td>${esc(item.upgradeWhen)}</td>
+        </tr>
+      `).join('');
+    }
+
+    if (thresholdRows && Array.isArray(build.gearStatThresholds)) {
+      const stageTitles = new Map((build.stages || []).map((stage) => [stage.id, stage.title]));
+      const rows = build.gearStatThresholds.flatMap((group) => (
+        (group.thresholds || []).map((item) => ({ group, item }))
+      ));
+      thresholdRows.innerHTML = rows.map(({ group, item }) => `
+        <tr>
+          <td>
+            <strong>${esc(stageTitles.get(group.stageId) || group.title || group.stageId)}</strong>
+            <div class="route-note">${esc(group.note || '')}</div>
+          </td>
+          <td>${esc(item.stat)}</td>
+          <td>${esc(item.minimum)}</td>
+          <td>${esc(item.upgradeTarget)}</td>
+          <td>${esc(item.priority)}</td>
+          <td>${esc(item.reason)}</td>
+        </tr>
+      `).join('');
+      document.body.dataset.gearStatThresholdStageCount = String(build.gearStatThresholds.length);
+      document.body.dataset.gearStatThresholdRowCount = String(rows.length);
+      document.body.dataset.gearStatThresholdSourceStatus = [...new Set(build.gearStatThresholds.map((item) => item.sourceStatus || 'unknown'))].join(',');
+      const priorities = rows.map(({ item }) => Number(item.priority)).filter(Number.isFinite);
+      document.body.dataset.gearStatThresholdHighestPriority = String(priorities.length ? Math.min(...priorities) : 0);
+    }
+
+    if (troubleshootingGrid && Array.isArray(build.gearTroubleshooting)) {
+      const stageTitles = new Map((build.stages || []).map((stage) => [stage.id, stage.title]));
+      const checkCount = build.gearTroubleshooting.reduce((sum, item) => sum + (item.checkOrder?.length || 0), 0);
+      const actionCount = build.gearTroubleshooting.reduce((sum, item) => sum + (item.gearAction?.length || 0), 0);
+      const avoidCount = build.gearTroubleshooting.reduce((sum, item) => sum + (item.doNotDo?.length || 0), 0);
+      troubleshootingGrid.innerHTML = build.gearTroubleshooting.map((item) => `
+        <article class="card" data-gear-troubleshooting="${esc(item.id)}">
+          <span class="pill">${esc(stageTitles.get(item.stageId) || item.stageId)}</span>
+          <h3>${esc(item.problem)}</h3>
+          <p><span class="warn">可能原因：</span>${esc(item.likelyCause)}</p>
+          <div class="mini-block"><strong>检查顺序</strong>${renderOrderedItems(item.checkOrder || [])}</div>
+          <div class="mini-block"><strong>装备动作</strong>${renderRuleItems(item.gearAction || [])}</div>
+          <div class="mini-block"><strong>不要这样做</strong>${renderRuleItems(item.doNotDo || [])}</div>
+          <p><span class="warn">停止线：</span>${esc(item.stopLine)}</p>
+        </article>
+      `).join('');
+      document.body.dataset.gearTroubleshootingCount = String(build.gearTroubleshooting.length);
+      document.body.dataset.gearTroubleshootingCheckCount = String(checkCount);
+      document.body.dataset.gearTroubleshootingActionCount = String(actionCount);
+      document.body.dataset.gearTroubleshootingAvoidCount = String(avoidCount);
+      document.body.dataset.gearTroubleshootingStageCount = String(new Set(build.gearTroubleshooting.map((item) => item.stageId)).size);
+    }
+
+    const earlyGearPriorityGrid = document.getElementById('earlyGearPriorityGrid');
+    if (earlyGearPriorityGrid && Array.isArray(build.earlyGearStatPriority)) {
+      earlyGearPriorityGrid.innerHTML = build.earlyGearStatPriority.map((item) => `
+        <article class="card">
+          <h3>${esc(item.title)}</h3>
+          ${renderOrderedItems(item.priority)}
+          <p>${esc(item.rule)}</p>
+          <p><span class="warn">避坑：</span>${esc((item.avoid || []).join('；'))}</p>
+        </article>
+      `).join('');
+      document.body.dataset.earlyGearPriorityCount = String(build.earlyGearStatPriority.length);
+      document.body.dataset.earlyGearPriorityItemCount = String(build.earlyGearStatPriority.reduce((sum, item) => sum + (item.priority?.length || 0), 0));
+    }
+
+    if (craftingPlanGrid && Array.isArray(build.craftingPlan)) {
+      const structuredCraftCount = build.craftingPlan.filter((item) => item.sourceStatus && item.purchaseFirst && item.priorityMods?.length && item.materials?.length && item.successChecks?.length && item.fallback?.length).length;
+      const craftPriorityModCount = build.craftingPlan.reduce((sum, item) => sum + (item.priorityMods?.length || 0), 0);
+      const craftMaterialCount = build.craftingPlan.reduce((sum, item) => sum + (item.materials?.length || 0), 0);
+      const craftSuccessCheckCount = build.craftingPlan.reduce((sum, item) => sum + (item.successChecks?.length || 0), 0);
+      const craftFallbackCount = build.craftingPlan.reduce((sum, item) => sum + (item.fallback?.length || 0), 0);
+      craftingPlanGrid.innerHTML = build.craftingPlan.map((item, index) => `
+        <article class="card">
+          <h3>${index + 1}. ${esc(item.title)}</h3>
+          ${item.sourceStatus ? `<span class="pill">${esc(item.sourceStatus)}</span>` : ''}
+          <p>${esc(item.goal)}</p>
+          <p><span class="warn">底子：</span>${esc(item.base)}</p>
+          ${item.purchaseFirst ? `<p><span class="warn">先买还是先做：</span>${esc(item.purchaseFirst)}</p>` : ''}
+          ${item.priorityMods?.length ? `<p><span class="warn">优先词缀：</span>${renderTags(item.priorityMods)}</p>` : ''}
+          ${item.materials?.length ? `<p><span class="warn">材料动作：</span></p>${renderRuleItems(item.materials)}` : ''}
+          ${renderOrderedItems(item.steps)}
+          ${item.successChecks?.length ? `<p><span class="warn">成功判定：</span></p>${renderRuleItems(item.successChecks)}` : ''}
+          ${item.fallback?.length ? `<p><span class="warn">失败退路：</span></p>${renderRuleItems(item.fallback)}` : ''}
+          <p><span class="warn">停止线：</span>${esc(item.stopRule)}</p>
+        </article>
+      `).join('');
+      document.body.dataset.craftingPlanStructuredCount = String(structuredCraftCount);
+      document.body.dataset.craftingPlanPriorityModCount = String(craftPriorityModCount);
+      document.body.dataset.craftingPlanMaterialCount = String(craftMaterialCount);
+      document.body.dataset.craftingPlanSuccessCheckCount = String(craftSuccessCheckCount);
+      document.body.dataset.craftingPlanFallbackCount = String(craftFallbackCount);
+      document.body.dataset.craftingPlanSourceStatus = [...new Set(build.craftingPlan.map((item) => item.sourceStatus || 'unknown'))].join(',');
+    }
+  }
+
+  function guideMarkdownFileName(build, version, lang) {
+    const labels = guideReportLabels(lang);
+    return `${labels.filePrefix}-${version.id}-${build.id}-${lang}.md`.replace(/[^a-z0-9_.-]+/gi, '-');
+  }
+
+  function routeForStage(manifest, build, stage) {
+    return (manifest?.tree?.routes || []).find((route) => route.buildId === build.id && route.stageId === stage.treeStage) || null;
+  }
+
+  function buildGuideMarkdownReport(build, manifest, version, lang) {
+    if (!build || !version) return '';
+    const labels = guideReportLabels(lang);
+    const article = build.guideArticle || {};
+    const overview = build.overview || {};
+    const stages = build.stages || [];
+    const routes = (manifest?.tree?.routes || []).filter((route) => route.buildId === build.id);
+    const projectedRoutes = routes.filter((route) => route.origin === 'projected-from-endgame-order').length;
+    const handTunedRoutes = routes.filter((route) => route.handTuned).length;
+    const activeSkills = build.skills?.active || [];
+    const supportGroups = build.skills?.recommendedLinks || [];
+    const gearOverviewCards = build.gearOverview?.cards || [];
+    const gearThresholdRows = (build.gearStatThresholds || []).reduce((sum, stage) => sum + (stage.thresholds?.length || stage.rows?.length || 0), 0);
+    const lines = [
+      `# ${markdownText(localizedName(build.title, lang))}`,
+      '',
+      `> ${labels.caution}`,
+      '',
+      `## ${labels.summary}`,
+      '',
+      `- ${labels.version}: ${markdownText(version.id)} / ${markdownText(version.season)} / PoE2DB ${markdownText(version.poe2dbPassiveTreeVersion || version.poe2dbVersion || '-')}`,
+      `- ${labels.build}: ${markdownText(build.id)}`,
+      `- ${labels.className}: ${markdownText(localizedName(build.class?.base, lang))}`,
+      `- ${labels.ascendancy}: ${markdownText(localizedName(build.class?.ascendancy, lang))}`,
+      `- ${labels.stage}: ${stages.length}`,
+      `- ${labels.tree}: ${routes.length} routes, ${projectedRoutes} ${labels.routeProjected}, ${handTunedRoutes} ${labels.handTuned}`,
+      `- ${labels.activeSkills}: ${activeSkills.length}`,
+      `- ${labels.supports}: ${supportGroups.length}`,
+      `- ${labels.gearPlan}: ${build.gearPriorities?.length || 0} slots / ${gearThresholdRows} threshold rows`,
+      `- ${labels.crafting}: ${build.craftingPlan?.length || 0} plans`,
+      ''
+    ];
+
+    lines.push(`## ${labels.overview}`, '');
+    lines.push(`- Difficulty: ${markdownText(localizedValue(overview.difficulty, lang))}`);
+    lines.push(`- Budget: ${markdownText(localizedValue(overview.budget, lang))}`);
+    lines.push('', '### Best For', ...markdownList(localizedValue(overview.bestFor, lang)), '');
+    lines.push('### Strengths', ...markdownList(localizedValue(overview.strengths, lang)), '');
+    lines.push('### Risks', ...markdownList(localizedValue(overview.risks, lang)), '');
+
+    lines.push(`## ${labels.guideArticle}`, '');
+    lines.push(markdownText(localizedName(article.intro, lang)), '');
+    (article.sections || []).forEach((section) => {
+      lines.push(`### ${markdownText(localizedName(section.title, lang))}`, '');
+      lines.push(markdownText(localizedName(section.body, lang)), '');
+      lines.push(...markdownList(localizedList(section.checks, lang)), '');
+    });
+
+    lines.push(`## ${labels.stageRoutes}`, '');
+    lines.push(`| ${labels.stage} | ${labels.tree} | ${labels.routeStatus} | Review |`);
+    lines.push('| --- | --- | --- | --- |');
+    stages.forEach((stage) => {
+      const route = routeForStage(manifest, build, stage);
+      const review = stage.routeReview;
+      const treeUrl = route ? `../tools/passive-tree.html?build=${build.id}&stage=${stage.treeStage}` : '-';
+      const routeStatus = route
+        ? `${route.origin}; ${route.handTuned ? labels.handTuned : labels.pendingTune}; ${route.nodes || stage.treeNodes || '-'} nodes`
+        : '-';
+      const reviewText = review ? `${review.status}; ${review.reason}; ${review.useUntil || '-'}` : '-';
+      lines.push(`| ${markdownText(stage.title || stage.id)} | ${markdownText(treeUrl)} | ${markdownText(routeStatus)} | ${markdownText(reviewText)} |`);
+    });
+    lines.push('');
+
+    lines.push(`## ${labels.execution}`, '');
+    (build.executionPlan?.stages || []).forEach((item) => {
+      const stage = stages.find((entry) => entry.id === item.stageId);
+      lines.push(`### ${markdownText(stage?.title || item.stageId)}`, '');
+      lines.push(`- ${labels.mainAction}: ${markdownText(item.mainAction)}`);
+      lines.push(`- ${labels.buyFirst}: ${markdownText((item.buyFirst || []).join(' / '))}`);
+      lines.push(`- ${labels.stopLine}: ${markdownText(item.stopLine)}`);
+      lines.push(`- ${labels.fallback}: ${markdownText(item.fallback)}`);
+      lines.push('');
+    });
+
+    lines.push(`## ${labels.skillPlan}`, '');
+    const skillById = new Map(activeSkills.map((skill) => [skill.id, skill]));
+    const skillDisplay = (skillId) => {
+      const skill = skillById.get(skillId);
+      return skill ? displayNameFromCatalog(null, skill.name, lang) : skillId;
+    };
+    const supportDisplay = (supportId) => localizedName(build.skills?.supports?.[supportId], lang) || supportId;
+    activeSkills.forEach((skill) => {
+      lines.push(`- ${markdownText(displayNameFromCatalog(null, skill.name, lang))}: ${markdownText(roleLabels[lang]?.[skill.role] || skill.role)}`);
+    });
+    lines.push('');
+    if (build.skills?.minionSelectionGuide) {
+      const guide = build.skills.minionSelectionGuide;
+      lines.push(`### ${markdownText(localizedName(guide.title, lang))}`, '');
+      lines.push(markdownText(localizedName(guide.intro, lang)), '');
+      (guide.groups || []).forEach((group) => {
+        lines.push(`- ${markdownText(localizedName(group.title, lang))}: ${markdownText(localizedName(group.job, lang))}`);
+        lines.push(`  - Minions: ${markdownText((group.skillIds || []).map(skillDisplay).join(' / '))}`);
+        lines.push(`  - First supports: ${markdownText((group.firstSupports || []).map(supportDisplay).join(' / '))}`);
+        lines.push(`  - Cut rule: ${markdownText(localizedName(group.cutFirst, lang))}`);
+      });
+      lines.push(...markdownList(localizedList(guide.rules, lang)), '');
+    }
+    supportGroups.forEach((link) => {
+      const supportNames = (link.supports || []).map(supportDisplay);
+      lines.push(`- ${markdownText(link.title?.[localeBySkillLang[lang]] || link.title || link.slotType)}: ${markdownText(supportNames.join(' / '))}`);
+    });
+    lines.push('');
+
+    lines.push(`## ${labels.gearPlan}`, '');
+    gearOverviewCards.forEach((card) => {
+      lines.push(`### ${markdownText(localizedName(card.title, lang))}`, '');
+      lines.push(markdownText(localizedName(card.body, lang)), '');
+      lines.push(...markdownList(localizedList(card.checks, lang)), '');
+    });
+    (build.gearPriorities || []).slice(0, 12).forEach((item) => {
+      lines.push(`- ${markdownText(item.slot)}: ${markdownText(item.endgame)}; priority=${markdownText(item.priority)}; avoid=${markdownText(item.avoid)}`);
+    });
+    lines.push('');
+
+    lines.push(`## ${labels.crafting}`, '');
+    (build.craftingPlan || []).forEach((item) => {
+      lines.push(`### ${markdownText(item.slot)}`, '');
+      lines.push(`- Base: ${markdownText(item.base)}`);
+      lines.push(`- Buy/craft: ${markdownText(item.purchaseFirst || '-')}`);
+      lines.push(`- Priority mods: ${markdownText((item.priorityMods || []).join(' / '))}`);
+      lines.push(`- ${labels.stopLine}: ${markdownText(item.stopRule)}`);
+      lines.push(...markdownList(item.steps), '');
+    });
+
+    lines.push(`## ${labels.evidence}`, '');
+    lines.push(`- Route review notes: ${(stages || []).filter((stage) => stage.routeReview).length}/${stages.length}`);
+    lines.push(`- Projected routes: ${projectedRoutes}`);
+    lines.push(`- Hand tuned routes: ${handTunedRoutes}`);
+    lines.push(`- Skill catalog: ${document.body.dataset.guideSkillCatalogSourceType || '-'}`);
+    lines.push(`- Market status: ${document.body.dataset.guideEvidenceMarketStatus || 'sample-not-live'}`);
+    return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+  }
+
+  function updateGuideMarkdownReport() {
+    const labels = guideReportLabels(currentSkillLang);
+    const title = document.getElementById('guideMarkdownReportTitle');
+    const desc = document.getElementById('guideMarkdownReportDesc');
+    const status = document.getElementById('guideMarkdownReportStatus');
+    const block = document.getElementById('guideMarkdownReportBlock');
+    const copyButton = document.getElementById('copyGuideMarkdownBtn');
+    const downloadButton = document.getElementById('downloadGuideMarkdownBtn');
+    const copyStatus = document.getElementById('guideMarkdownCopyStatus');
+    if (title) title.textContent = labels.title;
+    if (desc) desc.textContent = labels.desc;
+    if (copyButton) copyButton.textContent = labels.copy;
+    if (downloadButton) downloadButton.textContent = labels.download;
+    if (copyStatus) copyStatus.textContent = '';
+    const report = hydratedBuild && hydratedVersion
+      ? buildGuideMarkdownReport(hydratedBuild, hydratedManifest, hydratedVersion, currentSkillLang)
+      : '';
+    if (status) status.textContent = report ? labels.statusReady : labels.waiting;
+    if (block) block.textContent = report || labels.waiting;
+    setGuideMarkdownButtons(Boolean(report));
+    document.body.dataset.guideMarkdownReady = report ? 'true' : 'false';
+    document.body.dataset.guideMarkdownFormat = report ? 'markdown' : '';
+    document.body.dataset.guideMarkdownLineCount = report ? String(report.trim().split(/\r?\n/).length) : '0';
+    document.body.dataset.guideMarkdownSectionCount = String((report.match(/^## /gm) || []).length);
+    document.body.dataset.guideMarkdownFileName = report && hydratedBuild && hydratedVersion ? guideMarkdownFileName(hydratedBuild, hydratedVersion, currentSkillLang) : '';
+    document.body.dataset.guideMarkdownPreviewChars = String(report.length);
+    document.body.dataset.guideMarkdownCopyStatus = '';
+  }
+
+  async function copyText(value) {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+    const textarea = document.createElement('textarea');
+    textarea.value = value;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    if (!copied) throw new Error('copy failed');
+  }
+
+  async function copyGuideMarkdownReport() {
+    if (!hydratedBuild || !hydratedVersion) return;
+    const status = document.getElementById('guideMarkdownCopyStatus');
+    const labels = guideReportLabels(currentSkillLang);
+    try {
+      await copyText(buildGuideMarkdownReport(hydratedBuild, hydratedManifest, hydratedVersion, currentSkillLang));
+      if (status) status.textContent = labels.copied;
+      document.body.dataset.guideMarkdownCopyStatus = 'copied';
+    } catch (error) {
+      if (status) status.textContent = labels.copyFailed;
+      document.body.dataset.guideMarkdownCopyStatus = 'failed';
+    }
+  }
+
+  function downloadGuideMarkdownReport() {
+    if (!hydratedBuild || !hydratedVersion) return;
+    const report = buildGuideMarkdownReport(hydratedBuild, hydratedManifest, hydratedVersion, currentSkillLang);
+    const blob = new Blob([report], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = guideMarkdownFileName(hydratedBuild, hydratedVersion, currentSkillLang);
+    link.click();
+    URL.revokeObjectURL(url);
+    updateGuideMarkdownReport();
+  }
+
+  async function hydrateBuildData() {
+    try {
+      const versions = await window.POE2Versions.readJson('../data/versions.json');
+      const version = window.POE2Versions.selectedVersion(versions);
+      const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+      const buildEntry = (manifest.builds || []).find((item) => item.id === buildId);
+      if (!buildEntry) throw new Error(`Build missing in manifest: ${buildId}`);
+      const build = await window.POE2Versions.readJson(`../${version.dataRoot}/${buildEntry.data}`);
+      const skillCatalog = manifest.skills?.catalog
+        ? await window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.skills.catalog}`)
+        : null;
+      hydratedBuild = build;
+      hydratedManifest = manifest;
+      hydratedVersion = version;
+      hydratedBuildEntry = buildEntry;
+      hydratedSkillCatalog = skillCatalog;
+      renderGuideSummary(build, version, buildEntry);
+      renderGuideArticle(build, currentSkillLang);
+      renderGuideStrategy(build);
+      renderExecutionPlan(build);
+      renderStageTreeLinks(build, manifest);
+      renderBuildStages(build, manifest);
+      renderBuildGear(build);
+      renderBuildSkills(build, currentSkillLang);
+      renderSkillSourceMatrix(build, currentSkillLang);
+      renderEvidenceSummary(build, manifest, skillCatalog);
+      renderSkillProgression(build);
+      renderSkillAcquisition(build);
+      updateGuideMarkdownReport();
+      document.body.dataset.buildDataVersion = version.id;
+      document.body.dataset.buildDataSource = buildEntry.data;
+    } catch (error) {
+      console.warn('Using static guide fallback:', error.message);
+      document.body.dataset.buildDataFallback = 'true';
+      updateGuideMarkdownReport();
+    }
+  }
+
+  const skillText = {
+    zh: {
+      activeSkillsTitle: '技能本体',
+      supportGemsTitle: '推荐链接',
+      supportSelectionRulesTitle: '辅助选择规则',
+      minionSelectionSlotLabel: '召唤分工',
+      minionSelectionChooseWhen: '什么时候选',
+      minionSelectionFirstSupports: '先接辅助',
+      minionSelectionRulesTitle: '精魂紧张时的删减顺序',
+      supportDecisionMatrixTitle: '召唤物辅助取舍矩阵',
+      skillTroubleshootingTitle: '技能问题诊断',
+      troubleshootingSlotLabel: '处理顺序',
+      troubleshootingAddLabel: '优先补',
+      troubleshootingCutLabel: '优先删/后放',
+      ruleSlotLabel: '规则',
+      matrixRole: '定位',
+      matrixMinions: '适用召唤物',
+      matrixUseWhen: '什么时候用',
+      matrixFirstSupports: '优先辅助',
+      matrixAddLater: '后补辅助',
+      matrixCutWhen: '什么时候删/换',
+      matrixReviewNote: '复核备注',
+      openSkillCatalog: '查看技能资料',
+      pendingVerificationShort: '待复核',
+      supportingFire: '支援火力（Supporting Fire）',
+      mainSkillRole: '主输出号令技能。',
+      curseRole: '增伤诅咒，打稀有怪和首领时保持覆盖。',
+      minionSkillsTitle: '召唤物技能',
+      minionSkillRole: '这些是精魂保留/召唤技能本体，根据精魂和孔位选择，不是辅助宝石。',
+      kurgalsLeash: "库尔加的束缚（Kurgal's Leash）",
+      muster: '集结（Muster）',
+      heft: '厚重（Heft）',
+      bidding3: '号令 III（Bidding III）',
+      socketNote: '前期孔位不足时，优先保留能直接提升主技能伤害和频率的辅助。',
+      activeSkillNote: '本页按“技能本体 → 推荐辅助宝石”展示。召唤物不是辅助宝石，辅助宝石必须接在对应召唤技能下面。',
+      vulnerability: '脆弱诅咒（Vulnerability）',
+      supportingFireLink: '支援火力（Supporting Fire）',
+      vulnerabilityLink: '脆弱诅咒（Vulnerability）',
+      damageMinionLink: '后排输出召唤物',
+      frontlineMinionLink: '前排承伤召唤物',
+      utilityMinionLink: '功能补位召唤物',
+      commandDamageSlot: '号令输出',
+      curseSlot: '诅咒',
+      damageMinionSlot: '召唤技能',
+      frontlineMinionSlot: '召唤技能',
+      utilityMinionSlot: '按精魂补',
+      supportingFireLinkNote: '优先保证这组链接，支援火力是战术家号令输出核心。',
+      curseLinkNote: '打稀有怪和首领时保持覆盖，清小怪时不用为它牺牲主输出孔位。',
+      damageMinionLinkNote: '从这些召唤物里选一到两组当主输出，优先把主输出链做满，不要每个召唤物平均分辅助。',
+      frontlineMinionLinkNote: '前排的任务是活住和挡怪，开荒不要为了伤害辅助牺牲存活。',
+      utilityMinionLinkNote: '功能位只在精魂和孔位允许时补，不抢主输出召唤物的高价值辅助。',
+      heightenedCurse: '强化诅咒（Heightened Curse）',
+      focusedCurse: '专注诅咒（Focused Curse）',
+      rapidCasting2: '快速施法 II（Rapid Casting II）',
+      prolongedDuration2: '持续时间延长 II（Prolonged Duration II）',
+      minions: '召唤物',
+      skeletalWarrior: '骷髅战士（Skeletal Warrior）',
+      frostMage: '冰霜法师（Frost Mage）',
+      wolfPack: '狼群（Wolf Pack）',
+      cleric: '牧师（Cleric）',
+      arsonist: '纵火者（Arsonist）',
+      stormMage: '风暴法师（Storm Mage）',
+      reaver: '掠夺者（Reaver）',
+      sniper: '狙击手（Sniper）',
+      brute: '蛮兵（Brute）',
+      minionSupports: '召唤物辅助',
+      meatShield: '肉盾（Meat Shield）',
+      lastGasp: '最后一息（Last Gasp）',
+      witheringTouch: '凋零之触（Withering Touch）',
+      cullingStrike: '终结（Culling Strike）'
+    },
+    tw: {
+      activeSkillsTitle: '技能本體',
+      supportGemsTitle: '推薦連線',
+      supportSelectionRulesTitle: '輔助選擇規則',
+      minionSelectionSlotLabel: '召喚分工',
+      minionSelectionChooseWhen: '什麼時候選',
+      minionSelectionFirstSupports: '先接輔助',
+      minionSelectionRulesTitle: '精魂緊張時的刪減順序',
+      supportDecisionMatrixTitle: '召喚物輔助取捨矩陣',
+      skillTroubleshootingTitle: '技能問題診斷',
+      troubleshootingSlotLabel: '處理順序',
+      troubleshootingAddLabel: '優先補',
+      troubleshootingCutLabel: '優先刪/後放',
+      ruleSlotLabel: '規則',
+      matrixRole: '定位',
+      matrixMinions: '適用召喚物',
+      matrixUseWhen: '什麼時候用',
+      matrixFirstSupports: '優先輔助',
+      matrixAddLater: '後補輔助',
+      matrixCutWhen: '什麼時候刪/換',
+      matrixReviewNote: '複核備註',
+      openSkillCatalog: '查看技能資料',
+      pendingVerificationShort: '待複核',
+      supportingFire: '支援火力（Supporting Fire）',
+      mainSkillRole: '主輸出號令技能。',
+      curseRole: '增傷詛咒，打稀有怪和首領時保持覆蓋。',
+      minionSkillsTitle: '召喚物技能',
+      minionSkillRole: '這些是精魂保留/召喚技能本體，依精魂和孔位選擇，不是輔助寶石。',
+      kurgalsLeash: "庫爾加的束縛（Kurgal's Leash）",
+      muster: '集結（Muster）',
+      heft: '厚重（Heft）',
+      bidding3: '號令 III（Bidding III）',
+      socketNote: '前期孔位不足時，優先保留能直接提升主技能傷害和頻率的輔助。',
+      activeSkillNote: '本頁按「技能本體 → 推薦輔助寶石」展示。召喚物不是輔助寶石，輔助寶石必須接在對應召喚技能下面。',
+      vulnerability: '脆弱詛咒（Vulnerability）',
+      supportingFireLink: '支援火力（Supporting Fire）',
+      vulnerabilityLink: '脆弱詛咒（Vulnerability）',
+      damageMinionLink: '後排輸出召喚物',
+      frontlineMinionLink: '前排承傷召喚物',
+      utilityMinionLink: '功能補位召喚物',
+      commandDamageSlot: '號令輸出',
+      curseSlot: '詛咒',
+      damageMinionSlot: '召喚技能',
+      frontlineMinionSlot: '召喚技能',
+      utilityMinionSlot: '按精魂補',
+      supportingFireLinkNote: '優先保證這組連線，支援火力是戰術家號令輸出核心。',
+      curseLinkNote: '打稀有怪和首領時保持覆蓋，清小怪時不用為它犧牲主輸出孔位。',
+      damageMinionLinkNote: '從這些召喚物裡選一到兩組當主輸出，優先把主輸出鏈做滿，不要每個召喚物平均分輔助。',
+      frontlineMinionLinkNote: '前排的任務是活住和擋怪，開荒不要為了傷害輔助犧牲存活。',
+      utilityMinionLinkNote: '功能位只在精魂和孔位允許時補，不搶主輸出召喚物的高價值輔助。',
+      heightenedCurse: '強化詛咒（Heightened Curse）',
+      focusedCurse: '專注詛咒（Focused Curse）',
+      rapidCasting2: '快速施法 II（Rapid Casting II）',
+      prolongedDuration2: '持續時間延長 II（Prolonged Duration II）',
+      minions: '召喚物',
+      skeletalWarrior: '骷髏戰士（Skeletal Warrior）',
+      frostMage: '冰霜法師（Frost Mage）',
+      wolfPack: '狼群（Wolf Pack）',
+      cleric: '牧師（Cleric）',
+      arsonist: '縱火者（Arsonist）',
+      stormMage: '風暴法師（Storm Mage）',
+      reaver: '掠奪者（Reaver）',
+      sniper: '狙擊手（Sniper）',
+      brute: '蠻兵（Brute）',
+      minionSupports: '召喚物輔助',
+      meatShield: '肉盾（Meat Shield）',
+      lastGasp: '最後一息（Last Gasp）',
+      witheringTouch: '凋零之觸（Withering Touch）',
+      cullingStrike: '終結（Culling Strike）'
+    },
+    en: {
+      activeSkillsTitle: 'Skill Gems',
+      supportGemsTitle: 'Recommended Links',
+      supportSelectionRulesTitle: 'Support Selection Rules',
+      minionSelectionSlotLabel: 'Minion Role',
+      minionSelectionChooseWhen: 'Choose When',
+      minionSelectionFirstSupports: 'First supports',
+      minionSelectionRulesTitle: 'Cut Order When Spirit Is Tight',
+      supportDecisionMatrixTitle: 'Minion Support Decision Matrix',
+      skillTroubleshootingTitle: 'Skill Troubleshooting',
+      troubleshootingSlotLabel: 'Fix Order',
+      troubleshootingAddLabel: 'Add first',
+      troubleshootingCutLabel: 'Cut or delay',
+      ruleSlotLabel: 'Rule',
+      matrixRole: 'Role',
+      matrixMinions: 'Minions',
+      matrixUseWhen: 'Use When',
+      matrixFirstSupports: 'First Supports',
+      matrixAddLater: 'Add Later',
+      matrixCutWhen: 'Cut or Swap When',
+      matrixReviewNote: 'Review Note',
+      openSkillCatalog: 'Open skill catalog',
+      pendingVerificationShort: 'pending',
+      supportingFire: 'Supporting Fire',
+      mainSkillRole: 'Main command damage skill.',
+      curseRole: 'Damage curse; keep it up on rares and bosses.',
+      minionSkillsTitle: 'Minion Skills',
+      minionSkillRole: 'These are Spirit reservation or summon skill gems. Choose them based on Spirit and sockets; they are not support gems.',
+      kurgalsLeash: "Kurgal's Leash",
+      muster: 'Muster',
+      heft: 'Heft',
+      bidding3: 'Bidding III',
+      socketNote: 'When sockets are limited early, keep supports that directly improve main skill damage and uptime.',
+      activeSkillNote: 'This section is organized as skill gem to recommended supports. Minions are not support gems; support gems must be linked under the matching summon skill.',
+      vulnerability: 'Vulnerability',
+      supportingFireLink: 'Supporting Fire',
+      vulnerabilityLink: 'Vulnerability',
+      damageMinionLink: 'Backline Damage Minions',
+      frontlineMinionLink: 'Frontline Tank Minions',
+      utilityMinionLink: 'Utility Minions',
+      commandDamageSlot: 'Command Damage',
+      curseSlot: 'Curse',
+      damageMinionSlot: 'Summon Skill',
+      frontlineMinionSlot: 'Summon Skill',
+      utilityMinionSlot: 'Add with Spirit',
+      supportingFireLinkNote: 'Prioritize this link first; Supporting Fire is the Tactician command damage core.',
+      curseLinkNote: 'Keep it up on rares and bosses; do not sacrifice main damage sockets for clearing trash.',
+      damageMinionLinkNote: 'Choose one or two of these minions as main damage and finish that link first instead of spreading supports evenly.',
+      frontlineMinionLinkNote: 'Frontline minions are there to survive and hold enemies; do not trade away survival for early damage supports.',
+      utilityMinionLinkNote: 'Add utility minions only when Spirit and sockets allow it; they should not take premium supports from the main damage minion.',
+      heightenedCurse: 'Heightened Curse',
+      focusedCurse: 'Focused Curse',
+      rapidCasting2: 'Rapid Casting II',
+      prolongedDuration2: 'Prolonged Duration II',
+      minions: 'Minions',
+      skeletalWarrior: 'Skeletal Warrior',
+      frostMage: 'Frost Mage',
+      wolfPack: 'Wolf Pack',
+      cleric: 'Cleric',
+      arsonist: 'Arsonist',
+      stormMage: 'Storm Mage',
+      reaver: 'Reaver',
+      sniper: 'Sniper',
+      brute: 'Brute',
+      minionSupports: 'Minion Supports',
+      meatShield: 'Meat Shield',
+      lastGasp: 'Last Gasp',
+      witheringTouch: 'Withering Touch',
+      cullingStrike: 'Culling Strike'
+    }
+  };
+
+  function setSkillLanguage(lang) {
+    currentSkillLang = lang;
+    const dict = skillText[lang] || skillText.zh;
+    if (hydratedBuild) {
+      renderGuideArticle(hydratedBuild, lang);
+      renderBuildSkills(hydratedBuild, lang);
+      renderSkillSourceMatrix(hydratedBuild, lang);
+      renderSkillAcquisition(hydratedBuild);
+      renderEvidenceSummary(hydratedBuild, hydratedManifest, hydratedSkillCatalog);
+      updateGuideMarkdownReport();
+    }
+    else {
+      document.querySelectorAll('[data-i18n]').forEach((node) => {
+        node.textContent = dict[node.dataset.i18n] || node.textContent;
+      });
+      updateGuideMarkdownReport();
+    }
+    document.querySelectorAll('[data-guide-lang]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.guideLang === lang);
+    });
+    document.querySelectorAll('[data-skill-lang]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.skillLang === lang);
+    });
+    document.body.dataset.guidePageLang = lang;
+    setGuideViewMode(document.body.dataset.guideViewMode || 'read');
+  }
+
+  document.querySelectorAll('[data-guide-lang]').forEach((button) => {
+    button.addEventListener('click', () => setSkillLanguage(button.dataset.guideLang));
+  });
+
+  document.querySelectorAll('[data-skill-lang]').forEach((button) => {
+    button.addEventListener('click', () => setSkillLanguage(button.dataset.skillLang));
+  });
+
+  document.querySelectorAll('[data-guide-view-mode]').forEach((button) => {
+    button.addEventListener('click', () => setGuideViewMode(button.dataset.guideViewMode));
+  });
+
+  document.getElementById('copyGuideMarkdownBtn')?.addEventListener('click', (event) => {
+    if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
+    copyGuideMarkdownReport();
+  });
+
+  document.getElementById('downloadGuideMarkdownBtn')?.addEventListener('click', (event) => {
+    if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
+    downloadGuideMarkdownReport();
+  });
+
+  setGuideViewMode('read');
+  setSkillLanguage('zh');
+  hydrateBuildData();
+</script>
+</body>
+</html>

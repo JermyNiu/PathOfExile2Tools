@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 市场快照复核</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  select {
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    color:var(--text);
+    min-height:34px;
+    padding:6px 8px;
+    font:inherit;
+  }
+  .nav, .inline-actions, .filters, .segmented {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.primary {
+    border-color:#0ea5e9;
+    background:#075985;
+  }
+  .btn.disabled {
+    color:var(--muted);
+    cursor:not-allowed;
+    opacity:.65;
+  }
+  .segmented {
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:3px;
+    background:#0b1120;
+  }
+  .segmented button {
+    border:0;
+    border-radius:6px;
+    padding:6px 9px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+  }
+  .segmented button.active {
+    background:#075985;
+    color:var(--text);
+  }
+  .shell {
+    width:min(1240px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel, .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .card { background:var(--panel2); padding:14px; }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:8px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:4px;
+  }
+  .stat strong { color:var(--accent); font-size:18px; }
+  .stat span { color:var(--muted); font-size:12px; line-height:1.35; }
+  .muted, li { color:var(--muted); line-height:1.55; }
+  ul { margin:0; padding-left:20px; display:grid; gap:5px; }
+  table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th, td {
+    padding:9px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  th { color:var(--muted); font-weight:650; }
+  tr:last-child td { border-bottom:0; }
+  code, pre {
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    color:var(--accent);
+  }
+  pre {
+    margin:0;
+    white-space:pre-wrap;
+    word-break:break-word;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    color:var(--text);
+    padding:12px;
+    max-height:360px;
+    overflow:auto;
+  }
+  .badge {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:2px 7px;
+    color:var(--muted);
+    font-size:12px;
+    margin:0 4px 4px 0;
+  }
+  .ok { color:var(--ok); }
+  .warn { color:var(--warn); }
+  .bad { color:var(--bad); }
+  @media (max-width: 900px) {
+    .grid, .stat-grid { grid-template-columns:1fr; }
+    table { display:block; overflow:auto; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="pageTitle">市场快照复核</h1>
+  <nav class="nav">
+    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+    <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
+    <a class="btn" href="gem-flip.html" data-i18n="gemFlip">技能倒卖</a>
+    <a class="btn" href="hideout-flip.html" data-i18n="hideoutFlip">藏身处倒卖</a>
+    <a class="btn" href="version-history.html" data-i18n="versionHistory">版本历史</a>
+    <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
+      <button class="active" type="button" data-lang="zhCN">简体</button>
+      <button type="button" data-lang="zhTW">繁体</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="panel">
+    <h2 data-i18n="statusTitle">当前版本市场状态</h2>
+    <p class="muted" data-i18n="statusDesc">这个页面只做市场快照复核、候选队列检查和归档命令生成。样例快照和示例文件不会被展示成实时行情；真正写 manifest 仍要显式执行本地脚本的 --write。</p>
+    <div class="filters">
+      <label class="muted"><span data-i18n="versionLabel">版本</span>
+        <select id="versionSelect" aria-label="版本" data-i18n-aria="versionLabel">
+          <option selected data-i18n="loading">读取中...</option>
+        </select>
+      </label>
+    </div>
+    <div class="stat-grid" id="marketReviewStats">
+      <div class="stat"><span>活动快照</span><strong>读取中...</strong></div>
+      <div class="stat"><span>候选快照</span><strong>读取中...</strong></div>
+      <div class="stat"><span>可归档</span><strong>读取中...</strong></div>
+      <div class="stat"><span>平均可信度</span><strong>读取中...</strong></div>
+      <div class="stat"><span>最低买/卖深度</span><strong>读取中...</strong></div>
+      <div class="stat"><span>边界</span><strong>读取中...</strong></div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <h3 data-i18n="activeTitle">活动快照质量</h3>
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="kindCol">类型</th>
+            <th data-i18n="fileCol">文件</th>
+            <th data-i18n="sourceCol">来源</th>
+            <th data-i18n="entriesCol">条目</th>
+            <th data-i18n="evidenceCol">证据</th>
+            <th data-i18n="freshnessCol">新鲜度</th>
+          </tr>
+        </thead>
+        <tbody id="activeSnapshotRows">
+          <tr><td colspan="6" class="muted" data-i18n="loading">读取中...</td></tr>
+        </tbody>
+      </table>
+    </article>
+    <article class="card">
+      <h3 data-i18n="candidateTitle">候选快照队列</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>key</th>
+            <th data-i18n="kindCol">类型</th>
+            <th data-i18n="fileCol">文件</th>
+            <th data-i18n="statusCol">状态</th>
+            <th data-i18n="evidenceCol">证据</th>
+          </tr>
+        </thead>
+        <tbody id="candidateRows">
+          <tr><td colspan="5" class="muted" data-i18n="loading">读取中...</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="commandsTitle">市场复核命令</h2>
+    <p class="muted" data-i18n="commandsDesc">命令分成三类：验证活动市场文件、从 raw 模板 dry-run 生成候选、对 validationStatus=ok 的候选执行归档 dry-run/write。当前没有候选时，归档命令保持为空。</p>
+    <div class="inline-actions">
+      <button class="btn" type="button" id="copyMarketReviewCommandsBtn" data-i18n="copyCommands">复制市场复核命令</button>
+      <span class="muted" id="marketReviewCommandCopyStatus"></span>
+    </div>
+    <pre id="marketReviewCommandBlock" data-i18n="loading">读取中...</pre>
+  </section>
+
+  <section class="panel" id="market-review-report">
+    <h2 data-i18n="reportTitle">市场复核报告 Markdown</h2>
+    <p class="muted" data-i18n="reportDesc">这份报告面向版本日志和任务交接，记录活动快照、候选队列、证据强度和样例边界。</p>
+    <div class="inline-actions">
+      <button class="btn" type="button" id="copyMarketReviewReportBtn" data-i18n="copyReport">复制 Markdown 报告</button>
+      <button class="btn" type="button" id="downloadMarketReviewReportBtn" data-i18n="downloadReport">下载 Markdown 报告</button>
+      <span class="muted" id="marketReviewReportCopyStatus"></span>
+    </div>
+    <pre id="marketReviewReportBlock" data-i18n="loading">读取中...</pre>
+  </section>
+</main>
+
+<script src="../assets/version-context.js"></script>
+<script>
+let currentLang = 'zhCN';
+let currentReview = null;
+
+const ui = {
+  zhCN: {
+    pageTitle: '市场快照复核',
+    home: '首页',
+    dataUpdate: '数据更新',
+    gemFlip: '技能倒卖',
+    hideoutFlip: '藏身处倒卖',
+    versionHistory: '版本历史',
+    languageSelect: '语言选择',
+    statusTitle: '当前版本市场状态',
+    statusDesc: '这个页面只做市场快照复核、候选队列检查和归档命令生成。样例快照和示例文件不会被展示成实时行情；真正写 manifest 仍要显式执行本地脚本的 --write。',
+    versionLabel: '版本',
+    loading: '读取中...',
+    activeSnapshots: '活动快照',
+    candidateSnapshots: '候选快照',
+    archiveReady: '可归档',
+    avgConfidence: '平均可信度',
+    minDepth: '最低买/卖深度',
+    boundary: '边界',
+    activeTitle: '活动快照质量',
+    candidateTitle: '候选快照队列',
+    kindCol: '类型',
+    fileCol: '文件',
+    sourceCol: '来源',
+    entriesCol: '条目',
+    evidenceCol: '证据',
+    freshnessCol: '新鲜度',
+    statusCol: '状态',
+    confidence: '可信度',
+    depth: '深度',
+    noCandidates: '当前没有候选快照。先用 normalize-market-snapshot.mjs --write 写入候选。',
+    commandsTitle: '市场复核命令',
+    commandsDesc: '命令分成三类：验证活动市场文件、从 raw 模板 dry-run 生成候选、对 validationStatus=ok 的候选执行归档 dry-run/write。当前没有候选时，归档命令保持为空。',
+    copyCommands: '复制市场复核命令',
+    copiedCommands: '已复制市场复核命令',
+    reportTitle: '市场复核报告 Markdown',
+    reportDesc: '这份报告面向版本日志和任务交接，记录活动快照、候选队列、证据强度和样例边界。',
+    copyReport: '复制 Markdown 报告',
+    downloadReport: '下载 Markdown 报告',
+    copiedReport: '已复制 Markdown 报告',
+    copyFailed: '复制失败',
+    gemFlips: '技能倒卖',
+    hideoutFlips: '藏身处',
+    reportHeading: '市场快照复核',
+    reportSeason: '赛季',
+    reportDataRoot: '数据目录',
+    reportActiveCount: '活动快照',
+    reportCandidateCount: '候选快照',
+    reportReadyCount: '可归档候选',
+    reportBoundary: '边界：sample-manual-seed 和 examples/*.example.json 不是实时行情；归档必须先 dry-run，再显式 --write。',
+    reportActiveTitle: '活动快照',
+    reportCandidateTitle: '候选快照',
+    reportCommandsTitle: '市场复核命令',
+    evidenceCoverage: '证据覆盖',
+    minDepthHeader: '买/卖深度'
+  },
+  zhTW: {
+    pageTitle: '市場快照複核',
+    home: '首頁',
+    dataUpdate: '資料更新',
+    gemFlip: '技能倒賣',
+    hideoutFlip: '藏身處倒賣',
+    versionHistory: '版本歷史',
+    languageSelect: '語言選擇',
+    statusTitle: '目前版本市場狀態',
+    statusDesc: '這個頁面只做市場快照複核、候選佇列檢查和歸檔命令生成。樣例快照和示例檔案不會被展示成即時行情；真正寫 manifest 仍要明確執行本地腳本的 --write。',
+    versionLabel: '版本',
+    loading: '讀取中...',
+    activeSnapshots: '活動快照',
+    candidateSnapshots: '候選快照',
+    archiveReady: '可歸檔',
+    avgConfidence: '平均可信度',
+    minDepth: '最低買/賣深度',
+    boundary: '邊界',
+    activeTitle: '活動快照品質',
+    candidateTitle: '候選快照佇列',
+    kindCol: '類型',
+    fileCol: '檔案',
+    sourceCol: '來源',
+    entriesCol: '條目',
+    evidenceCol: '證據',
+    freshnessCol: '新鮮度',
+    statusCol: '狀態',
+    confidence: '可信度',
+    depth: '深度',
+    noCandidates: '目前沒有候選快照。先用 normalize-market-snapshot.mjs --write 寫入候選。',
+    commandsTitle: '市場複核命令',
+    commandsDesc: '命令分成三類：驗證活動市場檔案、從 raw 模板 dry-run 生成候選、對 validationStatus=ok 的候選執行歸檔 dry-run/write。目前沒有候選時，歸檔命令保持空白。',
+    copyCommands: '複製市場複核命令',
+    copiedCommands: '已複製市場複核命令',
+    reportTitle: '市場複核報告 Markdown',
+    reportDesc: '這份報告面向版本日誌和任務交接，記錄活動快照、候選佇列、證據強度和樣例邊界。',
+    copyReport: '複製 Markdown 報告',
+    downloadReport: '下載 Markdown 報告',
+    copiedReport: '已複製 Markdown 報告',
+    copyFailed: '複製失敗',
+    gemFlips: '技能倒賣',
+    hideoutFlips: '藏身處',
+    reportHeading: '市場快照複核',
+    reportSeason: '賽季',
+    reportDataRoot: '資料目錄',
+    reportActiveCount: '活動快照',
+    reportCandidateCount: '候選快照',
+    reportReadyCount: '可歸檔候選',
+    reportBoundary: '邊界：sample-manual-seed 和 examples/*.example.json 不是即時行情；歸檔必須先 dry-run，再明確 --write。',
+    reportActiveTitle: '活動快照',
+    reportCandidateTitle: '候選快照',
+    reportCommandsTitle: '市場複核命令',
+    evidenceCoverage: '證據覆蓋',
+    minDepthHeader: '買/賣深度'
+  },
+  en: {
+    pageTitle: 'Market Snapshot Review',
+    home: 'Home',
+    dataUpdate: 'Data Update',
+    gemFlip: 'Skill Flipping',
+    hideoutFlip: 'Hideout Flipping',
+    versionHistory: 'Version History',
+    languageSelect: 'Language selector',
+    statusTitle: 'Current Version Market Status',
+    statusDesc: 'This page only reviews market snapshots, candidate queues, and archive commands. Sample snapshots and example files are never presented as live prices; writing manifest changes still requires an explicit local --write command.',
+    versionLabel: 'Version',
+    loading: 'Loading...',
+    activeSnapshots: 'Active Snapshots',
+    candidateSnapshots: 'Candidate Snapshots',
+    archiveReady: 'Archive Ready',
+    avgConfidence: 'Avg Confidence',
+    minDepth: 'Min Buy/Sell Depth',
+    boundary: 'Boundary',
+    activeTitle: 'Active Snapshot Quality',
+    candidateTitle: 'Candidate Snapshot Queue',
+    kindCol: 'Kind',
+    fileCol: 'File',
+    sourceCol: 'Source',
+    entriesCol: 'Entries',
+    evidenceCol: 'Evidence',
+    freshnessCol: 'Freshness',
+    statusCol: 'Status',
+    confidence: 'confidence',
+    depth: 'depth',
+    noCandidates: 'No candidate snapshots yet. Use normalize-market-snapshot.mjs --write to add one to the queue.',
+    commandsTitle: 'Market Review Commands',
+    commandsDesc: 'Commands are grouped into active-file validation, raw-template candidate normalization, and archive dry-run/write commands for validationStatus=ok candidates. When there are no candidates, archive commands stay empty.',
+    copyCommands: 'Copy Market Review Commands',
+    copiedCommands: 'Copied market review commands',
+    reportTitle: 'Market Review Markdown',
+    reportDesc: 'This report is for version logs and task handoff, recording active snapshots, candidate queue status, evidence strength, and sample boundaries.',
+    copyReport: 'Copy Markdown Report',
+    downloadReport: 'Download Markdown Report',
+    copiedReport: 'Copied Markdown report',
+    copyFailed: 'Copy failed',
+    gemFlips: 'Skill Flipping',
+    hideoutFlips: 'Hideout',
+    reportHeading: 'Market Snapshot Review',
+    reportSeason: 'Season',
+    reportDataRoot: 'Data root',
+    reportActiveCount: 'Active snapshots',
+    reportCandidateCount: 'Candidate snapshots',
+    reportReadyCount: 'Archive-ready candidates',
+    reportBoundary: 'Boundary: sample-manual-seed and examples/*.example.json are not live prices; archive must dry-run first, then explicitly use --write.',
+    reportActiveTitle: 'Active Snapshots',
+    reportCandidateTitle: 'Candidate Snapshots',
+    reportCommandsTitle: 'Market Review Commands',
+    evidenceCoverage: 'Evidence Coverage',
+    minDepthHeader: 'Buy/Sell Depth'
+  }
+};
+
+const rawTemplateFiles = {
+  gemFlips: 'market/examples/raw-gem-flips-v1.example.json',
+  hideoutFlips: 'market/examples/raw-hideout-flips-v1.example.json'
+};
+
+function text(key) {
+  return ui[currentLang]?.[key] || ui.zhCN[key] || key;
+}
+
+function marketKind(kind) {
+  return text(kind) || kind;
+}
+
+function applyStaticI18n() {
+  document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.title = `POE2 Tools - ${text('pageTitle')}`;
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    node.textContent = text(node.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach((node) => {
+    node.setAttribute('aria-label', text(node.dataset.i18nAria));
+  });
+  document.querySelectorAll('[data-lang]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.lang === currentLang);
+  });
+  document.body.dataset.marketReviewLang = currentLang;
+  document.body.dataset.marketReviewUiLocalized = 'true';
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function number(value, fallback = 0) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function formatPercent(value) {
+  return `${number(value).toFixed(2)}`;
+}
+
+function freshness(snapshot) {
+  if (snapshot?.source?.type !== 'real-snapshot-v1') return 'sample-not-live';
+  const fetchedAt = Date.parse(snapshot.source?.fetchedAt || '');
+  if (!Number.isFinite(fetchedAt)) return 'unknown';
+  const hours = (Date.now() - fetchedAt) / 36e5;
+  return hours <= 6 ? 'fresh' : 'stale';
+}
+
+function evidenceStats(snapshot) {
+  const entries = Array.isArray(snapshot?.entries) ? snapshot.entries : [];
+  const evidenceEntries = entries.filter((entry) => entry.marketEvidence);
+  const confidences = evidenceEntries.map((entry) => number(entry.marketEvidence?.priceConfidence, NaN)).filter(Number.isFinite);
+  const buyDepths = evidenceEntries.map((entry) => number(entry.marketEvidence?.buyListingCount, NaN)).filter(Number.isFinite);
+  const sellDepths = evidenceEntries.map((entry) => number(entry.marketEvidence?.sellListingCount, NaN)).filter(Number.isFinite);
+  const minListingDepth = number(snapshot?.source?.filters?.minListingDepth, 0);
+  return {
+    entries: entries.length,
+    evidence: evidenceEntries.length,
+    avgConfidence: confidences.length ? confidences.reduce((sum, value) => sum + value, 0) / confidences.length : 0,
+    minBuyDepth: buyDepths.length ? Math.min(...buyDepths) : 0,
+    minSellDepth: sellDepths.length ? Math.min(...sellDepths) : 0,
+    minListingDepth,
+    hasFilters: Boolean(snapshot?.source?.filters?.abnormalPriceRules?.length),
+    freshnessStatus: freshness(snapshot)
+  };
+}
+
+function statusClass(status) {
+  if (status === 'ok' || status === 'fresh' || status === 'real-snapshot-v1') return 'ok';
+  if (status === 'sample-not-live' || status === 'stale') return 'warn';
+  return 'bad';
+}
+
+function snapshotRow(kind, file, snapshot) {
+  const stats = evidenceStats(snapshot);
+  const sourceType = snapshot?.source?.type || 'missing';
+  return `
+    <tr>
+      <td>${esc(marketKind(kind))}</td>
+      <td><code>${esc(file || '-')}</code></td>
+      <td><span class="${statusClass(sourceType)}">${esc(sourceType)}</span></td>
+      <td>${esc(stats.entries)}</td>
+      <td>${esc(stats.evidence)}/${esc(stats.entries)} / ${esc(text('confidence'))} ${esc(formatPercent(stats.avgConfidence))} / ${esc(text('depth'))} ${esc(stats.minBuyDepth)}/${esc(stats.minSellDepth)}</td>
+      <td><span class="${statusClass(stats.freshnessStatus)}">${esc(stats.freshnessStatus)}</span></td>
+    </tr>
+  `;
+}
+
+function candidateRow(row) {
+  return `
+    <tr>
+      <td><code>${esc(row.key || '-')}</code></td>
+      <td>${esc(marketKind(row.kind) || row.kind || '-')}</td>
+      <td><code>${esc(row.file || '-')}</code></td>
+      <td><span class="${row.validationStatus === 'ok' ? 'ok' : 'warn'}">${esc(row.validationStatus || 'unknown')}</span></td>
+      <td>${esc(row.evidenceEntries || 0)}/${esc(row.entries || 0)} / ${esc(text('confidence'))} ${esc(formatPercent(row.avgConfidence))} / ${esc(text('depth'))} ${esc(row.minBuyDepth || 0)}/${esc(row.minSellDepth || 0)}</td>
+    </tr>
+  `;
+}
+
+function validateCommand(season, kind, file) {
+  return `node scripts/validate-market.mjs --season ${season} --kind ${kind} --file ${file}`;
+}
+
+function normalizeCommand(season, kind, file, key, write = false) {
+  const provider = 'manual-capture';
+  const league = 'S05';
+  return `node scripts/normalize-market-snapshot.mjs --season ${season} --kind ${kind} --file data/seasons/${season}/${file} --key ${key} --provider ${provider} --league ${league}${write ? ' --write' : ''}`;
+}
+
+function archiveCommand(season, row, write = false) {
+  return `node scripts/archive-market-snapshot.mjs --season ${season} --kind ${row.kind} --file ${row.file} --key ${row.key}${write ? ' --write' : ''}`;
+}
+
+function commandLines(season, manifest, candidates) {
+  const lines = [
+    validateCommand(season, 'gemFlips', manifest.market?.gemFlips || 'market/gem-flips.json'),
+    validateCommand(season, 'hideoutFlips', manifest.market?.hideoutFlips || 'market/hideout-flips.json'),
+    normalizeCommand(season, 'gemFlips', rawTemplateFiles.gemFlips, 'manual-gems-demo', false),
+    normalizeCommand(season, 'gemFlips', rawTemplateFiles.gemFlips, 'manual-gems-demo', true),
+    normalizeCommand(season, 'hideoutFlips', rawTemplateFiles.hideoutFlips, 'manual-hideout-demo', false),
+    normalizeCommand(season, 'hideoutFlips', rawTemplateFiles.hideoutFlips, 'manual-hideout-demo', true)
+  ];
+  candidates.filter((row) => row.validationStatus === 'ok').forEach((row) => {
+    lines.push(archiveCommand(season, row, false));
+    lines.push(archiveCommand(season, row, true));
+  });
+  return lines;
+}
+
+function markdownTable(rows) {
+  return rows.length ? rows.join('\n') : '| - | - | - | - | - | - | - | - |';
+}
+
+function buildMarketReviewMarkdown(version, manifest, activeRows, candidates, commands) {
+  const ready = candidates.filter((row) => row.validationStatus === 'ok');
+  const activeLines = activeRows.map((row) => {
+    const stats = evidenceStats(row.snapshot);
+    return `| ${marketKind(row.kind)} | ${row.file} | ${row.snapshot?.source?.type || 'missing'} | ${stats.entries} | ${stats.evidence}/${stats.entries} | ${formatPercent(stats.avgConfidence)} | ${stats.minBuyDepth}/${stats.minSellDepth} | ${stats.freshnessStatus} |`;
+  });
+  const candidateLines = candidates.map((row) => `| ${row.key || '-'} | ${marketKind(row.kind) || row.kind || '-'} | ${row.file || '-'} | ${row.validationStatus || 'unknown'} | ${row.entries || 0} | ${row.evidenceEntries || 0} | ${formatPercent(row.avgConfidence)} | ${row.minBuyDepth || 0}/${row.minSellDepth || 0} |`);
+  return [
+    `# ${text('reportHeading')} - ${version.id}`,
+    '',
+    `- ${text('reportSeason')}: ${version.season}`,
+    `- ${text('reportDataRoot')}: ${version.dataRoot}`,
+    `- ${text('reportActiveCount')}: ${activeRows.length}`,
+    `- ${text('reportCandidateCount')}: ${candidates.length}`,
+    `- ${text('reportReadyCount')}: ${ready.length}`,
+    `- ${text('reportBoundary')}`,
+    '',
+    `## ${text('reportActiveTitle')}`,
+    '',
+    `| ${text('kindCol')} | ${text('fileCol')} | ${text('sourceCol')} | ${text('entriesCol')} | ${text('evidenceCoverage')} | ${text('avgConfidence')} | ${text('minDepthHeader')} | ${text('freshnessCol')} |`,
+    '| --- | --- | --- | ---: | ---: | ---: | ---: | --- |',
+    markdownTable(activeLines),
+    '',
+    `## ${text('reportCandidateTitle')}`,
+    '',
+    `| key | ${text('kindCol')} | ${text('fileCol')} | ${text('statusCol')} | ${text('entriesCol')} | ${text('evidenceCol')} | ${text('avgConfidence')} | ${text('minDepthHeader')} |`,
+    '| --- | --- | --- | --- | ---: | ---: | ---: | ---: |',
+    markdownTable(candidateLines),
+    '',
+    `## ${text('reportCommandsTitle')}`,
+    '',
+    '```sh',
+    commands.join('\n'),
+    '```',
+    ''
+  ].join('\n');
+}
+
+function copyText(text, statusEl, okText, datasetKey) {
+  navigator.clipboard.writeText(text).then(() => {
+    statusEl.textContent = okText;
+    if (datasetKey) document.body.dataset[datasetKey] = 'copied';
+  }).catch((error) => {
+    statusEl.textContent = `${text('copyFailed')}: ${error.message}`;
+    if (datasetKey) document.body.dataset[datasetKey] = 'failed';
+  });
+}
+
+function downloadText(filename, text) {
+  const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function loadMarketReview(version) {
+  const season = version.season.toLowerCase();
+  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const [gemSnapshot, hideoutSnapshot, candidateIndex] = await Promise.all([
+    window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.market?.gemFlips || 'market/gem-flips.json'}`).catch(() => null),
+    window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.market?.hideoutFlips || 'market/hideout-flips.json'}`).catch(() => null),
+    window.POE2Versions.readJson(`../${version.dataRoot}/market/candidates/index.json`).catch(() => ({ schemaVersion: 0, candidates: [] }))
+  ]);
+  const activeRows = [
+    { kind: 'gemFlips', file: manifest.market?.gemFlips || 'market/gem-flips.json', snapshot: gemSnapshot },
+    { kind: 'hideoutFlips', file: manifest.market?.hideoutFlips || 'market/hideout-flips.json', snapshot: hideoutSnapshot }
+  ];
+  const candidates = Array.isArray(candidateIndex?.candidates) ? candidateIndex.candidates : [];
+  const activeStats = activeRows.map((row) => evidenceStats(row.snapshot));
+  const candidateReady = candidates.filter((row) => row.validationStatus === 'ok');
+  const avgConfidence = activeStats.length
+    ? activeStats.reduce((sum, stats) => sum + stats.avgConfidence, 0) / activeStats.length
+    : 0;
+  const minBuyDepth = activeStats.map((stats) => stats.minBuyDepth).filter((value) => value > 0);
+  const minSellDepth = activeStats.map((stats) => stats.minSellDepth).filter((value) => value > 0);
+  const commands = commandLines(season, manifest, candidates);
+  currentReview = { version, manifest, activeRows, candidates, commands };
+  const report = buildMarketReviewMarkdown(version, manifest, activeRows, candidates, commands);
+
+  document.getElementById('marketReviewStats').innerHTML = `
+    <div class="stat"><span>${esc(text('activeSnapshots'))}</span><strong>${esc(activeRows.length)}</strong></div>
+    <div class="stat"><span>${esc(text('candidateSnapshots'))}</span><strong>${esc(candidates.length)}</strong></div>
+    <div class="stat"><span>${esc(text('archiveReady'))}</span><strong>${esc(candidateReady.length)}</strong></div>
+    <div class="stat"><span>${esc(text('avgConfidence'))}</span><strong>${esc(formatPercent(avgConfidence))}</strong></div>
+    <div class="stat"><span>${esc(text('minDepth'))}</span><strong>${esc(minBuyDepth.length ? Math.min(...minBuyDepth) : 0)}/${esc(minSellDepth.length ? Math.min(...minSellDepth) : 0)}</strong></div>
+    <div class="stat"><span>${esc(text('boundary'))}</span><strong>sample-not-live</strong></div>
+  `;
+  document.getElementById('activeSnapshotRows').innerHTML = activeRows.map((row) => snapshotRow(row.kind, row.file, row.snapshot)).join('');
+  document.getElementById('candidateRows').innerHTML = candidates.length
+    ? candidates.map(candidateRow).join('')
+    : `<tr><td colspan="5" class="muted">${esc(text('noCandidates'))}</td></tr>`;
+  document.getElementById('marketReviewCommandBlock').textContent = commands.join('\n');
+  document.getElementById('marketReviewReportBlock').textContent = report;
+
+  document.body.dataset.marketReviewReady = 'true';
+  document.body.dataset.marketReviewVersion = version.id;
+  document.body.dataset.marketReviewActiveSnapshotCount = String(activeRows.length);
+  document.body.dataset.marketReviewCandidateIndexSchema = String(candidateIndex?.schemaVersion || 0);
+  document.body.dataset.marketReviewCandidateCount = String(candidates.length);
+  document.body.dataset.marketReviewCandidateReadyCount = String(candidateReady.length);
+  document.body.dataset.marketReviewCandidateGemCount = String(candidates.filter((row) => row.kind === 'gemFlips').length);
+  document.body.dataset.marketReviewCandidateHideoutCount = String(candidates.filter((row) => row.kind === 'hideoutFlips').length);
+  document.body.dataset.marketReviewCandidateStatuses = [...new Set(candidates.map((row) => row.validationStatus || 'unknown'))].join(',');
+  document.body.dataset.marketReviewGemSourceType = gemSnapshot?.source?.type || 'missing';
+  document.body.dataset.marketReviewHideoutSourceType = hideoutSnapshot?.source?.type || 'missing';
+  document.body.dataset.marketReviewGemFreshnessStatus = activeStats[0]?.freshnessStatus || 'missing';
+  document.body.dataset.marketReviewHideoutFreshnessStatus = activeStats[1]?.freshnessStatus || 'missing';
+  document.body.dataset.marketReviewAvgConfidence = avgConfidence.toFixed(2);
+  document.body.dataset.marketReviewMinBuyDepth = String(minBuyDepth.length ? Math.min(...minBuyDepth) : 0);
+  document.body.dataset.marketReviewMinSellDepth = String(minSellDepth.length ? Math.min(...minSellDepth) : 0);
+  document.body.dataset.marketReviewCommandText = commands.join('\n');
+  document.body.dataset.marketReviewCommandCount = String(commands.length);
+  document.body.dataset.marketReviewArchiveCommandCount = String(candidateReady.length * 2);
+  document.body.dataset.marketReviewReportReady = 'true';
+  document.body.dataset.marketReviewReportFormat = 'markdown';
+  document.body.dataset.marketReviewReportLineCount = String(report.split('\n').length);
+  document.body.dataset.marketReviewReportSectionCount = String((report.match(/^## /gm) || []).length);
+  document.body.dataset.marketReviewReportPreview = report.slice(0, 6000);
+
+  const commandStatus = document.getElementById('marketReviewCommandCopyStatus');
+  const reportStatus = document.getElementById('marketReviewReportCopyStatus');
+  document.body.dataset.marketReviewCommandCopyStatus = 'idle';
+  document.body.dataset.marketReviewReportCopyStatus = 'idle';
+  document.getElementById('copyMarketReviewCommandsBtn').onclick = () => copyText(commands.join('\n'), commandStatus, text('copiedCommands'), 'marketReviewCommandCopyStatus');
+  document.getElementById('copyMarketReviewReportBtn').onclick = () => copyText(report, reportStatus, text('copiedReport'), 'marketReviewReportCopyStatus');
+  document.getElementById('downloadMarketReviewReportBtn').onclick = () => downloadText(`market-review-${version.id}.md`, report);
+}
+
+function rerenderMarketReview() {
+  applyStaticI18n();
+  if (currentReview) {
+    loadMarketReview(currentReview.version);
+  }
+}
+
+async function boot() {
+  applyStaticI18n();
+  const versions = await window.POE2Versions.readJson('../data/versions.json');
+  const select = document.getElementById('versionSelect');
+  const selected = window.POE2Versions.fillSelect(select, versions);
+  await loadMarketReview(selected);
+  select.addEventListener('change', async () => {
+    window.POE2Versions.saveVersionId(select.value);
+    const next = window.POE2Versions.history(versions).find((version) => version.id === select.value) || versions.current;
+    document.body.dataset.marketReviewReady = 'loading';
+    await loadMarketReview(next);
+  });
+}
+
+document.querySelectorAll('[data-lang]').forEach((button) => {
+  button.addEventListener('click', () => {
+    currentLang = button.dataset.lang;
+    rerenderMarketReview();
+  });
+});
+
+boot().catch((error) => {
+  document.body.dataset.marketReviewReady = 'error';
+  document.getElementById('marketReviewStats').innerHTML = `<div class="stat"><span>${esc(text('copyFailed'))}</span><strong>${esc(error.message)}</strong></div>`;
+});
+</script>
+</body>
+</html>

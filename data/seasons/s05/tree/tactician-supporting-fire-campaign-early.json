@@ -1,0 +1,777 @@
+{
+  "nodeIds": [
+    6077,
+    27296,
+    26945,
+    2847,
+    49593,
+    35645,
+    8737,
+    63526,
+    33240,
+    25482,
+    39461,
+    29148,
+    18160,
+    26725,
+    54127,
+    54453,
+    28175,
+    95,
+    55190,
+    61419,
+    38972
+  ],
+  "classId": 5,
+  "ascendancyId": 1,
+  "alternateAscendancyId": 0,
+  "locales": {
+    "en": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "Minions have 20% increased Cooldown Recovery Rate for Command Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any Attribute",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 26945,
+        "name": "Minion Critical Chance",
+        "kind": "Normal",
+        "stats": [
+          "Minions have 20% increased Critical Hit Chance"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 2847,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any Attribute",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 49593,
+        "name": "Sentinels",
+        "kind": "Normal",
+        "stats": [
+          "10% increased Damage",
+          "Minions deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 35645,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "Minions have 20% increased Cooldown Recovery Rate for Command Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 8737,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "Minions deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 63526,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any Attribute",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 33240,
+        "name": "Lord of Horrors",
+        "kind": "Notable",
+        "stats": [
+          "12% increased Reservation Efficiency of Minion Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 25482,
+        "name": "Beef",
+        "kind": "Notable",
+        "stats": [
+          "+25 to Strength"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 39461,
+        "name": "Minion Damage and Life",
+        "kind": "Normal",
+        "stats": [
+          "Minions have 6% increased maximum Life",
+          "Minions deal 6% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 29148,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any Attribute",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 18160,
+        "name": "Minion Critical Chance",
+        "kind": "Normal",
+        "stats": [
+          "Minions have 20% increased Critical Hit Chance"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 26725,
+        "name": "Jewel Socket",
+        "kind": "Jewel",
+        "stats": [
+          "Jewel Socket"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 54127,
+        "name": "Jewel Socket",
+        "kind": "Jewel",
+        "stats": [
+          "Jewel Socket"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 54453,
+        "name": "Minion Damage and Life",
+        "kind": "Normal",
+        "stats": [
+          "Minions have 6% increased maximum Life",
+          "Minions deal 6% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 28175,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any Attribute",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 95,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "Minions deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 55190,
+        "name": "Jewel Socket",
+        "kind": "Jewel",
+        "stats": [
+          "Jewel Socket"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 61419,
+        "name": "Jewel Socket",
+        "kind": "Jewel",
+        "stats": [
+          "Jewel Socket"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 38972,
+        "name": "Restless Dead",
+        "kind": "Notable",
+        "stats": [
+          "Minions Revive 25% faster"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-CN": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "命令技能冷却",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "属性",
+        "kind": "普通",
+        "stats": [
+          "+5 任意属性",
+          "+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 26945,
+        "name": "召唤生物暴击率",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的暴击率提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 2847,
+        "name": "属性",
+        "kind": "普通",
+        "stats": [
+          "+5 任意属性",
+          "+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 49593,
+        "name": "哨兵",
+        "kind": "普通",
+        "stats": [
+          "伤害提高 10%",
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 35645,
+        "name": "命令技能冷却",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 8737,
+        "name": "召唤生物伤害",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 63526,
+        "name": "属性",
+        "kind": "普通",
+        "stats": [
+          "+5 任意属性",
+          "+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 33240,
+        "name": "惊怖主宰",
+        "kind": "大点",
+        "stats": [
+          "召唤生物技能的保留效能提高 12%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 25482,
+        "name": "壮汉",
+        "kind": "大点",
+        "stats": [
+          "+25 力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 39461,
+        "name": "召唤生物伤害和生命",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的生命上限提高 6%",
+          "召唤生物的伤害提高 6%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 29148,
+        "name": "属性",
+        "kind": "普通",
+        "stats": [
+          "+5 任意属性",
+          "+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 18160,
+        "name": "召唤生物暴击率",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的暴击率提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 26725,
+        "name": "珠宝插槽",
+        "kind": "珠宝孔",
+        "stats": [
+          "珠宝插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 54127,
+        "name": "珠宝插槽",
+        "kind": "珠宝孔",
+        "stats": [
+          "珠宝插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 54453,
+        "name": "召唤生物伤害和生命",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的生命上限提高 6%",
+          "召唤生物的伤害提高 6%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 28175,
+        "name": "属性",
+        "kind": "普通",
+        "stats": [
+          "+5 任意属性",
+          "+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 95,
+        "name": "召唤生物伤害",
+        "kind": "普通",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 55190,
+        "name": "珠宝插槽",
+        "kind": "珠宝孔",
+        "stats": [
+          "珠宝插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 61419,
+        "name": "珠宝插槽",
+        "kind": "珠宝孔",
+        "stats": [
+          "珠宝插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 38972,
+        "name": "无宁之众",
+        "kind": "大点",
+        "stats": [
+          "召唤生物的复活速度加快 25%"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-TW": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "指令技能冷卻時間",
+        "kind": "普通",
+        "stats": [
+          "增加20%召喚物的號令技能冷卻時間恢復率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "能力",
+        "kind": "普通",
+        "stats": [
+          "任何能力值+5",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 26945,
+        "name": "召喚物暴擊率",
+        "kind": "普通",
+        "stats": [
+          "增加20%召喚物的暴擊率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 2847,
+        "name": "能力",
+        "kind": "普通",
+        "stats": [
+          "任何能力值+5",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 49593,
+        "name": "守望",
+        "kind": "普通",
+        "stats": [
+          "增加10%傷害",
+          "增加10%召喚物造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 35645,
+        "name": "指令技能冷卻時間",
+        "kind": "普通",
+        "stats": [
+          "增加20%召喚物的號令技能冷卻時間恢復率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 8737,
+        "name": "召喚物傷害",
+        "kind": "普通",
+        "stats": [
+          "增加10%召喚物造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 63526,
+        "name": "能力",
+        "kind": "普通",
+        "stats": [
+          "任何能力值+5",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 33240,
+        "name": "恐懼領主",
+        "kind": "核心天赋",
+        "stats": [
+          "召喚物技能增加12%保留效率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 25482,
+        "name": "壯漢",
+        "kind": "核心天赋",
+        "stats": [
+          "+25力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 39461,
+        "name": "召喚物傷害及生命",
+        "kind": "普通",
+        "stats": [
+          "召喚物增加6%最大生命",
+          "增加6%召喚物造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 29148,
+        "name": "能力",
+        "kind": "普通",
+        "stats": [
+          "任何能力值+5",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 18160,
+        "name": "召喚物暴擊率",
+        "kind": "普通",
+        "stats": [
+          "增加20%召喚物的暴擊率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 26725,
+        "name": "珠寶插槽",
+        "kind": "珠寶插槽",
+        "stats": [
+          "珠寶插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 54127,
+        "name": "珠寶插槽",
+        "kind": "珠寶插槽",
+        "stats": [
+          "珠寶插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 54453,
+        "name": "召喚物傷害及生命",
+        "kind": "普通",
+        "stats": [
+          "召喚物增加6%最大生命",
+          "增加6%召喚物造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 28175,
+        "name": "能力",
+        "kind": "普通",
+        "stats": [
+          "任何能力值+5",
+          "base strength 5\nbase dexterity 5\nbase intelligence 5"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 95,
+        "name": "召喚物傷害",
+        "kind": "普通",
+        "stats": [
+          "增加10%召喚物造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 55190,
+        "name": "珠寶插槽",
+        "kind": "珠寶插槽",
+        "stats": [
+          "珠寶插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 61419,
+        "name": "珠寶插槽",
+        "kind": "珠寶插槽",
+        "stats": [
+          "珠寶插槽"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 38972,
+        "name": "殞落狂熱",
+        "kind": "核心天赋",
+        "stats": [
+          "召喚物的復甦速度加快25%"
+        ],
+        "asc": ""
+      }
+    ]
+  },
+  "ui": {
+    "en": {
+      "title": "POE2 Tactician Supporting Fire Passive Tree - Early Campaign",
+      "nodesBadge": "21 selected nodes",
+      "buildBadge": "Mercenary / Tactician",
+      "sourceBadge": "PoB2 + PoE2DB 4.5",
+      "search": "Search node name or stat, e.g. Spirit / Minion / Strength",
+      "hint": "This stage snapshot is projected from the current endgame route order; blue links come from tree_load and yellow nodes from tree_highlight.",
+      "waiting": "Waiting for inline SVG native highlighter...",
+      "ready": "Called inline SVG native tree_load/tree_highlight, highlighted nodes: ",
+      "failed": "Inline SVG native tree_load is not ready.",
+      "nodeId": "Node ID",
+      "noStats": "No explicit stat",
+      "none": "No matching nodes.",
+      "headers": [
+        "#",
+        "Node",
+        "Type",
+        "Stats"
+      ],
+      "language": "Language"
+    },
+    "zh-CN": {
+      "title": "POE2 战术家支援火力天赋树 - 剧情早期",
+      "nodesBadge": "21 已点节点",
+      "buildBadge": "佣兵 / 战术家",
+      "sourceBadge": "PoB2 + 编年史 4.5",
+      "search": "搜索节点名或属性，例如 精魂 / 召唤生物 / 力量",
+      "hint": "当前阶段快照按终局路线顺序投影生成；蓝色连线由底图 tree_load 生成，黄色节点由 tree_highlight 生成。",
+      "waiting": "等待内联 SVG 原生高亮函数...",
+      "ready": "已调用内联 SVG 原生 tree_load/tree_highlight，高亮节点：",
+      "failed": "内联 SVG 原生 tree_load 未就绪。",
+      "nodeId": "节点 ID",
+      "noStats": "无显式属性",
+      "none": "没有匹配节点。",
+      "headers": [
+        "#",
+        "节点",
+        "类型",
+        "属性"
+      ],
+      "language": "语言"
+    },
+    "zh-TW": {
+      "title": "POE2 戰術家支援火力天賦樹 - 劇情早期",
+      "nodesBadge": "21 已配置節點",
+      "buildBadge": "傭兵 / 戰術家",
+      "sourceBadge": "PoB2 + 編年史 4.5",
+      "search": "搜尋節點名稱或屬性，例如 精魂 / 召喚物 / 力量",
+      "hint": "目前階段快照按終局路線順序投影生成；藍色連線由底圖 tree_load 生成，黃色節點由 tree_highlight 生成。",
+      "waiting": "等待內嵌 SVG 原生高亮函式...",
+      "ready": "已呼叫內嵌 SVG 原生 tree_load/tree_highlight，高亮節點：",
+      "failed": "內嵌 SVG 原生 tree_load 尚未就緒。",
+      "nodeId": "節點 ID",
+      "noStats": "無明確屬性",
+      "none": "沒有符合的節點。",
+      "headers": [
+        "#",
+        "節點",
+        "類型",
+        "屬性"
+      ],
+      "language": "語言"
+    }
+  },
+  "meta": {
+    "id": "tactician-supporting-fire-campaign-early",
+    "buildId": "tactician-supporting-fire",
+    "stageId": "campaign-early",
+    "season": "S05",
+    "versionId": "s05-tree-4.5",
+    "title": "战术家支援火力召唤流 - 剧情早期",
+    "nodes": 21,
+    "source": "Projected from the current endgame PoB route order on 2026-07-22. Replace with a hand-tuned leveling route when available.",
+    "nodeCount": 21,
+    "origin": "projected-from-endgame-order",
+    "overridePolicy": "replaceable-until-hand-tuned",
+    "handTuned": false,
+    "generatedAt": "2026-07-22",
+    "projection": {
+      "sourceStageId": "endgame",
+      "sourceRoute": "tactician-supporting-fire-endgame.json",
+      "strategy": "prefix-by-pob-node-order",
+      "count": 21,
+      "warning": "This is a leveling snapshot projected from the endgame route order, not a hand-tuned campaign tree."
+    }
+  }
+}

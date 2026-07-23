@@ -1,0 +1,454 @@
+{
+  "nodeIds": [
+    6077,
+    27296,
+    8737,
+    35645,
+    33240,
+    39461,
+    54453,
+    4748,
+    22691,
+    3823,
+    51184,
+    17973
+  ],
+  "classId": 0,
+  "ascendancyId": 0,
+  "alternateAscendancyId": 0,
+  "locales": {
+    "en": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 8737,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 35645,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 33240,
+        "name": "Lord of Horrors",
+        "kind": "Notable",
+        "stats": [
+          "12% increased [Reservation] [Efficiency] of [Minion] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 39461,
+        "name": "Minion Damage and Life",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 6% increased maximum Life",
+          "[Minion|Minions] deal 6% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 54453,
+        "name": "Minion Damage and Life",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 6% increased maximum Life",
+          "[Minion|Minions] deal 6% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 4748,
+        "name": "Energy Shield Delay",
+        "kind": "Normal",
+        "stats": [
+          "6% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+          "Witch: [Minion|Minions] have 10% increased maximum Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 22691,
+        "name": "Energy Shield Delay",
+        "kind": "Normal",
+        "stats": [
+          "6% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+          "Witch: [Minion|Minions] have 10% increased maximum Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 3823,
+        "name": "Elemental Force",
+        "kind": "Notable",
+        "stats": [
+          "+3% to all [ElementalDamage|Elemental] [Resistances]",
+          "20% increased [ElementalDamage|Elemental Damage]",
+          "Witch: [Minion|Minions] deal 20% increased Damage",
+          "Witch: [Minion|Minions] have 4% increased [Attack] and Cast Speed"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 51184,
+        "name": "Raw Power",
+        "kind": "Notable",
+        "stats": [
+          "20% increased [Spell] Damage",
+          "+10 to [Intelligence]",
+          "Witch: 16% increased [Spell] Damage",
+          "Witch: [Minion|Minions] deal 16% increased Damage",
+          "Witch: +10 to [Intelligence]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 17973,
+        "name": "Rapid Recharge",
+        "kind": "Notable",
+        "stats": [
+          "12% increased [ESRechargeRate|Energy Shield Recharge Rate]",
+          "12% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+          "Witch: [Minion|Minions] have 15% increased maximum Life",
+          "Witch: [Minion|Minions] [Reviving|Revive] 15% faster"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-CN": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 8737,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 35645,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 33240,
+        "name": "惊怖主宰",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物技能的保留效能提高 12%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 39461,
+        "name": "召唤生物伤害和生命",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的生命上限提高 6%",
+          "召唤生物的伤害提高 6%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 54453,
+        "name": "召唤生物伤害和生命",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的生命上限提高 6%",
+          "召唤生物的伤害提高 6%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 4748,
+        "name": "能量护盾延迟",
+        "kind": "Normal",
+        "stats": [
+          "能量护盾充能时间提前 6%",
+          "女巫: 召唤生物的生命上限提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 22691,
+        "name": "能量护盾延迟",
+        "kind": "Normal",
+        "stats": [
+          "能量护盾充能时间提前 6%",
+          "女巫: 召唤生物的生命上限提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 3823,
+        "name": "元素之力",
+        "kind": "Notable",
+        "stats": [
+          "所有元素抗性 +3%",
+          "元素伤害提高 20%",
+          "女巫: 召唤生物的伤害提高 20%",
+          "女巫: 召唤生物的攻击和施法速度提高 4%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 51184,
+        "name": "原始力量",
+        "kind": "Notable",
+        "stats": [
+          "法术伤害提高 20%",
+          "+10 智慧",
+          "女巫: 法术伤害提高 16%",
+          "女巫: 召唤生物的伤害提高 16%",
+          "女巫: +10 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 17973,
+        "name": "迅速充能",
+        "kind": "Notable",
+        "stats": [
+          "能量护盾充能率提高 12%",
+          "能量护盾充能时间提前 12%",
+          "女巫: 召唤生物的生命上限提高 15%",
+          "女巫: 召唤生物的复活速度加快 15%"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-TW": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 8737,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 35645,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 33240,
+        "name": "恐懼領主",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]技能增加12%[Reservation|保留]效率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 39461,
+        "name": "召喚物傷害及生命",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|召喚物]增加6%最大生命",
+          "增加6%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 54453,
+        "name": "召喚物傷害及生命",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|召喚物]增加6%最大生命",
+          "增加6%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 4748,
+        "name": "能量護盾延遲",
+        "kind": "Normal",
+        "stats": [
+          "[FasterESRechargeStart|能量護盾開始充能速度加快]6%",
+          "女巫: [Minion|召喚物]增加10%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 22691,
+        "name": "能量護盾延遲",
+        "kind": "Normal",
+        "stats": [
+          "[FasterESRechargeStart|能量護盾開始充能速度加快]6%",
+          "女巫: [Minion|召喚物]增加10%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 3823,
+        "name": "元素之力",
+        "kind": "Notable",
+        "stats": [
+          "+3%全[ElementalDamage|元素][Resistances|抗性]",
+          "增加20%[ElementalDamage|元素傷害]",
+          "女巫: 增加20%[Minion|召喚物]造成的傷害",
+          "女巫: [Minion|召喚物]增加4%[Attack|攻擊]和施放速度"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 51184,
+        "name": "原始力量",
+        "kind": "Notable",
+        "stats": [
+          "增加20%[Spell|法術]傷害",
+          "+10[Intelligence|智慧]",
+          "女巫: 增加16%[Spell|法術]傷害",
+          "女巫: 增加16%[Minion|召喚物]造成的傷害",
+          "女巫: +10[Intelligence|智慧]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 17973,
+        "name": "快速充能",
+        "kind": "Notable",
+        "stats": [
+          "增加12%[ESRechargeRate|能量護盾充能率]",
+          "[FasterESRechargeStart|能量護盾開始充能速度加快]12%",
+          "女巫: [Minion|召喚物]增加15%最大生命",
+          "女巫: [Minion|召喚物]的[Reviving|復甦]速度加快15%"
+        ],
+        "asc": ""
+      }
+    ]
+  },
+  "meta": {
+    "buildId": "infernalist-minions",
+    "stageId": "minion-transition",
+    "origin": "hand-tuned-manual",
+    "source": "scaffold-route.mjs",
+    "overridePolicy": "manual-review-required",
+    "handTuned": true,
+    "nodes": 12,
+    "nodeCount": 12,
+    "poe2dbVersion": "4.5",
+    "createdAt": "2026-07-23T00:40:37.794Z",
+    "review": {
+      "status": "待复核",
+      "reason": "由节点 ID 生成的手调候选路线；写入 manifest 前必须人工确认顺序、属性和阶段适配。",
+      "useUntil": "仅作为候选文件，不代表当前版本正式路线。",
+      "manualChecks": [
+        "确认节点 ID 顺序来自实际开荒阶段，而不是终局路线截断。",
+        "确认该阶段需要的属性、精魂、生存和输出节点没有过早绕路。",
+        "确认独立天赋树查看器能高亮全部节点并显示三语言属性。"
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "type": "manual-platform-backlog",
+    "updatedAt": "2026-07-23",
+    "notes": "Versioned build onboarding candidates. These are planning entries only; they are not registered builds until scaffolded, completed, validated, and added to manifest.builds."
+  },
+  "candidates": [
+    {
+      "id": "infernalist-minions",
+      "status": "draft",
+      "priority": 1,
+      "title": {
+        "zhCN": "魔巫召唤开荒",
+        "zhTW": "魔巫召喚拓荒",
+        "en": "Infernalist Minions Starter"
+      },
+      "class": {
+        "base": {
+          "zhCN": "魔巫",
+          "zhTW": "魔巫",
+          "en": "Witch"
+        },
+        "ascendancy": {
+          "zhCN": "魔巫",
+          "zhTW": "魔巫",
+          "en": "Infernalist"
+        }
+      },
+      "data": "builds/infernalist-minions.json",
+      "guide": "../../../builds/infernalist-minions.html",
+      "routeCandidates": [
+        {
+          "stageId": "campaign-early",
+          "file": "tree/infernalist-minions-campaign-early.candidate.json",
+          "status": "hand-tuned-candidate"
+        },
+        {
+          "stageId": "minion-transition",
+          "file": "tree/infernalist-minions-minion-transition.candidate.json",
+          "status": "hand-tuned-candidate"
+        },
+        {
+          "stageId": "early-maps",
+          "file": "tree/infernalist-minions-early-maps.candidate.json",
+          "status": "hand-tuned-candidate"
+        },
+        {
+          "stageId": "red-map-prep",
+          "file": "tree/infernalist-minions-red-map-prep.candidate.json",
+          "status": "hand-tuned-candidate"
+        }
+      ],
+      "reason": {
+        "zhCN": "补一个召唤体系开荒 BD，用来验证多 BD 列表、技能/辅助边界和天赋阶段复用能力。",
+        "zhTW": "補一個召喚體系拓荒 BD，用來驗證多 BD 列表、技能/輔助邊界和天賦階段複用能力。",
+        "en": "Add a minion starter to exercise multi-build lists, skill/support boundaries, and staged passive-tree reuse."
+      }
+    }
+  ]
+}

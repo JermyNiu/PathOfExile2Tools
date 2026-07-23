@@ -1,0 +1,38 @@
+{
+  "current": {
+    "id": "s05-tree-4.5",
+    "season": "S05",
+    "poe2dbPassiveTreeVersion": "4.5",
+    "pobbTreeSvgVersion": "4.5",
+    "dataRoot": "data/seasons/s05",
+    "updatedAt": "2026-07-23",
+    "notes": [
+      "The current Tactician page uses PoE2DB 4.5 localized node data.",
+      "The current tree base SVG is from pobb.in assets/4.5.svg, matching the PoE2DB 4.5 tree and Martial Artist ascendancy nodes.",
+      "Future updates should store each season and tree version separately for historical lookup."
+    ]
+  },
+  "sources": {
+    "poe2dbPassiveTree": {
+      "en": "https://poe2db.tw/data/passive-skill-tree/4.5/data_us.json?5",
+      "zhCN": "https://poe2db.tw/data/passive-skill-tree/4.5/data_cn.json?5",
+      "zhTW": "https://poe2db.tw/data/passive-skill-tree/4.5/data_tw.json?5"
+    },
+    "pobbTreeSvg": "https://pobb.in/assets/4.5.svg",
+    "exampleBuild": "https://pobb.in/WeXbUcAmS0bL"
+  },
+  "history": [
+    {
+      "id": "s05-tree-4.5",
+      "season": "S05",
+      "poe2dbPassiveTreeVersion": "4.5",
+      "pobbTreeSvgVersion": "4.5",
+      "dataRoot": "data/seasons/s05",
+      "builds": [
+        "data/seasons/s05/builds/tactician-supporting-fire.json"
+      ],
+      "buildCount": 1,
+      "status": "active"
+    }
+  ]
+}

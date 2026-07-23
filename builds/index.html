@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 开荒 BD</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0f172a;
+    --panel: #111827;
+    --panel2: #172033;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --line: #334155;
+    --accent: #38bdf8;
+    --warn: #facc15;
+    --ok: #34d399;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    min-height: 68px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--line);
+    background: #0b1120;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: 0; }
+  h2 { font-size: 17px; font-weight: 600; }
+  h3 { font-size: 15px; font-weight: 600; }
+  a { color: inherit; text-decoration: none; }
+  select, input {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #0b1120;
+    color: var(--text);
+    min-height: 34px;
+    padding: 6px 8px;
+    font: inherit;
+  }
+  .top-controls, .cta-row, .meta-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .control {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .shell {
+    width: min(1320px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 18px 0 28px;
+    display: grid;
+    gap: 18px;
+  }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    padding: 16px;
+    display: grid;
+    gap: 12px;
+  }
+  .hero {
+    background:
+      radial-gradient(circle at 18% 18%, rgba(56,189,248,.14), transparent 32%),
+      linear-gradient(135deg, #111827, #172033);
+  }
+  .muted, .panel p {
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 7px 12px;
+    background: #0b1120;
+    color: var(--text);
+    font-size: 14px;
+  }
+  .btn.primary {
+    border-color: #0ea5e9;
+    background: #075985;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .stat, .build-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel2);
+  }
+  .stat {
+    padding: 12px;
+    display: grid;
+    gap: 4px;
+  }
+  .stat strong { font-size: 22px; }
+  .stat span {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .filter-grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(4, minmax(140px, 1fr));
+    gap: 10px;
+    align-items: end;
+  }
+  .filter-grid .control {
+    display: grid;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .filter-grid input,
+  .filter-grid select {
+    width: 100%;
+  }
+  .build-card {
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+  .status {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 12px;
+    color: #0b1120;
+    background: var(--warn);
+  }
+  .status.ready { background: var(--ok); }
+  .status.planned { background: #93c5fd; }
+  .badge {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 9px;
+    color: var(--muted);
+    background: #0b1120;
+    font-size: 13px;
+  }
+  .summary-block {
+    display: grid;
+    gap: 8px;
+  }
+  .summary-block strong {
+    font-size: 13px;
+    color: var(--text);
+  }
+  ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  li + li { margin-top: 4px; }
+  code {
+    color: var(--accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .warn { color: var(--warn); }
+  @media (max-width: 980px) {
+    .grid, .stat-grid, .filter-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>POE2 Tools / 开荒 BD</h1>
+  <div class="top-controls">
+    <label class="control">版本
+      <select id="versionSelect" aria-label="版本">
+        <option selected>读取中...</option>
+      </select>
+    </label>
+    <a class="btn" href="../index.html">首页</a>
+    <a class="btn" href="../tools/data-update.html">数据更新</a>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="panel hero">
+    <h2>开荒 BD 列表</h2>
+    <p>这里是开荒模块的列表页。首页负责模块入口，这里负责按当前版本列出 BD；点进具体 BD 后再看详细攻略、阶段天赋按钮、技能、装备和制作。</p>
+    <div class="cta-row">
+      <a class="btn primary" href="tactician-supporting-fire.html">查看战术家攻略</a>
+      <a class="btn" href="../tools/passive-tree.html">独立天赋树工具</a>
+      <a class="btn" href="../tools/version-history.html">查看版本历史</a>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>当前版本覆盖</h2>
+    <div class="stat-grid" id="buildListStats">
+      <div class="stat"><strong>--</strong><span>BD 数量</span></div>
+      <div class="stat"><strong>--</strong><span>阶段总数</span></div>
+      <div class="stat"><strong>--</strong><span>路线总数</span></div>
+      <div class="stat"><strong>--</strong><span>待手调路线</span></div>
+      <div class="stat"><strong>--</strong><span>攻略决策</span></div>
+    </div>
+    <p class="muted" id="buildListVersionText">读取当前版本中...</p>
+  </section>
+
+  <section class="panel">
+    <h2>筛选</h2>
+    <div class="filter-grid" id="buildListFilters">
+      <label class="control">搜索
+        <input id="buildSearch" type="search" placeholder="BD 名称、职业、标签">
+      </label>
+      <label class="control">职业
+        <select id="classFilter">
+          <option value="all">全部职业</option>
+        </select>
+      </label>
+      <label class="control">状态
+        <select id="statusFilter">
+          <option value="all">全部状态</option>
+        </select>
+      </label>
+      <label class="control">路线
+        <select id="routeFilter">
+          <option value="all">全部路线</option>
+          <option value="ready">已手调</option>
+          <option value="pending">待手调</option>
+          <option value="manual-review">需复核</option>
+        </select>
+      </label>
+      <label class="control">攻略
+        <select id="guideFilter">
+          <option value="all">全部攻略</option>
+          <option value="complete">正文完整</option>
+          <option value="missing">正文有缺口</option>
+          <option value="report-ready">报告可导出</option>
+          <option value="report-missing">报告待补</option>
+        </select>
+      </label>
+    </div>
+    <p class="muted" id="buildListFilterSummary">读取筛选项中...</p>
+  </section>
+
+  <section class="panel">
+    <h2>BD</h2>
+    <div class="grid" id="buildList">
+      <article class="build-card">
+        <span class="status planned">读取中</span>
+        <h3>正在读取当前版本 BD</h3>
+        <p>如果这里长时间不刷新，请检查本地服务是否从项目根目录启动。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>候选 BD 队列</h2>
+    <p class="muted">这里展示还没有进入正式 <code>manifest.builds</code> 的开荒 BD 草稿。候选可以预览和校验，但不参与上方正式 BD 筛选。</p>
+    <!-- smoke-current-candidate: infernalist-minions; runtime source remains manifest.buildCandidates -->
+    <div class="grid" id="buildCandidateList">
+      <article class="build-card">
+        <span class="status planned">读取中</span>
+        <h3>正在读取候选队列</h3>
+        <p>候选清单来自当前版本 manifest 的 <code>buildCandidates</code>。</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-build-list"></script>
+<script>
+  let currentVersion = null;
+  let currentManifest = null;
+  let currentBuildItems = [];
+
+  function esc(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char]));
+  }
+
+  function localizedText(value) {
+    if (typeof value === 'string') return value;
+    if (value && typeof value === 'object') return value.zhCN || value.en || Object.values(value)[0] || '';
+    return '';
+  }
+
+  function localizedList(value) {
+    if (Array.isArray(value)) return value;
+    if (value && typeof value === 'object') return value.zhCN || value.en || [];
+    return [];
+  }
+
+  function statusLabel(status) {
+    if (status === 'ready') return '已可用';
+    if (status === 'in-progress') return '建设中';
+    return '待添加';
+  }
+
+  function statusClass(status) {
+    if (status === 'ready') return 'ready';
+    if (status === 'in-progress') return '';
+    return 'planned';
+  }
+
+  function rootPath(path) {
+    return `../${String(path || '').replace(/^(\.\.\/)+/, '')}`;
+  }
+
+  function guideHref(entry, build) {
+    const raw = build.routes?.guide || entry.guide || '';
+    if (!raw) return '#';
+    return rootPath(raw);
+  }
+
+  function guideReportHref(entry, build) {
+    const href = guideHref(entry, build);
+    return href === '#' ? href : `${href}#guide-markdown-report`;
+  }
+
+  function buildTitle(build) {
+    return localizedText(build.title) || build.id;
+  }
+
+  function classLabel(build) {
+    return [localizedText(build.class?.base), localizedText(build.class?.ascendancy)].filter(Boolean).join(' / ');
+  }
+
+  function buildSearchText(entry, build) {
+    return [
+      build.id,
+      buildTitle(build),
+      classLabel(build),
+      entry.status,
+      ...(build.tags || []),
+      localizedText(build.overview?.difficulty),
+      localizedText(build.overview?.budget),
+      ...localizedList(build.overview?.bestFor),
+      ...localizedList(build.overview?.strengths),
+      ...localizedList(build.overview?.risks)
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function bestTreeNodes(build) {
+    return Math.max(0, ...(build.stages || []).map((stage) => stage.treeNodes || 0));
+  }
+
+  function routeStatsForBuild(manifest, build) {
+    const routes = (manifest.tree?.routes || []).filter((route) => route.buildId === build.id);
+    const handTuned = routes.filter((route) => route.handTuned).length;
+    const manualReview = routes.filter((route) => route.overridePolicy === 'manual-review-required').length;
+    return {
+      routes,
+      handTuned,
+      pending: routes.length - handTuned,
+      manualReview
+    };
+  }
+
+  function gearThresholdStats(build) {
+    const groups = build.gearStatThresholds || [];
+    const rows = groups.reduce((sum, group) => sum + (group.thresholds?.length || 0), 0);
+    const sourceStatus = [...new Set(groups.map((group) => group.sourceStatus).filter(Boolean))].join(',');
+    return { stages: groups.length, rows, sourceStatus };
+  }
+
+  function craftPlanStats(build) {
+    const plans = build.craftingPlan || [];
+    const structured = plans.filter((item) => item.sourceStatus && item.purchaseFirst && item.priorityMods?.length && item.materials?.length && item.successChecks?.length && item.fallback?.length).length;
+    const sourceStatus = [...new Set(plans.map((item) => item.sourceStatus).filter(Boolean))].join(',');
+    return { plans: plans.length, structured, sourceStatus };
+  }
+
+  function countLocalizedChecks(checks) {
+    if (Array.isArray(checks)) return checks.length;
+    if (!checks || typeof checks !== 'object') return 0;
+    return Math.max(...Object.values(checks).map((items) => Array.isArray(items) ? items.length : 0), 0);
+  }
+
+  function guideWritingStats(build) {
+    const skillCards = build.skills?.overview?.cards || [];
+    const minionSelection = build.skills?.minionSelectionGuide;
+    const minionSelectionGroups = minionSelection?.groups || [];
+    const gearCards = build.gearOverview?.cards || [];
+    const articleSections = build.guideArticle?.sections || [];
+    const stages = build.stages || [];
+    const executionStages = build.executionPlan?.stages || [];
+    const hasStrategy = Boolean(build.guideStrategy?.coreLoop?.steps?.length)
+      && Boolean(build.guideStrategy?.powerSignals?.length)
+      && Boolean(build.guideStrategy?.failureDiagnosis?.length)
+      && Boolean(build.guideStrategy?.decisionRules?.length);
+    const stagePlaybooks = stages.filter((stage) => stage.playbook?.steps?.length).length;
+    const complete = Boolean(hasStrategy)
+      && Boolean(executionStages.length)
+      && Boolean(articleSections.length)
+      && stagePlaybooks === stages.length
+      && Boolean(skillCards.length)
+      && Boolean(minionSelectionGroups.length)
+      && Boolean(gearCards.length);
+    return {
+      complete,
+      skillOverviewCards: skillCards.length,
+      skillOverviewChecks: skillCards.reduce((sum, card) => sum + countLocalizedChecks(card.checks), 0),
+      minionSelectionGroups: minionSelectionGroups.length,
+      minionSelectionSkillRefs: minionSelectionGroups.reduce((sum, group) => sum + (group.skillIds?.length || 0), 0),
+      minionSelectionSupportRefs: minionSelectionGroups.reduce((sum, group) => sum + (group.firstSupports?.length || 0), 0),
+      minionSelectionRules: countLocalizedChecks(minionSelection?.rules),
+      gearOverviewCards: gearCards.length,
+      gearOverviewChecks: gearCards.reduce((sum, card) => sum + countLocalizedChecks(card.checks), 0),
+      stagePlaybooks,
+      executionStages: executionStages.length,
+      sourceStatus: [
+        articleSections.length ? 'manual-guide-article' : '',
+        skillCards.length ? 'manual-guide-skill-flow' : '',
+        minionSelectionGroups.length ? 'manual-guide-minion-selection' : '',
+        gearCards.length ? 'manual-guide-gear-flow' : '',
+        hasStrategy ? 'manual-guide-strategy' : ''
+      ].filter(Boolean).join(',')
+    };
+  }
+
+  function guideReportReady(entry, build) {
+    const guide = guideWritingStats(build);
+    return guide.complete && Boolean(entry.guide || build.routes?.guide);
+  }
+
+  function renderSmallList(title, list, limit = 3) {
+    const items = localizedList(list).slice(0, limit);
+    if (!items.length) return '';
+    return `
+      <div class="summary-block">
+        <strong>${esc(title)}</strong>
+        <ul>${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+      </div>
+    `;
+  }
+
+  async function collectBuildCandidates(version, manifest) {
+    const file = manifest.buildCandidates || 'builds/candidates.json';
+    const registered = new Set((manifest.builds || []).map((entry) => entry.id));
+    try {
+      const data = await window.POE2Versions.readJson(`../${version.dataRoot}/${file}`);
+      const rows = await Promise.all((data.candidates || []).map(async (candidate) => {
+        const routeCandidates = candidate.routeCandidates || [];
+        try {
+          const draft = await window.POE2Versions.readJson(`../${version.dataRoot}/${candidate.data}`);
+          const stages = draft.stages || [];
+          const routeCandidateStages = new Set(routeCandidates.map((route) => route.stageId).filter(Boolean));
+          return {
+            candidate,
+            draft,
+            ok: true,
+            registered: registered.has(candidate.id),
+            stages: stages.length,
+            routeCandidateFiles: routeCandidateStages.size,
+            routeCandidateMissing: stages.filter((stage) => !routeCandidateStages.has(stage.treeStage || stage.id)).length
+          };
+        } catch (error) {
+          return {
+            candidate,
+            draft: null,
+            ok: false,
+            registered: registered.has(candidate.id),
+            stages: 0,
+            routeCandidateFiles: routeCandidates.length,
+            routeCandidateMissing: 0,
+            error: error.message
+          };
+        }
+      }));
+      return {
+        file,
+        schemaVersion: data.schemaVersion || 0,
+        sourceType: data.source?.type || 'unknown',
+        rows
+      };
+    } catch (error) {
+      return {
+        file,
+        schemaVersion: 0,
+        sourceType: 'read-failed',
+        rows: [],
+        error: error.message
+      };
+    }
+  }
+
+  function renderCandidateCard(version, row) {
+    const candidate = row.candidate;
+    const draft = row.draft || {};
+    const title = localizedText(candidate.title) || localizedText(draft.title) || candidate.id;
+    const classText = [
+      localizedText(candidate.class?.base || draft.class?.base),
+      localizedText(candidate.class?.ascendancy || draft.class?.ascendancy)
+    ].filter(Boolean).join(' / ');
+    const candidateGuideHref = candidate.guide ? rootPath(candidate.guide) : '#';
+    const dataHref = candidate.data ? rootPath(`${version.dataRoot}/${candidate.data}`) : '#';
+    const firstRoute = candidate.routeCandidates?.[0];
+    const routePreviewHref = firstRoute?.file
+      ? `../tools/passive-tree.html?route=${encodeURIComponent(`${version.dataRoot}/${firstRoute.file}`)}`
+      : '';
+    const guide = draft ? guideWritingStats(draft) : null;
+    return `
+      <article class="build-card">
+        <span class="status planned">${esc(row.registered ? '已注册' : '候选草稿')}</span>
+        <h3>${esc(title)}</h3>
+        <div class="meta-row">
+          <span class="badge">${esc(classText || '职业待补')}</span>
+          <span class="badge">状态 ${esc(candidate.status || 'planned')}</span>
+          <span class="badge">优先级 ${esc(candidate.priority || '-')}</span>
+          <span class="badge">阶段 ${esc(row.stages)}</span>
+          <span class="badge">候选路线文件 ${esc(row.routeCandidateFiles)} / ${esc(row.stages)}</span>
+          <span class="badge">缺失路线 ${esc(row.routeCandidateMissing)}</span>
+          ${guide ? `<span class="badge">攻略正文 ${guide.complete ? '完整' : '有缺口'}</span>` : ''}
+        </div>
+        <p>${esc(localizedText(candidate.reason) || '候选 BD 仍在准备中，未进入正式开荒列表。')}</p>
+        <div class="cta-row">
+          ${candidateGuideHref !== '#' ? `<a class="btn primary" href="${esc(candidateGuideHref)}">打开草稿页</a>` : ''}
+          ${dataHref !== '#' ? `<a class="btn" href="${esc(dataHref)}">查看草稿数据</a>` : ''}
+          ${routePreviewHref ? `<a class="btn" href="${esc(routePreviewHref)}">预览候选天赋</a>` : ''}
+          <a class="btn" href="../tools/data-update.html">生成/校验路线</a>
+          <a class="btn" href="../tools/route-review.html">路线复核</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderBuildCandidates(version, summary) {
+    const list = document.getElementById('buildCandidateList');
+    if (!list) return;
+    const rows = summary.rows.filter((row) => !row.registered);
+    list.innerHTML = rows.length
+      ? rows.map((row) => renderCandidateCard(version, row)).join('')
+      : `
+        <article class="build-card">
+          <span class="status ready">无候选</span>
+          <h3>当前没有未发布 BD 候选</h3>
+          <p>新增候选后会先进入这里，完成路线、攻略和校验后再注册到正式列表。</p>
+        </article>
+      `;
+    document.body.dataset.buildListCandidateSchema = String(summary.schemaVersion);
+    document.body.dataset.buildListCandidateSourceFile = summary.file;
+    document.body.dataset.buildListCandidateSourceType = summary.sourceType;
+    document.body.dataset.buildListCandidateCount = String(summary.rows.length);
+    document.body.dataset.buildListCandidateAvailableCount = String(rows.length);
+    document.body.dataset.buildListCandidateDraftCount = String(rows.filter((row) => row.candidate.status === 'draft').length);
+    document.body.dataset.buildListCandidateDraftFileCount = String(rows.filter((row) => row.ok).length);
+    document.body.dataset.buildListCandidateRouteStageCount = String(rows.reduce((sum, row) => sum + row.stages, 0));
+    document.body.dataset.buildListCandidateRouteFileCount = String(rows.reduce((sum, row) => sum + row.routeCandidateFiles, 0));
+    document.body.dataset.buildListCandidateRouteMissingFileCount = String(rows.reduce((sum, row) => sum + row.routeCandidateMissing, 0));
+    document.body.dataset.buildListCandidateStatuses = [...new Set(rows.map((row) => row.candidate.status || 'unknown'))].join(',');
+  }
+
+  function renderBuildCard(version, manifest, entry, build) {
+    const routes = routeStatsForBuild(manifest, build);
+    const strategy = build.guideStrategy || {};
+    const overview = build.overview || {};
+    const nodes = bestTreeNodes(build);
+    const thresholds = gearThresholdStats(build);
+    const crafts = craftPlanStats(build);
+    const guide = guideWritingStats(build);
+    const reportReady = guideReportReady(entry, build);
+    return `
+      <article class="build-card">
+        <span class="status ${statusClass(entry.status)}">${esc(statusLabel(entry.status))}</span>
+        <h3>${esc(buildTitle(build))}</h3>
+        <div class="meta-row">
+          <span class="badge">${esc(classLabel(build) || '职业待补')}</span>
+          <span class="badge">${esc(nodes ? `${nodes} 天赋节点` : '天赋待补')}</span>
+          <span class="badge">${esc((build.stages || []).length)} 阶段</span>
+          <span class="badge">${esc(routes.routes.length)} 条路线</span>
+          <span class="badge">${esc(routes.pending)} 待手调</span>
+          ${localizedText(overview.difficulty) ? `<span class="badge">难度：${esc(localizedText(overview.difficulty))}</span>` : ''}
+        </div>
+        <p>${esc(localizedText(overview.budget) || build.stages?.[0]?.summary || '该 BD 已登记到当前版本。')}</p>
+        <div class="summary-block">
+          ${renderSmallList('适合玩家', overview.bestFor, 2)}
+          ${renderSmallList('核心强项', overview.strengths, 2)}
+          ${renderSmallList('当前缺口', overview.risks, 2)}
+        </div>
+        <div class="meta-row">
+          <span class="badge">决策 ${esc((strategy.decisionRules || []).length)} 组</span>
+          <span class="badge">诊断 ${esc((strategy.failureDiagnosis || []).length)} 条</span>
+          <span class="badge">技能 ${esc((build.skills?.active || []).length)} 个</span>
+          <span class="badge">装备槽 ${esc((build.gearPriorities || []).length)} 个</span>
+          <span class="badge">攻略正文 ${guide.complete ? '完整' : '有缺口'}</span>
+          <span class="badge">技能总览 ${esc(guide.skillOverviewCards)} 卡 / ${esc(guide.skillOverviewChecks)} 检查</span>
+          <span class="badge">召唤选择 ${esc(guide.minionSelectionGroups)} 组 / ${esc(guide.minionSelectionRules)} 规则</span>
+          <span class="badge">装备总览 ${esc(guide.gearOverviewCards)} 卡 / ${esc(guide.gearOverviewChecks)} 检查</span>
+          <span class="badge">阶段攻略 ${esc(guide.stagePlaybooks)} / 执行 ${esc(guide.executionStages)}</span>
+          <span class="badge">攻略报告 ${reportReady ? '可导出' : '待补'}</span>
+          <span class="badge">装备门槛 ${esc(thresholds.stages)} 阶段 / ${esc(thresholds.rows)} 条</span>
+          <span class="badge">制作方案 ${esc(crafts.plans)} 套 / ${esc(crafts.structured)} 结构化</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="${esc(guideHref(entry, build))}">查看详细攻略</a>
+          <a class="btn" href="${esc(guideReportHref(entry, build))}">攻略报告</a>
+          <a class="btn" href="${esc(rootPath(`${version.dataRoot}/${entry.data}`))}">查看 BD 数据</a>
+          <a class="btn" href="../tools/passive-tree.html?build=${encodeURIComponent(build.id)}&stage=endgame">终局天赋</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function filterState() {
+    return {
+      search: document.getElementById('buildSearch')?.value.trim().toLowerCase() || '',
+      classValue: document.getElementById('classFilter')?.value || 'all',
+      status: document.getElementById('statusFilter')?.value || 'all',
+      route: document.getElementById('routeFilter')?.value || 'all',
+      guide: document.getElementById('guideFilter')?.value || 'all'
+    };
+  }
+
+  function optionHtml(value, label) {
+    return `<option value="${esc(value)}">${esc(label)}</option>`;
+  }
+
+  function populateFilters(items) {
+    const classFilter = document.getElementById('classFilter');
+    const statusFilter = document.getElementById('statusFilter');
+    if (!classFilter || !statusFilter) return;
+    const currentClass = classFilter.value || 'all';
+    const currentStatus = statusFilter.value || 'all';
+    const classes = [...new Set(items.map(({ build }) => classLabel(build)).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+    const statuses = [...new Set(items.map(({ entry }) => entry.status || 'planned').filter(Boolean))];
+    classFilter.innerHTML = optionHtml('all', '全部职业') + classes.map((value) => optionHtml(value, value)).join('');
+    statusFilter.innerHTML = optionHtml('all', '全部状态') + statuses.map((value) => optionHtml(value, statusLabel(value))).join('');
+    classFilter.value = classes.includes(currentClass) ? currentClass : 'all';
+    statusFilter.value = statuses.includes(currentStatus) ? currentStatus : 'all';
+  }
+
+  function matchesRouteFilter(manifest, build, routeFilter) {
+    if (routeFilter === 'all') return true;
+    const routes = routeStatsForBuild(manifest, build);
+    if (routeFilter === 'ready') return routes.routes.length > 0 && routes.pending === 0;
+    if (routeFilter === 'pending') return routes.pending > 0;
+    if (routeFilter === 'manual-review') return routes.manualReview > 0;
+    return true;
+  }
+
+  function matchesGuideFilter(entry, build, guideFilter) {
+    if (guideFilter === 'all') return true;
+    const guide = guideWritingStats(build);
+    if (guideFilter === 'complete') return guide.complete;
+    if (guideFilter === 'missing') return !guide.complete;
+    if (guideFilter === 'report-ready') return guideReportReady(entry, build);
+    if (guideFilter === 'report-missing') return !guideReportReady(entry, build);
+    return true;
+  }
+
+  function filteredBuildItems() {
+    const state = filterState();
+    return currentBuildItems.filter(({ entry, build }) => {
+      if (state.search && !buildSearchText(entry, build).includes(state.search)) return false;
+      if (state.classValue !== 'all' && classLabel(build) !== state.classValue) return false;
+      if (state.status !== 'all' && (entry.status || 'planned') !== state.status) return false;
+      if (!matchesRouteFilter(currentManifest, build, state.route)) return false;
+      if (!matchesGuideFilter(entry, build, state.guide)) return false;
+      return true;
+    });
+  }
+
+  function renderFilteredBuilds() {
+    const list = document.getElementById('buildList');
+    const summary = document.getElementById('buildListFilterSummary');
+    if (!list || !currentVersion || !currentManifest) return;
+    const state = filterState();
+    const visible = filteredBuildItems();
+    list.innerHTML = visible.length
+      ? visible.map(({ entry, build }) => renderBuildCard(currentVersion, currentManifest, entry, build)).join('')
+      : `
+        <article class="build-card">
+          <span class="status planned">无匹配</span>
+          <h3>没有符合筛选条件的 BD</h3>
+          <p>放宽搜索、职业、状态或路线筛选后再看。</p>
+        </article>
+      `;
+    if (summary) {
+      const routeLabel = document.getElementById('routeFilter')?.selectedOptions?.[0]?.textContent || '全部路线';
+      const statusLabelText = document.getElementById('statusFilter')?.selectedOptions?.[0]?.textContent || '全部状态';
+      const guideLabel = document.getElementById('guideFilter')?.selectedOptions?.[0]?.textContent || '全部攻略';
+      const completeGuides = visible.filter(({ build }) => guideWritingStats(build).complete).length;
+      const missingGuides = visible.length - completeGuides;
+      const reportReadyGuides = visible.filter(({ entry, build }) => guideReportReady(entry, build)).length;
+      const reportMissingGuides = visible.length - reportReadyGuides;
+      summary.innerHTML = `显示 <code>${esc(visible.length)}</code> / <code>${esc(currentBuildItems.length)}</code> 个 BD；攻略正文 <code>${esc(completeGuides)}</code> 完整 / <code>${esc(missingGuides)}</code> 缺口；攻略报告 <code>${esc(reportReadyGuides)}</code> 可导出 / <code>${esc(reportMissingGuides)}</code> 待补；职业 <code>${esc(state.classValue === 'all' ? '全部' : state.classValue)}</code>，状态 <code>${esc(statusLabelText)}</code>，路线 <code>${esc(routeLabel)}</code>，攻略 <code>${esc(guideLabel)}</code>。`;
+    }
+    document.body.dataset.buildListVisibleCount = String(visible.length);
+    document.body.dataset.buildListFilterSearch = state.search;
+    document.body.dataset.buildListFilterClass = state.classValue;
+    document.body.dataset.buildListFilterStatus = state.status;
+    document.body.dataset.buildListFilterRoute = state.route;
+    document.body.dataset.buildListFilterGuide = state.guide;
+  }
+
+  function bindFiltersOnce() {
+    const container = document.getElementById('buildListFilters');
+    if (!container || container.dataset.bound) return;
+    container.dataset.bound = 'true';
+    for (const id of ['buildSearch', 'classFilter', 'statusFilter', 'routeFilter', 'guideFilter']) {
+      document.getElementById(id)?.addEventListener('input', renderFilteredBuilds);
+      document.getElementById(id)?.addEventListener('change', renderFilteredBuilds);
+    }
+  }
+
+  function renderStats(version, manifest, builds) {
+    const routes = manifest.tree?.routes || [];
+    const pendingRoutes = routes.filter((route) => !route.handTuned).length;
+    const strategyCount = builds.filter((build) => build.guideStrategy).length;
+    const stageCount = builds.reduce((sum, build) => sum + (build.stages?.length || 0), 0);
+    const thresholdStages = builds.reduce((sum, build) => sum + gearThresholdStats(build).stages, 0);
+    const thresholdRows = builds.reduce((sum, build) => sum + gearThresholdStats(build).rows, 0);
+    const thresholdSources = [...new Set(builds.flatMap((build) => gearThresholdStats(build).sourceStatus.split(',').filter(Boolean)))].join(',');
+    const craftPlans = builds.reduce((sum, build) => sum + craftPlanStats(build).plans, 0);
+    const craftStructured = builds.reduce((sum, build) => sum + craftPlanStats(build).structured, 0);
+    const craftSources = [...new Set(builds.flatMap((build) => craftPlanStats(build).sourceStatus.split(',').filter(Boolean)))].join(',');
+    const guideStats = builds.map((build) => guideWritingStats(build));
+    const guideReportReadyCount = currentBuildItems.filter(({ entry, build }) => guideReportReady(entry, build)).length;
+    const guideComplete = guideStats.filter((item) => item.complete).length;
+    const guideMissing = guideStats.length - guideComplete;
+    const guideSkillCards = guideStats.reduce((sum, item) => sum + item.skillOverviewCards, 0);
+    const guideSkillChecks = guideStats.reduce((sum, item) => sum + item.skillOverviewChecks, 0);
+    const guideMinionSelectionGroups = guideStats.reduce((sum, item) => sum + item.minionSelectionGroups, 0);
+    const guideMinionSelectionSkillRefs = guideStats.reduce((sum, item) => sum + item.minionSelectionSkillRefs, 0);
+    const guideMinionSelectionSupportRefs = guideStats.reduce((sum, item) => sum + item.minionSelectionSupportRefs, 0);
+    const guideMinionSelectionRules = guideStats.reduce((sum, item) => sum + item.minionSelectionRules, 0);
+    const guideGearCards = guideStats.reduce((sum, item) => sum + item.gearOverviewCards, 0);
+    const guideGearChecks = guideStats.reduce((sum, item) => sum + item.gearOverviewChecks, 0);
+    const guideStagePlaybooks = guideStats.reduce((sum, item) => sum + item.stagePlaybooks, 0);
+    const guideExecutionStages = guideStats.reduce((sum, item) => sum + item.executionStages, 0);
+    const guideSources = [...new Set(guideStats.flatMap((item) => item.sourceStatus.split(',').filter(Boolean)))].join(',');
+    const stats = [
+      { value: builds.length, label: 'BD 数量' },
+      { value: stageCount, label: '阶段总数' },
+      { value: routes.length, label: '路线总数' },
+      { value: pendingRoutes, label: '待手调路线' },
+      { value: strategyCount, label: '攻略决策' },
+      { value: guideComplete, label: '攻略完整' },
+      { value: guideReportReadyCount, label: '报告导出' },
+      { value: guideMissing, label: '攻略缺口' },
+      { value: thresholdRows, label: '装备门槛' },
+      { value: craftStructured, label: '结构化制作' }
+    ];
+    document.getElementById('buildListStats').innerHTML = stats.map((item) => `
+      <div class="stat"><strong>${esc(item.value)}</strong><span>${esc(item.label)}</span></div>
+    `).join('');
+    document.getElementById('buildListVersionText').innerHTML = `当前版本 <code>${esc(version.id)}</code>，数据目录 <code>${esc(version.dataRoot)}</code>。前中期投影路线必须继续标注待手调，不和已手调路线混淆。`;
+
+    document.body.dataset.buildListVersion = version.id;
+    document.body.dataset.buildListCount = String(builds.length);
+    document.body.dataset.buildListStageCount = String(stageCount);
+    document.body.dataset.buildListRouteCount = String(routes.length);
+    document.body.dataset.buildListPendingRoutes = String(pendingRoutes);
+    document.body.dataset.buildListStrategyCount = String(strategyCount);
+    document.body.dataset.buildListGuideCompleteCount = String(guideComplete);
+    document.body.dataset.buildListGuideMissingCount = String(guideMissing);
+    document.body.dataset.buildListGuideReportReadyCount = String(guideReportReadyCount);
+    document.body.dataset.buildListGuideSkillOverviewCards = String(guideSkillCards);
+    document.body.dataset.buildListGuideSkillOverviewChecks = String(guideSkillChecks);
+    document.body.dataset.buildListGuideMinionSelectionGroups = String(guideMinionSelectionGroups);
+    document.body.dataset.buildListGuideMinionSelectionSkillRefs = String(guideMinionSelectionSkillRefs);
+    document.body.dataset.buildListGuideMinionSelectionSupportRefs = String(guideMinionSelectionSupportRefs);
+    document.body.dataset.buildListGuideMinionSelectionRules = String(guideMinionSelectionRules);
+    document.body.dataset.buildListGuideGearOverviewCards = String(guideGearCards);
+    document.body.dataset.buildListGuideGearOverviewChecks = String(guideGearChecks);
+    document.body.dataset.buildListGuideStagePlaybooks = String(guideStagePlaybooks);
+    document.body.dataset.buildListGuideExecutionStages = String(guideExecutionStages);
+    document.body.dataset.buildListGuideSourceStatus = guideSources;
+    document.body.dataset.buildListGearThresholdStageCount = String(thresholdStages);
+    document.body.dataset.buildListGearThresholdRowCount = String(thresholdRows);
+    document.body.dataset.buildListGearThresholdSourceStatus = thresholdSources;
+    document.body.dataset.buildListCraftPlanCount = String(craftPlans);
+    document.body.dataset.buildListCraftStructuredCount = String(craftStructured);
+    document.body.dataset.buildListCraftSourceStatus = craftSources;
+  }
+
+  async function renderBuildList() {
+    const versions = await window.POE2Versions.readJson('../data/versions.json');
+    const versionSelect = document.getElementById('versionSelect');
+    const version = window.POE2Versions.fillSelect(versionSelect, versions);
+    if (!versionSelect.dataset.bound) {
+      versionSelect.dataset.bound = 'true';
+      versionSelect.addEventListener('change', () => {
+        window.POE2Versions.saveVersionId(versionSelect.value);
+        renderBuildList();
+      });
+    }
+    const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+    const candidates = await collectBuildCandidates(version, manifest);
+    const builds = await Promise.all((manifest.builds || []).map(async (entry) => ({
+      entry,
+      build: await window.POE2Versions.readJson(`../${version.dataRoot}/${entry.data}`)
+    })));
+    currentVersion = version;
+    currentManifest = manifest;
+    currentBuildItems = builds;
+
+    renderStats(version, manifest, builds.map((item) => item.build));
+    renderBuildCandidates(version, candidates);
+    bindFiltersOnce();
+    populateFilters(builds);
+    if (!builds.length) {
+      document.getElementById('buildList').innerHTML = `
+        <article class="build-card">
+          <span class="status planned">待添加</span>
+          <h3>当前版本暂无开荒 BD</h3>
+          <p>新增 BD 后登记到 manifest 的 builds 列表，就会自动出现在这里。</p>
+        </article>
+      `;
+      document.body.dataset.buildListVisibleCount = '0';
+      return;
+    }
+    renderFilteredBuilds();
+  }
+
+  renderBuildList().catch((error) => {
+    document.body.dataset.buildListError = error.message;
+    document.getElementById('buildList').innerHTML = `
+      <article class="build-card">
+        <span class="status planned">读取失败</span>
+        <h3>无法读取开荒 BD 列表</h3>
+        <p class="warn">${esc(error.message)}</p>
+      </article>
+    `;
+    document.getElementById('buildCandidateList').innerHTML = `
+      <article class="build-card">
+        <span class="status planned">读取失败</span>
+        <h3>无法读取候选 BD 队列</h3>
+        <p class="warn">${esc(error.message)}</p>
+      </article>
+    `;
+  });
+</script>
+</body>
+</html>

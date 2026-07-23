@@ -1,0 +1,147 @@
+{
+  "id": "s05",
+  "label": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-23",
+  "tree": {
+    "poe2dbVersion": "4.5",
+    "pobbSvgVersion": "4.5",
+    "assets": {
+      "baseSvg": "../../../assets/poe2-tree-4.5.svg",
+      "highlightSvg": "../../../assets/poe2-tree-4.5-highlight.svg"
+    },
+    "raw": {
+      "version": "4.5",
+      "en": "tree/raw/4.5/data_us.json",
+      "zhCN": "tree/raw/4.5/data_cn.json",
+      "zhTW": "tree/raw/4.5/data_tw.json"
+    },
+    "sources": {
+      "en": "https://poe2db.tw/data/passive-skill-tree/4.5/data_us.json?5",
+      "zhCN": "https://poe2db.tw/data/passive-skill-tree/4.5/data_cn.json?5",
+      "zhTW": "https://poe2db.tw/data/passive-skill-tree/4.5/data_tw.json?5",
+      "svg": "https://pobb.in/assets/4.5.svg"
+    },
+    "routes": [
+      {
+        "buildId": "tactician-supporting-fire",
+        "stageId": "campaign-early",
+        "data": "tree/tactician-supporting-fire-campaign-early.json",
+        "nodes": 21,
+        "status": "ready",
+        "source": "projected-from-endgame-order",
+        "origin": "projected-from-endgame-order",
+        "overridePolicy": "replaceable-until-hand-tuned",
+        "handTuned": false
+      },
+      {
+        "buildId": "tactician-supporting-fire",
+        "stageId": "first-ascendancy",
+        "data": "tree/tactician-supporting-fire-first-ascendancy.json",
+        "nodes": 38,
+        "status": "ready",
+        "source": "projected-from-endgame-order",
+        "origin": "projected-from-endgame-order",
+        "overridePolicy": "replaceable-until-hand-tuned",
+        "handTuned": false
+      },
+      {
+        "buildId": "tactician-supporting-fire",
+        "stageId": "yellow-maps",
+        "data": "tree/tactician-supporting-fire-yellow-maps.json",
+        "nodes": 68,
+        "status": "ready",
+        "source": "projected-from-endgame-order",
+        "origin": "projected-from-endgame-order",
+        "overridePolicy": "replaceable-until-hand-tuned",
+        "handTuned": false
+      },
+      {
+        "buildId": "tactician-supporting-fire",
+        "stageId": "red-maps",
+        "data": "tree/tactician-supporting-fire-red-maps.json",
+        "nodes": 96,
+        "status": "ready",
+        "source": "projected-from-endgame-order",
+        "origin": "projected-from-endgame-order",
+        "overridePolicy": "replaceable-until-hand-tuned",
+        "handTuned": false
+      },
+      {
+        "buildId": "tactician-supporting-fire",
+        "stageId": "endgame",
+        "data": "tree/tactician-supporting-fire-endgame.json",
+        "nodes": 122,
+        "status": "ready",
+        "origin": "imported-from-pob-endgame",
+        "overridePolicy": "manual-review-required",
+        "handTuned": false
+      }
+    ]
+  },
+  "builds": [
+    {
+      "id": "tactician-supporting-fire",
+      "status": "in-progress",
+      "data": "builds/tactician-supporting-fire.json",
+      "guide": "../../../builds/tactician-supporting-fire.html"
+    }
+  ],
+  "buildCandidates": "builds/candidates.json",
+  "modules": {
+    "leveling": "in-progress",
+    "hideout": "basic-sample-ranking",
+    "gemFlipping": "basic-sample-ranking",
+    "ninjaImport": "basic-parser",
+    "skillCatalog": "poe2db-snapshot-v1-with-details"
+  },
+  "skills": {
+    "catalog": "skills/snapshots/catalog-poe2db-4.5-complete.json",
+    "schema": "skills/schema-v1.md"
+  },
+  "reference": {
+    "source": "poe2db",
+    "version": "4.5",
+    "readme": "reference/README.md",
+    "locales": {
+      "en": "us",
+      "zhCN": "cn",
+      "zhTW": "tw"
+    },
+    "passives": {
+      "en": "tree/raw/4.5/data_us.json",
+      "zhCN": "tree/raw/4.5/data_cn.json",
+      "zhTW": "tree/raw/4.5/data_tw.json"
+    },
+    "skills": {
+      "catalog": "skills/snapshots/catalog-poe2db-4.5-complete.json",
+      "coverage": "complete-list-page-snapshot"
+    },
+    "items": {
+      "coverage": "poe2db-item-and-unique-list-page-snapshot",
+      "uniques": "reference/poe2db/4.5/items/uniques.json",
+      "baseItems": "reference/poe2db/4.5/items/base-items.json",
+      "details": "reference/poe2db/4.5/items/item-details.json"
+    },
+    "stats": {
+      "coverage": "poe2db-modifiers-page-snapshot",
+      "modifiers": "reference/poe2db/4.5/stats/modifiers.json",
+      "extraModifiers": "reference/poe2db/4.5/stats/extra-modifiers.json"
+    }
+  },
+  "market": {
+    "gemFlips": "market/gem-flips.json",
+    "hideoutFlips": "market/hideout-flips.json"
+  },
+  "ninja": {
+    "sampleImport": "ninja/sample-import.json"
+  },
+  "dataFolders": {
+    "builds": "builds",
+    "tree": "tree",
+    "reference": "reference",
+    "skills": "skills",
+    "market": "market",
+    "ninja": "ninja"
+  }
+}

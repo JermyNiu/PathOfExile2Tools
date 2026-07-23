@@ -1,0 +1,146 @@
+{
+  "parserVersion": "local-ninja-import-v1",
+  "schemaVersion": 1,
+  "parsedAt": "2026-07-22T14:35:00.000Z",
+  "format": "pob-xml",
+  "selectedToolVersion": "s05-tree-4.5",
+  "explicitVersion": null,
+  "assignedVersion": "s05-tree-4.5",
+  "versionSource": "selected-tool-version",
+  "versionCompatibility": {
+    "status": "source-version-unknown",
+    "selectedToolVersion": "s05-tree-4.5",
+    "comparedVersion": "s05-tree-4.5",
+    "selectedSeason": "S05",
+    "selectedPoe2dbVersion": "4.5",
+    "selectedDataRoot": "data/seasons/s05",
+    "explicitVersion": null,
+    "explicitVersionPath": null,
+    "exportSeason": null,
+    "exportSeasonPath": null,
+    "exportPoe2dbVersion": null,
+    "exportPoe2dbVersionPath": null,
+    "warnings": [
+      "export-version-missing"
+    ]
+  },
+  "character": {
+    "name": "RawXmlTactician",
+    "class": "Mercenary",
+    "ascendancy": "Tactician",
+    "level": 90
+  },
+  "counts": {
+    "skills": 1,
+    "supports": 2,
+    "items": 1,
+    "passives": 5
+  },
+  "skills": [
+    {
+      "name": "Supporting Fire",
+      "context": "技能组 1",
+      "raw": {
+        "name": "Supporting Fire",
+        "level": 20,
+        "quality": 0,
+        "support": false
+      }
+    }
+  ],
+  "supports": [
+    {
+      "name": "Meat Shield",
+      "context": "Supporting Fire",
+      "raw": {
+        "name": "Meat Shield",
+        "level": 20,
+        "quality": 0,
+        "support": true
+      }
+    },
+    {
+      "name": "Last Gasp",
+      "context": "Supporting Fire",
+      "raw": {
+        "name": "Last Gasp",
+        "level": 20,
+        "quality": 0,
+        "support": true
+      }
+    }
+  ],
+  "items": [
+    {
+      "name": "Storm Needle",
+      "context": "Crossbow",
+      "raw": {
+        "slot": "Weapon 1",
+        "name": "Storm Needle",
+        "baseType": "Crossbow",
+        "rawText": "Storm Needle\nCrossbow\n+2 to Level of all Minion Skills\nMinions deal 41% increased Damage"
+      },
+      "mods": [
+        "+2 to Level of all Minion Skills",
+        "Minions deal 41% increased Damage"
+      ],
+      "statRolls": [
+        {
+          "value": 2,
+          "unit": "",
+          "text": "+2 to Level of all Minion Skills"
+        },
+        {
+          "value": 41,
+          "unit": "%",
+          "text": "Minions deal 41% increased Damage"
+        }
+      ]
+    }
+  ],
+  "passiveIds": [
+    6077,
+    27296,
+    26945,
+    2847,
+    49593
+  ],
+  "sourceEvidence": {
+    "skills": "pob-xml:Skills > SkillSet > Skill > Gem",
+    "supports": "pob-xml:Skills > SkillSet > Skill > Gem",
+    "items": "pob-xml:Items activeItemSet + ItemSet Slot",
+    "passives": "pob-xml:Tree > Spec > Nodes",
+    "skillGroupsDetected": 1,
+    "parserHints": [
+      "pob-skill-groups",
+      "pob-xml"
+    ]
+  },
+  "formatProfile": {
+    "inputFormat": "pob-xml",
+    "topLevelKeys": [
+      "PathOfBuilding"
+    ],
+    "explicitVersionPath": null,
+    "characterPath": "PathOfBuilding > Build",
+    "skillGroupPath": "PathOfBuilding > Skills > SkillSet > Skill",
+    "skillGroupCount": 1,
+    "skillSourcePath": "PathOfBuilding > Skills > SkillSet > Skill > Gem",
+    "supportSourcePath": "PathOfBuilding > Skills > SkillSet > Skill > Gem",
+    "itemSourcePath": "PathOfBuilding > Items",
+    "passiveSourcePath": "PathOfBuilding > Tree > Spec > Nodes",
+    "recognizedCounts": {
+      "skills": 1,
+      "supports": 2,
+      "items": 1,
+      "passives": 5
+    },
+    "parserHints": [
+      "pob-skill-groups",
+      "pob-xml"
+    ],
+    "risks": [
+      "missing-explicit-version"
+    ]
+  }
+}

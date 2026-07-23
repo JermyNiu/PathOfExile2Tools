@@ -1,0 +1,481 @@
+{
+  "id": "s05-skill-catalog-v1",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-22",
+  "source": {
+    "type": "manual-seed-needs-poe2db",
+    "note": "Manual seed copied from the current Tactician guide IDs. Names and exact unlock data still need PoE2DB/Chronicle verification."
+  },
+  "entries": [
+    {
+      "id": "supporting-fire",
+      "kind": "active",
+      "name": {
+        "zhCN": "支援火力",
+        "zhTW": "支援火力",
+        "en": "Supporting Fire"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "command",
+        "damage",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "vulnerability",
+      "kind": "active",
+      "name": {
+        "zhCN": "脆弱诅咒",
+        "zhTW": "脆弱詛咒",
+        "en": "Vulnerability"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "curse",
+        "debuff",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "skeletal-warrior",
+      "kind": "active",
+      "name": {
+        "zhCN": "骷髅战士",
+        "zhTW": "骷髏戰士",
+        "en": "Skeletal Warrior"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "frontline",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "frost-mage",
+      "kind": "active",
+      "name": {
+        "zhCN": "冰霜法师",
+        "zhTW": "冰霜法師",
+        "en": "Frost Mage"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "cold",
+        "damage",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "wolf-pack",
+      "kind": "active",
+      "name": {
+        "zhCN": "狼群",
+        "zhTW": "狼群",
+        "en": "Wolf Pack"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "utility",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "cleric",
+      "kind": "active",
+      "name": {
+        "zhCN": "牧师",
+        "zhTW": "牧師",
+        "en": "Cleric"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "utility",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "arsonist",
+      "kind": "active",
+      "name": {
+        "zhCN": "纵火者",
+        "zhTW": "縱火者",
+        "en": "Arsonist"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "fire",
+        "damage",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "storm-mage",
+      "kind": "active",
+      "name": {
+        "zhCN": "风暴法师",
+        "zhTW": "風暴法師",
+        "en": "Storm Mage"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "lightning",
+        "damage",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "reaver",
+      "kind": "active",
+      "name": {
+        "zhCN": "掠夺者",
+        "zhTW": "掠奪者",
+        "en": "Reaver"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "frontline",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "sniper",
+      "kind": "active",
+      "name": {
+        "zhCN": "狙击手",
+        "zhTW": "狙擊手",
+        "en": "Sniper"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "projectile",
+        "damage",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "brute",
+      "kind": "active",
+      "name": {
+        "zhCN": "蛮兵",
+        "zhTW": "蠻兵",
+        "en": "Brute"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "minion",
+        "frontline",
+        "needs-source"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": null
+      }
+    },
+    {
+      "id": "kurgals-leash",
+      "kind": "support",
+      "name": {
+        "zhCN": "库尔加的束缚",
+        "zhTW": "庫爾加的束縛",
+        "en": "Kurgal's Leash"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "command",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact compatible skill tags from PoE2DB before marking as verified."
+        ]
+      }
+    },
+    {
+      "id": "muster",
+      "kind": "support",
+      "name": {
+        "zhCN": "集结",
+        "zhTW": "集結",
+        "en": "Muster"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "minion",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact minion or command compatibility before marking as verified."
+        ]
+      }
+    },
+    {
+      "id": "heft",
+      "kind": "support",
+      "name": {
+        "zhCN": "厚重",
+        "zhTW": "厚重",
+        "en": "Heft"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "damage",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact compatible hit and damage tags before marking as verified."
+        ]
+      }
+    },
+    {
+      "id": "bidding-3",
+      "kind": "support",
+      "name": {
+        "zhCN": "号令 III",
+        "zhTW": "號令 III",
+        "en": "Bidding III"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "command",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact command compatibility and tier naming before marking as verified."
+        ]
+      }
+    },
+    {
+      "id": "heightened-curse",
+      "kind": "support",
+      "name": {
+        "zhCN": "强化诅咒",
+        "zhTW": "強化詛咒",
+        "en": "Heightened Curse"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "curse",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "curse"
+        ]
+      }
+    },
+    {
+      "id": "focused-curse",
+      "kind": "support",
+      "name": {
+        "zhCN": "专注诅咒",
+        "zhTW": "專注詛咒",
+        "en": "Focused Curse"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "curse",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "curse"
+        ]
+      }
+    },
+    {
+      "id": "rapid-casting-2",
+      "kind": "support",
+      "name": {
+        "zhCN": "快速施法 II",
+        "zhTW": "快速施法 II",
+        "en": "Rapid Casting II"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "cast",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact cast-speed support tier naming before marking as verified."
+        ]
+      }
+    },
+    {
+      "id": "prolonged-duration-2",
+      "kind": "support",
+      "name": {
+        "zhCN": "持续时间延长 II",
+        "zhTW": "持續時間延長 II",
+        "en": "Prolonged Duration II"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "duration",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "duration"
+        ]
+      }
+    },
+    {
+      "id": "meat-shield",
+      "kind": "support",
+      "name": {
+        "zhCN": "肉盾",
+        "zhTW": "肉盾",
+        "en": "Meat Shield"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "minion",
+        "survival",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "minion"
+        ]
+      }
+    },
+    {
+      "id": "last-gasp",
+      "kind": "support",
+      "name": {
+        "zhCN": "最后一息",
+        "zhTW": "最後一息",
+        "en": "Last Gasp"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "minion",
+        "survival",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "minion"
+        ]
+      }
+    },
+    {
+      "id": "withering-touch",
+      "kind": "support",
+      "name": {
+        "zhCN": "凋零之触",
+        "zhTW": "凋零之觸",
+        "en": "Withering Touch"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "chaos",
+        "hit",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresHit": true,
+        "damageTypes": [
+          "chaos"
+        ],
+        "notes": [
+          "Use only after verifying the linked minion can benefit from the required hit or damage behavior."
+        ]
+      }
+    },
+    {
+      "id": "culling-strike",
+      "kind": "support",
+      "name": {
+        "zhCN": "终结",
+        "zhTW": "終結",
+        "en": "Culling Strike"
+      },
+      "verificationStatus": "needs-poe2db-verification",
+      "tags": [
+        "support",
+        "hit",
+        "needs-source"
+      ],
+      "supportRequirements": {
+        "requiresHit": true
+      }
+    }
+  ]
+}

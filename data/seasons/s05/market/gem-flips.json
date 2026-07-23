@@ -1,0 +1,140 @@
+{
+  "id": "s05-gem-flips-sample",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-22T00:00:00+08:00",
+  "source": {
+    "type": "sample-manual-seed",
+    "note": "Sample data for UI and scoring flow only. Do not treat these prices as current market advice."
+  },
+  "currency": "exalted",
+  "feeRate": 0.08,
+  "scoreWeights": {
+    "netProfit": 0.5,
+    "roi": 0.25,
+    "liquidity": 0.2,
+    "risk": -0.2
+  },
+  "entries": [
+    {
+      "id": "supporting-fire-21",
+      "category": "active",
+      "name": {
+        "zhCN": "支援火力",
+        "zhTW": "支援火力",
+        "en": "Supporting Fire"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 18,
+      "sellPrice": 32,
+      "liquidity": 72,
+      "risk": 42,
+      "notes": {
+        "zhCN": "战术家热门技能示例，真实价需要市场快照刷新。",
+        "zhTW": "戰術家熱門技能示例，真實價需要市場快照刷新。",
+        "en": "Example Tactician skill. Refresh market snapshots before using it."
+      }
+    },
+    {
+      "id": "vulnerability-21",
+      "category": "active",
+      "name": {
+        "zhCN": "脆弱诅咒",
+        "zhTW": "脆弱詛咒",
+        "en": "Vulnerability"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 10,
+      "sellPrice": 18,
+      "liquidity": 64,
+      "risk": 45,
+      "notes": {
+        "zhCN": "诅咒类需求更依赖赛季热门 BD。",
+        "zhTW": "詛咒類需求更依賴賽季熱門 BD。",
+        "en": "Curse demand depends heavily on popular builds."
+      }
+    },
+    {
+      "id": "muster-21",
+      "category": "support",
+      "name": {
+        "zhCN": "集结",
+        "zhTW": "集結",
+        "en": "Muster"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 14,
+      "sellPrice": 24,
+      "liquidity": 58,
+      "risk": 50,
+      "notes": {
+        "zhCN": "召唤/号令相关辅助示例，需确认真实成交量。",
+        "zhTW": "召喚/號令相關輔助示例，需確認真實成交量。",
+        "en": "Example minion or command support. Confirm real volume first."
+      }
+    },
+    {
+      "id": "heft-21",
+      "category": "support",
+      "name": {
+        "zhCN": "厚重",
+        "zhTW": "厚重",
+        "en": "Heft"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 8,
+      "sellPrice": 15,
+      "liquidity": 52,
+      "risk": 55,
+      "notes": {
+        "zhCN": "低买入价示例，风险主要来自挂单深度不足。",
+        "zhTW": "低買入價示例，風險主要來自掛單深度不足。",
+        "en": "Low-entry example; risk mainly comes from shallow listings."
+      }
+    },
+    {
+      "id": "rapid-casting-21",
+      "category": "support",
+      "name": {
+        "zhCN": "快速施法",
+        "zhTW": "快速施法",
+        "en": "Rapid Casting"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 20,
+      "sellPrice": 31,
+      "liquidity": 70,
+      "risk": 60,
+      "notes": {
+        "zhCN": "通用辅助示例，竞争通常更激烈。",
+        "zhTW": "通用輔助示例，競爭通常更激烈。",
+        "en": "Generic support example. Competition is usually higher."
+      }
+    },
+    {
+      "id": "meat-shield-21",
+      "category": "support",
+      "name": {
+        "zhCN": "肉盾",
+        "zhTW": "肉盾",
+        "en": "Meat Shield"
+      },
+      "targetLevel": 21,
+      "quality": 0,
+      "buyPrice": 6,
+      "sellPrice": 12,
+      "liquidity": 44,
+      "risk": 48,
+      "notes": {
+        "zhCN": "召唤生存辅助示例，适合验证低价小额倒卖排序。",
+        "zhTW": "召喚生存輔助示例，適合驗證低價小額倒賣排序。",
+        "en": "Summon survival support example for small-spread sorting."
+      }
+    }
+  ]
+}

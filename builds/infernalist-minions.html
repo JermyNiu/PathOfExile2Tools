@@ -1,0 +1,1497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>S05 魔巫召唤开荒草稿</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#10131d;
+    --panel:#151b28;
+    --panel2:#1d2636;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --warn:#facc15;
+    --ok:#34d399;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    min-height:66px;
+    padding:14px 22px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  code {
+    color:var(--accent);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .nav, .button-row, .badge-row {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .btn {
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .segmented {
+    display:inline-flex;
+    gap:4px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+  }
+  .segmented button {
+    min-height:30px;
+    border:0;
+    border-radius:6px;
+    padding:5px 10px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font:inherit;
+    font-size:13px;
+  }
+  .segmented button.active { background:#075985; color:var(--text); }
+  .shell {
+    width:min(1220px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:13px;
+  }
+  .hero {
+    background:
+      radial-gradient(circle at 18% 20%, rgba(56,189,248,.14), transparent 32%),
+      linear-gradient(135deg, #151b28, #1d2636);
+  }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:12px;
+  }
+  .grid.two { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:14px;
+    display:grid;
+    gap:8px;
+  }
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:10px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:12px;
+    display:grid;
+    gap:4px;
+  }
+  .stat strong { font-size:22px; }
+  .stat span, .muted, li, .panel p { color:var(--muted); line-height:1.55; }
+  .badge {
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px 9px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:13px;
+  }
+  .badge.warn { color:#111827; background:var(--warn); border-color:var(--warn); }
+  .badge.bad { color:#111827; background:var(--bad); border-color:var(--bad); }
+  .badge.ok { color:#06281d; background:var(--ok); border-color:var(--ok); }
+  ul { margin:0; padding-left:18px; }
+  li + li { margin-top:4px; }
+  .placeholder-list {
+    display:grid;
+    gap:6px;
+    padding:0;
+    list-style:none;
+  }
+  .placeholder-list li {
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    padding:8px 10px;
+  }
+  .command-box {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    white-space:pre-wrap;
+    color:#cbd5e1;
+    overflow:auto;
+  }
+  .report-box {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    max-height:420px;
+    overflow:auto;
+    white-space:pre-wrap;
+    color:#cbd5e1;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13px;
+    line-height:1.55;
+  }
+  .warn-text { color:var(--warn); }
+  .table-wrap {
+    overflow:auto;
+    border:1px solid var(--line);
+    border-radius:8px;
+  }
+  table {
+    width:100%;
+    border-collapse:collapse;
+    min-width:760px;
+  }
+  th, td {
+    border-bottom:1px solid var(--line);
+    padding:10px;
+    text-align:left;
+    vertical-align:top;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  th {
+    color:var(--text);
+    background:#0b1120;
+    font-weight:650;
+  }
+  tr:last-child td { border-bottom:0; }
+  .compact-list {
+    margin:0;
+    padding-left:18px;
+  }
+  @media (max-width:900px) {
+    .grid, .grid.two, .stat-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="pageTitle">S05 魔巫召唤开荒草稿</h1>
+  <div class="nav">
+    <div class="segmented" aria-label="语言">
+      <button type="button" data-lang="zhCN" class="active">简</button>
+      <button type="button" data-lang="zhTW">繁</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <a class="btn" href="../builds/index.html" id="navBuilds">开荒 BD</a>
+    <a class="btn" href="../tools/data-update.html" id="navData">数据更新</a>
+    <a class="btn" href="../index.html" id="navHome">首页</a>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="panel hero">
+    <div class="badge-row">
+      <span class="badge warn" id="draftBadge">草稿未发布</span>
+      <span class="badge" id="versionBadge">读取版本...</span>
+      <span class="badge" id="candidateBadge">候选队列</span>
+    </div>
+    <h2 id="heroTitle">魔巫召唤开荒</h2>
+    <p id="heroText">这个页面是 BD 写作工作台，不是可照抄的正式攻略。它读取候选队列和草稿 JSON，用来追踪剩余占位符、待补模块和后续发布命令。</p>
+    <div class="button-row">
+      <a class="btn primary" href="../tools/data-update.html#build-onboarding" id="openOnboarding">查看接入命令</a>
+      <a class="btn" href="../tools/version-history.html" id="openVersionHistory">查看版本矩阵</a>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="qualityTitle">草稿状态</h2>
+    <div class="stat-grid" id="draftStats"></div>
+    <p class="muted" id="qualityNote">占位符归零、技能/装备/阶段/制作补齐、HTML 报告页完成后，才允许登记到 manifest 正式 BD 列表。</p>
+  </section>
+
+  <section class="panel">
+    <h2 id="overviewTitle">当前草稿概览</h2>
+    <div class="grid" id="overviewGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="guideArticleTitle">攻略正文</h2>
+    <p class="muted" id="guideArticleIntro"></p>
+    <div class="grid" id="guideArticleGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="skillOverviewTitle">技能总览</h2>
+    <p class="muted" id="skillOverviewIntro"></p>
+    <div class="grid" id="skillOverviewGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="gearOverviewTitle">装备总览</h2>
+    <p class="muted" id="gearOverviewIntro"></p>
+    <div class="grid" id="gearOverviewGrid"></div>
+    <h3 id="gearPriorityTitle">装备槽位优先级</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th id="gearSlotHead">槽位</th>
+            <th id="gearEarlyHead">前期</th>
+            <th id="gearMidHead">中期</th>
+            <th id="gearEndgameHead">后期</th>
+            <th id="gearStatsHead">优先属性</th>
+            <th id="gearAvoidHead">避免</th>
+          </tr>
+        </thead>
+        <tbody id="gearPriorityRows"></tbody>
+      </table>
+    </div>
+    <h3 id="earlyGearPriorityTitle">前期装备属性优先级</h3>
+    <div class="grid two" id="earlyGearPriorityGrid"></div>
+    <h3 id="gearThresholdTitle">装备门槛</h3>
+    <div class="grid two" id="gearThresholdGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="stageGuideTitle">阶段攻略</h2>
+    <p class="muted" id="stageGuideIntro"></p>
+    <div class="grid two" id="stageGuideGrid"></div>
+    <h3 id="executionPlanTitle">照抄执行路线</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th id="executionStageHead">阶段</th>
+            <th id="executionActionHead">主动作</th>
+            <th id="executionBuyHead">先找什么</th>
+            <th id="executionStopHead">停止线</th>
+            <th id="executionFallbackHead">卡住回退</th>
+            <th id="executionNextHead">下一阶段条件</th>
+          </tr>
+        </thead>
+        <tbody id="executionPlanRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="routeCandidateTitle">阶段天赋候选路线</h2>
+    <p class="muted" id="routeCandidateIntro"></p>
+    <div class="stat-grid" id="routeCandidateStats"></div>
+    <div class="grid two" id="routeCandidateGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="craftingPlanTitle">制作方案</h2>
+    <p class="muted" id="craftingPlanIntro"></p>
+    <div class="grid two" id="craftingPlanGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="guideReportTitle">攻略报告</h2>
+    <p class="muted" id="guideReportIntro"></p>
+    <div class="badge-row">
+      <span class="badge warn" id="guideReportBoundary">草稿报告，不发布</span>
+      <span class="badge" id="guideReportStats">等待生成</span>
+    </div>
+    <pre class="report-box" id="guideReportBlock"></pre>
+    <div class="button-row">
+      <button class="btn" type="button" id="copyGuideReportBtn">复制攻略报告</button>
+      <button class="btn" type="button" id="downloadGuideReportBtn">下载 Markdown</button>
+      <span class="muted" id="guideReportCopyStatus"></span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="todoTitle">待补模块</h2>
+    <div class="grid two" id="todoGrid"></div>
+  </section>
+
+  <section class="panel">
+    <h2 id="placeholderTitle">占位符路径</h2>
+    <ul class="placeholder-list" id="placeholderList"></ul>
+  </section>
+
+  <section class="panel">
+    <h2 id="commandsTitle">下一步命令</h2>
+    <div class="command-box" id="commandBox"></div>
+    <div class="button-row">
+      <button class="btn" type="button" id="copyCommandsBtn">复制命令</button>
+      <span class="muted" id="copyStatus"></span>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+const BUILD_ID = 'infernalist-minions';
+const placeholderTerms = [
+  '待填写',
+  '待填寫',
+  'TBD',
+  'Template placeholder',
+  'Replace placeholders',
+  'template',
+  '模板占位',
+  '說明',
+  '说明'
+];
+const text = {
+  zhCN: {
+    title: 'S05 魔巫召唤开荒草稿',
+    draftBadge: '草稿未发布',
+    heroText: '这个页面是未发布的 BD 攻略草稿。攻略正文、技能、装备、制作和 4 个阶段候选天赋已经接入；发布前还要人工复核候选路线并登记到正式 manifest。',
+    navBuilds: '开荒 BD',
+    navData: '数据更新',
+    navHome: '首页',
+    openOnboarding: '查看接入命令',
+    openVersionHistory: '查看版本矩阵',
+    qualityTitle: '草稿状态',
+    qualityNote: '当前内容模块和候选路线文件已补齐；只有人工复核节点顺序、阶段适配并通过完整套件后，才允许登记到 manifest 正式 BD 列表。',
+    overviewTitle: '当前草稿概览',
+    guideArticleTitle: '攻略正文',
+    skillOverviewTitle: '技能总览',
+    gearOverviewTitle: '装备总览',
+    gearPriorityTitle: '装备槽位优先级',
+    earlyGearPriorityTitle: '前期装备属性优先级',
+    gearThresholdTitle: '装备门槛',
+    stageGuideTitle: '阶段攻略',
+    stageGuideIntro: '每个阶段先写清楚该做什么、先找什么属性和卡住怎么回退；候选天赋按钮会打开独立天赋树查看器，发布前仍需人工复核。',
+    routeCandidateTitle: '阶段天赋候选路线',
+    routeCandidateIntro: '这里按草稿阶段列出天赋候选文件准备度。已有候选文件可以预览和校验；缺失阶段必须先用脚手架生成候选 JSON，再人工复核节点顺序。',
+    routeCandidateExisting: '已有候选文件',
+    routeCandidateMissing: '缺失候选文件',
+    routeCandidateTotal: '草稿阶段',
+    routeCandidatePreview: '预览候选天赋',
+    routeCandidateValidate: '校验命令',
+    routeCandidateScaffold: '生成命令',
+    routeCandidateNext: '下一步',
+    routeCandidateReadyNext: '打开独立天赋树检查高亮、节点属性和阶段适配，再运行校验命令。',
+    routeCandidateMissingNext: '补入实际节点 ID 后生成 .candidate.json，人工复核后再登记到 manifest。',
+    routeCandidateFile: '候选文件',
+    routeCandidateStatus: '候选状态',
+    executionPlanTitle: '照抄执行路线',
+    executionStage: '阶段',
+    executionAction: '主动作',
+    executionBuy: '先找什么',
+    executionStop: '停止线',
+    executionFallback: '卡住回退',
+    executionNext: '下一阶段条件',
+    stagePriorities: '优先级',
+    stageSteps: '操作',
+    stageChecks: '检查',
+    stageMistakes: '误区',
+    stagePassiveCandidate: '候选天赋',
+    stagePassiveReview: '候选路线，待人工复核',
+    stageNoPassiveCandidate: '该阶段暂无候选天赋',
+    craftingPlanTitle: '制作方案',
+    craftingPlanIntro: '草稿制作只写解决短板的流程和停止线，不给实时价格结论。后续接入真实行情快照后，再把成本区间放进独立市场工具。',
+    craftGoal: '目标',
+    craftBase: '底子',
+    craftPurchaseFirst: '先买还是自做',
+    craftPriorityMods: '优先词',
+    craftMaterials: '材料',
+    craftSteps: '步骤',
+    craftSuccessChecks: '成功检查',
+    craftFallback: '失败回退',
+    craftStopRule: '停止线',
+    guideReportTitle: '攻略报告',
+    guideReportIntro: '这里生成的是未发布草稿 Markdown，用来审稿和归档。登记到 manifest 前，它仍不是首页正式 BD。',
+    guideReportBoundary: '草稿报告，不发布',
+    guideReportCopy: '复制攻略报告',
+    guideReportDownload: '下载 Markdown',
+    guideReportCopied: '已复制攻略报告',
+    guideReportCopyFailed: '复制失败',
+    guideReportReady: '已生成草稿报告',
+    gearSlot: '槽位',
+    gearEarly: '前期',
+    gearMid: '中期',
+    gearEndgame: '后期',
+    gearStats: '优先属性',
+    gearAvoid: '避免',
+    gearRule: '规则',
+    gearMustHave: '必须有',
+    gearUpgradeWhen: '升级触发',
+    gearMinimum: '最低线',
+    gearUpgradeTarget: '升级目标',
+    gearReason: '原因',
+    todoTitle: '待补模块',
+    placeholderTitle: '占位符路径',
+    commandsTitle: '下一步命令',
+    copyCommands: '复制命令',
+    copied: '已复制命令',
+    statPlaceholders: '占位符',
+    statGuide: '草稿页',
+    statRegistered: '正式发布',
+    statSkills: '技能本体',
+    statSupports: '辅助宝石',
+    found: '已存在',
+    no: '否',
+    yes: '是',
+    source: '来源',
+    className: '职业',
+    status: '候选状态',
+    reason: '候选原因',
+    missing: '待补',
+    ready: '已补',
+    emptyPlaceholders: '当前未检测到模板占位符。',
+    modules: {
+      guideArticle: '攻略正文',
+      skillOverview: '技能总览',
+      stages: '阶段路线',
+      executionPlan: '照抄执行路线',
+      activeSkills: '技能本体',
+      supports: '辅助宝石',
+      minionSelectionGuide: '召唤物选择指南',
+      gear: '装备优先级',
+      crafting: '制作方案',
+      htmlReport: '攻略报告'
+    }
+  },
+  zhTW: {
+    title: 'S05 魔巫召喚拓荒草稿',
+    draftBadge: '草稿未發布',
+    heroText: '這個頁面是未發布的 BD 攻略草稿。攻略正文、技能、裝備、製作和 4 個階段候選天賦已接入；發布前還要人工複核候選路線並登記到正式 manifest。',
+    navBuilds: '拓荒 BD',
+    navData: '資料更新',
+    navHome: '首頁',
+    openOnboarding: '查看接入命令',
+    openVersionHistory: '查看版本矩陣',
+    qualityTitle: '草稿狀態',
+    qualityNote: '目前內容模組和候選路線檔已補齊；只有人工複核節點順序、階段適配並通過完整套件後，才允許登記到 manifest 正式 BD 列表。',
+    overviewTitle: '目前草稿概覽',
+    guideArticleTitle: '攻略正文',
+    skillOverviewTitle: '技能總覽',
+    gearOverviewTitle: '裝備總覽',
+    gearPriorityTitle: '裝備欄位優先級',
+    earlyGearPriorityTitle: '前期裝備屬性優先級',
+    gearThresholdTitle: '裝備門檻',
+    stageGuideTitle: '階段攻略',
+    stageGuideIntro: '每個階段先寫清楚該做什麼、先找什麼屬性和卡住怎麼回退；候選天賦按鈕會打開獨立天賦樹查看器，發布前仍需人工複核。',
+    routeCandidateTitle: '階段天賦候選路線',
+    routeCandidateIntro: '這裡按草稿階段列出天賦候選檔準備度。已有候選檔可以預覽和校驗；缺失階段必須先用腳手架生成候選 JSON，再人工複核節點順序。',
+    routeCandidateExisting: '已有候選檔',
+    routeCandidateMissing: '缺失候選檔',
+    routeCandidateTotal: '草稿階段',
+    routeCandidatePreview: '預覽候選天賦',
+    routeCandidateValidate: '校驗命令',
+    routeCandidateScaffold: '生成命令',
+    routeCandidateNext: '下一步',
+    routeCandidateReadyNext: '打開獨立天賦樹檢查高亮、節點屬性和階段適配，再執行校驗命令。',
+    routeCandidateMissingNext: '補入實際節點 ID 後生成 .candidate.json，人工複核後再登記到 manifest。',
+    routeCandidateFile: '候選檔',
+    routeCandidateStatus: '候選狀態',
+    executionPlanTitle: '照抄執行路線',
+    executionStage: '階段',
+    executionAction: '主動作',
+    executionBuy: '先找什麼',
+    executionStop: '停止線',
+    executionFallback: '卡住回退',
+    executionNext: '下一階段條件',
+    stagePriorities: '優先級',
+    stageSteps: '操作',
+    stageChecks: '檢查',
+    stageMistakes: '誤區',
+    stagePassiveCandidate: '候選天賦',
+    stagePassiveReview: '候選路線，待人工複核',
+    stageNoPassiveCandidate: '該階段暫無候選天賦',
+    craftingPlanTitle: '製作方案',
+    craftingPlanIntro: '草稿製作只寫解決短板的流程和停止線，不給即時價格結論。後續接入真實行情快照後，再把成本區間放進獨立市場工具。',
+    craftGoal: '目標',
+    craftBase: '底子',
+    craftPurchaseFirst: '先買還是自做',
+    craftPriorityMods: '優先詞',
+    craftMaterials: '材料',
+    craftSteps: '步驟',
+    craftSuccessChecks: '成功檢查',
+    craftFallback: '失敗回退',
+    craftStopRule: '停止線',
+    guideReportTitle: '攻略報告',
+    guideReportIntro: '這裡生成的是未發布草稿 Markdown，用來審稿和歸檔。登記到 manifest 前，它仍不是首頁正式 BD。',
+    guideReportBoundary: '草稿報告，不發布',
+    guideReportCopy: '複製攻略報告',
+    guideReportDownload: '下載 Markdown',
+    guideReportCopied: '已複製攻略報告',
+    guideReportCopyFailed: '複製失敗',
+    guideReportReady: '已生成草稿報告',
+    gearSlot: '欄位',
+    gearEarly: '前期',
+    gearMid: '中期',
+    gearEndgame: '後期',
+    gearStats: '優先屬性',
+    gearAvoid: '避免',
+    gearRule: '規則',
+    gearMustHave: '必須有',
+    gearUpgradeWhen: '升級觸發',
+    gearMinimum: '最低線',
+    gearUpgradeTarget: '升級目標',
+    gearReason: '原因',
+    todoTitle: '待補模組',
+    placeholderTitle: '佔位符路徑',
+    commandsTitle: '下一步命令',
+    copyCommands: '複製命令',
+    copied: '已複製命令',
+    statPlaceholders: '佔位符',
+    statGuide: '草稿頁',
+    statRegistered: '正式發布',
+    statSkills: '技能本體',
+    statSupports: '輔助寶石',
+    found: '已存在',
+    no: '否',
+    yes: '是',
+    source: '來源',
+    className: '職業',
+    status: '候選狀態',
+    reason: '候選原因',
+    missing: '待補',
+    ready: '已補',
+    emptyPlaceholders: '目前未檢測到模板佔位符。',
+    modules: {
+      guideArticle: '攻略正文',
+      skillOverview: '技能總覽',
+      stages: '階段路線',
+      executionPlan: '照抄執行路線',
+      activeSkills: '技能本體',
+      supports: '輔助寶石',
+      minionSelectionGuide: '召喚物選擇指南',
+      gear: '裝備優先級',
+      crafting: '製作方案',
+      htmlReport: '攻略報告'
+    }
+  },
+  en: {
+    title: 'S05 Infernalist Minions Draft',
+    draftBadge: 'Draft, Not Published',
+    heroText: 'This is an unpublished build-guide draft. Guide text, skills, gear, crafting, and all 4 staged passive candidates are wired; before publication, the candidate routes still need manual review and formal manifest registration.',
+    navBuilds: 'Starter Builds',
+    navData: 'Data Update',
+    navHome: 'Home',
+    openOnboarding: 'Open Onboarding Commands',
+    openVersionHistory: 'Open Version Matrix',
+    qualityTitle: 'Draft Status',
+    qualityNote: 'The content modules and candidate route files are filled; register it in the formal manifest only after manual node-order and stage-fit review plus the full validation suite.',
+    overviewTitle: 'Current Draft Overview',
+    guideArticleTitle: 'Guide Article',
+    skillOverviewTitle: 'Skill Overview',
+    gearOverviewTitle: 'Gear Overview',
+    gearPriorityTitle: 'Gear Slot Priorities',
+    earlyGearPriorityTitle: 'Early Gear Stat Priority',
+    gearThresholdTitle: 'Gear Thresholds',
+    stageGuideTitle: 'Stage Guide',
+    stageGuideIntro: 'Each stage explains what to do, which stats to solve first, and how to recover when stuck. Candidate passive buttons open the standalone tree viewer, but still need manual review before publication.',
+    routeCandidateTitle: 'Staged Passive Candidate Routes',
+    routeCandidateIntro: 'This lists passive candidate-file readiness by draft stage. Existing candidate files can be previewed and validated; missing stages need scaffolded candidate JSON and manual node-order review.',
+    routeCandidateExisting: 'Existing candidate files',
+    routeCandidateMissing: 'Missing candidate files',
+    routeCandidateTotal: 'Draft stages',
+    routeCandidatePreview: 'Preview Candidate Tree',
+    routeCandidateValidate: 'Validate Command',
+    routeCandidateScaffold: 'Scaffold Command',
+    routeCandidateNext: 'Next Action',
+    routeCandidateReadyNext: 'Open the standalone tree to check highlights, node stats, and stage fit, then run the validation command.',
+    routeCandidateMissingNext: 'Fill the real node IDs, generate the .candidate.json file, manually review it, then register it in the manifest.',
+    routeCandidateFile: 'Candidate file',
+    routeCandidateStatus: 'Candidate status',
+    executionPlanTitle: 'Copyable Execution Plan',
+    executionStage: 'Stage',
+    executionAction: 'Main Action',
+    executionBuy: 'Find First',
+    executionStop: 'Stop Line',
+    executionFallback: 'Fallback',
+    executionNext: 'Next Gate',
+    stagePriorities: 'Priorities',
+    stageSteps: 'Steps',
+    stageChecks: 'Checks',
+    stageMistakes: 'Mistakes',
+    stagePassiveCandidate: 'Candidate Passive Tree',
+    stagePassiveReview: 'Candidate route, manual review pending',
+    stageNoPassiveCandidate: 'No candidate passive route yet',
+    craftingPlanTitle: 'Crafting Plans',
+    craftingPlanIntro: 'Draft crafting records gap-solving flow and stop lines only, not live price conclusions. Cost ranges belong in market tools after real snapshots are connected.',
+    craftGoal: 'Goal',
+    craftBase: 'Base',
+    craftPurchaseFirst: 'Buy or Craft First',
+    craftPriorityMods: 'Priority Mods',
+    craftMaterials: 'Materials',
+    craftSteps: 'Steps',
+    craftSuccessChecks: 'Success Checks',
+    craftFallback: 'Fallback',
+    craftStopRule: 'Stop Rule',
+    guideReportTitle: 'Guide Report',
+    guideReportIntro: 'This is an unpublished draft Markdown report for review and archive. Until it is registered in the manifest, it is not a published homepage build.',
+    guideReportBoundary: 'Draft report, not published',
+    guideReportCopy: 'Copy Guide Report',
+    guideReportDownload: 'Download Markdown',
+    guideReportCopied: 'Copied guide report',
+    guideReportCopyFailed: 'Copy failed',
+    guideReportReady: 'Draft report generated',
+    gearSlot: 'Slot',
+    gearEarly: 'Early',
+    gearMid: 'Mid',
+    gearEndgame: 'Endgame',
+    gearStats: 'Priority Stats',
+    gearAvoid: 'Avoid',
+    gearRule: 'Rule',
+    gearMustHave: 'Must Have',
+    gearUpgradeWhen: 'Upgrade Trigger',
+    gearMinimum: 'Minimum',
+    gearUpgradeTarget: 'Upgrade Target',
+    gearReason: 'Reason',
+    todoTitle: 'Missing Modules',
+    placeholderTitle: 'Placeholder Paths',
+    commandsTitle: 'Next Commands',
+    copyCommands: 'Copy Commands',
+    copied: 'Copied commands',
+    statPlaceholders: 'Placeholders',
+    statGuide: 'Draft page',
+    statRegistered: 'Published',
+    statSkills: 'Active skills',
+    statSupports: 'Support gems',
+    found: 'Found',
+    no: 'No',
+    yes: 'Yes',
+    source: 'Source',
+    className: 'Class',
+    status: 'Candidate status',
+    reason: 'Candidate reason',
+    missing: 'Missing',
+    ready: 'Ready',
+    emptyPlaceholders: 'No template placeholders detected.',
+    modules: {
+      guideArticle: 'Guide article',
+      skillOverview: 'Skill overview',
+      stages: 'Staged routes',
+      executionPlan: 'Execution plan',
+      activeSkills: 'Active skills',
+      supports: 'Support gems',
+      minionSelectionGuide: 'Minion selection guide',
+      gear: 'Gear priorities',
+      crafting: 'Crafting plans',
+      htmlReport: 'Guide report'
+    }
+  }
+};
+let currentLang = 'zhCN';
+let pageState = null;
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function localize(value, lang = currentLang) {
+  if (typeof value === 'string') return value;
+  return value?.[lang] || value?.zhCN || value?.zhTW || value?.en || '';
+}
+
+function localizedReady(value) {
+  return Boolean(value)
+    && typeof value === 'object'
+    && ['zhCN', 'zhTW', 'en'].every((lang) => typeof value[lang] === 'string' && value[lang].trim());
+}
+
+function localizedListCount(value) {
+  if (Array.isArray(value)) return value.length;
+  if (!value || typeof value !== 'object') return 0;
+  return Math.max(...['zhCN', 'zhTW', 'en'].map((lang) => Array.isArray(value[lang]) ? value[lang].length : 0), 0);
+}
+
+function collectStrings(value, pathLabel = '', rows = []) {
+  if (typeof value === 'string') rows.push({ path: pathLabel, value });
+  else if (Array.isArray(value)) value.forEach((item, index) => collectStrings(item, `${pathLabel}[${index}]`, rows));
+  else if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([key, child]) => collectStrings(child, pathLabel ? `${pathLabel}.${key}` : key, rows));
+  }
+  return rows;
+}
+
+function placeholderPaths(data) {
+  return collectStrings(data)
+    .filter((row) => placeholderTerms.some((term) => row.value.includes(term)))
+    .map((row) => row.path);
+}
+
+function minionSelectionStats(build) {
+  const guide = build.skills?.minionSelectionGuide;
+  const groups = guide?.groups || [];
+  const skillRefs = groups.reduce((sum, group) => sum + (group.skillIds?.length || 0), 0);
+  const supportRefs = groups.reduce((sum, group) => sum + (group.firstSupports?.length || 0), 0);
+  const chooseWhen = groups.reduce((sum, group) => sum + localizedListCount(group.chooseWhen), 0);
+  const rules = localizedListCount(guide?.rules);
+  const ready = localizedReady(guide?.title)
+    && localizedReady(guide?.intro)
+    && groups.length > 0
+    && groups.every((group) => (
+      typeof group.id === 'string'
+      && group.id.trim()
+      && localizedReady(group.title)
+      && localizedReady(group.job)
+      && localizedListCount(group.chooseWhen) > 0
+      && Array.isArray(group.skillIds)
+      && group.skillIds.length > 0
+      && Array.isArray(group.firstSupports)
+      && group.firstSupports.length > 0
+      && localizedReady(group.cutFirst)
+    ))
+    && rules > 0;
+  return { ready, groups: groups.length, skillRefs, supportRefs, chooseWhen, rules };
+}
+
+function guideArticleStats(build) {
+  const article = build.guideArticle;
+  const sections = article?.sections || [];
+  const checkCount = sections.reduce((sum, section) => sum + localizedListCount(section.checks), 0);
+  const ready = localizedReady(article?.title)
+    && localizedReady(article?.intro)
+    && sections.length > 1
+    && sections.every((section) => (
+      typeof section.id === 'string'
+      && section.id.trim()
+      && localizedReady(section.title)
+      && localizedReady(section.body)
+      && localizedListCount(section.checks) > 0
+    ));
+  return { ready, sections: sections.length, checks: checkCount };
+}
+
+function skillOverviewStats(build) {
+  const overview = build.skills?.overview;
+  const cards = overview?.cards || [];
+  const checkCount = cards.reduce((sum, card) => sum + localizedListCount(card.checks), 0);
+  const ready = localizedReady(overview?.title)
+    && localizedReady(overview?.intro)
+    && cards.length > 0
+    && cards.every((card) => (
+      typeof card.id === 'string'
+      && card.id.trim()
+      && localizedReady(card.title)
+      && localizedReady(card.body)
+      && localizedListCount(card.checks) > 0
+    ));
+  return { ready, cards: cards.length, checks: checkCount };
+}
+
+function gearDraftStats(build) {
+  const overview = build.gearOverview || {};
+  const cards = overview.cards || [];
+  const overviewChecks = cards.reduce((sum, card) => sum + (card.checks?.length || localizedListCount(card.checks)), 0);
+  const priorities = build.gearPriorities || [];
+  const earlyPriorities = build.earlyGearStatPriority || [];
+  const thresholds = build.gearStatThresholds || [];
+  const thresholdRows = thresholds.reduce((sum, stage) => sum + (stage.thresholds?.length || 0), 0);
+  const stagePlanRows = (build.gearStagePlan || []).length;
+  const ready = Boolean(overview.title)
+    && Boolean(overview.intro)
+    && cards.length > 0
+    && cards.every((card) => card.id && card.title && card.body && (card.checks || []).length > 0)
+    && priorities.length > 0
+    && earlyPriorities.length > 0
+    && thresholds.length > 0
+    && thresholdRows > 0
+    && stagePlanRows > 0;
+  return {
+    ready,
+    overviewCards: cards.length,
+    overviewChecks,
+    priorityRows: priorities.length,
+    earlyPriorityRows: earlyPriorities.length,
+    thresholdStages: thresholds.length,
+    thresholdRows,
+    stagePlanRows
+  };
+}
+
+function stageDraftStats(build) {
+  const stages = build.stages || [];
+  const executionStages = build.executionPlan?.stages || [];
+  const playbooks = stages.filter((stage) => stage.playbook?.steps?.length > 0);
+  const checks = stages.reduce((sum, stage) => sum + (stage.playbook?.checks?.length || 0), 0);
+  const mistakes = stages.reduce((sum, stage) => sum + (stage.playbook?.mistakes?.length || 0), 0);
+  const executionReady = executionStages.length > 0
+    && executionStages.every((stage) => stage.stageId && stage.mainAction && (stage.buyFirst || []).length > 0 && stage.stopLine && stage.fallback && stage.nextGate);
+  return {
+    ready: stages.length > 0 && playbooks.length === stages.length && executionReady,
+    stages: stages.length,
+    playbooks: playbooks.length,
+    checks,
+    mistakes,
+    executionRows: executionStages.length
+  };
+}
+
+function routeCandidateRows(version, candidate, build) {
+  const routeByStage = new Map((candidate.routeCandidates || []).map((route) => [route.stageId, route]));
+  return (build.stages || []).map((stage) => {
+    const stageId = stage.treeStage || stage.id;
+    const route = routeByStage.get(stageId);
+    const file = route?.file || `tree/${build.id}-${stageId}.candidate.json`;
+    const routePath = `${version.dataRoot}/${file}`;
+    return {
+      stage,
+      stageId,
+      route,
+      file,
+      existing: Boolean(route?.file),
+      previewHref: route?.file ? `../tools/passive-tree.html?route=${encodeURIComponent(routePath)}` : '',
+      validateCommand: `node scripts/validate-route-candidate.mjs --season ${version.season.toLowerCase()} --build ${build.id} --stage ${stageId} --file ${file}`,
+      scaffoldCommand: `node scripts/scaffold-route.mjs --season ${version.season.toLowerCase()} --build ${build.id} --stage ${stageId} --nodes <node-ids> --out ${file} --write`
+    };
+  });
+}
+
+function routeCandidateStats(version, candidate, build) {
+  const rows = routeCandidateRows(version, candidate, build);
+  return {
+    rows,
+    stages: rows.length,
+    existing: rows.filter((row) => row.existing).length,
+    missing: rows.filter((row) => !row.existing).length,
+    files: rows.filter((row) => row.existing).map((row) => row.file),
+    missingStages: rows.filter((row) => !row.existing).map((row) => row.stageId),
+    previewLinks: rows.filter((row) => row.previewHref).map((row) => row.previewHref),
+    validateCommands: rows.filter((row) => row.existing).map((row) => row.validateCommand),
+    scaffoldCommands: rows.filter((row) => !row.existing).map((row) => row.scaffoldCommand)
+  };
+}
+
+function craftingDraftStats(build) {
+  const plans = build.craftingPlan || [];
+  const structured = plans.filter((item) => item.sourceStatus && item.purchaseFirst && item.priorityMods?.length && item.materials?.length && item.steps?.length && item.successChecks?.length && item.fallback?.length && item.stopRule).length;
+  return {
+    ready: plans.length > 0 && structured === plans.length,
+    plans: plans.length,
+    structured,
+    priorityMods: plans.reduce((sum, item) => sum + (item.priorityMods?.length || 0), 0),
+    materials: plans.reduce((sum, item) => sum + (item.materials?.length || 0), 0),
+    steps: plans.reduce((sum, item) => sum + (item.steps?.length || 0), 0),
+    successChecks: plans.reduce((sum, item) => sum + (item.successChecks?.length || 0), 0),
+    fallback: plans.reduce((sum, item) => sum + (item.fallback?.length || 0), 0),
+    sourceStatus: [...new Set(plans.map((item) => item.sourceStatus || 'unknown'))].join(',')
+  };
+}
+
+function guideReportStats(build) {
+  const reportReady = Boolean(build.guideArticle?.sections?.length)
+    && Boolean(build.skills?.overview?.cards?.length)
+    && Boolean(build.stages?.length)
+    && Boolean(build.executionPlan?.stages?.length)
+    && Boolean(build.gearOverview?.cards?.length)
+    && Boolean(build.craftingPlan?.length);
+  return { ready: reportReady };
+}
+
+function moduleRows(build) {
+  const guideArticle = guideArticleStats(build);
+  const minionSelection = minionSelectionStats(build);
+  const skillOverview = skillOverviewStats(build);
+  const gear = gearDraftStats(build);
+  const stages = stageDraftStats(build);
+  const crafting = craftingDraftStats(build);
+  const report = guideReportStats(build);
+  return [
+    { id: 'guideArticle', ready: guideArticle.ready },
+    { id: 'skillOverview', ready: skillOverview.ready },
+    { id: 'stages', ready: stages.stages > 0 && stages.playbooks === stages.stages },
+    { id: 'executionPlan', ready: stages.executionRows > 0 },
+    { id: 'activeSkills', ready: (build.skills?.active || []).length > 0 },
+    { id: 'supports', ready: Object.keys(build.skills?.supports || {}).length > 0 },
+    { id: 'minionSelectionGuide', ready: minionSelection.ready },
+    { id: 'gear', ready: gear.ready },
+    { id: 'crafting', ready: crafting.ready },
+    { id: 'htmlReport', ready: report.ready }
+  ];
+}
+
+function markdownText(value) {
+  return String(value ?? '').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ').trim();
+}
+
+function markdownList(items) {
+  return (items || []).map((item) => `- ${markdownText(localize(item))}`);
+}
+
+function buildGuideReport(build, version, candidate, registered) {
+  const stageCount = build.stages?.length || 0;
+  const thresholdRows = (build.gearStatThresholds || []).reduce((sum, stage) => sum + (stage.thresholds?.length || 0), 0);
+  const lines = [
+    `# ${markdownText(localize(build.title))}`,
+    '',
+    `> ${currentLang === 'en' ? 'Unpublished draft. Candidate passive route files exist, but no formal manifest route is registered and no live market price conclusion is included.' : '未发布草稿。已有候选天赋路线文件，但尚未登记正式 manifest 路线，也不包含实时市场价格结论。'}`,
+    '',
+    `## ${currentLang === 'en' ? 'Summary' : '摘要'}`,
+    '',
+    `- Version: ${markdownText(version.id)} / ${markdownText(version.season)} / PoE2DB ${markdownText(version.poe2dbPassiveTreeVersion || version.poe2dbVersion || '-')}`,
+    `- Build: ${markdownText(build.id)}`,
+    `- Candidate: ${markdownText(candidate.status || 'draft')} / registered=${registered ? 'true' : 'false'}`,
+    `- Class: ${markdownText(localize(build.class?.base))} / ${markdownText(localize(build.class?.ascendancy))}`,
+    `- Stages: ${stageCount}`,
+    `- Active skills: ${build.skills?.active?.length || 0}`,
+    `- Support gems: ${Object.keys(build.skills?.supports || {}).length}`,
+    `- Gear thresholds: ${build.gearStatThresholds?.length || 0} stages / ${thresholdRows} rows`,
+    `- Crafting plans: ${build.craftingPlan?.length || 0}`,
+    '',
+    `## ${currentLang === 'en' ? 'Overview' : '概览'}`,
+    '',
+    `- Difficulty: ${markdownText(localize(build.overview?.difficulty))}`,
+    `- Budget: ${markdownText(localize(build.overview?.budget))}`,
+    '',
+    `### ${currentLang === 'en' ? 'Best For' : '适合玩家'}`,
+    ...markdownList(localize(build.overview?.bestFor)),
+    '',
+    `### ${currentLang === 'en' ? 'Strengths' : '核心强项'}`,
+    ...markdownList(localize(build.overview?.strengths)),
+    '',
+    `### ${currentLang === 'en' ? 'Risks' : '当前风险'}`,
+    ...markdownList(localize(build.overview?.risks)),
+    '',
+    `## ${currentLang === 'en' ? 'Guide Article' : '攻略正文'}`,
+    '',
+    markdownText(localize(build.guideArticle?.intro)),
+    ''
+  ];
+
+  (build.guideArticle?.sections || []).forEach((section) => {
+    lines.push(`### ${markdownText(localize(section.title))}`, '');
+    lines.push(markdownText(localize(section.body)), '');
+    lines.push(...markdownList(section.checks?.[currentLang] || section.checks?.zhCN || []), '');
+  });
+
+  lines.push(`## ${currentLang === 'en' ? 'Stages' : '阶段攻略'}`, '');
+  (build.stages || []).forEach((stage) => {
+    lines.push(`### ${markdownText(localize(stage.title))}`, '');
+    lines.push(markdownText(localize(stage.summary)), '');
+    lines.push(`- ${currentLang === 'en' ? 'Priorities' : '优先级'}: ${markdownText((stage.priorities || []).map((item) => localize(item)).join(' / '))}`);
+    lines.push(...markdownList(stage.playbook?.steps || []), '');
+  });
+
+  const routeStats = routeCandidateStats(version, candidate, build);
+  lines.push(`## ${currentLang === 'en' ? 'Passive Candidate Routes' : '天赋候选路线'}`, '');
+  lines.push(`- ${currentLang === 'en' ? 'Candidate files' : '候选文件'}: ${routeStats.existing} / ${routeStats.stages}`);
+  lines.push(`- ${currentLang === 'en' ? 'Missing files' : '缺失文件'}: ${routeStats.missing}`);
+  if (routeStats.files.length) lines.push(`- ${currentLang === 'en' ? 'Existing' : '已有'}: ${markdownText(routeStats.files.join(' / '))}`);
+  if (routeStats.missingStages.length) lines.push(`- ${currentLang === 'en' ? 'Missing stages' : '缺失阶段'}: ${markdownText(routeStats.missingStages.join(' / '))}`);
+  lines.push('');
+
+  lines.push(`## ${currentLang === 'en' ? 'Execution Plan' : '照抄执行路线'}`, '');
+  (build.executionPlan?.stages || []).forEach((stage) => {
+    lines.push(`### ${markdownText(stage.stageId)}`, '');
+    lines.push(`- ${currentLang === 'en' ? 'Main action' : '主动作'}: ${markdownText(localize(stage.mainAction))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Find first' : '先找什么'}: ${markdownText((stage.buyFirst || []).map((item) => localize(item)).join(' / '))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Stop line' : '停止线'}: ${markdownText(localize(stage.stopLine))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Fallback' : '卡住回退'}: ${markdownText(localize(stage.fallback))}`, '');
+  });
+
+  lines.push(`## ${currentLang === 'en' ? 'Minion Selection' : '召唤物选择'}`, '');
+  const skillById = new Map((build.skills?.active || []).map((skill) => [skill.id, localize(skill.name)]));
+  const supportName = (id) => localize(build.skills?.supports?.[id]) || id;
+  const minionGuide = build.skills?.minionSelectionGuide;
+  lines.push(markdownText(localize(minionGuide?.intro)), '');
+  (minionGuide?.groups || []).forEach((group) => {
+    lines.push(`### ${markdownText(localize(group.title))}`, '');
+    lines.push(`- ${currentLang === 'en' ? 'Job' : '职责'}: ${markdownText(localize(group.job))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Minions' : '召唤物'}: ${markdownText((group.skillIds || []).map((id) => skillById.get(id) || id).join(' / '))}`);
+    lines.push(`- ${currentLang === 'en' ? 'First supports' : '先接辅助'}: ${markdownText((group.firstSupports || []).map(supportName).join(' / '))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Cut first' : '删减规则'}: ${markdownText(localize(group.cutFirst))}`, '');
+  });
+
+  lines.push(`## ${currentLang === 'en' ? 'Gear' : '装备'}`, '');
+  (build.gearOverview?.cards || []).forEach((card) => {
+    lines.push(`### ${markdownText(localize(card.title))}`, '');
+    lines.push(markdownText(localize(card.body)), '');
+    lines.push(...markdownList(card.checks || []), '');
+  });
+
+  lines.push(`## ${currentLang === 'en' ? 'Crafting' : '制作方案'}`, '');
+  (build.craftingPlan || []).forEach((plan) => {
+    lines.push(`### ${markdownText(localize(plan.title))}`, '');
+    lines.push(`- ${currentLang === 'en' ? 'Goal' : '目标'}: ${markdownText(localize(plan.goal))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Base' : '底子'}: ${markdownText(localize(plan.base))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Buy or craft first' : '先买还是自做'}: ${markdownText(localize(plan.purchaseFirst))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Priority mods' : '优先词'}: ${markdownText((plan.priorityMods || []).map((item) => localize(item)).join(' / '))}`);
+    lines.push(`- ${currentLang === 'en' ? 'Stop rule' : '停止线'}: ${markdownText(localize(plan.stopRule))}`);
+    lines.push(...markdownList(plan.steps || []), '');
+  });
+
+  lines.push(`## ${currentLang === 'en' ? 'Boundaries' : '边界'}`, '');
+  lines.push(`- unpublished-draft`);
+  lines.push(`- registered=${registered ? 'true' : 'false'}`);
+  lines.push(`- passive-tree-routes=candidate-files-ready-not-registered`);
+  lines.push(`- market-price=not-live`);
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+
+function guideReportFileName(build, version) {
+  return `guide-draft-${version.id}-${build.id}-${currentLang}.md`;
+}
+
+function render() {
+  if (!pageState) return;
+  const t = text[currentLang];
+  const { version, manifest, candidate, build, placeholders, registered } = pageState;
+  document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.title = t.title;
+  document.getElementById('pageTitle').textContent = t.title;
+  document.getElementById('draftBadge').textContent = t.draftBadge;
+  document.getElementById('versionBadge').textContent = version.id;
+  document.getElementById('candidateBadge').textContent = candidate.sourceFile || 'builds/candidates.json';
+  document.getElementById('heroTitle').textContent = localize(build.title);
+  document.getElementById('heroText').textContent = t.heroText;
+  document.getElementById('navBuilds').textContent = t.navBuilds;
+  document.getElementById('navData').textContent = t.navData;
+  document.getElementById('navHome').textContent = t.navHome;
+  document.getElementById('openOnboarding').textContent = t.openOnboarding;
+  document.getElementById('openVersionHistory').textContent = t.openVersionHistory;
+  document.getElementById('qualityTitle').textContent = t.qualityTitle;
+  document.getElementById('qualityNote').textContent = t.qualityNote;
+  document.getElementById('overviewTitle').textContent = t.overviewTitle;
+  document.getElementById('guideArticleTitle').textContent = t.guideArticleTitle;
+  document.getElementById('skillOverviewTitle').textContent = t.skillOverviewTitle;
+  document.getElementById('gearOverviewTitle').textContent = t.gearOverviewTitle;
+  document.getElementById('gearPriorityTitle').textContent = t.gearPriorityTitle;
+  document.getElementById('earlyGearPriorityTitle').textContent = t.earlyGearPriorityTitle;
+  document.getElementById('gearThresholdTitle').textContent = t.gearThresholdTitle;
+  document.getElementById('gearSlotHead').textContent = t.gearSlot;
+  document.getElementById('gearEarlyHead').textContent = t.gearEarly;
+  document.getElementById('gearMidHead').textContent = t.gearMid;
+  document.getElementById('gearEndgameHead').textContent = t.gearEndgame;
+  document.getElementById('gearStatsHead').textContent = t.gearStats;
+  document.getElementById('gearAvoidHead').textContent = t.gearAvoid;
+  document.getElementById('stageGuideTitle').textContent = t.stageGuideTitle;
+  document.getElementById('stageGuideIntro').textContent = t.stageGuideIntro;
+  document.getElementById('routeCandidateTitle').textContent = t.routeCandidateTitle;
+  document.getElementById('routeCandidateIntro').textContent = t.routeCandidateIntro;
+  document.getElementById('executionPlanTitle').textContent = t.executionPlanTitle;
+  document.getElementById('executionStageHead').textContent = t.executionStage;
+  document.getElementById('executionActionHead').textContent = t.executionAction;
+  document.getElementById('executionBuyHead').textContent = t.executionBuy;
+  document.getElementById('executionStopHead').textContent = t.executionStop;
+  document.getElementById('executionFallbackHead').textContent = t.executionFallback;
+  document.getElementById('executionNextHead').textContent = t.executionNext;
+  document.getElementById('craftingPlanTitle').textContent = t.craftingPlanTitle;
+  document.getElementById('craftingPlanIntro').textContent = t.craftingPlanIntro;
+  document.getElementById('guideReportTitle').textContent = t.guideReportTitle;
+  document.getElementById('guideReportIntro').textContent = t.guideReportIntro;
+  document.getElementById('guideReportBoundary').textContent = t.guideReportBoundary;
+  document.getElementById('copyGuideReportBtn').textContent = t.guideReportCopy;
+  document.getElementById('downloadGuideReportBtn').textContent = t.guideReportDownload;
+  document.getElementById('todoTitle').textContent = t.todoTitle;
+  document.getElementById('placeholderTitle').textContent = t.placeholderTitle;
+  document.getElementById('commandsTitle').textContent = t.commandsTitle;
+  document.getElementById('copyCommandsBtn').textContent = t.copyCommands;
+
+  const supports = Object.keys(build.skills?.supports || {}).length;
+  const activeSkills = (build.skills?.active || []).length;
+  const minionSelection = minionSelectionStats(build);
+  document.getElementById('draftStats').innerHTML = [
+    { value: placeholders.length, label: t.statPlaceholders },
+    { value: t.found, label: t.statGuide },
+    { value: registered ? t.yes : t.no, label: t.statRegistered },
+    { value: activeSkills, label: t.statSkills },
+    { value: supports, label: t.statSupports }
+  ].map((item) => `<div class="stat"><strong>${esc(item.value)}</strong><span>${esc(item.label)}</span></div>`).join('');
+
+  document.getElementById('overviewGrid').innerHTML = [
+    { title: t.className, body: `${localize(build.class?.base)} / ${localize(build.class?.ascendancy)}` },
+    { title: t.status, body: candidate.status || 'draft' },
+    { title: t.source, body: `${manifest.versionId || version.id} / ${manifest.tree?.poe2dbVersion || ''}` },
+    { title: t.reason, body: localize(candidate.reason) }
+  ].map((item) => `
+    <article class="card">
+      <h3>${esc(item.title)}</h3>
+      <p>${esc(item.body)}</p>
+    </article>
+  `).join('');
+
+  const guideArticle = guideArticleStats(build);
+  document.getElementById('guideArticleIntro').textContent = localize(build.guideArticle?.intro);
+  document.getElementById('guideArticleGrid').innerHTML = (build.guideArticle?.sections || []).map((section) => `
+    <article class="card">
+      <h3>${esc(localize(section.title))}</h3>
+      <p>${esc(localize(section.body))}</p>
+      <ul>
+        ${(section.checks?.[currentLang] || section.checks?.zhCN || []).map((item) => `<li>${esc(item)}</li>`).join('')}
+      </ul>
+    </article>
+  `).join('');
+
+  const skillOverview = skillOverviewStats(build);
+  document.getElementById('skillOverviewIntro').textContent = localize(build.skills?.overview?.intro);
+  document.getElementById('skillOverviewGrid').innerHTML = (build.skills?.overview?.cards || []).map((card) => `
+    <article class="card">
+      <h3>${esc(localize(card.title))}</h3>
+      <p>${esc(localize(card.body))}</p>
+      <ul>
+        ${(card.checks?.[currentLang] || card.checks?.zhCN || []).map((item) => `<li>${esc(item)}</li>`).join('')}
+      </ul>
+    </article>
+  `).join('');
+
+  const gear = gearDraftStats(build);
+  document.getElementById('gearOverviewIntro').textContent = localize(build.gearOverview?.intro);
+  document.getElementById('gearOverviewGrid').innerHTML = (build.gearOverview?.cards || []).map((card) => `
+    <article class="card">
+      <h3>${esc(localize(card.title))}</h3>
+      <p>${esc(localize(card.body))}</p>
+      <ul>
+        ${(card.checks || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}
+      </ul>
+    </article>
+  `).join('');
+  document.getElementById('gearPriorityRows').innerHTML = (build.gearPriorities || []).map((row) => `
+    <tr>
+      <td>${esc(localize(row.slot))}</td>
+      <td>${esc(localize(row.early))}</td>
+      <td>${esc(localize(row.mid))}</td>
+      <td>${esc(localize(row.endgame))}</td>
+      <td><ul class="compact-list">${(row.priorityStats || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}</ul></td>
+      <td><ul class="compact-list">${(row.avoid || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}</ul></td>
+    </tr>
+  `).join('');
+  document.getElementById('earlyGearPriorityGrid').innerHTML = (build.earlyGearStatPriority || []).map((row) => `
+    <article class="card">
+      <h3>${esc(localize(row.title))}</h3>
+      <p><strong>${esc(t.gearRule)}：</strong>${esc(localize(row.rule))}</p>
+      <p><strong>${esc(t.gearStats)}：</strong></p>
+      <ul>
+        ${(row.priority || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}
+      </ul>
+      <p><strong>${esc(t.gearAvoid)}：</strong></p>
+      <ul>
+        ${(row.avoid || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}
+      </ul>
+    </article>
+  `).join('');
+  const planByStage = new Map((build.gearStagePlan || []).map((row) => [row.stageId, row]));
+  document.getElementById('gearThresholdGrid').innerHTML = (build.gearStatThresholds || []).map((stage) => {
+    const plan = planByStage.get(stage.stageId);
+    return `
+      <article class="card">
+        <div class="badge-row">
+          <span class="badge">${esc(stage.stageId)}</span>
+          <span class="badge">${esc(stage.sourceStatus || '')}</span>
+        </div>
+        <h3>${esc(localize(stage.title))}</h3>
+        <p>${esc(localize(stage.note))}</p>
+        ${plan ? `<p><strong>${esc(t.gearMustHave)}：</strong>${esc((plan.mustHave || []).map((item) => localize(item)).join(' / '))}</p>` : ''}
+        ${plan ? `<p><strong>${esc(t.gearUpgradeWhen)}：</strong>${esc(localize(plan.upgradeWhen))}</p>` : ''}
+        <ul>
+          ${(stage.thresholds || []).map((row) => `
+            <li>
+              <strong>${esc(localize(row.stat))}</strong>：
+              ${esc(t.gearMinimum)} ${esc(localize(row.minimum))}；
+              ${esc(t.gearUpgradeTarget)} ${esc(localize(row.upgradeTarget))}；
+              ${esc(t.gearReason)} ${esc(localize(row.reason))}
+            </li>
+          `).join('')}
+        </ul>
+      </article>
+    `;
+  }).join('');
+
+  const stageStats = stageDraftStats(build);
+  const routeRowsByStage = new Map(routeCandidateRows(version, candidate, build).map((row) => [row.stageId, row]));
+  document.getElementById('stageGuideGrid').innerHTML = (build.stages || []).map((stage) => `
+    <article class="card">
+      <div class="badge-row">
+        <span class="badge">${esc(stage.id)}</span>
+        <span class="badge">${esc(stage.status || 'draft')}</span>
+      </div>
+      <h3>${esc(localize(stage.title))}</h3>
+      <p>${esc(localize(stage.summary))}</p>
+      <p><strong>${esc(t.stagePriorities)}：</strong>${esc((stage.priorities || []).map((item) => localize(item)).join(' / '))}</p>
+      <p><strong>${esc(t.stageSteps)}：</strong></p>
+      <ul>
+        ${(stage.playbook?.steps || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}
+      </ul>
+      <p><strong>${esc(t.stageChecks)}：</strong></p>
+      <ul>
+        ${(stage.playbook?.checks || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}
+      </ul>
+      <p><strong>${esc(t.stageMistakes)}：</strong></p>
+      <ul>
+        ${(stage.playbook?.mistakes || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}
+      </ul>
+      ${(() => {
+        const routeRow = routeRowsByStage.get(stage.treeStage || stage.id);
+        return routeRow?.previewHref ? `
+          <div class="button-row">
+            <a class="btn primary" href="${esc(routeRow.previewHref)}" data-stage-passive-candidate="${esc(routeRow.stageId)}">${esc(t.stagePassiveCandidate)}</a>
+            <span class="muted">${esc(t.stagePassiveReview)}</span>
+          </div>
+        ` : `<p class="muted">${esc(t.stageNoPassiveCandidate)}</p>`;
+      })()}
+    </article>
+  `).join('');
+  const stageTitleById = new Map((build.stages || []).map((stage) => [stage.id, localize(stage.title)]));
+  document.getElementById('executionPlanRows').innerHTML = (build.executionPlan?.stages || []).map((row) => `
+    <tr>
+      <td>${esc(stageTitleById.get(row.stageId) || row.stageId)}</td>
+      <td>${esc(localize(row.mainAction))}</td>
+      <td><ul class="compact-list">${(row.buyFirst || []).map((item) => `<li>${esc(localize(item))}</li>`).join('')}</ul></td>
+      <td>${esc(localize(row.stopLine))}</td>
+      <td>${esc(localize(row.fallback))}</td>
+      <td>${esc(localize(row.nextGate))}</td>
+    </tr>
+  `).join('');
+
+  const routeStats = routeCandidateStats(version, candidate, build);
+  document.getElementById('routeCandidateStats').innerHTML = [
+    { value: routeStats.stages, label: t.routeCandidateTotal },
+    { value: routeStats.existing, label: t.routeCandidateExisting },
+    { value: routeStats.missing, label: t.routeCandidateMissing }
+  ].map((item) => `<div class="stat"><strong>${esc(item.value)}</strong><span>${esc(item.label)}</span></div>`).join('');
+  document.getElementById('routeCandidateGrid').innerHTML = routeStats.rows.map((row) => `
+    <article class="card">
+      <div class="badge-row">
+        <span class="badge">${esc(row.stageId)}</span>
+        <span class="badge ${row.existing ? 'ok' : 'bad'}">${esc(row.existing ? t.ready : t.missing)}</span>
+      </div>
+      <h3>${esc(localize(row.stage.title))}</h3>
+      <p><strong>${esc(t.routeCandidateFile)}：</strong><code>${esc(row.file)}</code></p>
+      <p><strong>${esc(t.routeCandidateStatus)}：</strong>${esc(row.route?.status || (row.existing ? 'candidate' : 'missing-candidate-file'))}</p>
+      <p><strong>${esc(t.routeCandidateNext)}：</strong>${esc(row.existing ? t.routeCandidateReadyNext : t.routeCandidateMissingNext)}</p>
+      <div class="button-row">
+        ${row.previewHref ? `<a class="btn primary" href="${esc(row.previewHref)}">${esc(t.routeCandidatePreview)}</a>` : ''}
+        <a class="btn" href="../tools/data-update.html#build-candidate-routes">${esc(row.existing ? t.routeCandidateValidate : t.routeCandidateScaffold)}</a>
+      </div>
+      <pre class="command-box">${esc(row.existing ? row.validateCommand : row.scaffoldCommand)}</pre>
+    </article>
+  `).join('');
+
+  const crafting = craftingDraftStats(build);
+  document.getElementById('craftingPlanGrid').innerHTML = (build.craftingPlan || []).map((item) => `
+    <article class="card">
+      <div class="badge-row">
+        <span class="badge">${esc(item.stageId)}</span>
+        <span class="badge">${esc(item.sourceStatus || '')}</span>
+      </div>
+      <h3>${esc(localize(item.title))}</h3>
+      <p><strong>${esc(t.craftGoal)}：</strong>${esc(localize(item.goal))}</p>
+      <p><strong>${esc(t.craftBase)}：</strong>${esc(localize(item.base))}</p>
+      <p><strong>${esc(t.craftPurchaseFirst)}：</strong>${esc(localize(item.purchaseFirst))}</p>
+      <p><strong>${esc(t.craftPriorityMods)}：</strong></p>
+      <ul>${(item.priorityMods || []).map((row) => `<li>${esc(localize(row))}</li>`).join('')}</ul>
+      <p><strong>${esc(t.craftMaterials)}：</strong></p>
+      <ul>${(item.materials || []).map((row) => `<li>${esc(localize(row))}</li>`).join('')}</ul>
+      <p><strong>${esc(t.craftSteps)}：</strong></p>
+      <ul>${(item.steps || []).map((row) => `<li>${esc(localize(row))}</li>`).join('')}</ul>
+      <p><strong>${esc(t.craftSuccessChecks)}：</strong></p>
+      <ul>${(item.successChecks || []).map((row) => `<li>${esc(localize(row))}</li>`).join('')}</ul>
+      <p><strong>${esc(t.craftFallback)}：</strong></p>
+      <ul>${(item.fallback || []).map((row) => `<li>${esc(localize(row))}</li>`).join('')}</ul>
+      <p><strong>${esc(t.craftStopRule)}：</strong>${esc(localize(item.stopRule))}</p>
+    </article>
+  `).join('');
+
+  const reportStats = guideReportStats(build);
+  const guideReport = buildGuideReport(build, version, candidate, registered);
+  document.getElementById('guideReportBlock').textContent = guideReport;
+  document.getElementById('guideReportStats').textContent = `${t.guideReportReady} / ${guideReport.trim().split(/\r?\n/).length} lines`;
+  document.getElementById('guideReportCopyStatus').textContent = '';
+  document.body.dataset.infernalistDraftGuideReportText = guideReport;
+  document.body.dataset.infernalistDraftGuideReportReady = reportStats.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftGuideReportFormat = 'markdown';
+  document.body.dataset.infernalistDraftGuideReportLineCount = String(guideReport.trim().split(/\r?\n/).length);
+  document.body.dataset.infernalistDraftGuideReportSectionCount = String((guideReport.match(/^## /gm) || []).length);
+  document.body.dataset.infernalistDraftGuideReportPreviewChars = String(guideReport.length);
+  document.body.dataset.infernalistDraftGuideReportFileName = guideReportFileName(build, version);
+
+  document.getElementById('todoGrid').innerHTML = moduleRows(build).map((row) => `
+    <article class="card">
+      <div class="badge-row">
+        <span class="badge ${row.ready ? 'ok' : 'bad'}">${row.ready ? esc(t.ready) : esc(t.missing)}</span>
+      </div>
+      <h3>${esc(t.modules[row.id])}</h3>
+    </article>
+  `).join('');
+
+  document.getElementById('placeholderList').innerHTML = placeholders.length
+    ? placeholders.map((path) => `<li><code>${esc(path)}</code></li>`).join('')
+    : `<li>${esc(t.emptyPlaceholders)}</li>`;
+
+  const season = version.season.toLowerCase();
+  const commandText = [
+    `node scripts/validate-build-candidates.mjs --season ${season}`,
+    `node scripts/validate-build-candidate-readiness.mjs --season ${season} --build ${BUILD_ID}`,
+    `node scripts/validate-builds.mjs --season ${season} --id ${BUILD_ID} --file ${candidate.data}`,
+    `node scripts/validate-build-guides.mjs --season ${season} --id ${BUILD_ID}`,
+    ...routeStats.validateCommands,
+    ...routeStats.scaffoldCommands,
+    `node scripts/register-build.mjs --season ${season} --id ${BUILD_ID} --data ${candidate.data} --guide ${candidate.guide}`,
+    `node scripts/register-build.mjs --season ${season} --id ${BUILD_ID} --data ${candidate.data} --guide ${candidate.guide} --write`
+  ].join('\n');
+  document.getElementById('commandBox').textContent = commandText;
+  document.body.dataset.infernalistDraftCommandText = commandText;
+
+  document.body.dataset.infernalistDraftReady = 'true';
+  document.body.dataset.infernalistDraftLang = currentLang;
+  document.body.dataset.infernalistDraftStatus = candidate.status || '';
+  document.body.dataset.infernalistDraftRegistered = registered ? 'true' : 'false';
+  document.body.dataset.infernalistDraftPlaceholderCount = String(placeholders.length);
+  document.body.dataset.infernalistDraftGuideArticleReady = guideArticle.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftGuideArticleSections = String(guideArticle.sections);
+  document.body.dataset.infernalistDraftGuideArticleChecks = String(guideArticle.checks);
+  document.body.dataset.infernalistDraftActiveSkillCount = String(activeSkills);
+  document.body.dataset.infernalistDraftSupportCount = String(supports);
+  document.body.dataset.infernalistDraftSkillOverviewReady = skillOverview.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftSkillOverviewCards = String(skillOverview.cards);
+  document.body.dataset.infernalistDraftSkillOverviewChecks = String(skillOverview.checks);
+  document.body.dataset.infernalistDraftGearReady = gear.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftGearOverviewCards = String(gear.overviewCards);
+  document.body.dataset.infernalistDraftGearOverviewChecks = String(gear.overviewChecks);
+  document.body.dataset.infernalistDraftGearPriorityRows = String(gear.priorityRows);
+  document.body.dataset.infernalistDraftEarlyGearPriorityRows = String(gear.earlyPriorityRows);
+  document.body.dataset.infernalistDraftGearThresholdStages = String(gear.thresholdStages);
+  document.body.dataset.infernalistDraftGearThresholdRows = String(gear.thresholdRows);
+  document.body.dataset.infernalistDraftGearStagePlanRows = String(gear.stagePlanRows);
+  document.body.dataset.infernalistDraftStageReady = stageStats.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftStageCount = String(stageStats.stages);
+  document.body.dataset.infernalistDraftStagePlaybooks = String(stageStats.playbooks);
+  document.body.dataset.infernalistDraftStageChecks = String(stageStats.checks);
+  document.body.dataset.infernalistDraftStageMistakes = String(stageStats.mistakes);
+  document.body.dataset.infernalistDraftExecutionRows = String(stageStats.executionRows);
+  document.body.dataset.infernalistDraftStagePassiveButtonCount = String(routeStats.previewLinks.length);
+  document.body.dataset.infernalistDraftStagePassiveButtonStages = routeStats.rows.filter((row) => row.previewHref).map((row) => row.stageId).join(',');
+  document.body.dataset.infernalistDraftStagePassiveButtonLinks = routeStats.previewLinks.join(',');
+  document.body.dataset.infernalistDraftRouteCandidateStageCount = String(routeStats.stages);
+  document.body.dataset.infernalistDraftRouteCandidateFileCount = String(routeStats.existing);
+  document.body.dataset.infernalistDraftRouteCandidateMissingCount = String(routeStats.missing);
+  document.body.dataset.infernalistDraftRouteCandidateFiles = routeStats.files.join(',');
+  document.body.dataset.infernalistDraftRouteCandidateMissingStages = routeStats.missingStages.join(',');
+  document.body.dataset.infernalistDraftRouteCandidatePreviewLinks = routeStats.previewLinks.join(',');
+  document.body.dataset.infernalistDraftRouteCandidateValidateCommands = routeStats.validateCommands.join('\n');
+  document.body.dataset.infernalistDraftRouteCandidateScaffoldCommands = routeStats.scaffoldCommands.join('\n');
+  document.body.dataset.infernalistDraftCraftingReady = crafting.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftCraftPlanCount = String(crafting.plans);
+  document.body.dataset.infernalistDraftCraftStructuredCount = String(crafting.structured);
+  document.body.dataset.infernalistDraftCraftPriorityModCount = String(crafting.priorityMods);
+  document.body.dataset.infernalistDraftCraftMaterialCount = String(crafting.materials);
+  document.body.dataset.infernalistDraftCraftStepCount = String(crafting.steps);
+  document.body.dataset.infernalistDraftCraftSuccessCheckCount = String(crafting.successChecks);
+  document.body.dataset.infernalistDraftCraftFallbackCount = String(crafting.fallback);
+  document.body.dataset.infernalistDraftCraftSourceStatus = crafting.sourceStatus;
+  document.body.dataset.infernalistDraftMinionSelectionReady = minionSelection.ready ? 'true' : 'false';
+  document.body.dataset.infernalistDraftMinionSelectionGroups = String(minionSelection.groups);
+  document.body.dataset.infernalistDraftMinionSelectionSkillRefs = String(minionSelection.skillRefs);
+  document.body.dataset.infernalistDraftMinionSelectionSupportRefs = String(minionSelection.supportRefs);
+  document.body.dataset.infernalistDraftMinionSelectionChooseWhen = String(minionSelection.chooseWhen);
+  document.body.dataset.infernalistDraftMinionSelectionRules = String(minionSelection.rules);
+  document.body.dataset.infernalistDraftMissingModuleCount = String(moduleRows(build).filter((row) => !row.ready).length);
+  document.body.dataset.infernalistDraftVersion = version.id;
+  document.body.dataset.infernalistDraftGuideBoundary = 'unpublished-draft';
+}
+
+async function loadPage() {
+  const versions = await window.POE2Versions.readJson('../data/versions.json');
+  const version = window.POE2Versions.selectedVersion(versions);
+  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const candidateFile = manifest.buildCandidates || 'builds/candidates.json';
+  const candidateData = await window.POE2Versions.readJson(`../${version.dataRoot}/${candidateFile}`);
+  const candidate = (candidateData.candidates || []).find((item) => item.id === BUILD_ID);
+  if (!candidate) throw new Error(`Candidate not found: ${BUILD_ID}`);
+  candidate.sourceFile = candidateFile;
+  const build = await window.POE2Versions.readJson(`../${version.dataRoot}/${candidate.data}`);
+  const registered = (manifest.builds || []).some((entry) => entry.id === BUILD_ID);
+  pageState = {
+    version,
+    manifest,
+    candidate,
+    build,
+    registered,
+    placeholders: placeholderPaths(build)
+  };
+  render();
+}
+
+document.querySelectorAll('[data-lang]').forEach((button) => {
+  button.addEventListener('click', () => {
+    currentLang = button.dataset.lang;
+    document.querySelectorAll('[data-lang]').forEach((item) => item.classList.toggle('active', item === button));
+    render();
+  });
+});
+
+document.getElementById('copyCommandsBtn').addEventListener('click', async () => {
+  await navigator.clipboard.writeText(document.body.dataset.infernalistDraftCommandText || '');
+  document.body.dataset.infernalistDraftCommandCopyStatus = 'copied';
+  document.getElementById('copyStatus').textContent = text[currentLang].copied;
+});
+
+document.getElementById('copyGuideReportBtn').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(document.body.dataset.infernalistDraftGuideReportText || '');
+    document.body.dataset.infernalistDraftGuideReportCopyStatus = 'copied';
+    document.getElementById('guideReportCopyStatus').textContent = text[currentLang].guideReportCopied;
+  } catch (error) {
+    document.body.dataset.infernalistDraftGuideReportCopyStatus = 'failed';
+    document.getElementById('guideReportCopyStatus').textContent = text[currentLang].guideReportCopyFailed;
+  }
+});
+
+document.getElementById('downloadGuideReportBtn').addEventListener('click', () => {
+  if (!pageState) return;
+  const report = document.body.dataset.infernalistDraftGuideReportText || '';
+  const blob = new Blob([report], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = document.body.dataset.infernalistDraftGuideReportFileName || guideReportFileName(pageState.build, pageState.version);
+  link.click();
+  URL.revokeObjectURL(url);
+  document.body.dataset.infernalistDraftGuideReportDownloadStatus = 'downloaded';
+});
+
+loadPage().catch((error) => {
+  document.body.dataset.infernalistDraftError = error.message;
+  document.getElementById('heroText').innerHTML = `<span class="warn-text">${esc(error.message)}</span>`;
+});
+</script>
+</body>
+</html>

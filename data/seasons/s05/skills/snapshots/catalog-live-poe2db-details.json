@@ -1,0 +1,2724 @@
+{
+  "id": "s05-poe2db-skill-catalog-v1-details-details",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-22T11:25:45.861Z",
+  "source": {
+    "type": "poe2db-snapshot-v1",
+    "version": "live-skill-gems-pages",
+    "fetchedAt": "2026-07-22T10:57:12.916Z",
+    "note": "Normalized from PoE2DB Skill_Gems and Support_Gems list pages. Detail pages normalized from each entry sourceRef. Detail pages normalized from each entry sourceRef.",
+    "detailFetchedAt": "2026-07-22T11:25:45.861Z"
+  },
+  "entries": [
+    {
+      "id": "supporting-fire",
+      "kind": "active",
+      "name": {
+        "zhCN": "支援火力",
+        "zhTW": "支援火力",
+        "en": "Supporting Fire"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Supporting_Fire"
+      },
+      "poe2db": {
+        "href": "Supporting_Fire",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Supporting_Fire",
+          "from": {
+            "text": "Unleash Hell!",
+            "item": "Unleash Hell!",
+            "href": "Unleash_Hell",
+            "tier": null
+          },
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90)",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "description": "Recruit artillery Minions that take up positions behind you. They will lie in wait for your Command , then fire volleys of arrows at the target location.",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Concentrated_Area",
+                  "name": "Concentrated Area"
+                },
+                {
+                  "href": "Brutality_I",
+                  "name": "Brutality I"
+                },
+                {
+                  "href": "Pin_I",
+                  "name": "Pin I"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Brutality_II",
+                  "name": "Brutality II"
+                },
+                {
+                  "href": "Bidding_I",
+                  "name": "Bidding I"
+                },
+                {
+                  "href": "Overreach",
+                  "name": "Overreach"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Magnified_Area_II",
+                  "name": "Magnified Area II"
+                },
+                {
+                  "href": "Bleed_II",
+                  "name": "Bleed II"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Culling_Strike_I",
+                  "name": "Culling Strike I"
+                },
+                {
+                  "href": "Bidding_II",
+                  "name": "Bidding II"
+                },
+                {
+                  "href": "Impale",
+                  "name": "Impale"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Brutality_III",
+                  "name": "Brutality III"
+                },
+                {
+                  "href": "Minion_Mastery",
+                  "name": "Minion Mastery"
+                },
+                {
+                  "href": "Bidding_III",
+                  "name": "Bidding III"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vulnerability",
+      "kind": "active",
+      "name": {
+        "zhCN": "脆弱",
+        "zhTW": "脆弱",
+        "en": "Vulnerability"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Spell",
+        "AoE",
+        "Physical",
+        "Duration",
+        "Curse",
+        "Repeatable"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Vulnerability"
+      },
+      "poe2db": {
+        "href": "Vulnerability",
+        "gemTier": 7,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Vulnerability",
+          "from": {
+            "text": "Uncut Skill Gem Tier 7",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 7
+          },
+          "tierText": "7",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "description": "Curse all targets in an area after a short delay. making Hits against them ignore a portion of their Armour .",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Prolonged_Duration_I",
+                  "name": "Prolonged Duration I"
+                },
+                {
+                  "href": "Heightened_Curse",
+                  "name": "Heightened Curse"
+                },
+                {
+                  "href": "Spell_Cascade",
+                  "name": "Spell Cascade"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Lifetap",
+                  "name": "Lifetap"
+                },
+                {
+                  "href": "Focused_Curse",
+                  "name": "Focused Curse"
+                },
+                {
+                  "href": "Abiding_Hex",
+                  "name": "Abiding Hex"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Prolonged_Duration_II",
+                  "name": "Prolonged Duration II"
+                },
+                {
+                  "href": "Ritualistic_Curse",
+                  "name": "Ritualistic Curse"
+                },
+                {
+                  "href": "Cursed_Ground",
+                  "name": "Cursed Ground"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Efficiency_II",
+                  "name": "Efficiency II"
+                },
+                {
+                  "href": "Rapid_Casting_II",
+                  "name": "Rapid Casting II"
+                },
+                {
+                  "href": "Burning_Inscription",
+                  "name": "Burning Inscription"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "skeletal-warrior",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍武士",
+        "zhTW": "骷髏戰士",
+        "en": "Skeletal Warrior"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Physical"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Warrior"
+      },
+      "poe2db": {
+        "href": "Skeletal_Warrior",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Warrior",
+          "from": {
+            "text": "Rattling Sceptre · Lupine Sceptre · Ochre Sceptre · Devouring Sceptre · Devotional Sceptre · Aromatic Sceptre · Pious Sceptre · Hallowed Sceptre",
+            "item": "Rattling Sceptre",
+            "href": "Rattling_Sceptre",
+            "tier": null
+          },
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(60-20) Spirit",
+          "description": "Activate to summon Reviving Skeletal Warriors.",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Rage_I",
+                  "name": "Rage I"
+                },
+                {
+                  "href": "Meat_Shield_I",
+                  "name": "Meat Shield I"
+                },
+                {
+                  "href": "Sacrificial_Lamb_I",
+                  "name": "Sacrificial Lamb I"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Brutality_II",
+                  "name": "Brutality II"
+                },
+                {
+                  "href": "Minion_Instability",
+                  "name": "Minion Instability"
+                },
+                {
+                  "href": "Armour_Break_I",
+                  "name": "Armour Break I"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Feeding_Frenzy_I",
+                  "name": "Feeding Frenzy I"
+                },
+                {
+                  "href": "Essence_Harvest",
+                  "name": "Essence Harvest"
+                },
+                {
+                  "href": "Sacrificial_Lamb_II",
+                  "name": "Sacrificial Lamb II"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Heavy_Swing",
+                  "name": "Heavy Swing"
+                },
+                {
+                  "href": "Impale",
+                  "name": "Impale"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Brutality_III",
+                  "name": "Brutality III"
+                },
+                {
+                  "href": "Rage_III",
+                  "name": "Rage III"
+                },
+                {
+                  "href": "Minion_Mastery",
+                  "name": "Minion Mastery"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "frost-mage",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍冰霜法师",
+        "zhTW": "骷髏霜寒法師",
+        "en": "Skeletal Frost Mage"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Cold"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Frost_Mage"
+      },
+      "poe2db": {
+        "href": "Skeletal_Frost_Mage",
+        "gemTier": 5,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Frost_Mage",
+          "from": {
+            "text": "Uncut Skill Gem Tier 5",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 5
+          },
+          "tierText": "5",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(120-39) Spirit",
+          "description": "Activate to summon Reviving Skeletal Frost Mages that can envelop your Minions in an icy shield on Command .",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Multishot_I",
+                  "name": "Multishot I"
+                },
+                {
+                  "href": "Pierce_I",
+                  "name": "Pierce I"
+                },
+                {
+                  "href": "Last_Gasp",
+                  "name": "Last Gasp"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Multishot_II",
+                  "name": "Multishot II"
+                },
+                {
+                  "href": "Freeze",
+                  "name": "Freeze"
+                },
+                {
+                  "href": "Bidding_I",
+                  "name": "Bidding I"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Pierce_II",
+                  "name": "Pierce II"
+                },
+                {
+                  "href": "Wildshards_I",
+                  "name": "Wildshards I"
+                },
+                {
+                  "href": "Muster",
+                  "name": "Muster"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Projectile_Acceleration_II",
+                  "name": "Projectile Acceleration II"
+                },
+                {
+                  "href": "Bidding_II",
+                  "name": "Bidding II"
+                },
+                {
+                  "href": "Nova_Projectiles_II",
+                  "name": "Nova Projectiles II"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Projectile_Acceleration_III",
+                  "name": "Projectile Acceleration III"
+                },
+                {
+                  "href": "Minion_Mastery",
+                  "name": "Minion Mastery"
+                },
+                {
+                  "href": "Wildshards_II",
+                  "name": "Wildshards II"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "wolf-pack",
+      "kind": "active",
+      "name": {
+        "zhCN": "狼群",
+        "zhTW": "召喚惡狼",
+        "en": "Wolf Pack"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Companion",
+        "Persistent",
+        "Physical"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Wolf_Pack"
+      },
+      "poe2db": {
+        "href": "Wolf_Pack",
+        "gemTier": 8,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Wolf_Pack",
+          "from": {
+            "text": "Portent Amulet · Uncut Spirit Gem Tier 8",
+            "item": "Portent Amulet",
+            "href": "Portent_Amulet",
+            "tier": 8
+          },
+          "tierText": "8",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-86) Str , (4-86) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "60 Spirit",
+          "description": "Activate to summon a pack of Wolf Companions . The pack treated as a single Companion for effects that count or limit Companions , regardless of the number of Wolves in the pack.",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Rapid_Attacks_I",
+                  "name": "Rapid Attacks I"
+                },
+                {
+                  "href": "Elemental_Army",
+                  "name": "Elemental Army"
+                },
+                {
+                  "href": "Last_Gasp",
+                  "name": "Last Gasp"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Minion_Instability",
+                  "name": "Minion Instability"
+                },
+                {
+                  "href": "Deathmarch",
+                  "name": "Deathmarch"
+                },
+                {
+                  "href": "Loyalty",
+                  "name": "Loyalty"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Bleed_II",
+                  "name": "Bleed II"
+                },
+                {
+                  "href": "Feeding_Frenzy_I",
+                  "name": "Feeding Frenzy I"
+                },
+                {
+                  "href": "Essence_Harvest",
+                  "name": "Essence Harvest"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Rapid_Attacks_II",
+                  "name": "Rapid Attacks II"
+                },
+                {
+                  "href": "Heavy_Swing",
+                  "name": "Heavy Swing"
+                },
+                {
+                  "href": "Feeding_Frenzy_II",
+                  "name": "Feeding Frenzy II"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Bleed_III",
+                  "name": "Bleed III"
+                },
+                {
+                  "href": "Minion_Mastery",
+                  "name": "Minion Mastery"
+                },
+                {
+                  "href": "Heft",
+                  "name": "Heft"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cleric",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍祭司",
+        "zhTW": "骷髏牧師",
+        "en": "Skeletal Cleric"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Cleric"
+      },
+      "poe2db": {
+        "href": "Skeletal_Cleric",
+        "gemTier": 13,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Cleric",
+          "from": {
+            "text": "Uncut Skill Gem Tier 13",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 13
+          },
+          "tierText": "13",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(60-20) Spirit",
+          "description": "Activate to summon Reviving Skeletal Clerics that heal other minions and revive fallen Skeletons.",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Rapid_Casting_I",
+                  "name": "Rapid Casting I"
+                },
+                {
+                  "href": "Meat_Shield_I",
+                  "name": "Meat Shield I"
+                },
+                {
+                  "href": "Last_Gasp",
+                  "name": "Last Gasp"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Deathmarch",
+                  "name": "Deathmarch"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Meat_Shield_II",
+                  "name": "Meat Shield II"
+                },
+                {
+                  "href": "Essence_Harvest",
+                  "name": "Essence Harvest"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Rapid_Casting_II",
+                  "name": "Rapid Casting II"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Minion_Mastery",
+                  "name": "Minion Mastery"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "arsonist",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍焚焰使",
+        "zhTW": "骷髏縱火者",
+        "en": "Skeletal Arsonist"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Fire",
+        "Detonator"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Arsonist"
+      },
+      "poe2db": {
+        "href": "Skeletal_Arsonist",
+        "gemTier": 3,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Arsonist",
+          "from": {
+            "text": "Uncut Skill Gem Tier 3",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 3
+          },
+          "tierText": "3",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(90-39) Spirit",
+          "description": "Activate to summon bomb-throwing, Reviving Skeletal Arsonists that can detonate other Minions on Command .",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Multishot_I",
+                  "name": "Multishot I"
+                },
+                {
+                  "href": "Magnified_Area_I",
+                  "name": "Magnified Area I"
+                },
+                {
+                  "href": "Elemental_Armament_I",
+                  "name": "Elemental Armament I"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Multishot_II",
+                  "name": "Multishot II"
+                },
+                {
+                  "href": "Elemental_Armament_II",
+                  "name": "Elemental Armament II"
+                },
+                {
+                  "href": "Bidding_I",
+                  "name": "Bidding I"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Feeding_Frenzy_I",
+                  "name": "Feeding Frenzy I"
+                },
+                {
+                  "href": "Eternal_Flame_II",
+                  "name": "Eternal Flame II"
+                },
+                {
+                  "href": "Muster",
+                  "name": "Muster"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Feeding_Frenzy_II",
+                  "name": "Feeding Frenzy II"
+                },
+                {
+                  "href": "Fire_Exposure",
+                  "name": "Fire Exposure"
+                },
+                {
+                  "href": "Bidding_II",
+                  "name": "Bidding II"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Fire_Penetration_II",
+                  "name": "Fire Penetration II"
+                },
+                {
+                  "href": "Ignite_III",
+                  "name": "Ignite III"
+                },
+                {
+                  "href": "Fire_Mastery",
+                  "name": "Fire Mastery"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "storm-mage",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍风暴法师",
+        "zhTW": "骷髏風暴法師",
+        "en": "Skeletal Storm Mage"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Lightning"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Storm_Mage"
+      },
+      "poe2db": {
+        "href": "Skeletal_Storm_Mage",
+        "gemTier": 11,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Storm_Mage",
+          "from": {
+            "text": "Uncut Skill Gem Tier 11",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 11
+          },
+          "tierText": "11",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(120-39) Spirit",
+          "description": "Activate to summon Reviving Skeletal Storm Mages that can call down a lightning strike on dead Skeletons on Command .",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Magnified_Area_I",
+                  "name": "Magnified Area I"
+                },
+                {
+                  "href": "Chain_I",
+                  "name": "Chain I"
+                },
+                {
+                  "href": "Shock",
+                  "name": "Shock"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Chain_II",
+                  "name": "Chain II"
+                },
+                {
+                  "href": "Electrocute",
+                  "name": "Electrocute"
+                },
+                {
+                  "href": "Bidding_I",
+                  "name": "Bidding I"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Elemental_Focus",
+                  "name": "Elemental Focus"
+                },
+                {
+                  "href": "Feeding_Frenzy_I",
+                  "name": "Feeding Frenzy I"
+                },
+                {
+                  "href": "Muster",
+                  "name": "Muster"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Feeding_Frenzy_II",
+                  "name": "Feeding Frenzy II"
+                },
+                {
+                  "href": "Overcharge",
+                  "name": "Overcharge"
+                },
+                {
+                  "href": "Bidding_II",
+                  "name": "Bidding II"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Chain_III",
+                  "name": "Chain III"
+                },
+                {
+                  "href": "Lightning_Mastery",
+                  "name": "Lightning Mastery"
+                },
+                {
+                  "href": "Persistent_Ground_III",
+                  "name": "Persistent Ground III"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "reaver",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍掠夺者",
+        "zhTW": "骷髏掠奪者",
+        "en": "Skeletal Reaver"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Physical"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Reaver"
+      },
+      "poe2db": {
+        "href": "Skeletal_Reaver",
+        "gemTier": 9,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Reaver",
+          "from": {
+            "text": "Uncut Skill Gem Tier 9",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 9
+          },
+          "tierText": "9",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(90-30) Spirit",
+          "description": "Activate to summon aggressive, Reviving Skeletal Reavers that can enrage on Command . Skeletal Reavers do more Attack Damage and gain increased Attack speed based on their Rage",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Brutality_I",
+                  "name": "Brutality I"
+                },
+                {
+                  "href": "Rage_I",
+                  "name": "Rage I"
+                },
+                {
+                  "href": "Last_Gasp",
+                  "name": "Last Gasp"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Brutality_II",
+                  "name": "Brutality II"
+                },
+                {
+                  "href": "Minion_Instability",
+                  "name": "Minion Instability"
+                },
+                {
+                  "href": "Deathmarch",
+                  "name": "Deathmarch"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Life_Leech_II",
+                  "name": "Life Leech II"
+                },
+                {
+                  "href": "Feeding_Frenzy_I",
+                  "name": "Feeding Frenzy I"
+                },
+                {
+                  "href": "Essence_Harvest",
+                  "name": "Essence Harvest"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Feeding_Frenzy_II",
+                  "name": "Feeding Frenzy II"
+                },
+                {
+                  "href": "Crazed_Minions",
+                  "name": "Crazed Minions"
+                },
+                {
+                  "href": "Impale",
+                  "name": "Impale"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Brutality_III",
+                  "name": "Brutality III"
+                },
+                {
+                  "href": "Rage_III",
+                  "name": "Rage III"
+                },
+                {
+                  "href": "Heft",
+                  "name": "Heft"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "sniper",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍神射手",
+        "zhTW": "骷髏狙擊手",
+        "en": "Skeletal Sniper"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Persistent",
+        "Physical",
+        "Fire",
+        "Chaos"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Sniper"
+      },
+      "poe2db": {
+        "href": "Skeletal_Sniper",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Sniper",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(90-30) Spirit",
+          "description": "Activate to summon long-ranged, Reviving Skeletal Snipers that can fire a gas arrow on Command .",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Meat_Shield_I",
+                  "name": "Meat Shield I"
+                },
+                {
+                  "href": "Last_Gasp",
+                  "name": "Last Gasp"
+                },
+                {
+                  "href": "Sacrificial_Lamb_I",
+                  "name": "Sacrificial Lamb I"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Brutality_II",
+                  "name": "Brutality II"
+                },
+                {
+                  "href": "Minion_Instability",
+                  "name": "Minion Instability"
+                },
+                {
+                  "href": "Armour_Break_I",
+                  "name": "Armour Break I"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Feeding_Frenzy_I",
+                  "name": "Feeding Frenzy I"
+                },
+                {
+                  "href": "Essence_Harvest",
+                  "name": "Essence Harvest"
+                },
+                {
+                  "href": "Sacrificial_Lamb_II",
+                  "name": "Sacrificial Lamb II"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Impale",
+                  "name": "Impale"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Brutality_III",
+                  "name": "Brutality III"
+                },
+                {
+                  "href": "Minion_Mastery",
+                  "name": "Minion Mastery"
+                },
+                {
+                  "href": "Heft",
+                  "name": "Heft"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "brute",
+      "kind": "active",
+      "name": {
+        "zhCN": "魔侍蛮兵",
+        "zhTW": "骷髏巨獸",
+        "en": "Skeletal Brute"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Minion",
+        "Warcry",
+        "Persistent",
+        "Physical",
+        "Payoff"
+      ],
+      "acquisition": {
+        "act": null,
+        "level": null,
+        "sourceRef": "https://poe2db.tw/us/Skeletal_Brute"
+      },
+      "poe2db": {
+        "href": "Skeletal_Brute",
+        "gemTier": 13,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Skeletal_Brute",
+          "from": {
+            "text": "Uncut Skill Gem Tier 13",
+            "item": "Uncut Skill Gem",
+            "href": "Uncut_Skill_Gem",
+            "tier": 13
+          },
+          "tierText": "13",
+          "levelRange": {
+            "min": 1,
+            "max": 20
+          },
+          "requirementsText": "Level (1-90) , (4-157) Int",
+          "requiresLevelRange": {
+            "min": 1,
+            "max": 90
+          },
+          "reservation": "(165-48) Spirit",
+          "description": "Activate to summon hard-hitting, Reviving Skeletal Brutes that can Stun Primed enemies and Warcry on Command . This Warcry Intimidates nearby enemies and Consumes Freeze on enemies and allies to deal damage in an Area around them.",
+          "recommendedSupportRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Magnified_Area_I",
+                  "name": "Magnified Area I"
+                },
+                {
+                  "href": "Bleed_I",
+                  "name": "Bleed I"
+                },
+                {
+                  "href": "Impact_Shockwave",
+                  "name": "Impact Shockwave"
+                }
+              ]
+            },
+            {
+              "tier": 2,
+              "gems": [
+                {
+                  "href": "Behead_I",
+                  "name": "Behead I"
+                },
+                {
+                  "href": "Minion_Instability",
+                  "name": "Minion Instability"
+                },
+                {
+                  "href": "Bidding_I",
+                  "name": "Bidding I"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Meat_Shield_II",
+                  "name": "Meat Shield II"
+                },
+                {
+                  "href": "Behead_II",
+                  "name": "Behead II"
+                },
+                {
+                  "href": "Muster",
+                  "name": "Muster"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Hulking_Minions",
+                  "name": "Hulking Minions"
+                },
+                {
+                  "href": "Impale",
+                  "name": "Impale"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Culling_Strike_II",
+                  "name": "Culling Strike II"
+                },
+                {
+                  "href": "Heft",
+                  "name": "Heft"
+                },
+                {
+                  "href": "Bidding_III",
+                  "name": "Bidding III"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "kurgals-leash",
+      "kind": "support",
+      "name": {
+        "zhCN": "古加尔的缰绳",
+        "zhTW": "柯戈的繩索",
+        "en": "Kurgal's Leash"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Lineage",
+        "Minion",
+        "Chaos"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact compatible skill tags from PoE2DB before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Kurgals_Leash"
+      },
+      "poe2db": {
+        "href": "Kurgals_Leash",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Kurgals_Leash",
+          "requirementsText": "Level 25",
+          "description": "Supports Commandable Minions causing you and the Supported Minion to gain Unholy Might when you Command them.",
+          "compatibleSkillRows": []
+        }
+      }
+    },
+    {
+      "id": "muster",
+      "kind": "support",
+      "name": {
+        "zhCN": "海纳百川",
+        "zhTW": "召集",
+        "en": "Muster"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact minion or command compatibility before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Muster"
+      },
+      "poe2db": {
+        "href": "Muster",
+        "gemTier": 3,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Muster",
+          "from": {
+            "text": "Uncut Support Gem Tier 3",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 3
+          },
+          "tierText": "3",
+          "requirementsText": "+5 Int",
+          "description": "Supports Skills which summon Minions . Supported Minions deal more Damage the more different kinds of Reviving Minions you have summoned.",
+          "compatibleSkillRows": [
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Skeletal_Arsonist",
+                  "name": "Skeletal Arsonist"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Raise_Zombie",
+                  "name": "Raise Zombie"
+                },
+                {
+                  "href": "Skeletal_Frost_Mage",
+                  "name": "Skeletal Frost Mage"
+                }
+              ]
+            },
+            {
+              "tier": 11,
+              "gems": [
+                {
+                  "href": "Skeletal_Storm_Mage",
+                  "name": "Skeletal Storm Mage"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Skeletal_Brute",
+                  "name": "Skeletal Brute"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "heft",
+      "kind": "support",
+      "name": {
+        "zhCN": "势大力沉",
+        "zhTW": "分量",
+        "en": "Heft"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Physical"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact compatible hit and damage tags before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Heft"
+      },
+      "poe2db": {
+        "href": "Heft",
+        "gemTier": 5,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Heft",
+          "from": {
+            "text": "Uncut Support Gem Tier 5",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 5
+          },
+          "tierText": "5",
+          "requirementsText": "+5 Str",
+          "description": "Supports Skills which deal Damage, increasing the maximum Physical Damage of their Hits .",
+          "compatibleSkillRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Earthquake",
+                  "name": "Earthquake"
+                },
+                {
+                  "href": "Boneshatter",
+                  "name": "Boneshatter"
+                },
+                {
+                  "href": "Rolling_Slam",
+                  "name": "Rolling Slam"
+                },
+                {
+                  "href": "Unearth",
+                  "name": "Unearth"
+                },
+                {
+                  "href": "Whirling_Slash",
+                  "name": "Whirling Slash"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Shield_Charge",
+                  "name": "Shield Charge"
+                },
+                {
+                  "href": "Snipe",
+                  "name": "Snipe"
+                },
+                {
+                  "href": "Wind_Blast",
+                  "name": "Wind Blast"
+                },
+                {
+                  "href": "Bone_Cage",
+                  "name": "Bone Cage"
+                },
+                {
+                  "href": "Rake",
+                  "name": "Rake"
+                },
+                {
+                  "href": "Wing_Blast",
+                  "name": "Wing Blast"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Vaulting_Impact",
+                  "name": "Vaulting Impact"
+                },
+                {
+                  "href": "Rapid_Assault",
+                  "name": "Rapid Assault"
+                }
+              ]
+            },
+            {
+              "tier": 7,
+              "gems": [
+                {
+                  "href": "Earthshatter",
+                  "name": "Earthshatter"
+                },
+                {
+                  "href": "Leap_Slam",
+                  "name": "Leap Slam"
+                },
+                {
+                  "href": "Shield_Wall",
+                  "name": "Shield Wall"
+                },
+                {
+                  "href": "Detonate_Dead",
+                  "name": "Detonate Dead"
+                },
+                {
+                  "href": "Cross_Slash",
+                  "name": "Cross Slash"
+                }
+              ]
+            },
+            {
+              "tier": 8,
+              "gems": [
+                {
+                  "href": "Wolf_Pack",
+                  "name": "Wolf Pack"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Sunder",
+                  "name": "Sunder"
+                },
+                {
+                  "href": "Fortifying_Cry",
+                  "name": "Fortifying Cry"
+                },
+                {
+                  "href": "Skeletal_Reaver",
+                  "name": "Skeletal Reaver"
+                }
+              ]
+            },
+            {
+              "tier": 11,
+              "gems": [
+                {
+                  "href": "Stampede",
+                  "name": "Stampede"
+                },
+                {
+                  "href": "Whirling_Assault",
+                  "name": "Whirling Assault"
+                },
+                {
+                  "href": "Bone_Offering",
+                  "name": "Bone Offering"
+                },
+                {
+                  "href": "Rampage",
+                  "name": "Rampage"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Hammer_of_the_Gods",
+                  "name": "Hammer of the Gods"
+                },
+                {
+                  "href": "Spiral_Volley",
+                  "name": "Spiral Volley"
+                },
+                {
+                  "href": "Skeletal_Brute",
+                  "name": "Skeletal Brute"
+                },
+                {
+                  "href": "Wind_Serpents_Fury",
+                  "name": "Wind Serpent's Fury"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "bidding-3",
+      "kind": "support",
+      "name": {
+        "zhCN": "奉命 III",
+        "zhTW": "出價 III",
+        "en": "Bidding III"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion",
+        "Command"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact command compatibility and tier naming before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Bidding_III"
+      },
+      "poe2db": {
+        "href": "Bidding_III",
+        "gemTier": 5,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Bidding_III",
+          "from": {
+            "text": "Uncut Support Gem Tier 5",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 5
+          },
+          "tierText": "5",
+          "requirementsText": "+5 Int",
+          "description": "Supports Minion Skills. Supported Minions have significantly increased Cooldown Recovery Rate with Command Skills.",
+          "compatibleSkillRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Skeletal_Sniper",
+                  "name": "Skeletal Sniper"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Skeletal_Brute",
+                  "name": "Skeletal Brute"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "heightened-curse",
+      "kind": "support",
+      "name": {
+        "zhCN": "强效诅咒",
+        "zhTW": "增強詛咒",
+        "en": "Heightened Curse"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Curse"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "curse"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Heightened_Curse"
+      },
+      "poe2db": {
+        "href": "Heightened_Curse",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Heightened_Curse",
+          "from": {
+            "text": "Uncut Support Gem Tier 1",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 1
+          },
+          "tierText": "1",
+          "requirementsText": "+5 Int",
+          "description": "Supports Curse Skills, magnifying their power.",
+          "compatibleSkillRows": [
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Enfeeble",
+                  "name": "Enfeeble"
+                }
+              ]
+            },
+            {
+              "tier": 7,
+              "gems": [
+                {
+                  "href": "Elemental_Weakness",
+                  "name": "Elemental Weakness"
+                },
+                {
+                  "href": "Temporal_Chains",
+                  "name": "Temporal Chains"
+                },
+                {
+                  "href": "Vulnerability",
+                  "name": "Vulnerability"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Despair",
+                  "name": "Despair"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "focused-curse",
+      "kind": "support",
+      "name": {
+        "zhCN": "聚焦诅咒",
+        "zhTW": "專注詛咒",
+        "en": "Focused Curse"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Curse"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "curse"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Focused_Curse"
+      },
+      "poe2db": {
+        "href": "Focused_Curse",
+        "gemTier": 2,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Focused_Curse",
+          "from": {
+            "text": "Uncut Support Gem Tier 2",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 2
+          },
+          "tierText": "2",
+          "requirementsText": "+5 Int",
+          "description": "Supports Curse skills, causing them to Curse enemies more quickly after being cast.",
+          "compatibleSkillRows": [
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Enfeeble",
+                  "name": "Enfeeble"
+                }
+              ]
+            },
+            {
+              "tier": 7,
+              "gems": [
+                {
+                  "href": "Elemental_Weakness",
+                  "name": "Elemental Weakness"
+                },
+                {
+                  "href": "Temporal_Chains",
+                  "name": "Temporal Chains"
+                },
+                {
+                  "href": "Vulnerability",
+                  "name": "Vulnerability"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Despair",
+                  "name": "Despair"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "rapid-casting-2",
+      "kind": "support",
+      "name": {
+        "zhCN": "快速施法 II",
+        "zhTW": "疾速施法 II",
+        "en": "Rapid Casting II"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Spell"
+      ],
+      "supportRequirements": {
+        "notes": [
+          "Verify exact cast-speed support tier naming before marking as verified."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Rapid_Casting_II"
+      },
+      "poe2db": {
+        "href": "Rapid_Casting_II",
+        "gemTier": 4,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Rapid_Casting_II",
+          "from": {
+            "text": "Uncut Support Gem Tier 4",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 4
+          },
+          "tierText": "4",
+          "requirementsText": "+5 Int",
+          "description": "Supports Spells , causing them to cast faster.",
+          "compatibleSkillRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Spark",
+                  "name": "Spark"
+                },
+                {
+                  "href": "Ice_Nova",
+                  "name": "Ice Nova"
+                },
+                {
+                  "href": "Flame_Wall",
+                  "name": "Flame Wall"
+                },
+                {
+                  "href": "Entangle",
+                  "name": "Entangle"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Fireball",
+                  "name": "Fireball"
+                },
+                {
+                  "href": "Frost_Darts",
+                  "name": "Frost Darts"
+                },
+                {
+                  "href": "Bone_Cage",
+                  "name": "Bone Cage"
+                },
+                {
+                  "href": "Essence_Drain",
+                  "name": "Essence Drain"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Ember_Fusillade",
+                  "name": "Ember Fusillade"
+                },
+                {
+                  "href": "Frostbolt",
+                  "name": "Frostbolt"
+                },
+                {
+                  "href": "Arc",
+                  "name": "Arc"
+                },
+                {
+                  "href": "Snap",
+                  "name": "Snap"
+                },
+                {
+                  "href": "Bonestorm",
+                  "name": "Bonestorm"
+                }
+              ]
+            },
+            {
+              "tier": 7,
+              "gems": [
+                {
+                  "href": "Elemental_Weakness",
+                  "name": "Elemental Weakness"
+                },
+                {
+                  "href": "Profane_Ritual",
+                  "name": "Profane Ritual"
+                },
+                {
+                  "href": "Vulnerability",
+                  "name": "Vulnerability"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Lightning_Warp",
+                  "name": "Lightning Warp"
+                },
+                {
+                  "href": "Frost_Wall",
+                  "name": "Frost Wall"
+                },
+                {
+                  "href": "Dark_Effigy",
+                  "name": "Dark Effigy"
+                },
+                {
+                  "href": "Despair",
+                  "name": "Despair"
+                }
+              ]
+            },
+            {
+              "tier": 11,
+              "gems": [
+                {
+                  "href": "Tornado",
+                  "name": "Tornado"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Skeletal_Cleric",
+                  "name": "Skeletal Cleric"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "prolonged-duration-2",
+      "kind": "support",
+      "name": {
+        "zhCN": "持续时间延长 II",
+        "zhTW": "延長持續時間 II",
+        "en": "Prolonged Duration II"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Duration"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "duration"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Prolonged_Duration_II"
+      },
+      "poe2db": {
+        "href": "Prolonged_Duration_II",
+        "gemTier": 3,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Prolonged_Duration_II",
+          "from": {
+            "text": "Uncut Support Gem Tier 3",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 3
+          },
+          "tierText": "3",
+          "requirementsText": "+5 Str",
+          "description": "Supports any skill that has a duration, making that duration longer.",
+          "compatibleSkillRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Spark",
+                  "name": "Spark"
+                },
+                {
+                  "href": "Flame_Wall",
+                  "name": "Flame Wall"
+                },
+                {
+                  "href": "Frost_Bomb",
+                  "name": "Frost Bomb"
+                },
+                {
+                  "href": "Unearth",
+                  "name": "Unearth"
+                },
+                {
+                  "href": "Contagion",
+                  "name": "Contagion"
+                },
+                {
+                  "href": "Entangle",
+                  "name": "Entangle"
+                },
+                {
+                  "href": "Volcano",
+                  "name": "Volcano"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Vine_Arrow",
+                  "name": "Vine Arrow"
+                },
+                {
+                  "href": "Living_Bomb",
+                  "name": "Living Bomb"
+                },
+                {
+                  "href": "Enfeeble",
+                  "name": "Enfeeble"
+                },
+                {
+                  "href": "Essence_Drain",
+                  "name": "Essence Drain"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Raging_Spirits",
+                  "name": "Raging Spirits"
+                },
+                {
+                  "href": "Withering_Presence",
+                  "name": "Withering Presence"
+                },
+                {
+                  "href": "Ravenous_Swarm",
+                  "name": "Ravenous Swarm"
+                },
+                {
+                  "href": "War_Banner",
+                  "name": "War Banner"
+                },
+                {
+                  "href": "Convalescence",
+                  "name": "Convalescence"
+                },
+                {
+                  "href": "Savage_Fury",
+                  "name": "Savage Fury"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Barrage",
+                  "name": "Barrage"
+                },
+                {
+                  "href": "Electrocuting_Arrow",
+                  "name": "Electrocuting Arrow"
+                },
+                {
+                  "href": "Spearfield",
+                  "name": "Spearfield"
+                },
+                {
+                  "href": "Thunderstorm",
+                  "name": "Thunderstorm"
+                },
+                {
+                  "href": "Fury_of_the_Mountain",
+                  "name": "Fury of the Mountain"
+                }
+              ]
+            },
+            {
+              "tier": 7,
+              "gems": [
+                {
+                  "href": "Volcanic_Fissure",
+                  "name": "Volcanic Fissure"
+                },
+                {
+                  "href": "Snipers_Mark",
+                  "name": "Sniper's Mark"
+                },
+                {
+                  "href": "Voltaic_Mark",
+                  "name": "Voltaic Mark"
+                },
+                {
+                  "href": "Freezing_Mark",
+                  "name": "Freezing Mark"
+                },
+                {
+                  "href": "Vulnerability",
+                  "name": "Vulnerability"
+                },
+                {
+                  "href": "Spell_Totem",
+                  "name": "Spell Totem"
+                }
+              ]
+            },
+            {
+              "tier": 8,
+              "gems": [
+                {
+                  "href": "Lingering_Illusion",
+                  "name": "Lingering Illusion"
+                },
+                {
+                  "href": "Shard_Scavenger",
+                  "name": "Shard Scavenger"
+                },
+                {
+                  "href": "Defiance_Banner",
+                  "name": "Defiance Banner"
+                },
+                {
+                  "href": "Mirage_Archer",
+                  "name": "Mirage Archer"
+                },
+                {
+                  "href": "Barkskin",
+                  "name": "Barkskin"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Forge_Hammer",
+                  "name": "Forge Hammer"
+                },
+                {
+                  "href": "Fortifying_Cry",
+                  "name": "Fortifying Cry"
+                },
+                {
+                  "href": "Mantra_of_Destruction",
+                  "name": "Mantra of Destruction"
+                },
+                {
+                  "href": "Charged_Staff",
+                  "name": "Charged Staff"
+                },
+                {
+                  "href": "Despair",
+                  "name": "Despair"
+                },
+                {
+                  "href": "Stormblast_Bolts",
+                  "name": "Stormblast Bolts"
+                },
+                {
+                  "href": "Thrashing_Vines",
+                  "name": "Thrashing Vines"
+                }
+              ]
+            },
+            {
+              "tier": 11,
+              "gems": [
+                {
+                  "href": "Tornado_Shot",
+                  "name": "Tornado Shot"
+                },
+                {
+                  "href": "Firestorm",
+                  "name": "Firestorm"
+                },
+                {
+                  "href": "Emergency_Reload",
+                  "name": "Emergency Reload"
+                },
+                {
+                  "href": "Tornado",
+                  "name": "Tornado"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Ancestral_Warrior_Totem",
+                  "name": "Ancestral Warrior Totem"
+                },
+                {
+                  "href": "Ancestral_Cry",
+                  "name": "Ancestral Cry"
+                },
+                {
+                  "href": "Toxic_Domain",
+                  "name": "Toxic Domain"
+                },
+                {
+                  "href": "Soul_Offering",
+                  "name": "Soul Offering"
+                },
+                {
+                  "href": "Lunar_Blessing",
+                  "name": "Lunar Blessing"
+                },
+                {
+                  "href": "Walking_Calamity",
+                  "name": "Walking Calamity"
+                }
+              ]
+            },
+            {
+              "tier": 14,
+              "gems": [
+                {
+                  "href": "Elemental_Conflux",
+                  "name": "Elemental Conflux"
+                },
+                {
+                  "href": "Dread_Banner",
+                  "name": "Dread Banner"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "meat-shield",
+      "kind": "support",
+      "name": {
+        "zhCN": "肉盾 I",
+        "zhTW": "肉盾 I",
+        "en": "Meat Shield I"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "minion"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Meat_Shield_I"
+      },
+      "poe2db": {
+        "href": "Meat_Shield_I",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Meat_Shield_I",
+          "from": {
+            "text": "Uncut Support Gem Tier 1",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 1
+          },
+          "tierText": "1",
+          "requirementsText": "+5 Str",
+          "description": "Supports skills which create Minions , granting them less damage taken but making them deal less damage. Cannot support skills which create undamageable Minions .",
+          "compatibleSkillRows": [
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Pain_Offering",
+                  "name": "Pain Offering"
+                }
+              ]
+            },
+            {
+              "tier": 11,
+              "gems": [
+                {
+                  "href": "Bone_Offering",
+                  "name": "Bone Offering"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Soul_Offering",
+                  "name": "Soul Offering"
+                },
+                {
+                  "href": "Skeletal_Cleric",
+                  "name": "Skeletal Cleric"
+                }
+              ]
+            },
+            {
+              "tier": 14,
+              "gems": [
+                {
+                  "href": "Rhoa_Mount",
+                  "name": "Rhoa Mount"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "last-gasp",
+      "kind": "support",
+      "name": {
+        "zhCN": "亡命之息",
+        "zhTW": "臨終恐息",
+        "en": "Last Gasp"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Minion",
+        "Persistent",
+        "Duration"
+      ],
+      "supportRequirements": {
+        "requiresTags": [
+          "minion"
+        ],
+        "sourceRef": "https://poe2db.tw/us/Last_Gasp"
+      },
+      "poe2db": {
+        "href": "Last_Gasp",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Last_Gasp",
+          "from": {
+            "text": "Uncut Support Gem Tier 1",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 1
+          },
+          "tierText": "1",
+          "requirementsText": "+5 Int",
+          "description": "Supports Skills that create Persistent Minions , causing those Minions to fight on when they are fatally wounded, dying after a short duration.",
+          "compatibleSkillRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Skeletal_Sniper",
+                  "name": "Skeletal Sniper"
+                }
+              ]
+            },
+            {
+              "tier": 5,
+              "gems": [
+                {
+                  "href": "Skeletal_Frost_Mage",
+                  "name": "Skeletal Frost Mage"
+                }
+              ]
+            },
+            {
+              "tier": 8,
+              "gems": [
+                {
+                  "href": "Wolf_Pack",
+                  "name": "Wolf Pack"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Skeletal_Reaver",
+                  "name": "Skeletal Reaver"
+                }
+              ]
+            },
+            {
+              "tier": 13,
+              "gems": [
+                {
+                  "href": "Skeletal_Cleric",
+                  "name": "Skeletal Cleric"
+                }
+              ]
+            },
+            {
+              "tier": 14,
+              "gems": [
+                {
+                  "href": "Rhoa_Mount",
+                  "name": "Rhoa Mount"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "withering-touch",
+      "kind": "support",
+      "name": {
+        "zhCN": "凋零之触",
+        "zhTW": "凋零之觸",
+        "en": "Withering Touch"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Chaos",
+        "Duration"
+      ],
+      "supportRequirements": {
+        "requiresHit": true,
+        "damageTypes": [
+          "chaos"
+        ],
+        "notes": [
+          "Use only after verifying the linked minion can benefit from the required hit or damage behavior."
+        ],
+        "sourceRef": "https://poe2db.tw/us/Withering_Touch"
+      },
+      "poe2db": {
+        "href": "Withering_Touch",
+        "gemTier": 1,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Withering_Touch",
+          "from": {
+            "text": "Uncut Support Gem Tier 1",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 1
+          },
+          "tierText": "1",
+          "requirementsText": "+5 Int",
+          "description": "Supports any skill that Hits enemies, giving it a chance to Wither enemies on Hit .",
+          "compatibleSkillRows": [
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Dark_Effigy",
+                  "name": "Dark Effigy"
+                }
+              ]
+            },
+            {
+              "tier": 11,
+              "gems": [
+                {
+                  "href": "Hexblast",
+                  "name": "Hexblast"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "culling-strike",
+      "kind": "support",
+      "name": {
+        "zhCN": "终结 I",
+        "zhTW": "撲殺 I",
+        "en": "Culling Strike I"
+      },
+      "verificationStatus": "verified",
+      "tags": [
+        "Support",
+        "Attack"
+      ],
+      "supportRequirements": {
+        "requiresHit": true,
+        "sourceRef": "https://poe2db.tw/us/Culling_Strike_I"
+      },
+      "poe2db": {
+        "href": "Culling_Strike_I",
+        "gemTier": 4,
+        "detail": {
+          "pageFetchedAt": "2026-07-22T11:25:45.861Z",
+          "sourceRef": "https://poe2db.tw/us/Culling_Strike_I",
+          "from": {
+            "text": "Uncut Support Gem Tier 4",
+            "item": "Uncut Support Gem",
+            "href": "Uncut_Support_Gem",
+            "tier": 4
+          },
+          "tierText": "4",
+          "requirementsText": "+5 Dex",
+          "description": "Supports Attack Skills, causing them to Cull Rare and Unique Enemies on Hit .",
+          "compatibleSkillRows": [
+            {
+              "tier": 1,
+              "gems": [
+                {
+                  "href": "Escape_Shot",
+                  "name": "Escape Shot"
+                },
+                {
+                  "href": "Unearth",
+                  "name": "Unearth"
+                }
+              ]
+            },
+            {
+              "tier": 3,
+              "gems": [
+                {
+                  "href": "Staggering_Palm",
+                  "name": "Staggering Palm"
+                }
+              ]
+            },
+            {
+              "tier": 4,
+              "gems": [
+                {
+                  "href": "Magma_Barrier",
+                  "name": "Magma Barrier"
+                }
+              ]
+            },
+            {
+              "tier": 7,
+              "gems": [
+                {
+                  "href": "Wave_of_Frost",
+                  "name": "Wave of Frost"
+                },
+                {
+                  "href": "Blood_Hunt",
+                  "name": "Blood Hunt"
+                },
+                {
+                  "href": "Cross_Slash",
+                  "name": "Cross Slash"
+                }
+              ]
+            },
+            {
+              "tier": 9,
+              "gems": [
+                {
+                  "href": "Charged_Staff",
+                  "name": "Charged Staff"
+                }
+              ]
+            },
+            {
+              "tier": 14,
+              "gems": [
+                {
+                  "href": "Rhoa_Mount",
+                  "name": "Rhoa Mount"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

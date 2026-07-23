@@ -1,0 +1,1492 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0f172a;
+    --panel: #111827;
+    --panel2: #172033;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --line: #334155;
+    --accent: #38bdf8;
+    --warn: #facc15;
+    --ok: #34d399;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    min-height: 68px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--line);
+    background: #0b1120;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: 0; }
+  h2 { font-size: 17px; font-weight: 600; }
+  h3 { font-size: 15px; font-weight: 600; }
+  a { color: inherit; text-decoration: none; }
+  .badge-row, .nav-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .badge {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 9px;
+    color: var(--muted);
+    background: var(--panel);
+    font-size: 13px;
+  }
+  .top-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .control {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  select {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #0b1120;
+    color: var(--text);
+    min-height: 34px;
+    padding: 6px 8px;
+    font: inherit;
+  }
+  .shell {
+    width: min(1320px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 18px 0 28px;
+    display: grid;
+    gap: 18px;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    padding: 16px;
+    display: grid;
+    gap: 12px;
+  }
+  .hero-copy {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(56,189,248,.16), transparent 34%),
+      linear-gradient(135deg, #111827, #172033);
+  }
+  .hero-copy p, .muted {
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tab {
+    min-height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 12px;
+    background: #0b1120;
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+  }
+  .tab[aria-selected="true"] {
+    border-color: #0ea5e9;
+    background: #075985;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 7px 12px;
+    background: #0b1120;
+    color: var(--text);
+    font-size: 14px;
+  }
+  .btn.primary {
+    border-color: #0ea5e9;
+    background: #075985;
+  }
+  .grid {
+    display: grid;
+    gap: 12px;
+  }
+  .modules {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .module-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel2);
+    padding: 14px;
+    display: grid;
+    gap: 9px;
+    min-height: 150px;
+  }
+  .module-card p {
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .tab-panel[hidden] {
+    display: none;
+  }
+  .build-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .build-summary {
+    display: grid;
+    gap: 8px;
+  }
+  .build-summary strong {
+    font-size: 13px;
+    color: var(--text);
+  }
+  .build-summary ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .build-summary li + li {
+    margin-top: 4px;
+  }
+  .market-summary {
+    display: grid;
+    gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #0b1120;
+    padding: 10px;
+  }
+  .market-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .market-summary-item {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+  .market-summary-item span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .market-summary-item strong {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+  .market-warning {
+    color: var(--warn);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .status {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 12px;
+    color: #0b1120;
+    background: var(--warn);
+  }
+  .status.ready { background: var(--ok); }
+  .status.planned { background: #93c5fd; }
+  .version-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 9px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    color: var(--muted);
+    font-weight: 600;
+  }
+  tr:last-child td { border-bottom: 0; }
+  code {
+    color: var(--accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (max-width: 980px) {
+    .hero, .modules { grid-template-columns: 1fr; }
+    .market-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .market-summary-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>POE2 Tools</h1>
+  <div class="top-controls">
+    <label class="control">版本
+      <select id="versionSelect" aria-label="版本">
+        <option selected>读取中...</option>
+      </select>
+    </label>
+    <a class="btn" href="tools/data-update.html">数据更新</a>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="hero">
+    <div class="panel hero-copy">
+      <h2>流放之路 2 本地工具站</h2>
+      <p>目标是把开荒 BD、藏身处战神金币差价、技能倒卖、忍者网配置解析这些高频决策放进一个可版本回溯的工具里。当前先落地 S05 战术家 Supporting Fire，后续每个赛季保留独立数据。</p>
+    </div>
+    <div class="panel">
+      <h2>当前数据版本</h2>
+      <table class="version-table">
+        <tbody>
+          <tr><th>赛季</th><td id="versionSeason">读取中...</td></tr>
+          <tr><th>编年史天赋</th><td><code id="versionTree">读取中...</code></td></tr>
+          <tr><th>天赋 SVG</th><td><code id="versionSvg">读取中...</code></td></tr>
+          <tr><th>版本数据</th><td><code id="versionRoot">读取中...</code></td></tr>
+          <tr><th>已接入 BD</th><td id="versionBuildCount">读取中...</td></tr>
+          <tr><th>路线质量</th><td id="versionRouteQuality">读取中...</td></tr>
+          <tr><th>路线复核</th><td id="versionRouteReview">读取中...</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">后续版本更新时，新增版本记录，不覆盖旧版本；历史 BD 仍能按当时版本打开。</p>
+      <div class="cta-row">
+        <a class="btn" href="tools/version-history.html">查看版本历史</a>
+        <a class="btn" href="tools/route-review.html">路线复核工作台</a>
+        <a class="btn" href="tools/market-review.html">市场复核工作台</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>模块</h2>
+    <div class="tabs" role="tablist" aria-label="工具模块">
+      <button class="tab" type="button" role="tab" id="tab-leveling" aria-controls="panel-leveling" aria-selected="true" data-tab="leveling">开荒</button>
+      <button class="tab" type="button" role="tab" id="tab-hideout" aria-controls="panel-hideout" aria-selected="false" data-tab="hideout">藏身处展示</button>
+      <button class="tab" type="button" role="tab" id="tab-gems" aria-controls="panel-gems" aria-selected="false" data-tab="gems">技能倒卖</button>
+      <button class="tab" type="button" role="tab" id="tab-ninja" aria-controls="panel-ninja" aria-selected="false" data-tab="ninja">忍者网配置解析</button>
+    </div>
+
+    <div id="panel-leveling" class="tab-panel" role="tabpanel" aria-labelledby="tab-leveling">
+      <div class="cta-row" style="margin-bottom:12px">
+        <a class="btn primary" href="builds/index.html">打开开荒 BD 列表</a>
+      </div>
+      <div id="levelingCandidateSummary" class="market-summary-grid" style="margin-bottom:12px">
+        <div class="market-summary-item"><span>BD 候选</span><strong>读取中...</strong></div>
+      </div>
+      <div class="grid modules" id="levelingBuildList">
+        <article class="module-card">
+          <span class="status ready">已可用</span>
+          <h3>S05 战术家 Supporting Fire</h3>
+          <div class="build-meta">
+            <span class="badge">佣兵 / 战术家</span>
+            <span class="badge">122 天赋节点</span>
+            <span class="badge">三语言</span>
+          </div>
+          <p>当前已包含详细攻略、装备选择、制作路线，并接入剧情早期、第一次升华、白黄图、红图、毕业各阶段天赋快照。</p>
+          <div class="cta-row">
+            <a class="btn primary" href="builds/tactician-supporting-fire.html">查看详细攻略</a>
+            <a class="btn" href="data/seasons/s05/builds/tactician-supporting-fire.json">查看 BD 数据</a>
+          </div>
+        </article>
+        <article class="module-card">
+          <span class="status planned">待添加</span>
+          <h3>更多开荒 BD</h3>
+          <p>后续每个 BD 都进入这个列表，而不是直接放在首页。列表支持按职业、赛季、预算、手感和版本筛选。</p>
+        </article>
+      </div>
+    </div>
+
+    <div id="panel-hideout" class="tab-panel" role="tabpanel" aria-labelledby="tab-hideout" hidden>
+      <article class="module-card">
+        <span class="status ready">基础可用</span>
+        <h3>藏身处金币倒卖</h3>
+        <p>汇总金币可兑换物品，结合金币成本、额外成本、交易卖价、手续费、流动性和风险，排序当前最值得倒的货。</p>
+        <p class="muted">当前先用样例快照验证金币收益排序，真实行情后续由数据更新脚本写入版本化 market 目录。</p>
+        <div class="market-summary" id="homeHideoutMarketSummary">
+          <div class="market-summary-grid">
+            <div class="market-summary-item"><span>数据类型</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>更新时间</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>条目数</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>最高每万金币收益</span><strong>读取中...</strong></div>
+          </div>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="tools/hideout-flip.html">打开藏身处倒卖</a>
+          <a class="btn" href="tools/market-review.html">市场快照复核</a>
+        </div>
+      </article>
+    </div>
+
+    <div id="panel-gems" class="tab-panel" role="tabpanel" aria-labelledby="tab-gems" hidden>
+      <article class="module-card">
+        <span class="status ready">基础可用</span>
+        <h3>技能倒卖系统</h3>
+        <p>跟踪 21 级技能、热门品质和关键辅助，计算买入成本、卖出价格、费用、净利润、收益率、流动性和成交风险。</p>
+        <p class="muted">当前先用样例快照验证排序流程，真实市场价后续由数据更新脚本写入版本化 market 目录。</p>
+        <div class="market-summary" id="homeGemMarketSummary">
+          <div class="market-summary-grid">
+            <div class="market-summary-item"><span>数据类型</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>更新时间</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>条目数</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>最高 ROI</span><strong>读取中...</strong></div>
+          </div>
+        </div>
+        <div class="market-summary" id="homeSkillCatalogSummary">
+          <div class="market-summary-grid">
+            <div class="market-summary-item"><span>技能目录</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>技能本体</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>辅助宝石</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>详情覆盖</span><strong>读取中...</strong></div>
+          </div>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="tools/gem-flip.html">打开技能倒卖</a>
+          <a class="btn" href="tools/skill-catalog.html">查看技能资料</a>
+          <a class="btn" href="tools/market-review.html">市场快照复核</a>
+        </div>
+      </article>
+    </div>
+
+    <div id="panel-ninja" class="tab-panel" role="tabpanel" aria-labelledby="tab-ninja" hidden>
+      <article class="module-card">
+        <span class="status ready">基础可用</span>
+        <h3>忍者网配置解析</h3>
+        <p>解析玩家导出的 JSON 或可解码文本，拆解版本归属、角色、技能、装备和天赋字段。没有版本字段时，按导入时选择的工具版本保存归属。</p>
+        <p class="muted">当前支持本地解析、BD 对比、版本化归档读取和导出；归档写入通过数据更新页的 dry-run 脚本确认后执行。</p>
+        <div class="market-summary" id="homeNinjaSummary">
+          <div class="market-summary-grid">
+            <div class="market-summary-item"><span>schema</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>parser hints</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>样例覆盖</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>PoB XML</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>当前归档</span><strong>读取中...</strong></div>
+            <div class="market-summary-item"><span>版本匹配</span><strong>读取中...</strong></div>
+          </div>
+        </div>
+        <div class="cta-row"><a class="btn primary" href="tools/ninja-import.html">打开解析器</a></div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+  let renderVersionSeq = 0;
+
+  function esc(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char]));
+  }
+
+  function statusLabel(status) {
+    if (status === 'ready') return '已可用';
+    if (status === 'in-progress') return '建设中';
+    return '待添加';
+  }
+
+  function statusClass(status) {
+    if (status === 'ready') return 'ready';
+    if (status === 'in-progress') return '';
+    return 'planned';
+  }
+
+  function buildTitle(build) {
+    return build.title?.zhCN || build.title?.en || build.id;
+  }
+
+  function buildClassLabel(build) {
+    const base = build.class?.base?.zhCN || '';
+    const ascendancy = build.class?.ascendancy?.zhCN || '';
+    return [base, ascendancy].filter(Boolean).join(' / ');
+  }
+
+  function bestTreeNodes(build) {
+    const nodes = (build.stages || []).map((stage) => stage.treeNodes || 0);
+    return Math.max(0, ...nodes);
+  }
+
+  function localizedList(value) {
+    if (Array.isArray(value)) return value;
+    if (value && typeof value === 'object') return value.zhCN || value.en || [];
+    return [];
+  }
+
+  function localizedText(value) {
+    if (typeof value === 'string') return value;
+    if (value && typeof value === 'object') return value.zhCN || value.en || '';
+    return '';
+  }
+
+  function renderSmallList(title, items, limit = 3) {
+    const visible = localizedList(items).slice(0, limit);
+    if (!visible.length) return '';
+    return `
+      <div>
+        <strong>${esc(title)}</strong>
+        <ul>${visible.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+      </div>
+    `;
+  }
+
+  function formatDateTime(value) {
+    if (!value) return '-';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return date.toLocaleString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  function marketSourceLabel(sourceType) {
+    if (sourceType === 'sample-manual-seed') return '样例种子';
+    if (sourceType === 'real-snapshot-v1') return '真实快照';
+    return sourceType || '未知';
+  }
+
+  function formatMarketCurrency(value, currency) {
+    if (!Number.isFinite(value)) return '-';
+    const unit = currency || 'exalted';
+    return `${value.toFixed(1)} ${unit}`;
+  }
+
+  function localizedName(name) {
+    if (typeof name === 'string') return name;
+    if (name && typeof name === 'object') return name.zhCN || name.en || Object.values(name)[0] || '';
+    return '';
+  }
+
+  function enrichGemMarket(snapshot, entry) {
+    const feeRate = snapshot?.feeRate ?? 0;
+    const fee = entry.sellPrice * feeRate;
+    const netProfit = entry.sellPrice - entry.buyPrice - fee;
+    const roi = entry.buyPrice > 0 ? netProfit / entry.buyPrice : 0;
+    const weights = snapshot?.scoreWeights || {};
+    const score =
+      (netProfit * (weights.netProfit ?? 0.5)) +
+      (roi * 100 * (weights.roi ?? 0.25)) +
+      (entry.liquidity * (weights.liquidity ?? 0.2)) +
+      (entry.risk * (weights.risk ?? -0.2));
+    return { ...entry, fee, netProfit, roi, score };
+  }
+
+  function enrichHideoutMarket(snapshot, entry) {
+    const feeRate = snapshot?.feeRate ?? 0;
+    const goldUnit = snapshot?.goldUnit ?? 10000;
+    const fee = entry.sellPrice * feeRate;
+    const netProfit = entry.sellPrice - entry.cashCost - fee;
+    const profitPerGoldUnit = entry.goldCost > 0 ? netProfit / entry.goldCost * goldUnit : 0;
+    const weights = snapshot?.scoreWeights || {};
+    const score =
+      (netProfit * (weights.netProfit ?? 0.45)) +
+      (profitPerGoldUnit * (weights.profitPerGoldUnit ?? 0.3)) +
+      (entry.liquidity * (weights.liquidity ?? 0.2)) +
+      (entry.risk * (weights.risk ?? -0.25));
+    return { ...entry, fee, netProfit, profitPerGoldUnit, score };
+  }
+
+  function gemBudgetPlan(entry) {
+    const capital = 100;
+    if (!entry) return { ready: false, capital, units: 0, spend: 0, netProfit: 0, action: 'none' };
+    const evidenceCap = entry.marketEvidence
+      ? Math.min(Number(entry.marketEvidence.buyListingCount) || 0, Number(entry.marketEvidence.sellListingCount) || 0)
+      : Infinity;
+    const budgetUnits = Math.floor(capital / entry.buyPrice);
+    const units = Math.max(0, Math.min(budgetUnits, Number.isFinite(evidenceCap) ? evidenceCap : budgetUnits));
+    return {
+      ready: true,
+      capital,
+      units,
+      spend: units * entry.buyPrice,
+      netProfit: units * entry.netProfit,
+      action: 'sample-plan-only'
+    };
+  }
+
+  function hideoutBudgetPlan(entry) {
+    const gold = 100000;
+    const cash = 50;
+    if (!entry) return { ready: false, gold, cash, units: 0, goldSpend: 0, cashSpend: 0, netProfit: 0, action: 'none' };
+    const evidenceCap = entry.marketEvidence
+      ? Math.min(Number(entry.marketEvidence.buyListingCount) || 0, Number(entry.marketEvidence.sellListingCount) || 0)
+      : Infinity;
+    const goldUnits = Math.floor(gold / entry.goldCost);
+    const cashUnits = Math.floor(cash / entry.cashCost);
+    const rawUnits = Math.min(goldUnits, cashUnits);
+    const units = Math.max(0, Math.min(rawUnits, Number.isFinite(evidenceCap) ? evidenceCap : rawUnits));
+    return {
+      ready: true,
+      gold,
+      cash,
+      units,
+      goldSpend: units * entry.goldCost,
+      cashSpend: units * entry.cashCost,
+      netProfit: units * entry.netProfit,
+      action: 'sample-plan-only'
+    };
+  }
+
+  function marketActionLabel(sourceType) {
+    if (sourceType === 'sample-manual-seed') return '样例数据：只观察，不下单';
+    return '真实快照：进入详情页复核挂单深度后再操作';
+  }
+
+  function renderMarketSummary(containerId, summary) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = `
+      <div class="market-summary-grid">
+        <div class="market-summary-item"><span>数据类型</span><strong>${esc(summary.sourceLabel)}</strong></div>
+        <div class="market-summary-item"><span>更新时间</span><strong>${esc(summary.updatedAt)}</strong></div>
+        <div class="market-summary-item"><span>条目数</span><strong>${esc(summary.entryCount + ' 条')}</strong></div>
+        <div class="market-summary-item"><span>${esc(summary.metricLabel)}</span><strong>${esc(summary.metricValue)}</strong></div>
+        <div class="market-summary-item"><span>证据覆盖</span><strong>${esc(summary.evidenceCoverage)}</strong></div>
+        <div class="market-summary-item"><span>证据可信度</span><strong>${esc(summary.avgConfidence)}</strong></div>
+        <div class="market-summary-item"><span>买卖深度</span><strong>${esc(summary.depthStatus)}</strong></div>
+        <div class="market-summary-item"><span>过滤规则</span><strong>${esc(summary.filterStatus)}</strong></div>
+        <div class="market-summary-item"><span>新鲜度</span><strong>${esc(summary.freshnessStatus)}</strong></div>
+        <div class="market-summary-item"><span>评分第一</span><strong>${esc(summary.decisionTop)}</strong></div>
+        <div class="market-summary-item"><span>资金需求</span><strong>${esc(summary.decisionCapital)}</strong></div>
+        <div class="market-summary-item"><span>预计净利</span><strong>${esc(summary.decisionNetProfit)}</strong></div>
+        <div class="market-summary-item"><span>操作结论</span><strong>${esc(summary.decisionAction)}</strong></div>
+        <div class="market-summary-item"><span>默认预算</span><strong>${esc(summary.budgetCapital || '-')}</strong></div>
+        <div class="market-summary-item"><span>批次数量</span><strong>${esc(summary.budgetUnits || '-')}</strong></div>
+        <div class="market-summary-item"><span>批次净利</span><strong>${esc(summary.budgetNetProfit || '-')}</strong></div>
+        <div class="market-summary-item"><span>预算边界</span><strong>${esc(summary.budgetAction || '-')}</strong></div>
+        <div class="market-summary-item"><span>候选队列</span><strong>${esc(summary.candidateCount)}</strong></div>
+        <div class="market-summary-item"><span>可归档</span><strong>${esc(summary.candidateReady)}</strong></div>
+        <div class="market-summary-item"><span>当前类型</span><strong>${esc(summary.candidateKind)}</strong></div>
+        <div class="market-summary-item"><span>候选边界</span><strong>${esc(summary.candidateBoundary)}</strong></div>
+      </div>
+      ${summary.warning ? `<p class="market-warning">${esc(summary.warning)}</p>` : ''}
+    `;
+  }
+
+  function marketFreshness(snapshot) {
+    if (snapshot?.source?.type !== 'real-snapshot-v1') return { status: 'sample-not-live', label: '样例不判断' };
+    const time = new Date(snapshot.source?.fetchedAt || snapshot.updatedAt).getTime();
+    if (Number.isNaN(time)) return { status: 'unknown', label: '未知' };
+    const ageHours = Math.max(0, (Date.now() - time) / 3600000);
+    return ageHours <= 6
+      ? { status: 'fresh', label: `新鲜 ${ageHours.toFixed(1)}h` }
+      : { status: 'stale', label: `过期 ${ageHours.toFixed(1)}h` };
+  }
+
+  function marketEvidenceStats(entries) {
+    const evidenceEntries = (entries || []).filter((entry) => entry.marketEvidence);
+    if (!evidenceEntries.length) {
+      return { count: 0, missing: entries?.length || 0, avgConfidence: 0, minBuyDepth: 0, minSellDepth: 0 };
+    }
+    const confidences = evidenceEntries.map((entry) => Number(entry.marketEvidence.priceConfidence)).filter(Number.isFinite);
+    const buyDepths = evidenceEntries.map((entry) => Number(entry.marketEvidence.buyListingCount)).filter(Number.isFinite);
+    const sellDepths = evidenceEntries.map((entry) => Number(entry.marketEvidence.sellListingCount)).filter(Number.isFinite);
+    return {
+      count: evidenceEntries.length,
+      missing: (entries?.length || 0) - evidenceEntries.length,
+      avgConfidence: confidences.length ? confidences.reduce((sum, value) => sum + value, 0) / confidences.length : 0,
+      minBuyDepth: buyDepths.length ? Math.min(...buyDepths) : 0,
+      minSellDepth: sellDepths.length ? Math.min(...sellDepths) : 0
+    };
+  }
+
+  function marketQuality(snapshot) {
+    const entries = snapshot?.entries || [];
+    const evidenceCount = entries.filter((entry) => entry.marketEvidence).length;
+    const evidenceStats = marketEvidenceStats(entries);
+    const filters = snapshot?.source?.filters || null;
+    const freshness = marketFreshness(snapshot);
+    return {
+      evidenceCount,
+      evidenceCoverage: `${evidenceCount}/${entries.length}`,
+      avgConfidence: evidenceStats.avgConfidence,
+      minBuyDepth: evidenceStats.minBuyDepth,
+      minSellDepth: evidenceStats.minSellDepth,
+      hasFilters: Boolean(filters),
+      minListingDepth: filters?.minListingDepth || 0,
+      filterStatus: filters
+        ? `最低挂单 ${filters.minListingDepth || 0} / 过滤 ${filters.abnormalPriceRules?.length || 0} 条`
+        : '无真实过滤',
+      freshnessStatus: freshness.status,
+      freshnessLabel: freshness.label
+    };
+  }
+
+  function marketCandidateStats(index, kind) {
+    const candidates = Array.isArray(index?.candidates) ? index.candidates : [];
+    const ready = candidates.filter((row) => row.validationStatus === 'ok');
+    const currentKind = candidates.filter((row) => row.kind === kind);
+    const currentReady = currentKind.filter((row) => row.validationStatus === 'ok');
+    return {
+      schemaVersion: index?.schemaVersion || 0,
+      count: candidates.length,
+      readyCount: ready.length,
+      currentKind: kind,
+      currentKindCount: currentKind.length,
+      currentKindReadyCount: currentReady.length,
+      statuses: [...new Set(candidates.map((row) => row.validationStatus || 'unknown'))].join(',')
+    };
+  }
+
+  const HOME_MARKET_CANDIDATE_DATASET_KEYS = [
+    'homeGemMarketCandidateIndexSchema',
+    'homeGemMarketCandidateCount',
+    'homeGemMarketCandidateReadyCount',
+    'homeGemMarketCandidateCurrentKind',
+    'homeGemMarketCandidateCurrentKindCount',
+    'homeGemMarketCandidateCurrentKindReadyCount',
+    'homeGemMarketCandidateStatuses',
+    'homeHideoutMarketCandidateIndexSchema',
+    'homeHideoutMarketCandidateCount',
+    'homeHideoutMarketCandidateReadyCount',
+    'homeHideoutMarketCandidateCurrentKind',
+    'homeHideoutMarketCandidateCurrentKindCount',
+    'homeHideoutMarketCandidateCurrentKindReadyCount',
+    'homeHideoutMarketCandidateStatuses'
+  ];
+
+  function writeHomeMarketCandidateDataset(prefix, stats) {
+    document.body.dataset[`${prefix}MarketCandidateIndexSchema`] = String(stats.schemaVersion);
+    document.body.dataset[`${prefix}MarketCandidateCount`] = String(stats.count);
+    document.body.dataset[`${prefix}MarketCandidateReadyCount`] = String(stats.readyCount);
+    document.body.dataset[`${prefix}MarketCandidateCurrentKind`] = stats.currentKind;
+    document.body.dataset[`${prefix}MarketCandidateCurrentKindCount`] = String(stats.currentKindCount);
+    document.body.dataset[`${prefix}MarketCandidateCurrentKindReadyCount`] = String(stats.currentKindReadyCount);
+    document.body.dataset[`${prefix}MarketCandidateStatuses`] = stats.statuses;
+  }
+
+  function renderMarketError(containerId, message) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = `<p class="market-warning">${esc(message)}</p>`;
+  }
+
+  function renderSkillCatalogSummary(summary) {
+    const container = document.getElementById('homeSkillCatalogSummary');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="market-summary-grid">
+        <div class="market-summary-item"><span>技能目录</span><strong>${esc(summary.sourceType)}</strong></div>
+        <div class="market-summary-item"><span>技能本体</span><strong>${esc(summary.activeCount + ' 个')}</strong></div>
+        <div class="market-summary-item"><span>辅助宝石</span><strong>${esc(summary.supportCount + ' 个')}</strong></div>
+        <div class="market-summary-item"><span>详情覆盖</span><strong>${esc(summary.detailCount + '/' + summary.entryCount)}</strong></div>
+        <div class="market-summary-item"><span>验证状态</span><strong>${esc(summary.verifiedCount + '/' + summary.entryCount)}</strong></div>
+        <div class="market-summary-item"><span>资料边界</span><strong>技能资料，不是实时价格</strong></div>
+      </div>
+    `;
+  }
+
+  async function renderHomeSkillCatalogSummary(version, seq) {
+    try {
+      const manifest = await window.POE2Versions.readJson(`${version.dataRoot}/manifest.json`);
+      const catalogFile = manifest.skills?.catalog || '';
+      if (!catalogFile) throw new Error('当前版本未登记技能目录。');
+      const catalog = await window.POE2Versions.readJson(`${version.dataRoot}/${catalogFile}`);
+      if (seq !== renderVersionSeq) return;
+      const entries = catalog.entries || [];
+      const activeCount = entries.filter((entry) => entry.kind === 'active').length;
+      const supportCount = entries.filter((entry) => entry.kind === 'support').length;
+      const detailCount = entries.filter((entry) => entry.poe2db?.detail).length;
+      const verifiedCount = entries.filter((entry) => entry.verificationStatus === 'verified').length;
+      renderSkillCatalogSummary({
+        sourceType: catalog.source?.type || 'unknown',
+        entryCount: entries.length,
+        activeCount,
+        supportCount,
+        detailCount,
+        verifiedCount
+      });
+      document.body.dataset.homeSkillCatalogSourceType = catalog.source?.type || 'unknown';
+      document.body.dataset.homeSkillCatalogEntryCount = String(entries.length);
+      document.body.dataset.homeSkillCatalogActiveCount = String(activeCount);
+      document.body.dataset.homeSkillCatalogSupportCount = String(supportCount);
+      document.body.dataset.homeSkillCatalogDetailCount = String(detailCount);
+      document.body.dataset.homeSkillCatalogVerifiedCount = String(verifiedCount);
+      document.body.dataset.homeSkillCatalogBoundaryStatus = 'skill-data-not-live-price';
+    } catch (error) {
+      if (seq !== renderVersionSeq) return;
+      renderMarketError('homeSkillCatalogSummary', `技能资料摘要读取失败：${error.message}`);
+      document.body.dataset.homeSkillCatalogSourceType = 'missing';
+      document.body.dataset.homeSkillCatalogEntryCount = '0';
+      document.body.dataset.homeSkillCatalogActiveCount = '0';
+      document.body.dataset.homeSkillCatalogSupportCount = '0';
+      document.body.dataset.homeSkillCatalogDetailCount = '0';
+      document.body.dataset.homeSkillCatalogVerifiedCount = '0';
+      document.body.dataset.homeSkillCatalogBoundaryStatus = 'missing';
+      console.warn('Home skill catalog summary failed:', error.message);
+    }
+  }
+
+  function parserHintsFromSchema(schemaText) {
+    const block = String(schemaText || '').match(/- `parserHints`:[\s\S]*?- `risks`/);
+    return Array.from(new Set(Array.from(block?.[0]?.matchAll(/`([^`]+)`/g) || [])
+      .map((match) => match[1])
+      .filter((token) => /^[a-z0-9-]+$/.test(token) && !['parserHints', 'risks'].includes(token))));
+  }
+
+  function validateNinjaExample(data) {
+    const allowedFormats = new Set(['json', 'base64-json', 'pob-code', 'pob-xml', 'text', 'none']);
+    const parserHints = Array.isArray(data?.formatProfile?.parserHints) ? data.formatProfile.parserHints : [];
+    const failures = [];
+    if (data?.parserVersion !== 'local-ninja-import-v1') failures.push('parserVersion');
+    if (data?.schemaVersion !== 1) failures.push('schemaVersion');
+    if (!allowedFormats.has(data?.format)) failures.push('format');
+    if (!allowedFormats.has(data?.formatProfile?.inputFormat)) failures.push('formatProfile.inputFormat');
+    if (!data?.versionCompatibility?.status) failures.push('versionCompatibility.status');
+    if (!data?.counts || typeof data.counts !== 'object') failures.push('counts');
+    if (Array.isArray(data?.skills) && data.counts?.skills !== data.skills.length) failures.push('skills count');
+    if (Array.isArray(data?.supports) && data.counts?.supports !== data.supports.length) failures.push('supports count');
+    if (Array.isArray(data?.items) && data.counts?.items !== data.items.length) failures.push('items count');
+    if (Array.isArray(data?.passiveIds) && data.counts?.passives !== data.passiveIds.length) failures.push('passives count');
+    return {
+      ok: failures.length === 0,
+      format: data?.format || '',
+      inputFormat: data?.formatProfile?.inputFormat || '',
+      parserHints,
+      compatibilityStatus: data?.versionCompatibility?.status || ''
+    };
+  }
+
+  function renderNinjaSummary(summary) {
+    const container = document.getElementById('homeNinjaSummary');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="market-summary-grid">
+        <div class="market-summary-item"><span>schema</span><strong>${esc(summary.schemaStatus)}</strong></div>
+        <div class="market-summary-item"><span>parser hints</span><strong>${esc(summary.parserHintCount + ' 个')}</strong></div>
+        <div class="market-summary-item"><span>样例覆盖</span><strong>${esc(summary.exampleOk + '/' + summary.exampleCount)}</strong></div>
+        <div class="market-summary-item"><span>PoB XML</span><strong>${esc(summary.pobXmlCount + ' 个')}</strong></div>
+        <div class="market-summary-item"><span>当前归档</span><strong>${esc(summary.archiveReady + '/' + summary.archiveCount)}</strong></div>
+        <div class="market-summary-item"><span>版本匹配</span><strong>${esc(summary.archiveMatched + ' 个')}</strong></div>
+        <div class="market-summary-item"><span>归档格式</span><strong>${esc(summary.archiveFormats || '-')}</strong></div>
+        <div class="market-summary-item"><span>需复核</span><strong>${esc(summary.archiveNeedsReview + ' 个')}</strong></div>
+      </div>
+      <p class="muted">当前登记：${summary.parserHints.map((hint) => `<code>${esc(hint)}</code>`).join('、') || '<code>无</code>'}</p>
+    `;
+  }
+
+  async function collectHomeNinjaArchives(version, manifest) {
+    const entries = Object.entries(manifest.ninja || {});
+    const rows = await Promise.all(entries.map(async ([key, file]) => {
+      try {
+        const data = await window.POE2Versions.readJson(`${version.dataRoot}/${file}`);
+        return { key, file, check: validateNinjaExample(data) };
+      } catch (_) {
+        return { key, file, check: { ok: false, format: '', compatibilityStatus: '' } };
+      }
+    }));
+    const ready = rows.filter((row) => row.check.ok);
+    return {
+      count: rows.length,
+      ready: ready.length,
+      matched: ready.filter((row) => row.check.compatibilityStatus === 'matched').length,
+      needsReview: ready.filter((row) => row.check.compatibilityStatus === 'needs-review').length,
+      sourceUnknown: ready.filter((row) => row.check.compatibilityStatus === 'source-version-unknown').length,
+      formats: [...new Set(ready.map((row) => row.check.format).filter(Boolean))].join(',')
+    };
+  }
+
+  async function renderHomeNinjaSummary(version, seq) {
+    try {
+      const [manifest, schemaText, analysisExample, rawPobXmlExample] = await Promise.all([
+        window.POE2Versions.readJson(`${version.dataRoot}/manifest.json`),
+        fetch(`${version.dataRoot}/ninja/schema-v1.md`, { cache: 'no-store' }).then((response) => {
+          if (!response.ok) throw new Error(`ninja schema ${response.status}`);
+          return response.text();
+        }),
+        window.POE2Versions.readJson(`${version.dataRoot}/ninja/examples/parsed-import-with-analysis.example.json`),
+        window.POE2Versions.readJson(`${version.dataRoot}/ninja/examples/parsed-raw-pob-xml.example.json`)
+      ]);
+      if (seq !== renderVersionSeq) return;
+
+      const parserHints = parserHintsFromSchema(schemaText);
+      const exampleChecks = [analysisExample, rawPobXmlExample].map(validateNinjaExample);
+      const exampleOk = exampleChecks.filter((check) => check.ok).length;
+      const pobXmlCount = exampleChecks.filter((check) => check.inputFormat === 'pob-xml' || check.parserHints.includes('pob-xml')).length;
+      const schemaStatus = parserHints.length ? 'ok' : 'missing-parser-hints';
+      const archiveStats = await collectHomeNinjaArchives(version, manifest);
+      if (seq !== renderVersionSeq) return;
+      renderNinjaSummary({
+        schemaStatus,
+        parserHintCount: parserHints.length,
+        parserHints,
+        exampleCount: exampleChecks.length,
+        exampleOk,
+        pobXmlCount,
+        archiveCount: archiveStats.count,
+        archiveReady: archiveStats.ready,
+        archiveMatched: archiveStats.matched,
+        archiveNeedsReview: archiveStats.needsReview,
+        archiveSourceUnknown: archiveStats.sourceUnknown,
+        archiveFormats: archiveStats.formats
+      });
+      document.body.dataset.homeNinjaSchemaStatus = schemaStatus;
+      document.body.dataset.homeNinjaParserHintCount = String(parserHints.length);
+      document.body.dataset.homeNinjaParserHints = parserHints.join(',');
+      document.body.dataset.homeNinjaExampleCount = String(exampleChecks.length);
+      document.body.dataset.homeNinjaExampleOk = String(exampleOk);
+      document.body.dataset.homeNinjaExamplePobXmlCount = String(pobXmlCount);
+      document.body.dataset.homeNinjaArchiveCount = String(archiveStats.count);
+      document.body.dataset.homeNinjaArchiveReadyCount = String(archiveStats.ready);
+      document.body.dataset.homeNinjaArchiveMatchedCount = String(archiveStats.matched);
+      document.body.dataset.homeNinjaArchiveNeedsReviewCount = String(archiveStats.needsReview);
+      document.body.dataset.homeNinjaArchiveSourceUnknownCount = String(archiveStats.sourceUnknown);
+      document.body.dataset.homeNinjaArchiveFormats = archiveStats.formats;
+    } catch (error) {
+      if (seq !== renderVersionSeq) return;
+      renderMarketError('homeNinjaSummary', `忍者解析契约读取失败：${error.message}`);
+      document.body.dataset.homeNinjaSummaryError = 'true';
+      console.warn('Home ninja summary failed:', error.message);
+    }
+  }
+
+  function stageCoverage(build) {
+    const stages = build.stages || [];
+    const readyCount = stages.filter((stage) => stage.status === 'ready').length;
+    if (!stages.length) return '阶段待补';
+    return `${readyCount}/${stages.length} 阶段可用`;
+  }
+
+  function gearThresholdStats(build) {
+    const groups = build.gearStatThresholds || [];
+    const rows = groups.reduce((sum, group) => sum + (group.thresholds?.length || 0), 0);
+    const sourceStatus = [...new Set(groups.map((group) => group.sourceStatus).filter(Boolean))].join(',');
+    return { stages: groups.length, rows, sourceStatus };
+  }
+
+  function craftPlanStats(build) {
+    const plans = build.craftingPlan || [];
+    const structured = plans.filter((item) => item.sourceStatus && item.purchaseFirst && item.priorityMods?.length && item.materials?.length && item.successChecks?.length && item.fallback?.length).length;
+    const sourceStatus = [...new Set(plans.map((item) => item.sourceStatus).filter(Boolean))].join(',');
+    return { plans: plans.length, structured, sourceStatus };
+  }
+
+  function countLocalizedChecks(checks) {
+    if (Array.isArray(checks)) return checks.length;
+    if (!checks || typeof checks !== 'object') return 0;
+    return Math.max(...Object.values(checks).map((items) => Array.isArray(items) ? items.length : 0), 0);
+  }
+
+  function guideWritingStats(build) {
+    const skillCards = build.skills?.overview?.cards || [];
+    const minionSelection = build.skills?.minionSelectionGuide;
+    const minionSelectionGroups = minionSelection?.groups || [];
+    const gearCards = build.gearOverview?.cards || [];
+    const articleSections = build.guideArticle?.sections || [];
+    const stages = build.stages || [];
+    const executionStages = build.executionPlan?.stages || [];
+    const hasStrategy = Boolean(build.guideStrategy?.coreLoop?.steps?.length)
+      && Boolean(build.guideStrategy?.powerSignals?.length)
+      && Boolean(build.guideStrategy?.failureDiagnosis?.length)
+      && Boolean(build.guideStrategy?.decisionRules?.length);
+    const stagePlaybooks = stages.filter((stage) => stage.playbook?.steps?.length).length;
+    const complete = Boolean(hasStrategy)
+      && Boolean(executionStages.length)
+      && Boolean(articleSections.length)
+      && stagePlaybooks === stages.length
+      && Boolean(skillCards.length)
+      && Boolean(minionSelectionGroups.length)
+      && Boolean(gearCards.length);
+    return {
+      complete,
+      skillOverviewCards: skillCards.length,
+      skillOverviewChecks: skillCards.reduce((sum, card) => sum + countLocalizedChecks(card.checks), 0),
+      minionSelectionGroups: minionSelectionGroups.length,
+      minionSelectionSkillRefs: minionSelectionGroups.reduce((sum, group) => sum + (group.skillIds?.length || 0), 0),
+      minionSelectionSupportRefs: minionSelectionGroups.reduce((sum, group) => sum + (group.firstSupports?.length || 0), 0),
+      minionSelectionRules: countLocalizedChecks(minionSelection?.rules),
+      gearOverviewCards: gearCards.length,
+      gearOverviewChecks: gearCards.reduce((sum, card) => sum + countLocalizedChecks(card.checks), 0),
+      stagePlaybooks,
+      executionStages: executionStages.length,
+      sourceStatus: [
+        articleSections.length ? 'manual-guide-article' : '',
+        skillCards.length ? 'manual-guide-skill-flow' : '',
+        minionSelectionGroups.length ? 'manual-guide-minion-selection' : '',
+        gearCards.length ? 'manual-guide-gear-flow' : '',
+        hasStrategy ? 'manual-guide-strategy' : ''
+      ].filter(Boolean).join(',')
+    };
+  }
+
+  function guideReportHref(entry, build) {
+    const href = build.routes?.guide || entry.guide?.replace(/^\.\.\/\.\.\/\.\.\//, '') || '';
+    return href ? `${href}#guide-markdown-report` : '#';
+  }
+
+  function guideReportReady(entry, build) {
+    return guideWritingStats(build).complete && guideReportHref(entry, build) !== '#';
+  }
+
+  async function collectBuildCandidateSummary(version, manifest) {
+    const file = manifest.buildCandidates || 'builds/candidates.json';
+    const registered = new Set((manifest.builds || []).map((entry) => entry.id));
+    const formalRoutes = new Set((manifest.tree?.routes || []).map((route) => `${route.buildId}:${route.stageId}`));
+    try {
+      const data = await window.POE2Versions.readJson(`${version.dataRoot}/${file}`);
+      const candidates = Array.isArray(data?.candidates) ? data.candidates : [];
+      const drafts = candidates.filter((candidate) => candidate.status === 'draft' && !registered.has(candidate.id));
+      const draftBuilds = await Promise.all(drafts.map(async (candidate) => {
+        try {
+          const build = await window.POE2Versions.readJson(`${version.dataRoot}/${candidate.data}`);
+          const guideResponse = await fetch(candidate.guide?.replace(/^\.\.\/\.\.\/\.\.\//, '') || `builds/${candidate.id}.html`, { cache: 'no-store' });
+          const guideText = guideResponse.ok ? await guideResponse.text() : '';
+          const stages = build.stages || [];
+          const stageIds = stages.map((stage) => stage.treeStage || stage.id).filter(Boolean);
+          const routeCandidates = candidate.routeCandidates || [];
+          const routeCandidateStages = new Set(routeCandidates.map((route) => route.stageId).filter(Boolean));
+          const routeFileRows = await Promise.all(routeCandidates.map(async (route) => {
+            if (!route?.file) return { ...route, exists: false };
+            try {
+              const response = await fetch(`${version.dataRoot}/${route.file}`, { cache: 'no-store' });
+              return { ...route, exists: response.ok };
+            } catch (_) {
+              return { ...route, exists: false };
+            }
+          }));
+          const missingRouteStages = stageIds.filter((stageId) => !routeCandidateStages.has(stageId));
+          const routeCandidateFileCount = routeFileRows.filter((route) => route.exists).length;
+          const handTunedRouteCount = routeFileRows.filter((route) => route.status === 'hand-tuned-candidate').length;
+          const manifestRouteCount = routeCandidates.filter((route) => formalRoutes.has(`${candidate.id}:${route.stageId}`)).length;
+          const materialReady = guideResponse.ok
+            && guideText.includes('data-stage-passive-candidate')
+            && stageIds.length > 0
+            && missingRouteStages.length === 0
+            && routeCandidates.length === stageIds.length
+            && routeCandidateFileCount === routeCandidates.length;
+          const reviewReady = materialReady && handTunedRouteCount === routeCandidates.length;
+          const manifestPublished = registered.has(candidate.id) && manifestRouteCount === routeCandidates.length && routeCandidates.length > 0;
+          return {
+            ok: true,
+            stages: stages.length,
+            routeCandidateFiles: routeCandidateFileCount,
+            routeCandidateMissing: missingRouteStages.length,
+            handTunedRouteCount,
+            manifestRouteCount,
+            materialReady,
+            reviewReady,
+            manifestPublished,
+            publishReady: materialReady && manifestPublished,
+            blockedBy: [
+              ...(registered.has(candidate.id) ? [] : [`未登记正式 BD：${candidate.id}`]),
+              ...routeCandidates
+                .filter((route) => !formalRoutes.has(`${candidate.id}:${route.stageId}`))
+                .map((route) => `未登记正式路线：${candidate.id}:${route.stageId}`)
+            ]
+          };
+        } catch (_) {
+          return { ok: false, stages: 0, routeCandidateFiles: 0, routeCandidateMissing: 0, handTunedRouteCount: 0, manifestRouteCount: 0, materialReady: false, reviewReady: false, manifestPublished: false, publishReady: false, blockedBy: ['候选草稿读取失败'] };
+        }
+      }));
+      return {
+        schemaVersion: data?.schemaVersion || 0,
+        sourceFile: file,
+        count: candidates.length,
+        available: candidates.filter((candidate) => !registered.has(candidate.id)).length,
+        draftCount: drafts.length,
+        draftFileCount: draftBuilds.filter((row) => row.ok).length,
+        routeStageCount: draftBuilds.reduce((sum, row) => sum + row.stages, 0),
+        routeCandidateFileCount: draftBuilds.reduce((sum, row) => sum + row.routeCandidateFiles, 0),
+        routeCandidateMissingCount: draftBuilds.reduce((sum, row) => sum + row.routeCandidateMissing, 0),
+        handTunedRouteCount: draftBuilds.reduce((sum, row) => sum + row.handTunedRouteCount, 0),
+        manifestRouteCount: draftBuilds.reduce((sum, row) => sum + row.manifestRouteCount, 0),
+        materialReadyCount: draftBuilds.filter((row) => row.materialReady).length,
+        reviewReadyCount: draftBuilds.filter((row) => row.reviewReady).length,
+        manifestPublishedCount: draftBuilds.filter((row) => row.manifestPublished).length,
+        publishReadyCount: draftBuilds.filter((row) => row.publishReady).length,
+        blockedBy: [...new Set(draftBuilds.flatMap((row) => row.blockedBy || []))].join('|'),
+        statuses: [...new Set(candidates.map((candidate) => candidate.status || 'unknown'))].join(',')
+      };
+    } catch (_) {
+      return {
+        schemaVersion: 0,
+        sourceFile: file,
+        count: 0,
+        available: 0,
+        draftCount: 0,
+        draftFileCount: 0,
+        routeStageCount: 0,
+        routeCandidateFileCount: 0,
+        routeCandidateMissingCount: 0,
+        handTunedRouteCount: 0,
+        manifestRouteCount: 0,
+        materialReadyCount: 0,
+        reviewReadyCount: 0,
+        manifestPublishedCount: 0,
+        publishReadyCount: 0,
+        blockedBy: 'candidate-summary-read-failed',
+        statuses: 'missing'
+      };
+    }
+  }
+
+  function renderBuildCandidateSummary(summary) {
+    const container = document.getElementById('levelingCandidateSummary');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="market-summary-item"><span>BD 候选</span><strong>${esc(summary.count + ' 个')}</strong></div>
+      <div class="market-summary-item"><span>可接入</span><strong>${esc(summary.available + '/' + summary.count)}</strong></div>
+      <div class="market-summary-item"><span>草稿文件</span><strong>${esc(summary.draftFileCount + '/' + summary.draftCount)}</strong></div>
+      <div class="market-summary-item"><span>候选路线文件</span><strong>${esc(summary.routeCandidateFileCount + '/' + summary.routeStageCount)}</strong></div>
+      <div class="market-summary-item"><span>手调候选</span><strong>${esc(summary.handTunedRouteCount + '/' + summary.routeStageCount)}</strong></div>
+      <div class="market-summary-item"><span>正式路线</span><strong>${esc(summary.manifestRouteCount + '/' + summary.routeStageCount)}</strong></div>
+      <div class="market-summary-item"><span>素材就绪</span><strong>${esc(summary.materialReadyCount + '/' + summary.draftCount)}</strong></div>
+      <div class="market-summary-item"><span>复核就绪</span><strong>${esc(summary.reviewReadyCount + '/' + summary.draftCount)}</strong></div>
+      <div class="market-summary-item"><span>可发布</span><strong>${esc(summary.publishReadyCount + '/' + summary.draftCount)}</strong></div>
+      <div class="market-summary-item"><span>候选边界</span><strong>${esc(summary.blockedBy ? '等待正式登记' : '不在正式 BD 列表')}</strong></div>
+    `;
+  }
+
+  function renderBuildCard(version, entry, build) {
+    const guideHref = build.routes?.guide || entry.guide?.replace(/^\.\.\/\.\.\/\.\.\//, '') || '#';
+    const dataHref = `${version.dataRoot}/${entry.data}`;
+    const nodes = bestTreeNodes(build);
+    const overview = build.overview || {};
+    const thresholds = gearThresholdStats(build);
+    const crafts = craftPlanStats(build);
+    const guide = guideWritingStats(build);
+    const reportReady = guideReportReady(entry, build);
+    return `
+      <article class="module-card">
+        <span class="status ${statusClass(entry.status)}">${esc(statusLabel(entry.status))}</span>
+        <h3>${esc(buildTitle(build))}</h3>
+        <div class="build-meta">
+          <span class="badge">${esc(buildClassLabel(build))}</span>
+          <span class="badge">${nodes ? esc(nodes + ' 天赋节点') : '天赋待补'}</span>
+          <span class="badge">${esc(stageCoverage(build))}</span>
+          <span class="badge">攻略正文 ${guide.complete ? '完整' : '有缺口'}</span>
+          <span class="badge">攻略报告 ${reportReady ? '可导出' : '待补'}</span>
+          <span class="badge">技能总览 ${esc(guide.skillOverviewCards)} 卡 / ${esc(guide.skillOverviewChecks)} 检查</span>
+          <span class="badge">召唤选择 ${esc(guide.minionSelectionGroups)} 组 / ${esc(guide.minionSelectionRules)} 规则</span>
+          <span class="badge">装备总览 ${esc(guide.gearOverviewCards)} 卡 / ${esc(guide.gearOverviewChecks)} 检查</span>
+          <span class="badge">阶段攻略 ${esc(guide.stagePlaybooks)} / 执行 ${esc(guide.executionStages)}</span>
+          <span class="badge">装备门槛 ${esc(thresholds.stages)} 阶段 / ${esc(thresholds.rows)} 条</span>
+          <span class="badge">制作方案 ${esc(crafts.plans)} 套 / ${esc(crafts.structured)} 结构化</span>
+          ${localizedText(overview.difficulty) ? `<span class="badge">难度：${esc(localizedText(overview.difficulty))}</span>` : ''}
+        </div>
+        <p>${esc(localizedText(overview.budget) || build.stages?.[0]?.summary || '该 BD 已登记在当前版本数据中。')}</p>
+        <div class="build-summary">
+          ${renderSmallList('适合玩家', overview.bestFor, 2)}
+          ${renderSmallList('核心强项', overview.strengths, 2)}
+          ${renderSmallList('当前缺口', overview.risks, 2)}
+        </div>
+        <div class="build-meta">${(build.tags || []).slice(0, 5).map((tag) => `<span class="badge">${esc(tag)}</span>`).join('')}</div>
+        <div class="cta-row">
+          <a class="btn primary" href="${esc(guideHref)}">查看详细攻略</a>
+          <a class="btn" href="${esc(guideReportHref(entry, build))}">攻略报告</a>
+          <a class="btn" href="${esc(dataHref)}">查看 BD 数据</a>
+        </div>
+      </article>
+    `;
+  }
+
+  async function renderLevelingBuilds(version, seq) {
+    const container = document.getElementById('levelingBuildList');
+    if (!container) return;
+    try {
+      const manifest = await window.POE2Versions.readJson(`${version.dataRoot}/manifest.json`);
+      const buildCandidateSummary = await collectBuildCandidateSummary(version, manifest);
+      const cards = await Promise.all((manifest.builds || []).map(async (entry) => {
+        const build = await window.POE2Versions.readJson(`${version.dataRoot}/${entry.data}`);
+        return { html: renderBuildCard(version, entry, build), thresholds: gearThresholdStats(build), crafts: craftPlanStats(build), guide: guideWritingStats(build), reportReady: guideReportReady(entry, build) };
+      }));
+      if (seq !== renderVersionSeq) return;
+      renderBuildCandidateSummary(buildCandidateSummary);
+      container.innerHTML = cards.length ? cards.map((card) => card.html).join('') : `
+        <article class="module-card">
+          <span class="status planned">待添加</span>
+          <h3>当前版本暂无开荒 BD</h3>
+          <p>新增 BD 后会通过当前版本 manifest 自动出现在这里。</p>
+        </article>
+      `;
+      const thresholdStages = cards.reduce((sum, card) => sum + card.thresholds.stages, 0);
+      const thresholdRows = cards.reduce((sum, card) => sum + card.thresholds.rows, 0);
+      const thresholdSources = [...new Set(cards.flatMap((card) => card.thresholds.sourceStatus.split(',').filter(Boolean)))].join(',');
+      const craftPlans = cards.reduce((sum, card) => sum + card.crafts.plans, 0);
+      const craftStructured = cards.reduce((sum, card) => sum + card.crafts.structured, 0);
+      const craftSources = [...new Set(cards.flatMap((card) => card.crafts.sourceStatus.split(',').filter(Boolean)))].join(',');
+      const guideComplete = cards.filter((card) => card.guide.complete).length;
+      const guideMissing = cards.length - guideComplete;
+      const guideReportReadyCount = cards.filter((card) => card.reportReady).length;
+      const guideSkillCards = cards.reduce((sum, card) => sum + card.guide.skillOverviewCards, 0);
+      const guideSkillChecks = cards.reduce((sum, card) => sum + card.guide.skillOverviewChecks, 0);
+      const guideMinionSelectionGroups = cards.reduce((sum, card) => sum + card.guide.minionSelectionGroups, 0);
+      const guideMinionSelectionSkillRefs = cards.reduce((sum, card) => sum + card.guide.minionSelectionSkillRefs, 0);
+      const guideMinionSelectionSupportRefs = cards.reduce((sum, card) => sum + card.guide.minionSelectionSupportRefs, 0);
+      const guideMinionSelectionRules = cards.reduce((sum, card) => sum + card.guide.minionSelectionRules, 0);
+      const guideGearCards = cards.reduce((sum, card) => sum + card.guide.gearOverviewCards, 0);
+      const guideGearChecks = cards.reduce((sum, card) => sum + card.guide.gearOverviewChecks, 0);
+      const guideStagePlaybooks = cards.reduce((sum, card) => sum + card.guide.stagePlaybooks, 0);
+      const guideExecutionStages = cards.reduce((sum, card) => sum + card.guide.executionStages, 0);
+      const guideSources = [...new Set(cards.flatMap((card) => card.guide.sourceStatus.split(',').filter(Boolean)))].join(',');
+      document.body.dataset.homeBuildCandidateSchema = String(buildCandidateSummary.schemaVersion);
+      document.body.dataset.homeBuildCandidateSourceFile = buildCandidateSummary.sourceFile;
+      document.body.dataset.homeBuildCandidateCount = String(buildCandidateSummary.count);
+      document.body.dataset.homeBuildCandidateAvailableCount = String(buildCandidateSummary.available);
+      document.body.dataset.homeBuildCandidateDraftCount = String(buildCandidateSummary.draftCount);
+      document.body.dataset.homeBuildCandidateDraftFileCount = String(buildCandidateSummary.draftFileCount);
+      document.body.dataset.homeBuildCandidateRouteStageCount = String(buildCandidateSummary.routeStageCount);
+      document.body.dataset.homeBuildCandidateRouteFileCount = String(buildCandidateSummary.routeCandidateFileCount);
+      document.body.dataset.homeBuildCandidateRouteMissingFileCount = String(buildCandidateSummary.routeCandidateMissingCount);
+      document.body.dataset.homeBuildCandidateHandTunedRouteCount = String(buildCandidateSummary.handTunedRouteCount);
+      document.body.dataset.homeBuildCandidateManifestRouteCount = String(buildCandidateSummary.manifestRouteCount);
+      document.body.dataset.homeBuildCandidateMaterialReadyCount = String(buildCandidateSummary.materialReadyCount);
+      document.body.dataset.homeBuildCandidateReviewReadyCount = String(buildCandidateSummary.reviewReadyCount);
+      document.body.dataset.homeBuildCandidateManifestPublishedCount = String(buildCandidateSummary.manifestPublishedCount);
+      document.body.dataset.homeBuildCandidatePublishReadyCount = String(buildCandidateSummary.publishReadyCount);
+      document.body.dataset.homeBuildCandidateBlockedBy = buildCandidateSummary.blockedBy;
+      document.body.dataset.homeBuildCandidateStatuses = buildCandidateSummary.statuses;
+      document.body.dataset.levelingBuildCount = String(cards.length);
+      document.body.dataset.levelingBuildVersion = version.id;
+      document.body.dataset.homeBuildGuideCompleteCount = String(guideComplete);
+      document.body.dataset.homeBuildGuideMissingCount = String(guideMissing);
+      document.body.dataset.homeBuildGuideReportReadyCount = String(guideReportReadyCount);
+      document.body.dataset.homeBuildGuideSkillOverviewCards = String(guideSkillCards);
+      document.body.dataset.homeBuildGuideSkillOverviewChecks = String(guideSkillChecks);
+      document.body.dataset.homeBuildGuideMinionSelectionGroups = String(guideMinionSelectionGroups);
+      document.body.dataset.homeBuildGuideMinionSelectionSkillRefs = String(guideMinionSelectionSkillRefs);
+      document.body.dataset.homeBuildGuideMinionSelectionSupportRefs = String(guideMinionSelectionSupportRefs);
+      document.body.dataset.homeBuildGuideMinionSelectionRules = String(guideMinionSelectionRules);
+      document.body.dataset.homeBuildGuideGearOverviewCards = String(guideGearCards);
+      document.body.dataset.homeBuildGuideGearOverviewChecks = String(guideGearChecks);
+      document.body.dataset.homeBuildGuideStagePlaybooks = String(guideStagePlaybooks);
+      document.body.dataset.homeBuildGuideExecutionStages = String(guideExecutionStages);
+      document.body.dataset.homeBuildGuideSourceStatus = guideSources;
+      document.body.dataset.homeBuildGearThresholdStageCount = String(thresholdStages);
+      document.body.dataset.homeBuildGearThresholdRowCount = String(thresholdRows);
+      document.body.dataset.homeBuildGearThresholdSourceStatus = thresholdSources;
+      document.body.dataset.homeBuildCraftPlanCount = String(craftPlans);
+      document.body.dataset.homeBuildCraftStructuredCount = String(craftStructured);
+      document.body.dataset.homeBuildCraftSourceStatus = craftSources;
+    } catch (error) {
+      if (seq !== renderVersionSeq) return;
+      document.body.dataset.levelingBuildFallback = 'true';
+      console.warn('Using static leveling build fallback:', error.message);
+    }
+  }
+
+  function routeQualityStats(routes) {
+    const list = routes || [];
+    const handTuned = list.filter((route) => route.handTuned).length;
+    const manualReview = list.filter((route) => route.overridePolicy === 'manual-review-required').length;
+    return {
+      total: list.length,
+      pending: list.length - handTuned,
+      handTuned,
+      manualReview
+    };
+  }
+
+  function stageForRoute(builds, route) {
+    const build = builds.find((item) => item.id === route.buildId);
+    return (build?.stages || []).find((stage) => stage.treeStage === route.stageId || stage.id === route.stageId) || null;
+  }
+
+  async function renderHomeRouteQuality(version, seq) {
+    const qualityEl = document.getElementById('versionRouteQuality');
+    const reviewEl = document.getElementById('versionRouteReview');
+    try {
+      const manifest = await window.POE2Versions.readJson(`${version.dataRoot}/manifest.json`);
+      const routes = manifest.tree?.routes || [];
+      const builds = await Promise.all((manifest.builds || []).map((entry) => window.POE2Versions.readJson(`${version.dataRoot}/${entry.data}`)));
+      if (seq !== renderVersionSeq) return;
+
+      const stats = routeQualityStats(routes);
+      const reviewCount = routes.filter((route) => stageForRoute(builds, route)?.routeReview).length;
+      const reviewMissing = Math.max(0, routes.length - reviewCount);
+      qualityEl.innerHTML = [
+        `总路线 <code>${stats.total}</code>`,
+        `待手调 <code>${stats.pending}</code>`,
+        `已手调 <code>${stats.handTuned}</code>`,
+        `需人工复核 <code>${stats.manualReview}</code>`
+      ].join(' / ');
+      reviewEl.innerHTML = `复核说明 <code>${reviewCount}</code> / <code>${routes.length}</code>${reviewMissing ? `，缺少 <code>${reviewMissing}</code>` : ''}`;
+
+      document.body.dataset.homeRouteQualityTotal = String(stats.total);
+      document.body.dataset.homeRouteQualityPending = String(stats.pending);
+      document.body.dataset.homeRouteQualityHandTuned = String(stats.handTuned);
+      document.body.dataset.homeRouteQualityManualReview = String(stats.manualReview);
+      document.body.dataset.homeRouteReviewCount = String(reviewCount);
+      document.body.dataset.homeRouteReviewMissing = String(reviewMissing);
+    } catch (error) {
+      if (seq !== renderVersionSeq) return;
+      qualityEl.textContent = `读取失败：${error.message}`;
+      reviewEl.textContent = '读取失败';
+      document.body.dataset.homeRouteQualityError = 'true';
+      console.warn('Home route quality failed:', error.message);
+    }
+  }
+
+  async function renderHomeMarketSummaries(version, seq) {
+    try {
+      const manifest = await window.POE2Versions.readJson(`${version.dataRoot}/manifest.json`);
+      const [gemSnapshot, hideoutSnapshot, candidateIndex] = await Promise.all([
+        manifest.market?.gemFlips
+          ? window.POE2Versions.readJson(`${version.dataRoot}/${manifest.market.gemFlips}`)
+          : null,
+        manifest.market?.hideoutFlips
+          ? window.POE2Versions.readJson(`${version.dataRoot}/${manifest.market.hideoutFlips}`)
+          : null,
+        window.POE2Versions.readJson(`${version.dataRoot}/market/candidates/index.json`)
+          .catch(() => ({ schemaVersion: 0, updatedAt: '', candidates: [] }))
+      ]);
+      if (seq !== renderVersionSeq) return;
+
+      const gemCandidates = marketCandidateStats(candidateIndex, 'gemFlips');
+      const hideoutCandidates = marketCandidateStats(candidateIndex, 'hideoutFlips');
+      writeHomeMarketCandidateDataset('homeGem', gemCandidates);
+      writeHomeMarketCandidateDataset('homeHideout', hideoutCandidates);
+
+      if (gemSnapshot) {
+        const entries = (gemSnapshot.entries || []).map((entry) => enrichGemMarket(gemSnapshot, entry));
+        const bestProfit = [...entries].sort((a, b) => b.netProfit - a.netProfit)[0];
+        const bestRoi = [...entries].sort((a, b) => b.roi - a.roi)[0];
+        const decisionTop = [...entries].sort((a, b) => b.score - a.score)[0];
+        const sourceType = gemSnapshot.source?.type || 'unknown';
+        const quality = marketQuality(gemSnapshot);
+        const budget = gemBudgetPlan(decisionTop);
+        budget.action = sourceType === 'sample-manual-seed' ? 'sample-plan-only' : 'review-evidence';
+        renderMarketSummary('homeGemMarketSummary', {
+          sourceLabel: marketSourceLabel(sourceType),
+          updatedAt: formatDateTime(gemSnapshot.updatedAt),
+          entryCount: entries.length,
+          metricLabel: '最高 ROI',
+          metricValue: bestRoi ? `${localizedName(bestRoi.name)} / ${(bestRoi.roi * 100).toFixed(1)}%` : '-',
+          evidenceCoverage: quality.evidenceCoverage,
+          avgConfidence: `${quality.avgConfidence.toFixed(2)}%`,
+          depthStatus: `${quality.minBuyDepth}/${quality.minSellDepth}`,
+          filterStatus: quality.filterStatus,
+          freshnessStatus: quality.freshnessLabel,
+          decisionTop: decisionTop ? `${localizedName(decisionTop.name)} / score ${decisionTop.score.toFixed(2)}` : '-',
+          decisionCapital: decisionTop ? formatMarketCurrency(decisionTop.buyPrice, gemSnapshot.currency) : '-',
+          decisionNetProfit: decisionTop ? formatMarketCurrency(decisionTop.netProfit, gemSnapshot.currency) : '-',
+          decisionAction: marketActionLabel(sourceType),
+          budgetCapital: `${formatMarketCurrency(budget.capital, gemSnapshot.currency)}`,
+          budgetUnits: `${budget.units} 个`,
+          budgetNetProfit: formatMarketCurrency(budget.netProfit, gemSnapshot.currency),
+          budgetAction: budget.action === 'sample-plan-only' ? '样例预算：只验证算法' : '真实快照：复核深度后执行',
+          candidateCount: `${gemCandidates.count} 个`,
+          candidateReady: `${gemCandidates.readyCount}/${gemCandidates.count}`,
+          candidateKind: `${gemCandidates.currentKind} ${gemCandidates.currentKindReadyCount}/${gemCandidates.currentKindCount}`,
+          candidateBoundary: '只做归档预检，不是实时行情',
+          warning: sourceType === 'sample-manual-seed' ? '当前是样例数据，只用于验证界面、筛选和排序流程，不是实时行情。' : ''
+        });
+        document.body.dataset.homeGemMarketSourceType = sourceType;
+        document.body.dataset.homeGemMarketEntryCount = String(entries.length);
+        document.body.dataset.homeGemMarketBestNetProfit = bestProfit ? bestProfit.netProfit.toFixed(2) : '0';
+        document.body.dataset.homeGemMarketBestRoi = bestRoi ? bestRoi.roi.toFixed(4) : '0';
+        document.body.dataset.homeGemMarketDecisionTopId = decisionTop?.id || '';
+        document.body.dataset.homeGemMarketDecisionCapital = decisionTop ? decisionTop.buyPrice.toFixed(2) : '0';
+        document.body.dataset.homeGemMarketDecisionNetProfit = decisionTop ? decisionTop.netProfit.toFixed(2) : '0';
+        document.body.dataset.homeGemMarketDecisionAction = sourceType === 'sample-manual-seed' ? 'sample-hold' : 'review-evidence';
+        document.body.dataset.homeGemMarketBudgetPlanReady = String(budget.ready);
+        document.body.dataset.homeGemMarketBudgetPlanCapital = budget.capital.toFixed(2);
+        document.body.dataset.homeGemMarketBudgetPlanTopId = decisionTop?.id || '';
+        document.body.dataset.homeGemMarketBudgetPlanUnits = String(budget.units);
+        document.body.dataset.homeGemMarketBudgetPlanSpend = budget.spend.toFixed(2);
+        document.body.dataset.homeGemMarketBudgetPlanNetProfit = budget.netProfit.toFixed(2);
+        document.body.dataset.homeGemMarketBudgetPlanAction = budget.action;
+        document.body.dataset.homeGemMarketQualityEvidenceCoverage = quality.evidenceCoverage;
+        document.body.dataset.homeGemMarketQualityAvgConfidence = quality.avgConfidence.toFixed(2);
+        document.body.dataset.homeGemMarketQualityMinBuyDepth = String(quality.minBuyDepth);
+        document.body.dataset.homeGemMarketQualityMinSellDepth = String(quality.minSellDepth);
+        document.body.dataset.homeGemMarketQualityHasFilters = String(quality.hasFilters);
+        document.body.dataset.homeGemMarketQualityMinListingDepth = String(quality.minListingDepth);
+        document.body.dataset.homeGemMarketFreshnessStatus = quality.freshnessStatus;
+      } else {
+        renderMarketError('homeGemMarketSummary', '当前版本未登记技能倒卖市场文件。');
+        document.body.dataset.homeGemMarketSourceType = 'missing';
+        document.body.dataset.homeGemMarketEntryCount = '0';
+        document.body.dataset.homeGemMarketQualityEvidenceCoverage = '0/0';
+        document.body.dataset.homeGemMarketQualityAvgConfidence = '0.00';
+        document.body.dataset.homeGemMarketQualityMinBuyDepth = '0';
+        document.body.dataset.homeGemMarketQualityMinSellDepth = '0';
+        document.body.dataset.homeGemMarketQualityHasFilters = 'false';
+        document.body.dataset.homeGemMarketQualityMinListingDepth = '0';
+        document.body.dataset.homeGemMarketFreshnessStatus = 'missing';
+      }
+
+      if (hideoutSnapshot) {
+        const entries = (hideoutSnapshot.entries || []).map((entry) => enrichHideoutMarket(hideoutSnapshot, entry));
+        const bestProfit = [...entries].sort((a, b) => b.netProfit - a.netProfit)[0];
+        const bestGold = [...entries].sort((a, b) => b.profitPerGoldUnit - a.profitPerGoldUnit)[0];
+        const decisionTop = [...entries].sort((a, b) => b.score - a.score)[0];
+        const sourceType = hideoutSnapshot.source?.type || 'unknown';
+        const quality = marketQuality(hideoutSnapshot);
+        const budget = hideoutBudgetPlan(decisionTop);
+        budget.action = sourceType === 'sample-manual-seed' ? 'sample-plan-only' : 'review-evidence';
+        renderMarketSummary('homeHideoutMarketSummary', {
+          sourceLabel: marketSourceLabel(sourceType),
+          updatedAt: formatDateTime(hideoutSnapshot.updatedAt),
+          entryCount: entries.length,
+          metricLabel: '最高每万金币收益',
+          metricValue: bestGold ? `${localizedName(bestGold.name)} / ${formatMarketCurrency(bestGold.profitPerGoldUnit, hideoutSnapshot.currency)}` : '-',
+          evidenceCoverage: quality.evidenceCoverage,
+          avgConfidence: `${quality.avgConfidence.toFixed(2)}%`,
+          depthStatus: `${quality.minBuyDepth}/${quality.minSellDepth}`,
+          filterStatus: quality.filterStatus,
+          freshnessStatus: quality.freshnessLabel,
+          decisionTop: decisionTop ? `${localizedName(decisionTop.name)} / score ${decisionTop.score.toFixed(2)}` : '-',
+          decisionCapital: decisionTop ? `${decisionTop.goldCost.toLocaleString('zh-CN')} 金币 + ${formatMarketCurrency(decisionTop.cashCost, hideoutSnapshot.currency)}` : '-',
+          decisionNetProfit: decisionTop ? formatMarketCurrency(decisionTop.netProfit, hideoutSnapshot.currency) : '-',
+          decisionAction: marketActionLabel(sourceType),
+          budgetCapital: `${budget.gold.toLocaleString('zh-CN')} 金币 + ${formatMarketCurrency(budget.cash, hideoutSnapshot.currency)}`,
+          budgetUnits: `${budget.units} 次`,
+          budgetNetProfit: formatMarketCurrency(budget.netProfit, hideoutSnapshot.currency),
+          budgetAction: budget.action === 'sample-plan-only' ? '样例预算：只验证算法' : '真实快照：复核限购后执行',
+          candidateCount: `${hideoutCandidates.count} 个`,
+          candidateReady: `${hideoutCandidates.readyCount}/${hideoutCandidates.count}`,
+          candidateKind: `${hideoutCandidates.currentKind} ${hideoutCandidates.currentKindReadyCount}/${hideoutCandidates.currentKindCount}`,
+          candidateBoundary: '只做归档预检，不是实时行情',
+          warning: sourceType === 'sample-manual-seed' ? '当前是样例数据，只用于验证界面、筛选和排序流程，不是实时行情。' : ''
+        });
+        document.body.dataset.homeHideoutMarketSourceType = sourceType;
+        document.body.dataset.homeHideoutMarketEntryCount = String(entries.length);
+        document.body.dataset.homeHideoutMarketBestNetProfit = bestProfit ? bestProfit.netProfit.toFixed(2) : '0';
+        document.body.dataset.homeHideoutMarketBestGoldProfit = bestGold ? bestGold.profitPerGoldUnit.toFixed(2) : '0';
+        document.body.dataset.homeHideoutMarketDecisionTopId = decisionTop?.id || '';
+        document.body.dataset.homeHideoutMarketDecisionGoldCost = decisionTop ? String(decisionTop.goldCost) : '0';
+        document.body.dataset.homeHideoutMarketDecisionCashCost = decisionTop ? decisionTop.cashCost.toFixed(2) : '0';
+        document.body.dataset.homeHideoutMarketDecisionNetProfit = decisionTop ? decisionTop.netProfit.toFixed(2) : '0';
+        document.body.dataset.homeHideoutMarketDecisionAction = sourceType === 'sample-manual-seed' ? 'sample-hold' : 'review-evidence';
+        document.body.dataset.homeHideoutMarketBudgetPlanReady = String(budget.ready);
+        document.body.dataset.homeHideoutMarketBudgetPlanGold = String(budget.gold);
+        document.body.dataset.homeHideoutMarketBudgetPlanCash = budget.cash.toFixed(2);
+        document.body.dataset.homeHideoutMarketBudgetPlanTopId = decisionTop?.id || '';
+        document.body.dataset.homeHideoutMarketBudgetPlanUnits = String(budget.units);
+        document.body.dataset.homeHideoutMarketBudgetPlanGoldSpend = String(budget.goldSpend);
+        document.body.dataset.homeHideoutMarketBudgetPlanCashSpend = budget.cashSpend.toFixed(2);
+        document.body.dataset.homeHideoutMarketBudgetPlanNetProfit = budget.netProfit.toFixed(2);
+        document.body.dataset.homeHideoutMarketBudgetPlanAction = budget.action;
+        document.body.dataset.homeHideoutMarketQualityEvidenceCoverage = quality.evidenceCoverage;
+        document.body.dataset.homeHideoutMarketQualityAvgConfidence = quality.avgConfidence.toFixed(2);
+        document.body.dataset.homeHideoutMarketQualityMinBuyDepth = String(quality.minBuyDepth);
+        document.body.dataset.homeHideoutMarketQualityMinSellDepth = String(quality.minSellDepth);
+        document.body.dataset.homeHideoutMarketQualityHasFilters = String(quality.hasFilters);
+        document.body.dataset.homeHideoutMarketQualityMinListingDepth = String(quality.minListingDepth);
+        document.body.dataset.homeHideoutMarketFreshnessStatus = quality.freshnessStatus;
+      } else {
+        renderMarketError('homeHideoutMarketSummary', '当前版本未登记藏身处市场文件。');
+        document.body.dataset.homeHideoutMarketSourceType = 'missing';
+        document.body.dataset.homeHideoutMarketEntryCount = '0';
+        document.body.dataset.homeHideoutMarketQualityEvidenceCoverage = '0/0';
+        document.body.dataset.homeHideoutMarketQualityAvgConfidence = '0.00';
+        document.body.dataset.homeHideoutMarketQualityMinBuyDepth = '0';
+        document.body.dataset.homeHideoutMarketQualityMinSellDepth = '0';
+        document.body.dataset.homeHideoutMarketQualityHasFilters = 'false';
+        document.body.dataset.homeHideoutMarketQualityMinListingDepth = '0';
+        document.body.dataset.homeHideoutMarketFreshnessStatus = 'missing';
+      }
+    } catch (error) {
+      if (seq !== renderVersionSeq) return;
+      renderMarketError('homeGemMarketSummary', `技能倒卖摘要读取失败：${error.message}`);
+      renderMarketError('homeHideoutMarketSummary', `藏身处摘要读取失败：${error.message}`);
+      document.body.dataset.homeMarketSummaryError = 'true';
+      console.warn('Home market summary failed:', error.message);
+    }
+  }
+
+  function fillVersionSelect(versions) {
+    const select = document.getElementById('versionSelect');
+    const history = window.POE2Versions.history(versions);
+    renderVersion(window.POE2Versions.fillSelect(select, versions));
+    select.addEventListener('change', () => {
+      const selected = history.find((version) => version.id === select.value) || versions.current;
+      window.POE2Versions.saveVersionId(selected.id);
+      renderVersion(selected);
+    });
+  }
+
+  function renderVersion(version) {
+    const seq = ++renderVersionSeq;
+    document.body.dataset.homeReady = 'false';
+    document.getElementById('versionSeason').textContent = version.season;
+    document.getElementById('versionTree').textContent = version.poe2dbPassiveTreeVersion;
+    document.getElementById('versionSvg').textContent = `pobb.in/assets/${version.pobbTreeSvgVersion}.svg`;
+    document.getElementById('versionRoot').textContent = version.dataRoot;
+    document.getElementById('versionBuildCount').textContent = `${version.buildCount || version.builds?.length || 0} 个`;
+    Promise.allSettled([
+      renderLevelingBuilds(version, seq),
+      renderHomeRouteQuality(version, seq),
+      renderHomeMarketSummaries(version, seq),
+      renderHomeSkillCatalogSummary(version, seq),
+      renderHomeNinjaSummary(version, seq)
+    ]).then(() => {
+      if (seq === renderVersionSeq) document.body.dataset.homeReady = 'true';
+    });
+  }
+
+  window.POE2Versions.readJson('data/versions.json')
+    .then(fillVersionSelect)
+    .catch((error) => {
+      document.getElementById('versionSelect').innerHTML = '<option selected>版本读取失败</option>';
+      document.getElementById('versionSeason').textContent = error.message;
+    });
+
+  document.querySelectorAll('[data-tab]').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('[data-tab]').forEach((item) => {
+        item.setAttribute('aria-selected', String(item === tab));
+      });
+      document.querySelectorAll('.tab-panel').forEach((panel) => {
+        panel.hidden = panel.id !== `panel-${target}`;
+      });
+    });
+  });
+</script>
+</body>
+</html>

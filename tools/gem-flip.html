@@ -1,0 +1,1447 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 技能倒卖</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  .nav, .filters {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font:inherit;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .shell {
+    width:min(1280px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:12px;
+  }
+  .meta-grid {
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:10px;
+  }
+  .meta-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:5px;
+    min-width:0;
+  }
+  .meta-card span {
+    color:var(--muted);
+    font-size:12px;
+  }
+  .meta-card strong {
+    font-size:13px;
+    overflow-wrap:anywhere;
+  }
+  .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:14px;
+    display:grid;
+    gap:8px;
+  }
+  .muted, li { color:var(--muted); line-height:1.55; }
+  .warn { color:var(--warn); }
+  .bad { color:var(--bad); }
+  .ok { color:var(--ok); }
+  select, input {
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    color:var(--text);
+    min-height:34px;
+    padding:6px 8px;
+    font:inherit;
+  }
+  input {
+    width:120px;
+  }
+  .budget-controls {
+    display:flex;
+    gap:8px;
+    align-items:end;
+    flex-wrap:wrap;
+  }
+  .budget-controls label {
+    display:grid;
+    gap:4px;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .segmented {
+    display:inline-flex;
+    gap:4px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+  }
+  .segmented button {
+    min-height:30px;
+    border:0;
+    border-radius:6px;
+    padding:5px 10px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font:inherit;
+    font-size:13px;
+  }
+  .segmented button.active {
+    background:#075985;
+    color:var(--text);
+  }
+  .table-wrap {
+    overflow:auto;
+    border:1px solid var(--line);
+    border-radius:8px;
+  }
+  table {
+    min-width:1320px;
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th, td {
+    padding:10px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  th {
+    color:var(--muted);
+    font-weight:650;
+    background:#0b1120;
+  }
+  tr:last-child td { border-bottom:0; }
+  code {
+    color:var(--accent);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .pill {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 8px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:12px;
+  }
+  ul { margin:0; padding-left:20px; display:grid; gap:5px; }
+  @media (max-width: 920px) {
+    .grid { grid-template-columns:1fr; }
+    .meta-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .meta-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="pageHeading">技能倒卖</h1>
+  <nav class="nav">
+    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+    <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
+    <a class="btn" href="market-review.html" data-i18n="marketReview">市场复核</a>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="panel">
+    <div class="nav">
+      <span class="pill" id="snapshotStatus">读取中</span>
+      <h2 data-i18n="subHeading">21 级技能与辅助宝石价差排序</h2>
+    </div>
+    <p class="muted" id="sourceNote" data-i18n="sourceNote">当前页面先验证倒卖排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。</p>
+    <div class="filters">
+      <label><span data-i18n="categoryFilter">类型</span>
+        <select id="categoryFilter">
+          <option value="all" data-i18n-option="all">全部</option>
+          <option value="active" data-i18n-option="activeKind">主动技能</option>
+          <option value="support" data-i18n-option="supportKind">辅助宝石</option>
+        </select>
+      </label>
+      <label><span data-i18n="sortFilter">排序</span>
+        <select id="sortMode">
+          <option value="score" data-i18n-option="scoreSort">综合评分</option>
+          <option value="netProfit" data-i18n-option="netProfit">净利润</option>
+          <option value="roi" data-i18n-option="roi">收益率</option>
+          <option value="safetyMargin" data-i18n-option="safetyMargin">安全边际</option>
+          <option value="liquidity" data-i18n-option="liquidity">流动性</option>
+          <option value="risk" data-i18n-option="lowRisk">低风险</option>
+        </select>
+      </label>
+      <label><span data-i18n="profitFilter">利润</span>
+        <select id="profitFilter">
+          <option value="all" data-i18n-option="all">全部</option>
+          <option value="positive" data-i18n-option="positiveOnly">只看正利润</option>
+        </select>
+      </label>
+      <label><span data-i18n="minLiquidity">最低流动性</span>
+        <select id="liquidityFilter">
+          <option value="0" data-i18n-option="unlimited">不限</option>
+          <option value="50">50+</option>
+          <option value="70">70+</option>
+        </select>
+      </label>
+      <label><span data-i18n="maxRisk">最高风险</span>
+        <select id="riskFilter">
+          <option value="100" data-i18n-option="unlimited">不限</option>
+          <option value="60" data-i18n-option="riskBelow60">60 以下</option>
+          <option value="50" data-i18n-option="riskBelow50">50 以下</option>
+        </select>
+      </label>
+      <label><span data-i18n="evidenceFilter">证据</span>
+        <select id="evidenceFilter">
+          <option value="all" data-i18n-option="all">全部</option>
+          <option value="required" data-i18n-option="evidenceOnly">只看有市场证据</option>
+        </select>
+      </label>
+      <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
+        <button class="active" type="button" data-lang="zhCN">简体</button>
+        <button type="button" data-lang="zhTW">繁体</button>
+        <button type="button" data-lang="en">English</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="meta-grid" id="snapshotMeta" aria-label="市场数据快照" data-i18n-aria="snapshotMeta">
+    <article class="meta-card">
+      <span data-i18n="metaSourceType">数据类型</span>
+      <strong id="metaSourceType">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaUpdatedAt">更新时间</span>
+      <strong id="metaUpdatedAt">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaSourceId">来源标识</span>
+      <strong id="metaSourceId">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaCurrency">计价通货</span>
+      <strong id="metaCurrency">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaFeeRate">估算费用</span>
+      <strong id="metaFeeRate">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaVersion">版本归属</span>
+      <strong id="metaVersion">-</strong>
+    </article>
+  </section>
+
+  <section class="grid" id="marketQuality">
+    <article class="card">
+      <h3 data-i18n="dataQuality">数据质量</h3>
+      <p id="dataQualityStatus">读取中...</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="evidenceCoverage">证据覆盖</h3>
+      <p id="dataQualityEvidence">读取中...</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="filterRules">过滤规则</h3>
+      <p id="dataQualityFilters">读取中...</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="usageAdvice">使用建议</h3>
+      <p id="dataQualityAction">读取中...</p>
+    </article>
+  </section>
+
+  <section class="grid" id="marketCandidateQueue">
+    <article class="card">
+      <h3 data-i18n="candidateQueue">候选快照队列</h3>
+      <p id="candidateQueueStatus">读取中...</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="candidateReady">可归档候选</h3>
+      <p id="candidateReadyStatus">读取中...</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="candidateKind">当前类型候选</h3>
+      <p id="candidateKindStatus">读取中...</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="candidateAdvice">候选使用边界</h3>
+      <p id="candidateAdviceStatus">读取中...</p>
+    </article>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <h3 data-i18n="summaryCount">样本数量</h3>
+      <p id="summaryCount">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="summaryProfit">最高净利润</h3>
+      <p id="summaryProfit">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="summaryRoi">最高收益率</h3>
+      <p id="summaryRoi">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="summaryVersion">数据版本</h3>
+      <p id="summaryVersion">-</p>
+    </article>
+  </section>
+
+  <section class="grid" id="marketDecision">
+    <article class="card">
+      <h3 data-i18n="decisionTop">当前第一名</h3>
+      <p id="decisionTop">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="decisionCapital">本金占用</h3>
+      <p id="decisionCapital">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="decisionRisk">风险来源</h3>
+      <p id="decisionRisk">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="decisionAction">操作结论</h3>
+      <p id="decisionAction">-</p>
+    </article>
+  </section>
+
+  <section class="grid" id="budgetPlan">
+    <article class="card">
+      <h3 data-i18n="budgetPlanTitle">预算执行计划</h3>
+      <p id="budgetPlanTop">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="budgetCapital">默认本金</h3>
+      <div class="budget-controls">
+        <label>
+          <span data-i18n="budgetCapitalInput">模拟本金</span>
+          <input id="budgetCapitalInput" type="number" min="0" step="1" value="100">
+        </label>
+      </div>
+      <p id="budgetPlanCapital">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="budgetExpected">预计结果</h3>
+      <p id="budgetPlanExpected">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="budgetAction">执行边界</h3>
+      <p id="budgetPlanAction">-</p>
+      <button class="btn" id="copyBudgetUrlBtn" type="button" data-i18n="copyBudgetUrl">复制预算链接</button>
+      <p class="muted" id="budgetCopyStatus">-</p>
+    </article>
+  </section>
+
+  <section class="grid" id="marketRankChange">
+    <article class="card">
+      <h3 data-i18n="rankChangeMode">当前口径</h3>
+      <p id="rankChangeMode">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="rankChangeDefault">默认评分第一</h3>
+      <p id="rankChangeDefault">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="rankChangeFilters">筛选影响</h3>
+      <p id="rankChangeFilters">-</p>
+    </article>
+    <article class="card">
+      <h3 data-i18n="rankChangeWhy">变化原因</h3>
+      <p id="rankChangeWhy">-</p>
+    </article>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="rankingResults">排序结果</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="rankCol">排名</th>
+            <th data-i18n="skillCol">技能</th>
+            <th data-i18n="typeCol">类型</th>
+            <th data-i18n="levelQualityCol">等级/品质</th>
+            <th data-i18n="buyCol">买入</th>
+            <th data-i18n="sellCol">卖出</th>
+            <th data-i18n="feeCol">费用</th>
+            <th data-i18n="breakEvenCol">保本卖价</th>
+            <th data-i18n="safetyMarginCol">安全边际</th>
+            <th data-i18n="netProfitCol">净利润</th>
+            <th data-i18n="roiCol">收益率</th>
+            <th data-i18n="liquidityCol">流动性</th>
+            <th data-i18n="riskCol">风险</th>
+            <th data-i18n="marketEvidenceCol">市场证据</th>
+            <th data-i18n="notesCol">备注</th>
+          </tr>
+        </thead>
+        <tbody id="resultRows">
+          <tr><td colspan="15" data-i18n="loading">读取中...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="scoreRulesTitle">评分规则</h2>
+    <ul id="scoreRules">
+      <li>读取中...</li>
+    </ul>
+    <p class="muted" data-i18n="scoreRulesNote">后续接真实数据时，需要同时记录挂单深度、最近成交、买卖价更新时间和异常低价过滤。这里只先把排序和展示做出来。</p>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+let snapshot = null;
+let candidateQueue = null;
+let currentLang = 'zhCN';
+
+const ui = {
+  zhCN: {
+    documentTitle: 'POE2 Tools - 技能倒卖',
+    pageHeading: '技能倒卖',
+    home: '首页',
+    dataUpdate: '数据更新',
+    marketReview: '市场复核',
+    subHeading: '21 级技能与辅助宝石价差排序',
+    sourceNote: '当前页面先验证倒卖排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。',
+    categoryFilter: '类型',
+    sortFilter: '排序',
+    profitFilter: '利润',
+    minLiquidity: '最低流动性',
+    maxRisk: '最高风险',
+    evidenceFilter: '证据',
+    all: '全部',
+    activeKind: '主动技能',
+    supportKind: '辅助宝石',
+    scoreSort: '综合评分',
+    netProfit: '净利润',
+    roi: '收益率',
+    safetyMargin: '安全边际',
+    liquidity: '流动性',
+    lowRisk: '低风险',
+    positiveOnly: '只看正利润',
+    unlimited: '不限',
+    riskBelow60: '60 以下',
+    riskBelow50: '50 以下',
+    evidenceOnly: '只看有市场证据',
+    languageSelect: '语言选择',
+    snapshotMeta: '市场数据快照',
+    metaSourceType: '数据类型',
+    metaUpdatedAt: '更新时间',
+    metaSourceId: '来源标识',
+    metaCurrency: '计价通货',
+    metaFeeRate: '估算费用',
+    metaVersion: '版本归属',
+    dataQuality: '数据质量',
+    evidenceCoverage: '证据覆盖',
+    filterRules: '过滤规则',
+    usageAdvice: '使用建议',
+    candidateQueue: '候选快照队列',
+    candidateReady: '可归档候选',
+    candidateKind: '当前类型候选',
+    candidateAdvice: '候选使用边界',
+    summaryCount: '样本数量',
+    summaryProfit: '最高净利润',
+    summaryRoi: '最高收益率',
+    summaryVersion: '数据版本',
+    decisionTop: '当前第一名',
+    decisionCapital: '本金占用',
+    decisionRisk: '风险来源',
+    decisionAction: '操作结论',
+    rankChangeMode: '当前口径',
+    rankChangeDefault: '默认评分第一',
+    rankChangeFilters: '筛选影响',
+    rankChangeWhy: '变化原因',
+    rankingResults: '排序结果',
+    rankCol: '排名',
+    skillCol: '技能',
+    typeCol: '类型',
+    levelQualityCol: '等级/品质',
+    buyCol: '买入',
+    sellCol: '卖出',
+    feeCol: '费用',
+    breakEvenCol: '保本卖价',
+    safetyMarginCol: '安全边际',
+    netProfitCol: '净利润',
+    roiCol: '收益率',
+    liquidityCol: '流动性',
+    riskCol: '风险',
+    marketEvidenceCol: '市场证据',
+    notesCol: '备注',
+    loading: '读取中...',
+    noResults: '当前过滤条件下没有结果。',
+    scoreRulesTitle: '评分规则',
+    scoreRulesNote: '后续接真实数据时，需要同时记录挂单深度、最近成交、买卖价更新时间和异常低价过滤。这里只先把排序和展示做出来。',
+    sampleSourceSuffix: '当前为样例数据，只用于验证界面、筛选和排序流程。',
+    itemCountSuffix: '条',
+    sampleNoEvidence: '样例无证据',
+    missingEvidence: '缺少证据',
+    observed: '观察',
+    listings: '买/卖挂单',
+    confidence: '可信度',
+    scoreNetProfit: '净利润权重',
+    scoreRoi: '收益率权重',
+    scoreLiquidity: '流动性权重',
+    scoreRisk: '风险权重',
+    scoreFee: '费用按卖出价的',
+    scoreFeeSuffix: '估算',
+    scoreBreakEven: '保本卖价公式：',
+    scoreBreakEvenFormula: '买入价 / (1 - 手续费率)',
+    scoreSafety: '安全边际公式：',
+    scoreSafetyFormula: '卖出价 - 保本卖价',
+    decisionNoResult: '当前过滤条件下没有可分析条目。',
+    decisionTopReason: '排第一因为当前排序评分最高',
+    decisionCapitalText: '买入成本',
+    decisionExpectedNet: '预估净利润',
+    decisionRiskText: '风险',
+    decisionLiquidityText: '流动性',
+    decisionSampleAction: '样例数据不能直接交易；接入 real-snapshot-v1 后再按证据和新鲜度执行。',
+    decisionRealAction: '真实快照下仍需检查挂单深度、最近成交和异常低价。',
+    budgetPlanTitle: '预算执行计划',
+    budgetCapital: '默认本金',
+    budgetCapitalInput: '模拟本金',
+    budgetExpected: '预计结果',
+    budgetAction: '执行边界',
+    budgetNoResult: '当前过滤条件下没有可规划条目。',
+    budgetCapitalText: '计划本金',
+    budgetUnitCount: '可买数量',
+    budgetSpend: '预计占用',
+    budgetRemain: '剩余',
+    budgetNet: '预计净利润',
+    budgetRoi: '批次收益率',
+    budgetSampleAction: '样例数据只展示计划算法；真实执行前必须接入行情证据。',
+    budgetRealAction: '真实快照下按买卖挂单深度限制数量，并复核时间与异常低价。',
+    copyBudgetUrl: '复制预算链接',
+    budgetCopied: '已复制当前预算链接。',
+    budgetCopyFailed: '复制失败，请直接复制地址栏链接。',
+    candidateNoRows: '当前没有候选快照。',
+    candidateBoundary: '候选只表示已标准化并等待归档，不能当作当前行情展示或交易建议。',
+    loadFailed: '读取失败'
+  },
+  zhTW: {
+    documentTitle: 'POE2 Tools - 技能倒賣',
+    pageHeading: '技能倒賣',
+    home: '首頁',
+    dataUpdate: '資料更新',
+    marketReview: '市場複核',
+    subHeading: '21 級技能與輔助寶石價差排序',
+    sourceNote: '目前頁面先驗證倒賣排序流程；真實使用前必須接入市場快照，不能把樣例價當成目前行情。',
+    categoryFilter: '類型',
+    sortFilter: '排序',
+    profitFilter: '利潤',
+    minLiquidity: '最低流動性',
+    maxRisk: '最高風險',
+    evidenceFilter: '證據',
+    all: '全部',
+    activeKind: '主動技能',
+    supportKind: '輔助寶石',
+    scoreSort: '綜合評分',
+    netProfit: '淨利潤',
+    roi: '收益率',
+    safetyMargin: '安全邊際',
+    liquidity: '流動性',
+    lowRisk: '低風險',
+    positiveOnly: '只看正利潤',
+    unlimited: '不限',
+    riskBelow60: '60 以下',
+    riskBelow50: '50 以下',
+    evidenceOnly: '只看有市場證據',
+    languageSelect: '語言選擇',
+    snapshotMeta: '市場資料快照',
+    metaSourceType: '資料類型',
+    metaUpdatedAt: '更新時間',
+    metaSourceId: '來源標識',
+    metaCurrency: '計價通貨',
+    metaFeeRate: '估算費用',
+    metaVersion: '版本歸屬',
+    dataQuality: '資料品質',
+    evidenceCoverage: '證據覆蓋',
+    filterRules: '過濾規則',
+    usageAdvice: '使用建議',
+    candidateQueue: '候選快照隊列',
+    candidateReady: '可歸檔候選',
+    candidateKind: '目前類型候選',
+    candidateAdvice: '候選使用邊界',
+    summaryCount: '樣本數量',
+    summaryProfit: '最高淨利潤',
+    summaryRoi: '最高收益率',
+    summaryVersion: '資料版本',
+    decisionTop: '目前第一名',
+    decisionCapital: '本金占用',
+    decisionRisk: '風險來源',
+    decisionAction: '操作結論',
+    rankChangeMode: '目前口徑',
+    rankChangeDefault: '預設評分第一',
+    rankChangeFilters: '篩選影響',
+    rankChangeWhy: '變化原因',
+    rankingResults: '排序結果',
+    rankCol: '排名',
+    skillCol: '技能',
+    typeCol: '類型',
+    levelQualityCol: '等級/品質',
+    buyCol: '買入',
+    sellCol: '賣出',
+    feeCol: '費用',
+    breakEvenCol: '保本賣價',
+    safetyMarginCol: '安全邊際',
+    netProfitCol: '淨利潤',
+    roiCol: '收益率',
+    liquidityCol: '流動性',
+    riskCol: '風險',
+    marketEvidenceCol: '市場證據',
+    notesCol: '備註',
+    loading: '讀取中...',
+    noResults: '目前過濾條件下沒有結果。',
+    scoreRulesTitle: '評分規則',
+    scoreRulesNote: '後續接真實資料時，需要同時記錄掛單深度、最近成交、買賣價更新時間和異常低價過濾。這裡先把排序和展示做出來。',
+    sampleSourceSuffix: '目前為樣例資料，只用於驗證介面、篩選和排序流程。',
+    itemCountSuffix: '條',
+    sampleNoEvidence: '樣例無證據',
+    missingEvidence: '缺少證據',
+    observed: '觀察',
+    listings: '買/賣掛單',
+    confidence: '可信度',
+    scoreNetProfit: '淨利潤權重',
+    scoreRoi: '收益率權重',
+    scoreLiquidity: '流動性權重',
+    scoreRisk: '風險權重',
+    scoreFee: '費用按賣出價的',
+    scoreFeeSuffix: '估算',
+    scoreBreakEven: '保本賣價公式：',
+    scoreBreakEvenFormula: '買入價 / (1 - 手續費率)',
+    scoreSafety: '安全邊際公式：',
+    scoreSafetyFormula: '賣出價 - 保本賣價',
+    decisionNoResult: '目前過濾條件下沒有可分析條目。',
+    decisionTopReason: '排第一因為目前排序評分最高',
+    decisionCapitalText: '買入成本',
+    decisionExpectedNet: '預估淨利潤',
+    decisionRiskText: '風險',
+    decisionLiquidityText: '流動性',
+    decisionSampleAction: '樣例資料不能直接交易；接入 real-snapshot-v1 後再按證據和新鮮度執行。',
+    decisionRealAction: '真實快照下仍需檢查掛單深度、最近成交和異常低價。',
+    budgetPlanTitle: '預算執行計畫',
+    budgetCapital: '預設本金',
+    budgetCapitalInput: '模擬本金',
+    budgetExpected: '預計結果',
+    budgetAction: '執行邊界',
+    budgetNoResult: '目前過濾條件下沒有可規劃條目。',
+    budgetCapitalText: '計畫本金',
+    budgetUnitCount: '可買數量',
+    budgetSpend: '預計占用',
+    budgetRemain: '剩餘',
+    budgetNet: '預計淨利潤',
+    budgetRoi: '批次收益率',
+    budgetSampleAction: '樣例資料只展示計畫算法；真實執行前必須接入行情證據。',
+    budgetRealAction: '真實快照下按買賣掛單深度限制數量，並複核時間與異常低價。',
+    copyBudgetUrl: '複製預算連結',
+    budgetCopied: '已複製目前預算連結。',
+    budgetCopyFailed: '複製失敗，請直接複製網址列連結。',
+    candidateNoRows: '目前沒有候選快照。',
+    candidateBoundary: '候選只表示已標準化並等待歸檔，不能當作目前行情展示或交易建議。',
+    loadFailed: '讀取失敗'
+  },
+  en: {
+    documentTitle: 'POE2 Tools - Skill Flipping',
+    pageHeading: 'Skill Flipping',
+    home: 'Home',
+    dataUpdate: 'Data Update',
+    marketReview: 'Market Review',
+    subHeading: 'Level 21 Skill and Support Gem Spread Ranking',
+    sourceNote: 'This page validates the flipping flow first. Connect a market snapshot before using any sample price as market advice.',
+    categoryFilter: 'Type',
+    sortFilter: 'Sort',
+    profitFilter: 'Profit',
+    minLiquidity: 'Min Liquidity',
+    maxRisk: 'Max Risk',
+    evidenceFilter: 'Evidence',
+    all: 'All',
+    activeKind: 'Active Skill',
+    supportKind: 'Support Gem',
+    scoreSort: 'Score',
+    netProfit: 'Net Profit',
+    roi: 'ROI',
+    safetyMargin: 'Safety Margin',
+    liquidity: 'Liquidity',
+    lowRisk: 'Low Risk',
+    positiveOnly: 'Positive Only',
+    unlimited: 'Any',
+    riskBelow60: 'Below 60',
+    riskBelow50: 'Below 50',
+    evidenceOnly: 'With Market Evidence',
+    languageSelect: 'Language selector',
+    snapshotMeta: 'Market snapshot metadata',
+    metaSourceType: 'Data Type',
+    metaUpdatedAt: 'Updated At',
+    metaSourceId: 'Source ID',
+    metaCurrency: 'Currency',
+    metaFeeRate: 'Estimated Fee',
+    metaVersion: 'Version',
+    dataQuality: 'Data Quality',
+    evidenceCoverage: 'Evidence Coverage',
+    filterRules: 'Filters',
+    usageAdvice: 'Usage Advice',
+    candidateQueue: 'Candidate Snapshot Queue',
+    candidateReady: 'Archive-ready Candidates',
+    candidateKind: 'Current Type Candidates',
+    candidateAdvice: 'Candidate Boundary',
+    summaryCount: 'Sample Count',
+    summaryProfit: 'Best Net Profit',
+    summaryRoi: 'Best ROI',
+    summaryVersion: 'Data Version',
+    decisionTop: 'Current Top Pick',
+    decisionCapital: 'Capital Required',
+    decisionRisk: 'Risk Source',
+    decisionAction: 'Action',
+    rankChangeMode: 'Current Basis',
+    rankChangeDefault: 'Default Score Top',
+    rankChangeFilters: 'Filter Impact',
+    rankChangeWhy: 'Why It Changed',
+    rankingResults: 'Ranking Results',
+    rankCol: 'Rank',
+    skillCol: 'Skill',
+    typeCol: 'Type',
+    levelQualityCol: 'Level/Quality',
+    buyCol: 'Buy',
+    sellCol: 'Sell',
+    feeCol: 'Fee',
+    breakEvenCol: 'Break-even Sell',
+    safetyMarginCol: 'Safety Margin',
+    netProfitCol: 'Net Profit',
+    roiCol: 'ROI',
+    liquidityCol: 'Liquidity',
+    riskCol: 'Risk',
+    marketEvidenceCol: 'Market Evidence',
+    notesCol: 'Notes',
+    loading: 'Loading...',
+    noResults: 'No results under the current filters.',
+    scoreRulesTitle: 'Scoring Rules',
+    scoreRulesNote: 'When real data is connected, record listing depth, recent sales, buy/sell update time, and abnormal low-price filtering. This page currently proves ranking and display behavior.',
+    sampleSourceSuffix: 'This is sample data for validating UI, filters, and ranking only.',
+    itemCountSuffix: 'entries',
+    sampleNoEvidence: 'No evidence in sample',
+    missingEvidence: 'Missing evidence',
+    observed: 'Observed',
+    listings: 'Buy/Sell listings',
+    confidence: 'Confidence',
+    scoreNetProfit: 'Net profit weight',
+    scoreRoi: 'ROI weight',
+    scoreLiquidity: 'Liquidity weight',
+    scoreRisk: 'Risk weight',
+    scoreFee: 'Fee is estimated from',
+    scoreFeeSuffix: 'of sell price',
+    scoreBreakEven: 'Break-even formula: ',
+    scoreBreakEvenFormula: 'buy price / (1 - fee rate)',
+    scoreSafety: 'Safety margin formula: ',
+    scoreSafetyFormula: 'sell price - break-even sell price',
+    decisionNoResult: 'No analyzable entry under the current filters.',
+    decisionTopReason: 'Ranks first because it has the highest current sort score',
+    decisionCapitalText: 'Buy cost',
+    decisionExpectedNet: 'Estimated net profit',
+    decisionRiskText: 'Risk',
+    decisionLiquidityText: 'Liquidity',
+    decisionSampleAction: 'Sample data is not tradable advice. Use this after connecting real-snapshot-v1 evidence and freshness.',
+    decisionRealAction: 'Even with a real snapshot, check listing depth, recent sales, and abnormal low prices.',
+    budgetPlanTitle: 'Budget Execution Plan',
+    budgetCapital: 'Default Capital',
+    budgetCapitalInput: 'Simulated capital',
+    budgetExpected: 'Expected Result',
+    budgetAction: 'Execution Boundary',
+    budgetNoResult: 'No plannable entry under the current filters.',
+    budgetCapitalText: 'Planned capital',
+    budgetUnitCount: 'Units',
+    budgetSpend: 'Expected spend',
+    budgetRemain: 'Remaining',
+    budgetNet: 'Expected net profit',
+    budgetRoi: 'Batch ROI',
+    budgetSampleAction: 'Sample data only demonstrates the planning algorithm. Connect market evidence before trading.',
+    budgetRealAction: 'With a real snapshot, cap units by listing depth and review freshness plus abnormal prices.',
+    copyBudgetUrl: 'Copy Budget Link',
+    budgetCopied: 'Current budget link copied.',
+    budgetCopyFailed: 'Copy failed. Copy the address bar link directly.',
+    candidateNoRows: 'No candidate snapshots are queued.',
+    candidateBoundary: 'Candidates only mean normalized data awaiting archive review; they are not current market display data or trade advice.',
+    loadFailed: 'Load failed'
+  }
+};
+
+function t(key) {
+  return ui[currentLang]?.[key] || ui.zhCN[key] || key;
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.title = t('documentTitle');
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    node.textContent = t(node.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-option]').forEach((node) => {
+    node.textContent = t(node.dataset.i18nOption);
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach((node) => {
+    node.setAttribute('aria-label', t(node.dataset.i18nAria));
+  });
+  document.body.dataset.marketLang = currentLang;
+  document.body.dataset.marketUiLocalized = 'true';
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+}
+
+function localized(value) {
+  if (!value || typeof value !== 'object') return value ?? '';
+  return value[currentLang] || value.zhCN || value.en || '';
+}
+
+function formatCurrency(value) {
+  return `${Number(value).toFixed(1)} ex`;
+}
+
+function snapshotTypeLabel(type) {
+  const isSample = type === 'sample-manual-seed';
+  if (currentLang === 'en') return isSample ? 'Sample data' : 'Market snapshot';
+  if (currentLang === 'zhTW') return isSample ? '樣例資料' : '市場快照';
+  return isSample ? '样例数据' : '市场快照';
+}
+
+function formatDateTime(value) {
+  if (!value) return '-';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  const locale = currentLang === 'en' ? 'en-US' : currentLang === 'zhTW' ? 'zh-TW' : 'zh-CN';
+  return date.toLocaleString(locale, { hour12:false });
+}
+
+function marketEvidenceStats(entries) {
+  const evidenceEntries = (entries || []).filter((entry) => entry.marketEvidence);
+  if (!evidenceEntries.length) {
+    return { count: 0, missing: entries?.length || 0, avgConfidence: 0, minBuyDepth: 0, minSellDepth: 0 };
+  }
+  const confidences = evidenceEntries.map((entry) => Number(entry.marketEvidence.priceConfidence)).filter(Number.isFinite);
+  const buyDepths = evidenceEntries.map((entry) => Number(entry.marketEvidence.buyListingCount)).filter(Number.isFinite);
+  const sellDepths = evidenceEntries.map((entry) => Number(entry.marketEvidence.sellListingCount)).filter(Number.isFinite);
+  return {
+    count: evidenceEntries.length,
+    missing: Math.max(0, (entries?.length || 0) - evidenceEntries.length),
+    avgConfidence: confidences.length ? confidences.reduce((sum, value) => sum + value, 0) / confidences.length : 0,
+    minBuyDepth: buyDepths.length ? Math.min(...buyDepths) : 0,
+    minSellDepth: sellDepths.length ? Math.min(...sellDepths) : 0
+  };
+}
+
+function updateRuntimeDataset(entries) {
+  const stats = marketEvidenceStats(entries || []);
+  document.body.dataset.marketSourceType = snapshot?.source?.type || '';
+  document.body.dataset.marketUpdatedAt = snapshot?.updatedAt || '';
+  document.body.dataset.marketVersion = snapshot?.versionId || '';
+  document.body.dataset.marketCurrency = snapshot?.currency || '';
+  document.body.dataset.marketEntryCount = String(entries?.length ?? snapshot?.entries?.length ?? 0);
+  document.body.dataset.marketEvidenceAvailable = String(stats.count > 0);
+  document.body.dataset.marketEvidenceEntryCount = String(stats.count);
+  document.body.dataset.marketEvidenceMissingCount = String(stats.missing);
+  document.body.dataset.marketEvidenceAvgConfidence = stats.avgConfidence.toFixed(2);
+  document.body.dataset.marketEvidenceMinBuyDepth = String(stats.minBuyDepth);
+  document.body.dataset.marketEvidenceMinSellDepth = String(stats.minSellDepth);
+}
+
+function updateCandidateDataset() {
+  const candidates = Array.isArray(candidateQueue?.candidates) ? candidateQueue.candidates : [];
+  const ready = candidates.filter((row) => row.validationStatus === 'ok');
+  const currentKind = candidates.filter((row) => row.kind === 'gemFlips');
+  const currentReady = currentKind.filter((row) => row.validationStatus === 'ok');
+  document.body.dataset.marketCandidateIndexSchema = String(candidateQueue?.schemaVersion || 0);
+  document.body.dataset.marketCandidateCount = String(candidates.length);
+  document.body.dataset.marketCandidateReadyCount = String(ready.length);
+  document.body.dataset.marketCandidateCurrentKind = 'gemFlips';
+  document.body.dataset.marketCandidateCurrentKindCount = String(currentKind.length);
+  document.body.dataset.marketCandidateCurrentKindReadyCount = String(currentReady.length);
+  document.body.dataset.marketCandidateStatuses = [...new Set(candidates.map((row) => row.validationStatus || 'unknown'))].join(',');
+}
+
+function renderCandidateQueue() {
+  const candidates = Array.isArray(candidateQueue?.candidates) ? candidateQueue.candidates : [];
+  const ready = candidates.filter((row) => row.validationStatus === 'ok');
+  const currentKind = candidates.filter((row) => row.kind === 'gemFlips');
+  const currentReady = currentKind.filter((row) => row.validationStatus === 'ok');
+  const updatedAt = candidateQueue?.updatedAt ? formatDateTime(candidateQueue.updatedAt) : '-';
+  document.getElementById('candidateQueueStatus').textContent = candidates.length
+    ? `${candidates.length} / updated ${updatedAt}`
+    : t('candidateNoRows');
+  document.getElementById('candidateReadyStatus').textContent = `${ready.length}/${candidates.length}`;
+  document.getElementById('candidateKindStatus').textContent = `${currentReady.length}/${currentKind.length} gemFlips`;
+  document.getElementById('candidateAdviceStatus').textContent = t('candidateBoundary');
+  updateCandidateDataset();
+}
+
+function readMarketFilters() {
+  return {
+    profitOnly: document.getElementById('profitFilter').value === 'positive',
+    minLiquidity: Number(document.getElementById('liquidityFilter').value),
+    maxRisk: Number(document.getElementById('riskFilter').value),
+    evidenceOnly: document.getElementById('evidenceFilter').value === 'required'
+  };
+}
+
+function passesMarketFilters(entry, filters) {
+  if (filters.profitOnly && entry.netProfit <= 0) return false;
+  if (entry.liquidity < filters.minLiquidity) return false;
+  if (entry.risk > filters.maxRisk) return false;
+  if (filters.evidenceOnly && !entry.marketEvidence) return false;
+  return true;
+}
+
+function updateFilterDataset(totalCount, visibleCount, filters) {
+  document.body.dataset.marketVisibleEntryCount = String(visibleCount);
+  document.body.dataset.marketFilteredOutCount = String(Math.max(0, totalCount - visibleCount));
+  document.body.dataset.marketProfitOnly = String(filters.profitOnly);
+  document.body.dataset.marketMinLiquidity = String(filters.minLiquidity);
+  document.body.dataset.marketMaxRisk = String(filters.maxRisk);
+  document.body.dataset.marketEvidenceOnly = String(filters.evidenceOnly);
+}
+
+function qualityText(kind, values = {}) {
+  const sourceType = snapshot?.source?.type || 'unknown';
+  const isSample = sourceType === 'sample-manual-seed';
+  const hasFilters = Boolean(snapshot?.source?.filters);
+  if (kind === 'status') {
+    if (currentLang === 'en') return isSample ? 'Sample data only; not current market advice.' : 'Real snapshot, use with evidence and freshness checks.';
+    if (currentLang === 'zhTW') return isSample ? '僅為樣例資料，不是當前行情建議。' : '真實快照，需結合證據和新鮮度判斷。';
+    return isSample ? '仅为样例数据，不是当前行情建议。' : '真实快照，需结合证据和新鲜度判断。';
+  }
+  if (kind === 'evidence') {
+    const strength = values.evidence
+      ? ` / confidence ${values.avgConfidence.toFixed(0)}% / depth ${values.minBuyDepth}/${values.minSellDepth}`
+      : '';
+    if (currentLang === 'en') return `${values.evidence}/${values.total} entries have market evidence${strength}.`;
+    if (currentLang === 'zhTW') return `${values.evidence}/${values.total} 條有市場證據${values.evidence ? ` / 可信度 ${values.avgConfidence.toFixed(0)}% / 深度 ${values.minBuyDepth}/${values.minSellDepth}` : ''}。`;
+    return `${values.evidence}/${values.total} 条有市场证据${values.evidence ? ` / 可信度 ${values.avgConfidence.toFixed(0)}% / 深度 ${values.minBuyDepth}/${values.minSellDepth}` : ''}。`;
+  }
+  if (kind === 'filters') {
+    if (!hasFilters) {
+      if (currentLang === 'en') return 'No listing-depth or abnormal-price filters on sample data.';
+      if (currentLang === 'zhTW') return '樣例資料沒有掛單深度或異常價格過濾。';
+      return '样例数据没有挂单深度或异常价格过滤。';
+    }
+    const depth = snapshot.source.filters.minListingDepth;
+    const rules = snapshot.source.filters.abnormalPriceRules?.length || 0;
+    if (currentLang === 'en') return `Min listing depth ${depth}; abnormal price rules ${rules}.`;
+    if (currentLang === 'zhTW') return `最低掛單深度 ${depth}；異常價格規則 ${rules} 條。`;
+    return `最低挂单深度 ${depth}；异常价格规则 ${rules} 条。`;
+  }
+  if (currentLang === 'en') return isSample ? 'Connect a real-snapshot-v1 file before using rankings for trades.' : 'Check old timestamps, low confidence, and shallow listings before trading.';
+  if (currentLang === 'zhTW') return isSample ? '接入 real-snapshot-v1 檔案後，才能用排序做交易判斷。' : '交易前檢查時間過舊、可信度偏低和掛單深度不足。';
+  return isSample ? '接入 real-snapshot-v1 文件后，才能用排序做交易判断。' : '交易前检查时间过旧、可信度偏低和挂单深度不足。';
+}
+
+function freshnessInfo() {
+  const sourceType = snapshot?.source?.type || 'unknown';
+  if (sourceType !== 'real-snapshot-v1') {
+    return { status: 'sample-not-live', ageHours: null };
+  }
+  const fetchedAt = snapshot?.source?.fetchedAt || snapshot?.updatedAt;
+  const time = new Date(fetchedAt).getTime();
+  if (Number.isNaN(time)) return { status: 'unknown', ageHours: null };
+  const ageHours = Math.max(0, (Date.now() - time) / 3600000);
+  return { status: ageHours <= 6 ? 'fresh' : 'stale', ageHours };
+}
+
+function freshnessText(info) {
+  if (info.status === 'sample-not-live') {
+    if (currentLang === 'en') return 'Sample data is not freshness-checked.';
+    if (currentLang === 'zhTW') return '樣例資料不參與新鮮度判斷。';
+    return '样例数据不参与新鲜度判断。';
+  }
+  if (info.status === 'unknown') {
+    if (currentLang === 'en') return 'Freshness unknown.';
+    if (currentLang === 'zhTW') return '新鮮度未知。';
+    return '新鲜度未知。';
+  }
+  const hours = info.ageHours.toFixed(1);
+  if (currentLang === 'en') return info.status === 'fresh' ? `Fresh, fetched ${hours}h ago.` : `Stale, fetched ${hours}h ago.`;
+  if (currentLang === 'zhTW') return info.status === 'fresh' ? `新鮮，${hours} 小時前抓取。` : `過期，${hours} 小時前抓取。`;
+  return info.status === 'fresh' ? `新鲜，${hours} 小时前抓取。` : `过期，${hours} 小时前抓取。`;
+}
+
+function renderDataQuality() {
+  const allEntries = snapshot?.entries || [];
+  const evidenceStats = marketEvidenceStats(allEntries);
+  const sourceType = snapshot?.source?.type || 'unknown';
+  const filters = snapshot?.source?.filters || null;
+  const freshness = freshnessInfo();
+  document.getElementById('dataQualityStatus').textContent = qualityText('status');
+  document.getElementById('dataQualityEvidence').textContent = qualityText('evidence', { ...evidenceStats, evidence: evidenceStats.count, total: allEntries.length });
+  document.getElementById('dataQualityFilters').textContent = qualityText('filters');
+  document.getElementById('dataQualityAction').textContent = `${freshnessText(freshness)} ${qualityText('action')}`;
+  document.body.dataset.marketQualityStatus = sourceType;
+  document.body.dataset.marketQualityEvidenceCoverage = `${evidenceStats.count}/${allEntries.length}`;
+  document.body.dataset.marketQualityHasFilters = String(Boolean(filters));
+  document.body.dataset.marketQualityMinListingDepth = String(filters?.minListingDepth || 0);
+  document.body.dataset.marketQualityAvgConfidence = evidenceStats.avgConfidence.toFixed(2);
+  document.body.dataset.marketQualityMinBuyDepth = String(evidenceStats.minBuyDepth);
+  document.body.dataset.marketQualityMinSellDepth = String(evidenceStats.minSellDepth);
+  document.body.dataset.marketFreshnessStatus = freshness.status;
+  document.body.dataset.marketFreshnessAgeHours = freshness.ageHours === null ? '' : freshness.ageHours.toFixed(2);
+}
+
+function renderSnapshotMeta(entries) {
+  const sourceType = snapshot?.source?.type || 'unknown';
+  document.getElementById('snapshotStatus').textContent = snapshotTypeLabel(sourceType);
+  document.getElementById('sourceNote').textContent =
+    sourceType === 'sample-manual-seed'
+      ? t('sampleSourceSuffix')
+      : (snapshot.source.note || t('sourceNote'));
+  document.getElementById('metaSourceType').textContent = snapshotTypeLabel(sourceType);
+  document.getElementById('metaUpdatedAt').textContent = formatDateTime(snapshot.updatedAt);
+  document.getElementById('metaSourceId').textContent = sourceType;
+  document.getElementById('metaCurrency').textContent = snapshot.currency || '-';
+  document.getElementById('metaFeeRate').textContent = `${((snapshot.feeRate || 0) * 100).toFixed(1)}%`;
+  document.getElementById('metaVersion').textContent = snapshot.versionId || '-';
+  updateRuntimeDataset(entries);
+  renderDataQuality();
+}
+
+function enrich(entry) {
+  const feeRate = snapshot?.feeRate ?? 0;
+  const fee = entry.sellPrice * feeRate;
+  const netProfit = entry.sellPrice - entry.buyPrice - fee;
+  const roi = entry.buyPrice > 0 ? netProfit / entry.buyPrice : 0;
+  const breakEvenSellPrice = feeRate < 1 ? entry.buyPrice / (1 - feeRate) : Infinity;
+  const safetyMargin = entry.sellPrice - breakEvenSellPrice;
+  const weights = snapshot?.scoreWeights || {};
+  const score =
+    (netProfit * (weights.netProfit ?? 0.5)) +
+    (roi * 100 * (weights.roi ?? 0.25)) +
+    (entry.liquidity * (weights.liquidity ?? 0.2)) +
+    (entry.risk * (weights.risk ?? -0.2));
+  return { ...entry, fee, netProfit, roi, breakEvenSellPrice, safetyMargin, score };
+}
+
+function sortEntries(entries, mode) {
+  const sorted = [...entries];
+  sorted.sort((a, b) => {
+    if (mode === 'risk') return a.risk - b.risk;
+    return b[mode] - a[mode];
+  });
+  return sorted;
+}
+
+function categoryLabel(category) {
+  if (currentLang === 'en') return category === 'support' ? 'Support Gem' : 'Active Skill';
+  if (currentLang === 'zhTW') return category === 'support' ? '輔助寶石' : '主動技能';
+  return category === 'support' ? '辅助宝石' : '主动技能';
+}
+
+function marketEvidenceLabel(entry) {
+  const evidence = entry.marketEvidence;
+  if (!evidence) {
+    return snapshot?.source?.type === 'sample-manual-seed'
+      ? t('sampleNoEvidence')
+      : t('missingEvidence');
+  }
+  return [
+    `${t('observed')}：${formatDateTime(evidence.observedAt)}`,
+    `${t('listings')}：${evidence.buyListingCount}/${evidence.sellListingCount}`,
+    `${t('confidence')}：${Number(evidence.priceConfidence).toFixed(0)}%`,
+    evidence.depthNote
+  ].filter(Boolean).join(' / ');
+}
+
+function sortModeLabel(mode) {
+  const labels = {
+    score: t('scoreSort'),
+    netProfit: t('netProfit'),
+    roi: t('roi'),
+    safetyMargin: t('safetyMargin'),
+    liquidity: t('liquidity'),
+    risk: t('lowRisk')
+  };
+  return labels[mode] || mode;
+}
+
+function categoryFilterLabel(category) {
+  if (category === 'all') return t('all');
+  return categoryLabel(category);
+}
+
+function activeFilterLabels(category, filters) {
+  const labels = [];
+  if (category !== 'all') labels.push(`${t('categoryFilter')}=${categoryFilterLabel(category)}`);
+  if (filters.profitOnly) labels.push(t('positiveOnly'));
+  if (filters.minLiquidity > 0) labels.push(`${t('minLiquidity')}>=${filters.minLiquidity}`);
+  if (filters.maxRisk < 100) labels.push(`${t('maxRisk')}<=${filters.maxRisk}`);
+  if (filters.evidenceOnly) labels.push(t('evidenceOnly'));
+  if (labels.length) return labels.join(' / ');
+  if (currentLang === 'en') return 'No active filters';
+  if (currentLang === 'zhTW') return '未啟用篩選';
+  return '未启用筛选';
+}
+
+function renderRankChange(allEntries, visibleEntries, sorted, mode, category, filters) {
+  const defaultTop = sortEntries(allEntries, 'score')[0] || null;
+  const currentTop = sorted[0] || null;
+  const filteredOut = Math.max(0, allEntries.length - visibleEntries.length);
+  const defaultTopVisible = Boolean(defaultTop && visibleEntries.some((entry) => entry.id === defaultTop.id));
+  const changed = Boolean(defaultTop && currentTop && defaultTop.id !== currentTop.id);
+  const reasons = [];
+  if (!currentTop) {
+    reasons.push(t('decisionNoResult'));
+  } else {
+    if (mode !== 'score') {
+      if (currentLang === 'en') reasons.push(`Sort mode changed from Score to ${sortModeLabel(mode)}.`);
+      else if (currentLang === 'zhTW') reasons.push(`排序由綜合評分改為${sortModeLabel(mode)}。`);
+      else reasons.push(`排序由综合评分改为${sortModeLabel(mode)}。`);
+    }
+    if (defaultTop && !defaultTopVisible) {
+      if (currentLang === 'en') reasons.push(`${localized(defaultTop.name)} is removed by current filters.`);
+      else if (currentLang === 'zhTW') reasons.push(`${localized(defaultTop.name)} 被目前篩選條件排除。`);
+      else reasons.push(`${localized(defaultTop.name)} 被当前筛选条件排除。`);
+    }
+    if (!changed && reasons.length === 0) {
+      if (currentLang === 'en') reasons.push('Current filters keep the same top pick as the default score ranking.');
+      else if (currentLang === 'zhTW') reasons.push('目前篩選仍保留預設綜合評分第一名。');
+      else reasons.push('当前筛选仍保留默认综合评分第一名。');
+    }
+    if (changed && reasons.length === 0) {
+      if (currentLang === 'en') reasons.push(`${localized(currentTop.name)} outranks the default top under the current basis.`);
+      else if (currentLang === 'zhTW') reasons.push(`${localized(currentTop.name)} 在目前口徑下超過預設第一名。`);
+      else reasons.push(`${localized(currentTop.name)} 在当前口径下超过默认第一名。`);
+    }
+  }
+
+  document.getElementById('rankChangeMode').textContent = currentTop
+    ? `${sortModeLabel(mode)} / ${localized(currentTop.name)}`
+    : `${sortModeLabel(mode)} / -`;
+  document.getElementById('rankChangeDefault').textContent = defaultTop
+    ? `${localized(defaultTop.name)} / score ${defaultTop.score.toFixed(2)}`
+    : '-';
+  document.getElementById('rankChangeFilters').textContent =
+    `${activeFilterLabels(category, filters)} / ${visibleEntries.length}/${allEntries.length} ${t('itemCountSuffix')}`;
+  document.getElementById('rankChangeWhy').textContent = reasons.join(' ');
+
+  document.body.dataset.marketRankChangeMode = mode;
+  document.body.dataset.marketRankChangeDefaultTopId = defaultTop?.id || '';
+  document.body.dataset.marketRankChangeCurrentTopId = currentTop?.id || '';
+  document.body.dataset.marketRankChangeFilteredOut = String(filteredOut);
+  document.body.dataset.marketRankChangeChanged = String(changed);
+  document.body.dataset.marketRankChangeReasonCount = String(reasons.length);
+}
+
+function renderDecision(sorted) {
+  const top = sorted[0];
+  const isSample = snapshot?.source?.type === 'sample-manual-seed';
+  if (!top) {
+    document.getElementById('decisionTop').textContent = t('decisionNoResult');
+    document.getElementById('decisionCapital').textContent = '-';
+    document.getElementById('decisionRisk').textContent = '-';
+    document.getElementById('decisionAction').textContent = t('decisionNoResult');
+    document.body.dataset.marketDecisionTopId = '';
+    document.body.dataset.marketDecisionCapital = '0';
+    document.body.dataset.marketDecisionNetProfit = '0';
+    document.body.dataset.marketDecisionRisk = '0';
+    document.body.dataset.marketDecisionAction = 'none';
+    return;
+  }
+  document.getElementById('decisionTop').textContent =
+    `${localized(top.name)} / ${t('decisionTopReason')} / score ${top.score.toFixed(2)}`;
+  document.getElementById('decisionCapital').textContent =
+    `${t('decisionCapitalText')} ${formatCurrency(top.buyPrice)}；${t('decisionExpectedNet')} ${formatCurrency(top.netProfit)}`;
+  document.getElementById('decisionRisk').textContent =
+    `${t('decisionRiskText')} ${top.risk}；${t('decisionLiquidityText')} ${top.liquidity}；${t('safetyMargin')} ${formatCurrency(top.safetyMargin)}`;
+  document.getElementById('decisionAction').textContent = isSample ? t('decisionSampleAction') : t('decisionRealAction');
+  document.body.dataset.marketDecisionTopId = top.id;
+  document.body.dataset.marketDecisionCapital = top.buyPrice.toFixed(2);
+  document.body.dataset.marketDecisionNetProfit = top.netProfit.toFixed(2);
+  document.body.dataset.marketDecisionRisk = String(top.risk);
+  document.body.dataset.marketDecisionAction = isSample ? 'sample-hold' : 'review-evidence';
+}
+
+function renderBudgetPlan(sorted) {
+  const capital = readBudgetCapital();
+  syncBudgetQuery(capital);
+  const top = sorted[0];
+  const isSample = snapshot?.source?.type === 'sample-manual-seed';
+  if (!top) {
+    document.getElementById('budgetPlanTop').textContent = t('budgetNoResult');
+    document.getElementById('budgetPlanCapital').textContent = `${t('budgetCapitalText')} ${formatCurrency(capital)}`;
+    document.getElementById('budgetPlanExpected').textContent = '-';
+    document.getElementById('budgetPlanAction').textContent = t('budgetNoResult');
+    document.body.dataset.marketBudgetPlanReady = 'false';
+    document.body.dataset.marketBudgetPlanCapital = capital.toFixed(2);
+    document.body.dataset.marketBudgetPlanTopId = '';
+    document.body.dataset.marketBudgetPlanUnits = '0';
+    document.body.dataset.marketBudgetPlanSpend = '0';
+    document.body.dataset.marketBudgetPlanNetProfit = '0';
+    document.body.dataset.marketBudgetPlanAction = 'none';
+    document.body.dataset.marketBudgetPlanShareUrl = window.location.href;
+    return;
+  }
+  const evidenceCap = top.marketEvidence
+    ? Math.min(Number(top.marketEvidence.buyListingCount) || 0, Number(top.marketEvidence.sellListingCount) || 0)
+    : Infinity;
+  const budgetUnits = Math.floor(capital / top.buyPrice);
+  const units = Math.max(0, Math.min(budgetUnits, Number.isFinite(evidenceCap) ? evidenceCap : budgetUnits));
+  const spend = units * top.buyPrice;
+  const netProfit = units * top.netProfit;
+  const batchRoi = spend > 0 ? netProfit / spend : 0;
+  const remaining = capital - spend;
+  document.getElementById('budgetPlanTop').textContent = `${localized(top.name)} / ${top.id}`;
+  document.getElementById('budgetPlanCapital').textContent =
+    `${t('budgetCapitalText')} ${formatCurrency(capital)}；${t('budgetUnitCount')} ${units}`;
+  document.getElementById('budgetPlanExpected').textContent =
+    `${t('budgetSpend')} ${formatCurrency(spend)}；${t('budgetRemain')} ${formatCurrency(remaining)}；${t('budgetNet')} ${formatCurrency(netProfit)}；${t('budgetRoi')} ${(batchRoi * 100).toFixed(1)}%`;
+  document.getElementById('budgetPlanAction').textContent = isSample ? t('budgetSampleAction') : t('budgetRealAction');
+  document.body.dataset.marketBudgetPlanReady = 'true';
+  document.body.dataset.marketBudgetPlanCapital = capital.toFixed(2);
+  document.body.dataset.marketBudgetPlanTopId = top.id;
+  document.body.dataset.marketBudgetPlanUnits = String(units);
+  document.body.dataset.marketBudgetPlanSpend = spend.toFixed(2);
+  document.body.dataset.marketBudgetPlanNetProfit = netProfit.toFixed(2);
+  document.body.dataset.marketBudgetPlanAction = isSample ? 'sample-plan-only' : 'review-evidence';
+  document.body.dataset.marketBudgetPlanShareUrl = window.location.href;
+}
+
+function readBudgetCapital() {
+  const value = Number(document.getElementById('budgetCapitalInput').value);
+  return Number.isFinite(value) && value > 0 ? value : 0;
+}
+
+function formatBudgetParam(value) {
+  return Number(value).toFixed(2).replace(/\.?0+$/, '');
+}
+
+function applyBudgetQuery() {
+  const params = new URLSearchParams(window.location.search);
+  const value = Number(params.get('capital'));
+  if (Number.isFinite(value) && value > 0) {
+    document.getElementById('budgetCapitalInput').value = formatBudgetParam(value);
+  }
+}
+
+function syncBudgetQuery(capital) {
+  const url = new URL(window.location.href);
+  if (capital > 0 && capital !== 100) url.searchParams.set('capital', formatBudgetParam(capital));
+  else url.searchParams.delete('capital');
+  window.history.replaceState({}, '', url);
+}
+
+async function copyText(value) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+  const textarea = document.createElement('textarea');
+  textarea.value = value;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand('copy');
+  textarea.remove();
+  if (!copied) throw new Error('copy failed');
+}
+
+async function copyBudgetUrl() {
+  const shareUrl = document.body.dataset.marketBudgetPlanShareUrl || window.location.href;
+  try {
+    await copyText(shareUrl);
+    document.getElementById('budgetCopyStatus').textContent = t('budgetCopied');
+    document.body.dataset.marketBudgetPlanCopyStatus = 'copied';
+  } catch (error) {
+    document.getElementById('budgetCopyStatus').textContent = t('budgetCopyFailed');
+    document.body.dataset.marketBudgetPlanCopyStatus = 'failed';
+  }
+}
+
+function render() {
+  if (!snapshot) return;
+  const category = document.getElementById('categoryFilter').value;
+  const mode = document.getElementById('sortMode').value;
+  const filters = readMarketFilters();
+  const allEntries = snapshot.entries.map(enrich);
+  const baseEntries = snapshot.entries
+    .filter((entry) => category === 'all' || entry.category === category)
+    .map(enrich);
+  const entries = baseEntries.filter((entry) => passesMarketFilters(entry, filters));
+  const sorted = sortEntries(entries, mode);
+  const bestProfit = sortEntries(entries, 'netProfit')[0];
+  const bestRoi = sortEntries(entries, 'roi')[0];
+  const bestSafetyMargin = sortEntries(entries, 'safetyMargin')[0];
+
+  renderSnapshotMeta(entries);
+  renderCandidateQueue();
+  updateFilterDataset(baseEntries.length, entries.length, filters);
+  const bestBreakEven = sortEntries(entries, 'breakEvenSellPrice')[0];
+  document.getElementById('summaryCount').textContent = `${entries.length} / ${baseEntries.length} ${t('itemCountSuffix')}`;
+  document.getElementById('summaryProfit').textContent = bestProfit ? `${localized(bestProfit.name)} / ${formatCurrency(bestProfit.netProfit)}` : '-';
+  document.getElementById('summaryRoi').textContent = bestRoi ? `${localized(bestRoi.name)} / ${(bestRoi.roi * 100).toFixed(1)}%` : '-';
+  document.getElementById('summaryVersion').innerHTML = `<code>${escapeHtml(snapshot.versionId)}</code>`;
+  renderDecision(sorted);
+  renderBudgetPlan(sorted);
+  renderRankChange(allEntries, entries, sorted, mode, category, filters);
+
+  const tbody = document.getElementById('resultRows');
+  tbody.innerHTML = '';
+  if (!sorted.length) {
+    tbody.innerHTML = `<tr><td colspan="15">${escapeHtml(t('noResults'))}</td></tr>`;
+  }
+  sorted.forEach((entry, index) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${index + 1}</td>
+      <td><strong>${escapeHtml(localized(entry.name))}</strong><br><code>${escapeHtml(entry.id)}</code></td>
+      <td>${categoryLabel(entry.category)}</td>
+      <td>${entry.targetLevel} / ${entry.quality}%</td>
+      <td>${formatCurrency(entry.buyPrice)}</td>
+      <td>${formatCurrency(entry.sellPrice)}</td>
+      <td>${formatCurrency(entry.fee)}</td>
+      <td>${formatCurrency(entry.breakEvenSellPrice)}</td>
+      <td class="${entry.safetyMargin >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.safetyMargin)}</td>
+      <td class="${entry.netProfit >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.netProfit)}</td>
+      <td>${(entry.roi * 100).toFixed(1)}%</td>
+      <td>${entry.liquidity}</td>
+      <td>${entry.risk}</td>
+      <td>${escapeHtml(marketEvidenceLabel(entry))}</td>
+      <td>${escapeHtml(localized(entry.notes))}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  const weights = snapshot.scoreWeights;
+  document.body.dataset.marketBreakEvenAvailable = 'true';
+  document.body.dataset.marketSafetyMarginAvailable = 'true';
+  document.body.dataset.marketTopBreakEven = bestBreakEven ? String(bestBreakEven.breakEvenSellPrice.toFixed(2)) : '0';
+  document.body.dataset.marketTopSafetyMargin = bestSafetyMargin ? String(bestSafetyMargin.safetyMargin.toFixed(2)) : '0';
+  document.getElementById('scoreRules').innerHTML = [
+    `${t('scoreNetProfit')}：<code>${weights.netProfit}</code>`,
+    `${t('scoreRoi')}：<code>${weights.roi}</code>`,
+    `${t('scoreLiquidity')}：<code>${weights.liquidity}</code>`,
+    `${t('scoreRisk')}：<code>${weights.risk}</code>`,
+    `${t('scoreFee')} <code>${(snapshot.feeRate * 100).toFixed(1)}%</code> ${t('scoreFeeSuffix')}`,
+    `${t('scoreBreakEven')}<code>${t('scoreBreakEvenFormula')}</code>`,
+    `${t('scoreSafety')}<code>${t('scoreSafetyFormula')}</code>`
+  ].map((text) => `<li>${text}</li>`).join('');
+}
+
+async function main() {
+  applyBudgetQuery();
+  const versions = await window.POE2Versions.readJson('../data/versions.json');
+  const version = window.POE2Versions.selectedVersion(versions);
+  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const file = manifest.market?.gemFlips;
+  if (!file) throw new Error(`gemFlips missing in ${version.dataRoot}/manifest.json`);
+  const [snapshotData, candidateIndex] = await Promise.all([
+    window.POE2Versions.readJson(`../${version.dataRoot}/${file}`),
+    window.POE2Versions.readJson(`../${version.dataRoot}/market/candidates/index.json`).catch(() => ({ schemaVersion: 0, updatedAt: '', candidates: [] }))
+  ]);
+  snapshot = snapshotData;
+  candidateQueue = candidateIndex;
+  render();
+}
+
+document.getElementById('categoryFilter').addEventListener('change', render);
+document.getElementById('sortMode').addEventListener('change', render);
+document.getElementById('profitFilter').addEventListener('change', render);
+document.getElementById('liquidityFilter').addEventListener('change', render);
+document.getElementById('riskFilter').addEventListener('change', render);
+document.getElementById('evidenceFilter').addEventListener('change', render);
+document.getElementById('budgetCapitalInput').addEventListener('input', render);
+document.getElementById('copyBudgetUrlBtn').addEventListener('click', copyBudgetUrl);
+document.querySelectorAll('[data-lang]').forEach((button) => {
+  button.addEventListener('click', () => {
+    currentLang = button.dataset.lang;
+    document.querySelectorAll('[data-lang]').forEach((item) => {
+      item.classList.toggle('active', item === button);
+    });
+    applyLanguage();
+    render();
+  });
+});
+
+applyLanguage();
+main().catch((error) => {
+  document.body.dataset.marketSourceType = 'load-error';
+  document.getElementById('snapshotStatus').textContent = t('loadFailed');
+  document.getElementById('resultRows').innerHTML = `<tr><td colspan="15" class="bad">${escapeHtml(error.message)}</td></tr>`;
+});
+</script>
+</body>
+</html>

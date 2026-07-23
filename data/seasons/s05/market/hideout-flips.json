@@ -1,0 +1,135 @@
+{
+  "id": "s05-hideout-flips-sample",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-22T00:00:00+08:00",
+  "source": {
+    "type": "sample-manual-seed",
+    "note": "Sample data for UI and scoring flow only. Do not treat these prices as current market advice."
+  },
+  "currency": "exalted",
+  "goldUnit": 10000,
+  "feeRate": 0.08,
+  "scoreWeights": {
+    "netProfit": 0.45,
+    "profitPerGoldUnit": 0.3,
+    "liquidity": 0.2,
+    "risk": -0.25
+  },
+  "entries": [
+    {
+      "id": "greater-jewellers-orb",
+      "category": "currency",
+      "name": {
+        "zhCN": "高级工匠石",
+        "zhTW": "高級工匠石",
+        "en": "Greater Jeweller's Orb"
+      },
+      "goldCost": 15000,
+      "cashCost": 4,
+      "sellPrice": 13,
+      "liquidity": 76,
+      "risk": 48,
+      "notes": {
+        "zhCN": "高频消耗品示例，真实收益取决于金币兑换入口和市场深度。",
+        "zhTW": "高頻消耗品示例，真實收益取決於金幣兌換入口和市場深度。",
+        "en": "High-demand currency example. Real profit depends on vendor source and market depth."
+      }
+    },
+    {
+      "id": "perfect-jewellers-orb",
+      "category": "currency",
+      "name": {
+        "zhCN": "完美工匠石",
+        "zhTW": "完美工匠石",
+        "en": "Perfect Jeweller's Orb"
+      },
+      "goldCost": 42000,
+      "cashCost": 12,
+      "sellPrice": 35,
+      "liquidity": 64,
+      "risk": 58,
+      "notes": {
+        "zhCN": "单笔利润更高，但买入门槛和价格波动也更高。",
+        "zhTW": "單筆利潤更高，但買入門檻和價格波動也更高。",
+        "en": "Higher per-trade profit, with higher capital and volatility."
+      }
+    },
+    {
+      "id": "greater-essence",
+      "category": "crafting",
+      "name": {
+        "zhCN": "高级精华",
+        "zhTW": "高級精華",
+        "en": "Greater Essence"
+      },
+      "goldCost": 9000,
+      "cashCost": 3,
+      "sellPrice": 8,
+      "liquidity": 58,
+      "risk": 52,
+      "notes": {
+        "zhCN": "制作材料示例，适合看每万金币收益排序。",
+        "zhTW": "製作材料示例，適合看每萬金幣收益排序。",
+        "en": "Crafting material example for profit-per-gold ranking."
+      }
+    },
+    {
+      "id": "breach-ring",
+      "category": "base",
+      "name": {
+        "zhCN": "裂隙戒指",
+        "zhTW": "裂隙戒指",
+        "en": "Breach Ring"
+      },
+      "goldCost": 22000,
+      "cashCost": 6,
+      "sellPrice": 18,
+      "liquidity": 50,
+      "risk": 66,
+      "notes": {
+        "zhCN": "底材示例，价格更依赖词缀、基底和玩家筛选习惯。",
+        "zhTW": "底材示例，價格更依賴詞綴、基底和玩家篩選習慣。",
+        "en": "Base item example. Price depends more on affixes, base type, and filters."
+      }
+    },
+    {
+      "id": "waystone-tier-15",
+      "category": "map",
+      "name": {
+        "zhCN": "15 阶界石",
+        "zhTW": "15 階界石",
+        "en": "Tier 15 Waystone"
+      },
+      "goldCost": 12000,
+      "cashCost": 2,
+      "sellPrice": 9,
+      "liquidity": 82,
+      "risk": 40,
+      "notes": {
+        "zhCN": "流动性示例，适合小额快进快出。",
+        "zhTW": "流動性示例，適合小額快進快出。",
+        "en": "High-liquidity example for quick small flips."
+      }
+    },
+    {
+      "id": "delirium-tablet",
+      "category": "map",
+      "name": {
+        "zhCN": "迷雾碑牌",
+        "zhTW": "迷霧碑牌",
+        "en": "Delirium Tablet"
+      },
+      "goldCost": 30000,
+      "cashCost": 9,
+      "sellPrice": 24,
+      "liquidity": 46,
+      "risk": 70,
+      "notes": {
+        "zhCN": "高波动示例，适合验证风险排序。",
+        "zhTW": "高波動示例，適合驗證風險排序。",
+        "en": "High-volatility example for risk sorting."
+      }
+    }
+  ]
+}

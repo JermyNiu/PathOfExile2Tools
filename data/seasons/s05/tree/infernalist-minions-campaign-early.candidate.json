@@ -1,0 +1,102 @@
+{
+  "nodeIds": [
+    6077,
+    27296
+  ],
+  "classId": 0,
+  "ascendancyId": 0,
+  "alternateAscendancyId": 0,
+  "locales": {
+    "en": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-CN": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-TW": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      }
+    ]
+  },
+  "meta": {
+    "buildId": "infernalist-minions",
+    "stageId": "campaign-early",
+    "origin": "hand-tuned-manual",
+    "source": "scaffold-route.mjs",
+    "overridePolicy": "manual-review-required",
+    "handTuned": true,
+    "nodes": 2,
+    "nodeCount": 2,
+    "poe2dbVersion": "4.5",
+    "createdAt": "2026-07-22T23:22:11.609Z",
+    "review": {
+      "status": "待复核",
+      "reason": "由节点 ID 生成的手调候选路线；写入 manifest 前必须人工确认顺序、属性和阶段适配。",
+      "useUntil": "仅作为候选文件，不代表当前版本正式路线。",
+      "manualChecks": [
+        "确认节点 ID 顺序来自实际开荒阶段，而不是终局路线截断。",
+        "确认该阶段需要的属性、精魂、生存和输出节点没有过早绕路。",
+        "确认独立天赋树查看器能高亮全部节点并显示三语言属性。"
+      ]
+    }
+  }
+}

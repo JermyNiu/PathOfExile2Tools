@@ -1,0 +1,1502 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 版本历史</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  .nav {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+  }
+  .shell {
+    width:min(1240px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel, .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .card { background:var(--panel2); padding:14px; }
+  .muted, li { color:var(--muted); line-height:1.55; }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:8px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:4px;
+  }
+  .stat strong {
+    color:var(--accent);
+    font-size:18px;
+  }
+  .stat span {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.35;
+  }
+  table {
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th, td {
+    padding:9px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  th {
+    color:var(--muted);
+    font-weight:650;
+  }
+  tr:last-child td { border-bottom:0; }
+  code {
+    color:var(--accent);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  pre {
+    margin:0;
+    white-space:pre-wrap;
+    word-break:break-word;
+    color:var(--text);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:13px;
+    line-height:1.55;
+  }
+  .command-list {
+    display:grid;
+    gap:10px;
+  }
+  .inline-actions {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .btn.disabled {
+    opacity:.45;
+    cursor:not-allowed;
+  }
+  .command-block {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    display:grid;
+    gap:6px;
+  }
+  .command-block h3 {
+    color:var(--accent);
+  }
+  .badge {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 8px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:12px;
+    margin:0 4px 4px 0;
+  }
+  .badge.active {
+    border-color:rgba(52,211,153,.6);
+    color:#bbf7d0;
+    background:rgba(52,211,153,.1);
+  }
+  .badge.draft {
+    border-color:rgba(250,204,21,.6);
+    color:#fde68a;
+    background:rgba(250,204,21,.1);
+  }
+  ul { margin:0; padding-left:20px; display:grid; gap:5px; }
+  @media (max-width: 900px) {
+    .grid, .stat-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>版本历史</h1>
+  <nav class="nav">
+    <a class="btn" href="../index.html">首页</a>
+    <a class="btn" href="data-update.html">数据更新</a>
+    <a class="btn" href="route-review.html">路线复核</a>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="panel">
+    <h2>可回溯版本</h2>
+    <p class="muted">这里按 <code>data/versions.json</code> 展示所有非草稿版本和当前 manifest 指针。后续新赛季或新天赋版本会新增记录，不覆盖旧版本。</p>
+    <div class="stat-grid" id="versionStats">
+      <div class="stat"><strong>--</strong><span>历史版本</span></div>
+      <div class="stat"><strong>--</strong><span>活动版本</span></div>
+      <div class="stat"><strong>--</strong><span>BD 数量</span></div>
+      <div class="stat"><strong>--</strong><span>路线数量</span></div>
+      <div class="stat"><strong>--</strong><span>已手调路线</span></div>
+      <div class="stat"><strong>--</strong><span>市场文件</span></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>版本列表</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>版本</th>
+          <th>状态</th>
+          <th>数据目录</th>
+          <th>模块状态</th>
+          <th>入口</th>
+        </tr>
+      </thead>
+      <tbody id="versionRows">
+        <tr><td colspan="5">读取中...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>版本数据矩阵</h2>
+    <p class="muted">这里检查每个版本 manifest 关键指针是否登记并能被本地服务读取。新增赛季或天赋版本时，先让这一栏保持全绿，再切换 current。</p>
+    <table>
+      <thead>
+        <tr>
+          <th>版本</th>
+          <th>核心文件</th>
+          <th>内容规模</th>
+          <th>缺失项</th>
+        </tr>
+      </thead>
+      <tbody id="versionCompletenessRows">
+        <tr><td colspan="4">读取中...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>版本操作命令</h2>
+    <p class="muted">这里按当前版本生成下一版草稿、源数据更新、天赋差异、变更日志和切换 current 的安全命令。默认命令先 dry-run，写入命令需要你确认后再执行。</p>
+    <div class="command-list" id="versionCommandList">
+      <article class="command-block">
+        <h3>读取中...</h3>
+        <pre>--</pre>
+      </article>
+    </div>
+    <div class="inline-actions">
+      <button class="btn disabled" type="button" id="copyVersionCommandsBtn" aria-disabled="true">复制版本操作命令</button>
+      <span class="muted" id="versionCommandCopyStatus"></span>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <h3>当前版本文件指针</h3>
+      <ul id="currentFiles">
+        <li>读取中...</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h3>路线质量</h3>
+      <ul id="routeQuality">
+        <li>读取中...</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="panel">
+    <h2>数据源</h2>
+    <ul id="sourceRows">
+      <li>读取中...</li>
+    </ul>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+}
+
+function listItem(text) {
+  const li = document.createElement('li');
+  li.innerHTML = text;
+  return li;
+}
+
+function fillList(id, rows) {
+  const node = document.getElementById(id);
+  node.innerHTML = '';
+  rows.forEach((row) => node.appendChild(listItem(row)));
+}
+
+function statusBadge(status) {
+  const cls = status === 'active' ? ' active' : status === 'draft' ? ' draft' : '';
+  return `<span class="badge${cls}">${esc(status || 'unknown')}</span>`;
+}
+
+function moduleBadges(modules) {
+  return Object.entries(modules || {})
+    .map(([key, value]) => `<span class="badge">${esc(key)}=${esc(value)}</span>`)
+    .join('');
+}
+
+function routeStats(routes) {
+  const list = routes || [];
+  return {
+    total: list.length,
+    handTuned: list.filter((route) => route.handTuned).length,
+    projected: list.filter((route) => route.origin === 'projected-from-endgame-order').length,
+    pobImported: list.filter((route) => route.origin === 'imported-from-pob-endgame').length,
+    manualReview: list.filter((route) => route.overridePolicy === 'manual-review-required').length
+  };
+}
+
+function renderStats(history, manifests) {
+  const active = history.filter((version) => version.status === 'active').length;
+  const buildCount = manifests.reduce((count, item) => count + (item.manifest?.builds?.length || 0), 0);
+  const routes = manifests.flatMap((item) => item.manifest?.tree?.routes || []);
+  const stats = routeStats(routes);
+  const marketFiles = manifests.reduce((count, item) => count + Object.keys(item.manifest?.market || {}).length, 0);
+  const values = [
+    { value: history.length, label: '历史版本' },
+    { value: active, label: '活动版本' },
+    { value: buildCount, label: 'BD 数量' },
+    { value: stats.total, label: '路线数量' },
+    { value: stats.handTuned, label: '已手调路线' },
+    { value: marketFiles, label: '市场文件' }
+  ];
+  document.getElementById('versionStats').innerHTML = values.map((item) => `
+    <div class="stat"><strong>${esc(item.value)}</strong><span>${esc(item.label)}</span></div>
+  `).join('');
+  document.body.dataset.versionHistoryCount = String(history.length);
+  document.body.dataset.versionHistoryActiveCount = String(active);
+  document.body.dataset.versionHistoryBuildCount = String(buildCount);
+  document.body.dataset.versionHistoryRouteCount = String(stats.total);
+  document.body.dataset.versionHistoryHandTunedCount = String(stats.handTuned);
+}
+
+function renderVersionRows(manifests) {
+  const rows = document.getElementById('versionRows');
+  rows.innerHTML = manifests.map(({ version, manifest, error }) => {
+    const guideLinks = (manifest?.builds || []).map((build) => {
+      const href = build.guide?.replace(/^\.\.\/\.\.\/\.\.\//, '../') || '#';
+      return `<a class="btn" href="${esc(href)}">${esc(build.id)}</a>`;
+    }).join(' ');
+    return `
+      <tr>
+        <td><code>${esc(version.id)}</code><br>${esc(version.season)} / Tree ${esc(version.poe2dbPassiveTreeVersion)}</td>
+        <td>${statusBadge(version.status)}</td>
+        <td><code>${esc(version.dataRoot)}</code>${error ? `<br><span class="badge draft">${esc(error)}</span>` : ''}</td>
+        <td>${moduleBadges(manifest?.modules)}</td>
+        <td>${guideLinks || '<span class="badge">无 BD</span>'}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function pathUrl(version, file) {
+  if (!file) return null;
+  if (/^https?:\/\//.test(file)) return file;
+  return new URL(`../${version.dataRoot}/${file}`, window.location.href).toString();
+}
+
+async function urlReadable(url) {
+  if (!url) return false;
+  try {
+    const response = await fetch(url, { cache: 'no-store' });
+    return response.ok;
+  } catch (_) {
+    return false;
+  }
+}
+
+async function checkPointer(version, label, file) {
+  const url = pathUrl(version, file);
+  return {
+    label,
+    file: file || '',
+    ok: Boolean(file) && await urlReadable(url)
+  };
+}
+
+async function readJsonPointer(version, file) {
+  const url = pathUrl(version, file);
+  if (!url) throw new Error('missing file');
+  const response = await fetch(url, { cache: 'no-store' });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
+
+const buildDraftPlaceholderTerms = [
+  '待填写',
+  '待填寫',
+  'TBD',
+  'Template placeholder',
+  'Replace placeholders',
+  'template',
+  '模板占位',
+  '說明',
+  '说明'
+];
+
+function collectStringsForDraft(value, pathLabel = '', rows = []) {
+  if (typeof value === 'string') {
+    rows.push({ path: pathLabel, value });
+  } else if (Array.isArray(value)) {
+    value.forEach((item, index) => collectStringsForDraft(item, `${pathLabel}[${index}]`, rows));
+  } else if (value && typeof value === 'object') {
+    Object.entries(value).forEach(([key, child]) => {
+      collectStringsForDraft(child, pathLabel ? `${pathLabel}.${key}` : key, rows);
+    });
+  }
+  return rows;
+}
+
+function buildDraftPlaceholderPaths(data) {
+  return collectStringsForDraft(data)
+    .filter((row) => buildDraftPlaceholderTerms.some((term) => row.value.includes(term)))
+    .map((row) => row.path);
+}
+
+function localizedDraftListCount(value) {
+  if (Array.isArray(value)) return value.length;
+  if (!value || typeof value !== 'object') return 0;
+  return Math.max(...['zhCN', 'zhTW', 'en'].map((lang) => Array.isArray(value[lang]) ? value[lang].length : 0), 0);
+}
+
+function draftMinionSelectionStats(draft) {
+  const guide = draft.skills?.minionSelectionGuide;
+  const groups = guide?.groups || [];
+  return {
+    groups: groups.length,
+    skillRefs: groups.reduce((sum, group) => sum + (group.skillIds?.length || 0), 0),
+    supportRefs: groups.reduce((sum, group) => sum + (group.firstSupports?.length || 0), 0),
+    chooseWhen: groups.reduce((sum, group) => sum + localizedDraftListCount(group.chooseWhen), 0),
+    rules: localizedDraftListCount(guide?.rules)
+  };
+}
+
+function draftGuideReportStats(draft) {
+  const modules = [
+    { id: 'guideArticle', ready: Boolean(draft.guideArticle?.sections?.length) },
+    { id: 'skillOverview', ready: Boolean(draft.skills?.overview?.cards?.length) },
+    { id: 'stages', ready: Boolean(draft.stages?.length) && (draft.stages || []).every((stage) => stage.playbook?.steps?.length) },
+    { id: 'executionPlan', ready: Boolean(draft.executionPlan?.stages?.length) },
+    { id: 'activeSkills', ready: Boolean(draft.skills?.active?.length) },
+    { id: 'supports', ready: Object.keys(draft.skills?.supports || {}).length > 0 },
+    { id: 'minionSelectionGuide', ready: draftMinionSelectionStats(draft).groups > 0 },
+    { id: 'gear', ready: Boolean(draft.gearOverview?.cards?.length) && Boolean(draft.gearPriorities?.length) && Boolean(draft.gearStatThresholds?.length) },
+    { id: 'crafting', ready: Boolean(draft.craftingPlan?.length) },
+    { id: 'guideReport', ready: Boolean(draft.guideArticle?.sections?.length) && Boolean(draft.craftingPlan?.length) && Boolean(draft.executionPlan?.stages?.length) }
+  ];
+  return {
+    moduleCount: modules.length,
+    missingModules: modules.filter((module) => !module.ready).length,
+    reportReady: modules.find((module) => module.id === 'guideReport')?.ready ? 1 : 0
+  };
+}
+
+function draftRouteBindingStats(draft, manifest) {
+  const routes = manifest.tree?.routes || [];
+  const routeKeys = new Set(routes
+    .filter((route) => route.buildId === draft.id)
+    .map((route) => route.stageId));
+  const stages = draft.stages || [];
+  const stageIds = stages.map((stage) => stage.treeStage || stage.id).filter(Boolean);
+  const bound = stageIds.filter((stageId) => routeKeys.has(stageId)).length;
+  return {
+    stages: stages.length,
+    bound,
+    missing: Math.max(stageIds.length - bound, 0)
+  };
+}
+
+function draftRouteCandidateStats(candidate, draft) {
+  const routeCandidates = Array.isArray(candidate?.routeCandidates) ? candidate.routeCandidates : [];
+  const candidateStageIds = new Set(routeCandidates.map((route) => route.stageId).filter(Boolean));
+  const stageIds = (draft.stages || []).map((stage) => stage.treeStage || stage.id).filter(Boolean);
+  return {
+    files: routeCandidates.length,
+    stages: stageIds.length,
+    missingFiles: stageIds.filter((stageId) => !candidateStageIds.has(stageId)).length,
+    stageIds: [...candidateStageIds].join(','),
+    filesList: routeCandidates.map((route) => route.file).filter(Boolean).join(',')
+  };
+}
+
+async function collectSkillCatalog(version, manifest) {
+  const file = manifest.skills?.catalog || '';
+  try {
+    const catalog = await readJsonPointer(version, file);
+    const entries = Array.isArray(catalog?.entries) ? catalog.entries : [];
+    const active = entries.filter((entry) => entry.kind === 'active');
+    const support = entries.filter((entry) => entry.kind === 'support');
+    const detail = entries.filter((entry) => entry.poe2db?.detail || entry.detail);
+    const verified = entries.filter((entry) => entry.verificationStatus === 'verified');
+    const ok = Boolean(file) && catalog?.schemaVersion !== 0 && entries.length > 0;
+    return {
+      check: { label: 'skills catalog quality', file, ok },
+      sourceType: catalog?.source?.type || 'unknown',
+      entryCount: entries.length,
+      activeCount: active.length,
+      supportCount: support.length,
+      detailCount: detail.length,
+      verifiedCount: verified.length,
+      boundaryStatus: 'skill-data-not-live-price'
+    };
+  } catch (error) {
+    return {
+      check: { label: 'skills catalog quality', file: error.message || file || 'skills catalog', ok: false },
+      sourceType: 'missing',
+      entryCount: 0,
+      activeCount: 0,
+      supportCount: 0,
+      detailCount: 0,
+      verifiedCount: 0,
+      boundaryStatus: 'missing'
+    };
+  }
+}
+
+function validateNinjaExample(data) {
+  const allowedFormats = new Set(['json', 'base64-json', 'pob-code', 'pob-xml', 'text', 'none']);
+  const parserHints = Array.isArray(data?.formatProfile?.parserHints) ? data.formatProfile.parserHints : [];
+  const failures = [];
+  if (data?.parserVersion !== 'local-ninja-import-v1') failures.push('parserVersion');
+  if (data?.schemaVersion !== 1) failures.push('schemaVersion');
+  if (!allowedFormats.has(data?.format)) failures.push('format');
+  if (!allowedFormats.has(data?.formatProfile?.inputFormat)) failures.push('formatProfile.inputFormat');
+  if (!data?.versionCompatibility?.status) failures.push('versionCompatibility.status');
+  if (!data?.counts || typeof data.counts !== 'object') failures.push('counts');
+  if (Array.isArray(data?.skills) && data.counts?.skills !== data.skills.length) failures.push('skills count');
+  if (Array.isArray(data?.supports) && data.counts?.supports !== data.supports.length) failures.push('supports count');
+  if (Array.isArray(data?.items) && data.counts?.items !== data.items.length) failures.push('items count');
+  if (Array.isArray(data?.passiveIds) && data.counts?.passives !== data.passiveIds.length) failures.push('passives count');
+  return {
+    ok: failures.length === 0,
+    failures,
+    inputFormat: data?.formatProfile?.inputFormat || '',
+    parserHints
+  };
+}
+
+async function checkNinjaExample(version, label, file) {
+  try {
+    const data = await readJsonPointer(version, file);
+    const check = validateNinjaExample(data);
+    return {
+      label,
+      file,
+      ok: check.ok,
+      ninjaExample: true,
+      hasPobXml: check.inputFormat === 'pob-xml' || check.parserHints.includes('pob-xml'),
+      detail: check.failures.join(', ')
+    };
+  } catch (error) {
+    return {
+      label,
+      file,
+      ok: false,
+      ninjaExample: true,
+      hasPobXml: false,
+      detail: error.message
+    };
+  }
+}
+
+async function collectBuildGearThresholds(version, manifest) {
+  const rows = await Promise.all((manifest.builds || []).map(async (entry) => {
+    try {
+      const build = await readJsonPointer(version, entry.data);
+      const groups = build.gearStatThresholds || [];
+      return {
+        id: entry.id,
+        ok: true,
+        stageCount: groups.length,
+        rowCount: groups.reduce((sum, group) => sum + (group.thresholds?.length || 0), 0),
+        sourceStatus: [...new Set(groups.map((group) => group.sourceStatus).filter(Boolean))].join(',')
+      };
+    } catch (error) {
+      return {
+        id: entry.id,
+        ok: false,
+        stageCount: 0,
+        rowCount: 0,
+        sourceStatus: '',
+        error: error.message
+      };
+    }
+  }));
+  return {
+    builds: rows,
+    stageCount: rows.reduce((sum, row) => sum + row.stageCount, 0),
+    rowCount: rows.reduce((sum, row) => sum + row.rowCount, 0),
+    sourceStatus: [...new Set(rows.flatMap((row) => row.sourceStatus.split(',').filter(Boolean)))].join(','),
+    missing: rows.filter((row) => !row.ok || row.rowCount === 0)
+  };
+}
+
+async function collectBuildCraftPlans(version, manifest) {
+  const rows = await Promise.all((manifest.builds || []).map(async (entry) => {
+    try {
+      const build = await readJsonPointer(version, entry.data);
+      const plans = build.craftingPlan || [];
+      const structured = plans.filter((item) => item.sourceStatus && item.purchaseFirst && item.priorityMods?.length && item.materials?.length && item.successChecks?.length && item.fallback?.length).length;
+      return {
+        id: entry.id,
+        ok: true,
+        planCount: plans.length,
+        structuredCount: structured,
+        sourceStatus: [...new Set(plans.map((item) => item.sourceStatus).filter(Boolean))].join(',')
+      };
+    } catch (error) {
+      return {
+        id: entry.id,
+        ok: false,
+        planCount: 0,
+        structuredCount: 0,
+        sourceStatus: '',
+        error: error.message
+      };
+    }
+  }));
+  return {
+    builds: rows,
+    planCount: rows.reduce((sum, row) => sum + row.planCount, 0),
+    structuredCount: rows.reduce((sum, row) => sum + row.structuredCount, 0),
+    sourceStatus: [...new Set(rows.flatMap((row) => row.sourceStatus.split(',').filter(Boolean)))].join(','),
+    missing: rows.filter((row) => !row.ok || row.planCount === 0 || row.structuredCount !== row.planCount)
+  };
+}
+
+function countLocalizedChecks(checks) {
+  if (Array.isArray(checks)) return checks.length;
+  if (!checks || typeof checks !== 'object') return 0;
+  return Math.max(...Object.values(checks).map((items) => Array.isArray(items) ? items.length : 0), 0);
+}
+
+async function collectBuildGuideWriting(version, manifest) {
+  const rows = await Promise.all((manifest.builds || []).map(async (entry) => {
+    try {
+      const build = await readJsonPointer(version, entry.data);
+      const skillCards = build.skills?.overview?.cards || [];
+      const minionSelection = build.skills?.minionSelectionGuide;
+      const minionSelectionGroups = minionSelection?.groups || [];
+      const gearCards = build.gearOverview?.cards || [];
+      const articleSections = build.guideArticle?.sections || [];
+      const stages = build.stages || [];
+      const executionStages = build.executionPlan?.stages || [];
+      const strategyReady = Boolean(build.guideStrategy?.coreLoop?.steps?.length)
+        && Boolean(build.guideStrategy?.powerSignals?.length)
+        && Boolean(build.guideStrategy?.failureDiagnosis?.length)
+        && Boolean(build.guideStrategy?.decisionRules?.length);
+      const stagePlaybooks = stages.filter((stage) => stage.playbook?.steps?.length).length;
+      const sourceStatus = [
+        articleSections.length ? 'manual-guide-article' : '',
+        skillCards.length ? 'manual-guide-skill-flow' : '',
+        minionSelectionGroups.length ? 'manual-guide-minion-selection' : '',
+        gearCards.length ? 'manual-guide-gear-flow' : '',
+        strategyReady ? 'manual-guide-strategy' : ''
+      ].filter(Boolean).join(',');
+      const complete = Boolean(strategyReady)
+        && Boolean(executionStages.length)
+        && Boolean(articleSections.length)
+        && stagePlaybooks === stages.length
+        && Boolean(skillCards.length)
+        && Boolean(minionSelectionGroups.length)
+        && Boolean(gearCards.length);
+      const reportReady = complete && Boolean(entry.guide || build.routes?.guide);
+      return {
+        id: entry.id,
+        ok: true,
+        complete,
+        reportReady,
+        skillOverviewCards: skillCards.length,
+        skillOverviewChecks: skillCards.reduce((sum, card) => sum + countLocalizedChecks(card.checks), 0),
+        minionSelectionGroups: minionSelectionGroups.length,
+        minionSelectionSkillRefs: minionSelectionGroups.reduce((sum, group) => sum + (group.skillIds?.length || 0), 0),
+        minionSelectionSupportRefs: minionSelectionGroups.reduce((sum, group) => sum + (group.firstSupports?.length || 0), 0),
+        minionSelectionRules: countLocalizedChecks(minionSelection?.rules),
+        gearOverviewCards: gearCards.length,
+        gearOverviewChecks: gearCards.reduce((sum, card) => sum + countLocalizedChecks(card.checks), 0),
+        stagePlaybooks,
+        executionStages: executionStages.length,
+        sourceStatus
+      };
+    } catch (error) {
+      return {
+        id: entry.id,
+        ok: false,
+        complete: false,
+        reportReady: false,
+        skillOverviewCards: 0,
+        skillOverviewChecks: 0,
+        minionSelectionGroups: 0,
+        minionSelectionSkillRefs: 0,
+        minionSelectionSupportRefs: 0,
+        minionSelectionRules: 0,
+        gearOverviewCards: 0,
+        gearOverviewChecks: 0,
+        stagePlaybooks: 0,
+        executionStages: 0,
+        sourceStatus: '',
+        error: error.message
+      };
+    }
+  }));
+  return {
+    builds: rows,
+    completeCount: rows.filter((row) => row.ok && row.complete).length,
+    missingCount: rows.filter((row) => !row.ok || !row.complete).length,
+    reportReadyCount: rows.filter((row) => row.ok && row.reportReady).length,
+    skillOverviewCards: rows.reduce((sum, row) => sum + row.skillOverviewCards, 0),
+    skillOverviewChecks: rows.reduce((sum, row) => sum + row.skillOverviewChecks, 0),
+    minionSelectionGroups: rows.reduce((sum, row) => sum + row.minionSelectionGroups, 0),
+    minionSelectionSkillRefs: rows.reduce((sum, row) => sum + row.minionSelectionSkillRefs, 0),
+    minionSelectionSupportRefs: rows.reduce((sum, row) => sum + row.minionSelectionSupportRefs, 0),
+    minionSelectionRules: rows.reduce((sum, row) => sum + row.minionSelectionRules, 0),
+    gearOverviewCards: rows.reduce((sum, row) => sum + row.gearOverviewCards, 0),
+    gearOverviewChecks: rows.reduce((sum, row) => sum + row.gearOverviewChecks, 0),
+    stagePlaybooks: rows.reduce((sum, row) => sum + row.stagePlaybooks, 0),
+    executionStages: rows.reduce((sum, row) => sum + row.executionStages, 0),
+    sourceStatus: [...new Set(rows.flatMap((row) => row.sourceStatus.split(',').filter(Boolean)))].join(','),
+    missing: rows.filter((row) => !row.ok || !row.complete)
+  };
+}
+
+async function collectMarketCandidates(version) {
+  try {
+    const index = await readJsonPointer(version, 'market/candidates/index.json');
+    const candidates = Array.isArray(index?.candidates) ? index.candidates : [];
+    const ready = candidates.filter((row) => row.validationStatus === 'ok');
+    const gem = candidates.filter((row) => row.kind === 'gemFlips');
+    const hideout = candidates.filter((row) => row.kind === 'hideoutFlips');
+    return {
+      check: { label: 'market candidate index', file: 'market/candidates/index.json', ok: index?.schemaVersion === 1 },
+      schemaVersion: index?.schemaVersion || 0,
+      updatedAt: index?.updatedAt || '',
+      count: candidates.length,
+      readyCount: ready.length,
+      gemCount: gem.length,
+      hideoutCount: hideout.length,
+      statuses: [...new Set(candidates.map((row) => row.validationStatus || 'unknown'))].join(',')
+    };
+  } catch (error) {
+    return {
+      check: { label: 'market candidate index', file: error.message || 'market/candidates/index.json', ok: false },
+      schemaVersion: 0,
+      updatedAt: '',
+      count: 0,
+      readyCount: 0,
+      gemCount: 0,
+      hideoutCount: 0,
+      statuses: 'missing'
+    };
+  }
+}
+
+async function collectNinjaArchives(version, manifest) {
+  const entries = Object.entries(manifest.ninja || {});
+  const rows = await Promise.all(entries.map(async ([key, file]) => {
+    try {
+      const data = await readJsonPointer(version, file);
+      const check = validateNinjaExample(data);
+      return {
+        key,
+        file,
+        ok: check.ok,
+        format: data?.format || '',
+        compatibilityStatus: data?.versionCompatibility?.status || 'missing',
+        detail: check.failures.join(', ')
+      };
+    } catch (error) {
+      return {
+        key,
+        file,
+        ok: false,
+        format: '',
+        compatibilityStatus: 'missing',
+        detail: error.message
+      };
+    }
+  }));
+  return {
+    rows,
+    count: rows.length,
+    readyCount: rows.filter((row) => row.ok).length,
+    matchedCount: rows.filter((row) => row.ok && row.compatibilityStatus === 'matched').length,
+    needsReviewCount: rows.filter((row) => row.ok && row.compatibilityStatus === 'needs-review').length,
+    sourceUnknownCount: rows.filter((row) => row.ok && row.compatibilityStatus === 'source-version-unknown').length,
+    formats: [...new Set(rows.map((row) => row.format).filter(Boolean))].join(','),
+    missing: rows.filter((row) => !row.ok).map((row) => ({
+      label: `ninja archive ${row.key}`,
+      file: row.detail || row.file,
+      ok: false
+    }))
+  };
+}
+
+async function collectBuildCandidates(version, manifest) {
+  const file = manifest.buildCandidates || 'builds/candidates.json';
+  try {
+    const data = await readJsonPointer(version, file);
+    const candidates = Array.isArray(data?.candidates) ? data.candidates : [];
+    const registered = new Set((manifest.builds || []).map((entry) => entry.id));
+    const available = candidates.filter((candidate) => !registered.has(candidate.id));
+    const statuses = [...new Set(candidates.map((candidate) => candidate.status || 'unknown'))].join(',');
+    const draftRows = await Promise.all(candidates
+      .filter((candidate) => candidate.status === 'draft')
+      .map(async (candidate) => {
+        try {
+          const draft = await readJsonPointer(version, candidate.data);
+          const placeholders = buildDraftPlaceholderPaths(draft);
+          return {
+            id: candidate.id,
+            ok: true,
+            placeholderCount: placeholders.length,
+            minionSelection: draftMinionSelectionStats(draft),
+            guideReport: draftGuideReportStats(draft),
+            routeBinding: draftRouteBindingStats(draft, manifest),
+            routeCandidates: draftRouteCandidateStats(candidate, draft)
+          };
+        } catch (error) {
+          return {
+            id: candidate.id,
+            ok: false,
+            placeholderCount: 0,
+            minionSelection: draftMinionSelectionStats({}),
+            guideReport: draftGuideReportStats({}),
+            routeBinding: draftRouteBindingStats({}, manifest),
+            routeCandidates: draftRouteCandidateStats(candidate, {}),
+            error: error.message
+          };
+        }
+      }));
+    return {
+      check: { label: 'build candidates', file, ok: data?.schemaVersion === 1 && Array.isArray(data?.candidates) },
+      schemaVersion: data?.schemaVersion || 0,
+      count: candidates.length,
+      availableCount: available.length,
+      registeredCount: candidates.length - available.length,
+      draftCount: draftRows.length,
+      draftFileCount: draftRows.filter((row) => row.ok).length,
+      draftPlaceholderCount: draftRows.reduce((sum, row) => sum + row.placeholderCount, 0),
+      draftMinionSelectionGroups: draftRows.reduce((sum, row) => sum + (row.minionSelection?.groups || 0), 0),
+      draftMinionSelectionSkillRefs: draftRows.reduce((sum, row) => sum + (row.minionSelection?.skillRefs || 0), 0),
+      draftMinionSelectionSupportRefs: draftRows.reduce((sum, row) => sum + (row.minionSelection?.supportRefs || 0), 0),
+      draftMinionSelectionChooseWhen: draftRows.reduce((sum, row) => sum + (row.minionSelection?.chooseWhen || 0), 0),
+      draftMinionSelectionRules: draftRows.reduce((sum, row) => sum + (row.minionSelection?.rules || 0), 0),
+      draftGuideReportReadyCount: draftRows.reduce((sum, row) => sum + (row.guideReport?.reportReady || 0), 0),
+      draftModuleCount: draftRows.reduce((sum, row) => sum + (row.guideReport?.moduleCount || 0), 0),
+      draftMissingModuleCount: draftRows.reduce((sum, row) => sum + (row.guideReport?.missingModules || 0), 0),
+      draftRouteStageCount: draftRows.reduce((sum, row) => sum + (row.routeBinding?.stages || 0), 0),
+      draftRouteBoundCount: draftRows.reduce((sum, row) => sum + (row.routeBinding?.bound || 0), 0),
+      draftRouteMissingCount: draftRows.reduce((sum, row) => sum + (row.routeBinding?.missing || 0), 0),
+      draftRouteCandidateFileCount: draftRows.reduce((sum, row) => sum + (row.routeCandidates?.files || 0), 0),
+      draftRouteCandidateMissingFileCount: draftRows.reduce((sum, row) => sum + (row.routeCandidates?.missingFiles || 0), 0),
+      draftRouteCandidateStages: [...new Set(draftRows.flatMap((row) => String(row.routeCandidates?.stageIds || '').split(',').filter(Boolean)))].join(','),
+      draftRouteCandidateFiles: [...new Set(draftRows.flatMap((row) => String(row.routeCandidates?.filesList || '').split(',').filter(Boolean)))].join(','),
+      statuses,
+      sourceType: data?.source?.type || 'unknown'
+    };
+  } catch (error) {
+    return {
+      check: { label: 'build candidates', file: error.message || file, ok: false },
+      schemaVersion: 0,
+      count: 0,
+      availableCount: 0,
+      registeredCount: 0,
+      draftCount: 0,
+      draftFileCount: 0,
+      draftPlaceholderCount: 0,
+      draftMinionSelectionGroups: 0,
+      draftMinionSelectionSkillRefs: 0,
+      draftMinionSelectionSupportRefs: 0,
+      draftMinionSelectionChooseWhen: 0,
+      draftMinionSelectionRules: 0,
+      draftGuideReportReadyCount: 0,
+      draftModuleCount: 0,
+      draftMissingModuleCount: 0,
+      draftRouteStageCount: 0,
+      draftRouteBoundCount: 0,
+      draftRouteMissingCount: 0,
+      draftRouteCandidateFileCount: 0,
+      draftRouteCandidateMissingFileCount: 0,
+      draftRouteCandidateStages: '',
+      draftRouteCandidateFiles: '',
+      statuses: '',
+      sourceType: 'read-failed'
+    };
+  }
+}
+
+async function collectVersionCompleteness(item) {
+  const { version, manifest } = item;
+  if (!manifest) {
+    return {
+      version,
+      status: 'failed',
+      checks: [{ label: 'manifest', file: `${version.dataRoot}/manifest.json`, ok: false }],
+      buildCount: 0,
+      routeCount: 0,
+      marketCount: 0,
+      marketCandidateSchemaVersion: 0,
+      marketCandidateCount: 0,
+      marketCandidateReadyCount: 0,
+      marketCandidateGemCount: 0,
+      marketCandidateHideoutCount: 0,
+      marketCandidateStatuses: '',
+      buildCandidateSchemaVersion: 0,
+      buildCandidateCount: 0,
+      buildCandidateAvailableCount: 0,
+      buildCandidateRegisteredCount: 0,
+      buildCandidateDraftCount: 0,
+      buildCandidateDraftFileCount: 0,
+      buildCandidateDraftPlaceholderCount: 0,
+      buildCandidateDraftMinionSelectionGroups: 0,
+      buildCandidateDraftMinionSelectionSkillRefs: 0,
+      buildCandidateDraftMinionSelectionSupportRefs: 0,
+      buildCandidateDraftMinionSelectionChooseWhen: 0,
+      buildCandidateDraftMinionSelectionRules: 0,
+      buildCandidateDraftGuideReportReadyCount: 0,
+      buildCandidateDraftModuleCount: 0,
+      buildCandidateDraftMissingModuleCount: 0,
+      buildCandidateDraftRouteStageCount: 0,
+      buildCandidateDraftRouteBoundCount: 0,
+      buildCandidateDraftRouteMissingCount: 0,
+      buildCandidateDraftRouteCandidateFileCount: 0,
+      buildCandidateDraftRouteCandidateMissingFileCount: 0,
+      buildCandidateDraftRouteCandidateStages: '',
+      buildCandidateDraftRouteCandidateFiles: '',
+      buildCandidateStatuses: '',
+      buildCandidateSourceTypes: '',
+      skillCatalogSourceTypes: '',
+      skillCatalogEntryCount: 0,
+      skillCatalogActiveCount: 0,
+      skillCatalogSupportCount: 0,
+      skillCatalogDetailCount: 0,
+      skillCatalogVerifiedCount: 0,
+      skillCatalogBoundaryStatuses: '',
+      guideCompleteCount: 0,
+      guideMissingCount: 0,
+      guideSkillOverviewCards: 0,
+      guideSkillOverviewChecks: 0,
+      guideMinionSelectionGroups: 0,
+      guideMinionSelectionRules: 0,
+      guideGearOverviewCards: 0,
+      guideGearOverviewChecks: 0,
+      guideStagePlaybooks: 0,
+      guideExecutionStages: 0,
+      guideSourceStatus: '',
+      guideReportReadyCount: 0,
+      ninjaCount: 0,
+      ninjaArchiveCount: 0,
+      ninjaArchiveReadyCount: 0,
+      ninjaArchiveMatchedCount: 0,
+      ninjaArchiveNeedsReviewCount: 0,
+      ninjaArchiveSourceUnknownCount: 0,
+      ninjaArchiveFormats: '',
+      gearThresholdStageCount: 0,
+      gearThresholdRowCount: 0,
+      gearThresholdSourceStatus: ''
+    };
+  }
+  const gearThresholds = await collectBuildGearThresholds(version, manifest);
+  const craftPlans = await collectBuildCraftPlans(version, manifest);
+  const guideWriting = await collectBuildGuideWriting(version, manifest);
+  const buildCandidates = await collectBuildCandidates(version, manifest);
+  const skillCatalog = await collectSkillCatalog(version, manifest);
+  const marketCandidates = await collectMarketCandidates(version);
+  const ninjaArchives = await collectNinjaArchives(version, manifest);
+  const checks = [
+    await checkPointer(version, 'manifest', 'manifest.json'),
+    await checkPointer(version, 'tree raw en', manifest.tree?.raw?.en),
+    await checkPointer(version, 'tree raw zhCN', manifest.tree?.raw?.zhCN),
+    await checkPointer(version, 'tree raw zhTW', manifest.tree?.raw?.zhTW),
+    await checkPointer(version, 'tree svg base', manifest.tree?.assets?.baseSvg),
+    await checkPointer(version, 'tree svg highlight', manifest.tree?.assets?.highlightSvg),
+    await checkPointer(version, 'skills catalog', manifest.skills?.catalog),
+    skillCatalog.check,
+    buildCandidates.check,
+    await checkPointer(version, 'market gemFlips', manifest.market?.gemFlips),
+    await checkPointer(version, 'market hideoutFlips', manifest.market?.hideoutFlips),
+    marketCandidates.check,
+    await checkPointer(version, 'ninja sampleImport', manifest.ninja?.sampleImport),
+    await checkPointer(version, 'ninja schema', 'ninja/schema-v1.md'),
+    await checkNinjaExample(version, 'ninja example analysis', 'ninja/examples/parsed-import-with-analysis.example.json'),
+    await checkNinjaExample(version, 'ninja example raw pob xml', 'ninja/examples/parsed-raw-pob-xml.example.json'),
+    ...await Promise.all((manifest.builds || []).map((entry) => checkPointer(version, `build ${entry.id}`, entry.data))),
+    ...gearThresholds.missing.map((row) => ({
+      label: `gear thresholds ${row.id}`,
+      file: row.error || 'gearStatThresholds',
+      ok: false
+    })),
+    ...craftPlans.missing.map((row) => ({
+      label: `crafting plan ${row.id}`,
+      file: row.error || 'craftingPlan',
+      ok: false
+    })),
+    ...guideWriting.missing.map((row) => ({
+      label: `guide writing ${row.id}`,
+      file: row.error || 'guideStrategy/executionPlan/skills.overview/gearOverview',
+      ok: false
+    })),
+    ...ninjaArchives.missing,
+    ...await Promise.all((manifest.tree?.routes || []).map((route) => checkPointer(version, `route ${route.buildId}:${route.stageId}`, route.data)))
+  ];
+  const ninjaExampleChecks = checks.filter((check) => check.ninjaExample);
+  const missing = checks.filter((check) => !check.ok);
+  return {
+    version,
+    status: missing.length ? 'needs-files' : 'ready',
+    checks,
+    buildCount: manifest.builds?.length || 0,
+    routeCount: manifest.tree?.routes?.length || 0,
+    marketCount: Object.keys(manifest.market || {}).length,
+    marketCandidateSchemaVersion: marketCandidates.schemaVersion,
+    marketCandidateCount: marketCandidates.count,
+    marketCandidateReadyCount: marketCandidates.readyCount,
+    marketCandidateGemCount: marketCandidates.gemCount,
+    marketCandidateHideoutCount: marketCandidates.hideoutCount,
+    marketCandidateStatuses: marketCandidates.statuses,
+    buildCandidateSchemaVersion: buildCandidates.schemaVersion,
+    buildCandidateCount: buildCandidates.count,
+    buildCandidateAvailableCount: buildCandidates.availableCount,
+    buildCandidateRegisteredCount: buildCandidates.registeredCount,
+    buildCandidateDraftCount: buildCandidates.draftCount,
+    buildCandidateDraftFileCount: buildCandidates.draftFileCount,
+    buildCandidateDraftPlaceholderCount: buildCandidates.draftPlaceholderCount,
+    buildCandidateDraftMinionSelectionGroups: buildCandidates.draftMinionSelectionGroups,
+    buildCandidateDraftMinionSelectionSkillRefs: buildCandidates.draftMinionSelectionSkillRefs,
+    buildCandidateDraftMinionSelectionSupportRefs: buildCandidates.draftMinionSelectionSupportRefs,
+    buildCandidateDraftMinionSelectionChooseWhen: buildCandidates.draftMinionSelectionChooseWhen,
+    buildCandidateDraftMinionSelectionRules: buildCandidates.draftMinionSelectionRules,
+    buildCandidateDraftGuideReportReadyCount: buildCandidates.draftGuideReportReadyCount,
+    buildCandidateDraftModuleCount: buildCandidates.draftModuleCount,
+    buildCandidateDraftMissingModuleCount: buildCandidates.draftMissingModuleCount,
+    buildCandidateDraftRouteStageCount: buildCandidates.draftRouteStageCount,
+    buildCandidateDraftRouteBoundCount: buildCandidates.draftRouteBoundCount,
+    buildCandidateDraftRouteMissingCount: buildCandidates.draftRouteMissingCount,
+    buildCandidateDraftRouteCandidateFileCount: buildCandidates.draftRouteCandidateFileCount,
+    buildCandidateDraftRouteCandidateMissingFileCount: buildCandidates.draftRouteCandidateMissingFileCount,
+    buildCandidateDraftRouteCandidateStages: buildCandidates.draftRouteCandidateStages,
+    buildCandidateDraftRouteCandidateFiles: buildCandidates.draftRouteCandidateFiles,
+    buildCandidateStatuses: buildCandidates.statuses,
+    buildCandidateSourceTypes: buildCandidates.sourceType,
+    skillCatalogSourceTypes: skillCatalog.sourceType,
+    skillCatalogEntryCount: skillCatalog.entryCount,
+    skillCatalogActiveCount: skillCatalog.activeCount,
+    skillCatalogSupportCount: skillCatalog.supportCount,
+    skillCatalogDetailCount: skillCatalog.detailCount,
+    skillCatalogVerifiedCount: skillCatalog.verifiedCount,
+    skillCatalogBoundaryStatuses: skillCatalog.boundaryStatus,
+    guideCompleteCount: guideWriting.completeCount,
+    guideMissingCount: guideWriting.missingCount,
+    guideSkillOverviewCards: guideWriting.skillOverviewCards,
+    guideSkillOverviewChecks: guideWriting.skillOverviewChecks,
+    guideMinionSelectionGroups: guideWriting.minionSelectionGroups,
+    guideMinionSelectionRules: guideWriting.minionSelectionRules,
+    guideGearOverviewCards: guideWriting.gearOverviewCards,
+    guideGearOverviewChecks: guideWriting.gearOverviewChecks,
+    guideStagePlaybooks: guideWriting.stagePlaybooks,
+    guideExecutionStages: guideWriting.executionStages,
+    guideSourceStatus: guideWriting.sourceStatus,
+    guideReportReadyCount: guideWriting.reportReadyCount,
+    ninjaCount: Object.keys(manifest.ninja || {}).length,
+    ninjaArchiveCount: ninjaArchives.count,
+    ninjaArchiveReadyCount: ninjaArchives.readyCount,
+    ninjaArchiveMatchedCount: ninjaArchives.matchedCount,
+    ninjaArchiveNeedsReviewCount: ninjaArchives.needsReviewCount,
+    ninjaArchiveSourceUnknownCount: ninjaArchives.sourceUnknownCount,
+    ninjaArchiveFormats: ninjaArchives.formats,
+    gearThresholdStageCount: gearThresholds.stageCount,
+    gearThresholdRowCount: gearThresholds.rowCount,
+    gearThresholdSourceStatus: gearThresholds.sourceStatus,
+    craftPlanCount: craftPlans.planCount,
+    craftStructuredCount: craftPlans.structuredCount,
+    craftSourceStatus: craftPlans.sourceStatus,
+    ninjaExampleCount: ninjaExampleChecks.length,
+    ninjaExampleOk: ninjaExampleChecks.filter((check) => check.ok).length,
+    ninjaExamplePobXmlCount: ninjaExampleChecks.filter((check) => check.ok && check.hasPobXml).length
+  };
+}
+
+function renderCompletenessRows(results) {
+  const rows = document.getElementById('versionCompletenessRows');
+  rows.innerHTML = results.map((result) => {
+    const missing = result.checks.filter((check) => !check.ok);
+    const okCount = result.checks.length - missing.length;
+    return `
+      <tr>
+        <td><code>${esc(result.version.id)}</code><br>${statusBadge(result.status)}</td>
+        <td><span class="badge ${missing.length ? 'draft' : 'active'}">${okCount}/${result.checks.length} 可读</span></td>
+        <td>
+          <span class="badge">BD ${esc(result.buildCount)}</span>
+          <span class="badge">BD 候选 ${esc(result.buildCandidateCount)} / 可接入 ${esc(result.buildCandidateAvailableCount)}</span>
+          <span class="badge">BD 草稿 ${esc(result.buildCandidateDraftFileCount)}/${esc(result.buildCandidateDraftCount)}</span>
+          <span class="badge">草稿占位 ${esc(result.buildCandidateDraftPlaceholderCount)}</span>
+          <span class="badge">草稿召唤物 ${esc(result.buildCandidateDraftMinionSelectionGroups)} 组 / 规则 ${esc(result.buildCandidateDraftMinionSelectionRules)}</span>
+          <span class="badge">草稿报告 ${esc(result.buildCandidateDraftGuideReportReadyCount)} 可导出</span>
+          <span class="badge">草稿缺口 ${esc(result.buildCandidateDraftMissingModuleCount)} / ${esc(result.buildCandidateDraftModuleCount)}</span>
+          <span class="badge">草稿路线 ${esc(result.buildCandidateDraftRouteBoundCount)} / ${esc(result.buildCandidateDraftRouteStageCount)} 已绑定</span>
+          <span class="badge">候选路线文件 ${esc(result.buildCandidateDraftRouteCandidateFileCount)} / ${esc(result.buildCandidateDraftRouteStageCount)}</span>
+          <span class="badge">路线 ${esc(result.routeCount)}</span>
+          <span class="badge">市场 ${esc(result.marketCount)}</span>
+          <span class="badge">候选快照 ${esc(result.marketCandidateCount)} / ready ${esc(result.marketCandidateReadyCount)}</span>
+          <span class="badge">技能目录 ${esc(result.skillCatalogEntryCount)}</span>
+          <span class="badge">主动 ${esc(result.skillCatalogActiveCount)} / 辅助 ${esc(result.skillCatalogSupportCount)}</span>
+          <span class="badge">技能详情 ${esc(result.skillCatalogDetailCount)} / 已核验 ${esc(result.skillCatalogVerifiedCount)}</span>
+          <span class="badge">攻略正文 ${esc(result.guideCompleteCount)} 完整 / ${esc(result.guideMissingCount)} 缺口</span>
+          <span class="badge">攻略报告 ${esc(result.guideReportReadyCount)} 可导出</span>
+          <span class="badge">技能总览 ${esc(result.guideSkillOverviewCards)} 卡 / ${esc(result.guideSkillOverviewChecks)} 检查</span>
+          <span class="badge">召唤选择 ${esc(result.guideMinionSelectionGroups)} 组 / ${esc(result.guideMinionSelectionRules)} 规则</span>
+          <span class="badge">装备总览 ${esc(result.guideGearOverviewCards)} 卡 / ${esc(result.guideGearOverviewChecks)} 检查</span>
+          <span class="badge">阶段攻略 ${esc(result.guideStagePlaybooks)} / 执行 ${esc(result.guideExecutionStages)}</span>
+          <span class="badge">忍者 ${esc(result.ninjaCount)}</span>
+          <span class="badge">忍者归档 ${esc(result.ninjaArchiveReadyCount)}/${esc(result.ninjaArchiveCount)}</span>
+          <span class="badge">忍者样例 ${esc(result.ninjaExampleOk)}/${esc(result.ninjaExampleCount)}</span>
+          <span class="badge">PoB XML ${esc(result.ninjaExamplePobXmlCount)}</span>
+          <span class="badge">装备门槛 ${esc(result.gearThresholdStageCount)} 阶段 / ${esc(result.gearThresholdRowCount)} 条</span>
+          <span class="badge">制作方案 ${esc(result.craftPlanCount)} 套 / ${esc(result.craftStructuredCount)} 结构化</span>
+        </td>
+        <td>${missing.length ? missing.map((check) => `<code>${esc(check.label)}</code>`).join('、') : '<span class="badge active">无缺失</span>'}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const totalChecks = results.reduce((sum, result) => sum + result.checks.length, 0);
+  const missingChecks = results.reduce((sum, result) => sum + result.checks.filter((check) => !check.ok).length, 0);
+  const ninjaExampleCount = results.reduce((sum, result) => sum + result.ninjaExampleCount, 0);
+  const ninjaExampleOk = results.reduce((sum, result) => sum + result.ninjaExampleOk, 0);
+  const ninjaExamplePobXmlCount = results.reduce((sum, result) => sum + result.ninjaExamplePobXmlCount, 0);
+  const ninjaArchiveCount = results.reduce((sum, result) => sum + (result.ninjaArchiveCount || 0), 0);
+  const ninjaArchiveReadyCount = results.reduce((sum, result) => sum + (result.ninjaArchiveReadyCount || 0), 0);
+  const ninjaArchiveMatchedCount = results.reduce((sum, result) => sum + (result.ninjaArchiveMatchedCount || 0), 0);
+  const ninjaArchiveNeedsReviewCount = results.reduce((sum, result) => sum + (result.ninjaArchiveNeedsReviewCount || 0), 0);
+  const ninjaArchiveSourceUnknownCount = results.reduce((sum, result) => sum + (result.ninjaArchiveSourceUnknownCount || 0), 0);
+  const ninjaArchiveFormats = [...new Set(results.flatMap((result) => String(result.ninjaArchiveFormats || '').split(',').filter(Boolean)))].join(',');
+  const gearThresholdStageCount = results.reduce((sum, result) => sum + (result.gearThresholdStageCount || 0), 0);
+  const gearThresholdRowCount = results.reduce((sum, result) => sum + (result.gearThresholdRowCount || 0), 0);
+  const gearThresholdSourceStatus = [...new Set(results.flatMap((result) => String(result.gearThresholdSourceStatus || '').split(',').filter(Boolean)))].join(',');
+  const craftPlanCount = results.reduce((sum, result) => sum + (result.craftPlanCount || 0), 0);
+  const craftStructuredCount = results.reduce((sum, result) => sum + (result.craftStructuredCount || 0), 0);
+  const craftSourceStatus = [...new Set(results.flatMap((result) => String(result.craftSourceStatus || '').split(',').filter(Boolean)))].join(',');
+  const marketCandidateSchemaVersions = [...new Set(results.map((result) => result.marketCandidateSchemaVersion).filter(Boolean))].join(',');
+  const marketCandidateCount = results.reduce((sum, result) => sum + (result.marketCandidateCount || 0), 0);
+  const marketCandidateReadyCount = results.reduce((sum, result) => sum + (result.marketCandidateReadyCount || 0), 0);
+  const marketCandidateGemCount = results.reduce((sum, result) => sum + (result.marketCandidateGemCount || 0), 0);
+  const marketCandidateHideoutCount = results.reduce((sum, result) => sum + (result.marketCandidateHideoutCount || 0), 0);
+  const marketCandidateStatuses = [...new Set(results.flatMap((result) => String(result.marketCandidateStatuses || '').split(',').filter(Boolean)))].join(',');
+  const buildCandidateSchemaVersions = [...new Set(results.map((result) => result.buildCandidateSchemaVersion).filter(Boolean))].join(',');
+  const buildCandidateCount = results.reduce((sum, result) => sum + (result.buildCandidateCount || 0), 0);
+  const buildCandidateAvailableCount = results.reduce((sum, result) => sum + (result.buildCandidateAvailableCount || 0), 0);
+  const buildCandidateRegisteredCount = results.reduce((sum, result) => sum + (result.buildCandidateRegisteredCount || 0), 0);
+  const buildCandidateDraftCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftCount || 0), 0);
+  const buildCandidateDraftFileCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftFileCount || 0), 0);
+  const buildCandidateDraftPlaceholderCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftPlaceholderCount || 0), 0);
+  const buildCandidateDraftMinionSelectionGroups = results.reduce((sum, result) => sum + (result.buildCandidateDraftMinionSelectionGroups || 0), 0);
+  const buildCandidateDraftMinionSelectionSkillRefs = results.reduce((sum, result) => sum + (result.buildCandidateDraftMinionSelectionSkillRefs || 0), 0);
+  const buildCandidateDraftMinionSelectionSupportRefs = results.reduce((sum, result) => sum + (result.buildCandidateDraftMinionSelectionSupportRefs || 0), 0);
+  const buildCandidateDraftMinionSelectionChooseWhen = results.reduce((sum, result) => sum + (result.buildCandidateDraftMinionSelectionChooseWhen || 0), 0);
+  const buildCandidateDraftMinionSelectionRules = results.reduce((sum, result) => sum + (result.buildCandidateDraftMinionSelectionRules || 0), 0);
+  const buildCandidateDraftGuideReportReadyCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftGuideReportReadyCount || 0), 0);
+  const buildCandidateDraftModuleCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftModuleCount || 0), 0);
+  const buildCandidateDraftMissingModuleCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftMissingModuleCount || 0), 0);
+  const buildCandidateDraftRouteStageCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftRouteStageCount || 0), 0);
+  const buildCandidateDraftRouteBoundCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftRouteBoundCount || 0), 0);
+  const buildCandidateDraftRouteMissingCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftRouteMissingCount || 0), 0);
+  const buildCandidateDraftRouteCandidateFileCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftRouteCandidateFileCount || 0), 0);
+  const buildCandidateDraftRouteCandidateMissingFileCount = results.reduce((sum, result) => sum + (result.buildCandidateDraftRouteCandidateMissingFileCount || 0), 0);
+  const buildCandidateDraftRouteCandidateStages = [...new Set(results.flatMap((result) => String(result.buildCandidateDraftRouteCandidateStages || '').split(',').filter(Boolean)))].join(',');
+  const buildCandidateDraftRouteCandidateFiles = [...new Set(results.flatMap((result) => String(result.buildCandidateDraftRouteCandidateFiles || '').split(',').filter(Boolean)))].join(',');
+  const buildCandidateStatuses = [...new Set(results.flatMap((result) => String(result.buildCandidateStatuses || '').split(',').filter(Boolean)))].join(',');
+  const buildCandidateSourceTypes = [...new Set(results.flatMap((result) => String(result.buildCandidateSourceTypes || '').split(',').filter(Boolean)))].join(',');
+  const skillCatalogSourceTypes = [...new Set(results.flatMap((result) => String(result.skillCatalogSourceTypes || '').split(',').filter(Boolean)))].join(',');
+  const skillCatalogEntryCount = results.reduce((sum, result) => sum + (result.skillCatalogEntryCount || 0), 0);
+  const skillCatalogActiveCount = results.reduce((sum, result) => sum + (result.skillCatalogActiveCount || 0), 0);
+  const skillCatalogSupportCount = results.reduce((sum, result) => sum + (result.skillCatalogSupportCount || 0), 0);
+  const skillCatalogDetailCount = results.reduce((sum, result) => sum + (result.skillCatalogDetailCount || 0), 0);
+  const skillCatalogVerifiedCount = results.reduce((sum, result) => sum + (result.skillCatalogVerifiedCount || 0), 0);
+  const skillCatalogBoundaryStatuses = [...new Set(results.flatMap((result) => String(result.skillCatalogBoundaryStatuses || '').split(',').filter(Boolean)))].join(',');
+  const guideCompleteCount = results.reduce((sum, result) => sum + (result.guideCompleteCount || 0), 0);
+  const guideMissingCount = results.reduce((sum, result) => sum + (result.guideMissingCount || 0), 0);
+  const guideReportReadyCount = results.reduce((sum, result) => sum + (result.guideReportReadyCount || 0), 0);
+  const guideSkillOverviewCards = results.reduce((sum, result) => sum + (result.guideSkillOverviewCards || 0), 0);
+  const guideSkillOverviewChecks = results.reduce((sum, result) => sum + (result.guideSkillOverviewChecks || 0), 0);
+  const guideMinionSelectionGroups = results.reduce((sum, result) => sum + (result.guideMinionSelectionGroups || 0), 0);
+  const guideMinionSelectionRules = results.reduce((sum, result) => sum + (result.guideMinionSelectionRules || 0), 0);
+  const guideGearOverviewCards = results.reduce((sum, result) => sum + (result.guideGearOverviewCards || 0), 0);
+  const guideGearOverviewChecks = results.reduce((sum, result) => sum + (result.guideGearOverviewChecks || 0), 0);
+  const guideStagePlaybooks = results.reduce((sum, result) => sum + (result.guideStagePlaybooks || 0), 0);
+  const guideExecutionStages = results.reduce((sum, result) => sum + (result.guideExecutionStages || 0), 0);
+  const guideSourceStatus = [...new Set(results.flatMap((result) => String(result.guideSourceStatus || '').split(',').filter(Boolean)))].join(',');
+  document.body.dataset.versionHistoryCompletenessVersionCount = String(results.length);
+  document.body.dataset.versionHistoryCompletenessTotal = String(totalChecks);
+  document.body.dataset.versionHistoryCompletenessMissing = String(missingChecks);
+  document.body.dataset.versionHistoryCompletenessReady = String(results.filter((result) => result.status === 'ready').length);
+  document.body.dataset.versionHistoryNinjaExampleCount = String(ninjaExampleCount);
+  document.body.dataset.versionHistoryNinjaExampleOk = String(ninjaExampleOk);
+  document.body.dataset.versionHistoryNinjaExamplePobXmlCount = String(ninjaExamplePobXmlCount);
+  document.body.dataset.versionHistoryNinjaArchiveCount = String(ninjaArchiveCount);
+  document.body.dataset.versionHistoryNinjaArchiveReadyCount = String(ninjaArchiveReadyCount);
+  document.body.dataset.versionHistoryNinjaArchiveMatchedCount = String(ninjaArchiveMatchedCount);
+  document.body.dataset.versionHistoryNinjaArchiveNeedsReviewCount = String(ninjaArchiveNeedsReviewCount);
+  document.body.dataset.versionHistoryNinjaArchiveSourceUnknownCount = String(ninjaArchiveSourceUnknownCount);
+  document.body.dataset.versionHistoryNinjaArchiveFormats = ninjaArchiveFormats;
+  document.body.dataset.versionHistoryGearThresholdStageCount = String(gearThresholdStageCount);
+  document.body.dataset.versionHistoryGearThresholdRowCount = String(gearThresholdRowCount);
+  document.body.dataset.versionHistoryGearThresholdSourceStatus = gearThresholdSourceStatus;
+  document.body.dataset.versionHistoryCraftPlanCount = String(craftPlanCount);
+  document.body.dataset.versionHistoryCraftStructuredCount = String(craftStructuredCount);
+  document.body.dataset.versionHistoryCraftSourceStatus = craftSourceStatus;
+  document.body.dataset.versionHistoryMarketCandidateIndexSchema = marketCandidateSchemaVersions;
+  document.body.dataset.versionHistoryMarketCandidateCount = String(marketCandidateCount);
+  document.body.dataset.versionHistoryMarketCandidateReadyCount = String(marketCandidateReadyCount);
+  document.body.dataset.versionHistoryMarketCandidateGemCount = String(marketCandidateGemCount);
+  document.body.dataset.versionHistoryMarketCandidateHideoutCount = String(marketCandidateHideoutCount);
+  document.body.dataset.versionHistoryMarketCandidateStatuses = marketCandidateStatuses;
+  document.body.dataset.versionHistoryBuildCandidateSchema = buildCandidateSchemaVersions;
+  document.body.dataset.versionHistoryBuildCandidateCount = String(buildCandidateCount);
+  document.body.dataset.versionHistoryBuildCandidateAvailableCount = String(buildCandidateAvailableCount);
+  document.body.dataset.versionHistoryBuildCandidateRegisteredCount = String(buildCandidateRegisteredCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftCount = String(buildCandidateDraftCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftFileCount = String(buildCandidateDraftFileCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftPlaceholderCount = String(buildCandidateDraftPlaceholderCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftMinionSelectionGroups = String(buildCandidateDraftMinionSelectionGroups);
+  document.body.dataset.versionHistoryBuildCandidateDraftMinionSelectionSkillRefs = String(buildCandidateDraftMinionSelectionSkillRefs);
+  document.body.dataset.versionHistoryBuildCandidateDraftMinionSelectionSupportRefs = String(buildCandidateDraftMinionSelectionSupportRefs);
+  document.body.dataset.versionHistoryBuildCandidateDraftMinionSelectionChooseWhen = String(buildCandidateDraftMinionSelectionChooseWhen);
+  document.body.dataset.versionHistoryBuildCandidateDraftMinionSelectionRules = String(buildCandidateDraftMinionSelectionRules);
+  document.body.dataset.versionHistoryBuildCandidateDraftGuideReportReadyCount = String(buildCandidateDraftGuideReportReadyCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftModuleCount = String(buildCandidateDraftModuleCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftMissingModuleCount = String(buildCandidateDraftMissingModuleCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteStageCount = String(buildCandidateDraftRouteStageCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteBoundCount = String(buildCandidateDraftRouteBoundCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteMissingCount = String(buildCandidateDraftRouteMissingCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteCandidateFileCount = String(buildCandidateDraftRouteCandidateFileCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteCandidateMissingFileCount = String(buildCandidateDraftRouteCandidateMissingFileCount);
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteCandidateStages = buildCandidateDraftRouteCandidateStages;
+  document.body.dataset.versionHistoryBuildCandidateDraftRouteCandidateFiles = buildCandidateDraftRouteCandidateFiles;
+  document.body.dataset.versionHistoryBuildCandidateStatuses = buildCandidateStatuses;
+  document.body.dataset.versionHistoryBuildCandidateSourceTypes = buildCandidateSourceTypes;
+  document.body.dataset.versionHistorySkillCatalogSourceTypes = skillCatalogSourceTypes;
+  document.body.dataset.versionHistorySkillCatalogEntryCount = String(skillCatalogEntryCount);
+  document.body.dataset.versionHistorySkillCatalogActiveCount = String(skillCatalogActiveCount);
+  document.body.dataset.versionHistorySkillCatalogSupportCount = String(skillCatalogSupportCount);
+  document.body.dataset.versionHistorySkillCatalogDetailCount = String(skillCatalogDetailCount);
+  document.body.dataset.versionHistorySkillCatalogVerifiedCount = String(skillCatalogVerifiedCount);
+  document.body.dataset.versionHistorySkillCatalogBoundaryStatuses = skillCatalogBoundaryStatuses;
+  document.body.dataset.versionHistoryGuideCompleteCount = String(guideCompleteCount);
+  document.body.dataset.versionHistoryGuideMissingCount = String(guideMissingCount);
+  document.body.dataset.versionHistoryGuideReportReadyCount = String(guideReportReadyCount);
+  document.body.dataset.versionHistoryGuideSkillOverviewCards = String(guideSkillOverviewCards);
+  document.body.dataset.versionHistoryGuideSkillOverviewChecks = String(guideSkillOverviewChecks);
+  document.body.dataset.versionHistoryGuideMinionSelectionGroups = String(guideMinionSelectionGroups);
+  document.body.dataset.versionHistoryGuideMinionSelectionRules = String(guideMinionSelectionRules);
+  document.body.dataset.versionHistoryGuideGearOverviewCards = String(guideGearOverviewCards);
+  document.body.dataset.versionHistoryGuideGearOverviewChecks = String(guideGearOverviewChecks);
+  document.body.dataset.versionHistoryGuideStagePlaybooks = String(guideStagePlaybooks);
+  document.body.dataset.versionHistoryGuideExecutionStages = String(guideExecutionStages);
+  document.body.dataset.versionHistoryGuideSourceStatus = guideSourceStatus;
+}
+
+function renderCurrentFiles(current, manifest) {
+  fillList('currentFiles', [
+    `版本：<code>${esc(current.id)}</code>`,
+    `manifest：<code>${esc(current.dataRoot)}/manifest.json</code>`,
+    `技能目录：<code>${esc(manifest.skills?.catalog || '-')}</code>`,
+    `BD 文件：${(manifest.builds || []).map((item) => `<code>${esc(item.data)}</code>`).join('、') || '-'}`,
+    `BD 候选：<code>${esc(manifest.buildCandidates || 'builds/candidates.json')}</code>`,
+    `市场文件：${Object.entries(manifest.market || {}).map(([key, value]) => `<code>${esc(key)}=${esc(value)}</code>`).join('、') || '-'}`,
+    `候选快照索引：<code>market/candidates/index.json</code>`,
+    `忍者样例：${Object.entries(manifest.ninja || {}).map(([key, value]) => `<code>${esc(key)}=${esc(value)}</code>`).join('、') || '-'}`
+  ]);
+}
+
+function renderRouteQuality(manifest) {
+  const routes = manifest.tree?.routes || [];
+  const stats = routeStats(routes);
+  fillList('routeQuality', [
+    `总路线：<code>${stats.total}</code>`,
+    `已手调：<code>${stats.handTuned}</code>`,
+    `待手调：<code>${stats.total - stats.handTuned}</code>`,
+    `终局顺序投影：<code>${stats.projected}</code>`,
+    `PoB 终局导入：<code>${stats.pobImported}</code>`,
+    `需人工复核：<code>${stats.manualReview}</code>`
+  ]);
+  document.body.dataset.versionHistoryRouteProjected = String(stats.projected);
+  document.body.dataset.versionHistoryRouteManualReview = String(stats.manualReview);
+}
+
+function stageForRoute(builds, route) {
+  const build = builds.find((item) => item.id === route.buildId);
+  return (build?.stages || []).find((stage) => stage.treeStage === route.stageId || stage.id === route.stageId) || null;
+}
+
+async function loadBuildDetails(version, manifest) {
+  return Promise.all((manifest.builds || []).map(async (entry) => {
+    try {
+      return await window.POE2Versions.readJson(`../${version.dataRoot}/${entry.data}`);
+    } catch (_) {
+      return { id: entry.id, stages: [] };
+    }
+  }));
+}
+
+function renderRouteReviews(current, manifest, builds) {
+  const routes = manifest.tree?.routes || [];
+  const reviewRows = routes.map((route) => {
+    const stage = stageForRoute(builds, route);
+    const review = stage?.routeReview;
+    return review
+      ? `<code>${esc(route.buildId)}:${esc(route.stageId)}</code>：${esc(review.status)} / ${esc(review.reason)}`
+      : `<code>${esc(route.buildId)}:${esc(route.stageId)}</code>：缺少复核说明`;
+  });
+  fillList('routeQuality', [
+    ...document.querySelectorAll('#routeQuality li'),
+    `复核说明：<code>${reviewRows.filter((row) => !row.includes('缺少复核说明')).length}</code> / <code>${routes.length}</code>`,
+    ...reviewRows
+  ].map((row) => typeof row === 'string' ? row : row.innerHTML));
+  document.body.dataset.versionHistoryRouteReviewCount = String(reviewRows.filter((row) => !row.includes('缺少复核说明')).length);
+  document.body.dataset.versionHistoryRouteReviewMissing = String(reviewRows.filter((row) => row.includes('缺少复核说明')).length);
+  document.body.dataset.versionHistoryRouteReviewVersion = current.id;
+}
+
+function renderSources(versions) {
+  const source = versions.sources || {};
+  fillList('sourceRows', [
+    `PoE2DB 天赋 EN：<code>${esc(source.poe2dbPassiveTree?.en || '-')}</code>`,
+    `PoE2DB 天赋 简体：<code>${esc(source.poe2dbPassiveTree?.zhCN || '-')}</code>`,
+    `PoE2DB 天赋 繁体：<code>${esc(source.poe2dbPassiveTree?.zhTW || '-')}</code>`,
+    `天赋 SVG：<code>${esc(source.pobbTreeSvg || '-')}</code>`,
+    `示例 BD：<code>${esc(source.exampleBuild || '-')}</code>`
+  ]);
+}
+
+function bumpMinorVersion(value) {
+  const text = String(value || '').trim();
+  const match = text.match(/^(\d+)\.(\d+)$/);
+  if (!match) return text ? `${text}-next` : 'next';
+  return `${match[1]}.${Number(match[2]) + 1}`;
+}
+
+function lowerSeasonId(season) {
+  return String(season || 'S05').toLowerCase();
+}
+
+function inferNextVersion(current) {
+  const nextTree = bumpMinorVersion(current.poe2dbPassiveTreeVersion);
+  const nextSvg = bumpMinorVersion(current.pobbTreeSvgVersion);
+  const season = current.season || 'S05';
+  const seasonId = lowerSeasonId(season);
+  return {
+    id: `${seasonId}-tree-${nextTree}`,
+    season,
+    seasonId,
+    poe2dbVersion: nextTree,
+    pobbSvgVersion: nextSvg,
+    dataRoot: `data/seasons/${seasonId}-tree-${nextTree}`
+  };
+}
+
+function renderVersionCommands(current) {
+  const next = inferNextVersion(current);
+  const commands = [
+    {
+      title: '创建下一版草稿',
+      body: [
+        `node scripts/create-version.mjs --id ${next.id} --season ${next.season} --poe2db-version ${next.poe2dbVersion} --pobb-svg-version ${next.pobbSvgVersion} --data-root ${next.dataRoot}`,
+        `node scripts/create-version.mjs --id ${next.id} --season ${next.season} --poe2db-version ${next.poe2dbVersion} --pobb-svg-version ${next.pobbSvgVersion} --data-root ${next.dataRoot} --write`
+      ].join('\n')
+    },
+    {
+      title: '拉取并校验源数据',
+      body: [
+        `node scripts/update-data.mjs --data-root ${next.dataRoot} --season ${next.season} --poe2db-version ${next.poe2dbVersion} --pobb-svg-version ${next.pobbSvgVersion}`,
+        `node scripts/update-data.mjs --data-root ${next.dataRoot} --season ${next.season} --poe2db-version ${next.poe2dbVersion} --pobb-svg-version ${next.pobbSvgVersion} --write`,
+        `node scripts/validate-versions.mjs --id ${next.id}`
+      ].join('\n')
+    },
+    {
+      title: '比较天赋树并生成版本日志',
+      body: [
+        `node scripts/diff-tree.mjs --from-version ${current.id} --to-version ${next.id} --lang zhCN --season ${next.seasonId}`,
+        `node scripts/generate-version-log.mjs --from-version ${current.id} --to-version ${next.id} --season ${next.seasonId}`,
+        `node scripts/generate-version-log.mjs --from-version ${current.id} --to-version ${next.id} --season ${next.seasonId} --write`
+      ].join('\n')
+    },
+    {
+      title: '验证后切换 current',
+      body: [
+        `node scripts/validate-all.mjs --season ${next.seasonId}`,
+        `node scripts/validate-suite.mjs --season ${next.seasonId} --serve`,
+        `node scripts/switch-current.mjs --id ${next.id}`,
+        `node scripts/switch-current.mjs --id ${next.id} --write`
+      ].join('\n')
+    }
+  ];
+  document.getElementById('versionCommandList').innerHTML = commands.map((command) => `
+    <article class="command-block">
+      <h3>${esc(command.title)}</h3>
+      <pre>${esc(command.body)}</pre>
+    </article>
+  `).join('');
+  document.body.dataset.versionHistoryCommandCurrent = current.id;
+  document.body.dataset.versionHistoryCommandTarget = next.id;
+  document.body.dataset.versionHistoryCommandCount = String(commands.length);
+  document.body.dataset.versionHistoryCommandSeason = next.seasonId;
+  document.body.dataset.versionHistoryCommandText = commands.map((command) => `# ${command.title}\n${command.body}`).join('\n\n');
+  document.body.dataset.versionHistoryCommandLineCount = String(commands.reduce((sum, command) => sum + command.body.split('\n').length, 0));
+  document.body.dataset.versionHistoryCommandCopyStatus = '';
+  setCommandCopyButton('copyVersionCommandsBtn', true);
+}
+
+function setCommandCopyButton(buttonId, enabled) {
+  const button = document.getElementById(buttonId);
+  if (!button) return;
+  button.classList.toggle('disabled', !enabled);
+  button.setAttribute('aria-disabled', String(!enabled));
+}
+
+async function copyText(value) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+  const textarea = document.createElement('textarea');
+  textarea.value = value;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand('copy');
+  textarea.remove();
+  if (!copied) throw new Error('copy failed');
+}
+
+async function copyVersionCommands() {
+  const status = document.getElementById('versionCommandCopyStatus');
+  try {
+    await copyText(document.body.dataset.versionHistoryCommandText || '');
+    document.body.dataset.versionHistoryCommandCopyStatus = 'copied';
+    status.textContent = '已复制版本操作命令';
+  } catch {
+    document.body.dataset.versionHistoryCommandCopyStatus = 'failed';
+    status.textContent = '复制失败，请手动选择命令。';
+  }
+}
+
+document.getElementById('copyVersionCommandsBtn').addEventListener('click', (event) => {
+  if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
+  copyVersionCommands();
+});
+
+async function loadManifest(version) {
+  try {
+    const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+    return { version, manifest };
+  } catch (error) {
+    return { version, manifest: null, error: error.message };
+  }
+}
+
+async function main() {
+  const versions = await window.POE2Versions.readJson('../data/versions.json');
+  const history = window.POE2Versions.history(versions);
+  const manifests = await Promise.all(history.map(loadManifest));
+  const currentVersion = window.POE2Versions.selectedVersion(versions);
+  const current = manifests.find((item) => item.version.id === currentVersion.id) || manifests[0];
+  renderStats(history, manifests);
+  renderVersionRows(manifests);
+  renderCompletenessRows(await Promise.all(manifests.map(collectVersionCompleteness)));
+  if (current?.manifest) {
+    renderCurrentFiles(current.version, current.manifest);
+    renderRouteQuality(current.manifest);
+    const builds = await loadBuildDetails(current.version, current.manifest);
+    renderRouteReviews(current.version, current.manifest, builds);
+  }
+  renderVersionCommands(current.version);
+  renderSources(versions);
+  document.body.dataset.versionHistoryReady = 'true';
+}
+
+main().catch((error) => {
+  document.body.dataset.versionHistoryLoadError = 'true';
+  document.body.dataset.versionHistoryReady = 'error';
+  document.getElementById('versionRows').innerHTML = `<tr><td colspan="5">${esc(error.message)}</td></tr>`;
+  setCommandCopyButton('copyVersionCommandsBtn', false);
+});
+</script>
+</body>
+</html>

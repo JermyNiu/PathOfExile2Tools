@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 技能资料</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  .nav, .filters {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font:inherit;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .shell {
+    width:min(1280px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .meta-grid {
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:10px;
+  }
+  .meta-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:5px;
+    min-width:0;
+  }
+  .meta-card span {
+    color:var(--muted);
+    font-size:12px;
+  }
+  .meta-card strong {
+    font-size:13px;
+    overflow-wrap:anywhere;
+  }
+  .muted, li { color:var(--muted); line-height:1.55; }
+  .warn { color:var(--warn); }
+  .bad { color:var(--bad); }
+  .ok { color:var(--ok); }
+  select, input {
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    color:var(--text);
+    min-height:34px;
+    padding:6px 8px;
+    font:inherit;
+  }
+  input { min-width:220px; }
+  .segmented {
+    display:inline-flex;
+    gap:4px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+  }
+  .segmented button {
+    min-height:30px;
+    border:0;
+    border-radius:6px;
+    padding:5px 10px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font:inherit;
+    font-size:13px;
+  }
+  .segmented button.active {
+    background:#075985;
+    color:var(--text);
+  }
+  .table-wrap {
+    overflow:auto;
+    border:1px solid var(--line);
+    border-radius:8px;
+  }
+  table {
+    min-width:1120px;
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th, td {
+    padding:10px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  th {
+    color:var(--muted);
+    font-weight:650;
+    background:#0b1120;
+  }
+  tr:last-child td { border-bottom:0; }
+  code {
+    color:var(--accent);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  .pill {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 8px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:12px;
+  }
+  .tag-list {
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+  }
+  .tag {
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:2px 7px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:12px;
+  }
+  ul { margin:0; padding-left:20px; display:grid; gap:5px; }
+  @media (max-width: 920px) {
+    .meta-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .meta-grid { grid-template-columns:1fr; }
+    input { min-width:0; width:100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i18n="pageHeading">技能资料</h1>
+  <nav class="nav">
+    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+    <a class="btn" href="gem-flip.html" data-i18n="gemFlip">技能倒卖</a>
+    <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="panel">
+    <div class="nav">
+      <span class="pill" id="catalogStatus">读取中</span>
+      <h2 id="pageTitle">技能本体与辅助宝石目录</h2>
+    </div>
+    <p class="muted" id="sourceNote">当前目录用于核对攻略引用的技能和辅助 ID；未接入编年史前，不作为官方获取等级或兼容性结论。</p>
+    <div class="filters">
+      <label><span data-i18n="kindFilter">类型</span>
+        <select id="kindFilter">
+          <option value="all" data-i18n-option="all">全部</option>
+          <option value="active" data-i18n-option="activeKind">技能本体</option>
+          <option value="support" data-i18n-option="supportKind">辅助宝石</option>
+        </select>
+      </label>
+      <label><span data-i18n="verificationFilter">核验</span>
+        <select id="verificationFilter">
+          <option value="all" data-i18n-option="all">全部</option>
+          <option value="needs-poe2db-verification" data-i18n-option="needsReview">待编年史复核</option>
+          <option value="verified" data-i18n-option="verified">已核验</option>
+        </select>
+      </label>
+      <label><span data-i18n="qualityFilter">资料质量</span>
+        <select id="qualityFilter">
+          <option value="all" data-i18n-option="all">全部</option>
+          <option value="has-detail" data-i18n-option="hasDetail">有详情页</option>
+          <option value="has-from" data-i18n-option="hasFrom">有 From 来源</option>
+          <option value="has-requirement" data-i18n-option="hasRequirement">有需求信息</option>
+          <option value="missing-detail" data-i18n-option="missingDetail">缺详情页</option>
+        </select>
+      </label>
+      <label><span data-i18n="searchLabel">搜索</span>
+        <input id="searchInput" type="search" placeholder="名称、ID、标签">
+      </label>
+      <div class="segmented" aria-label="语言选择">
+        <button class="active" type="button" data-lang="zhCN">简体</button>
+        <button type="button" data-lang="zhTW">繁体</button>
+        <button type="button" data-lang="en">English</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="meta-grid" aria-label="技能目录状态">
+    <article class="meta-card">
+      <span data-i18n="metaSource">数据来源</span>
+      <strong id="metaSourceType">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaVersion">版本</span>
+      <strong id="metaVersionId">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="metaEntries">条目数量</span>
+      <strong id="metaEntryCount">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="activeKind">技能本体</span>
+      <strong id="metaActiveCount">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="supportKind">辅助宝石</span>
+      <strong id="metaSupportCount">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="pendingShort">待复核</span>
+      <strong id="metaNeedsReview">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="detailPage">详情页</span>
+      <strong id="metaDetailCount">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="fromSource">From 来源</span>
+      <strong id="metaFromCount">-</strong>
+    </article>
+    <article class="meta-card">
+      <span data-i18n="requirementData">需求信息</span>
+      <strong id="metaRequirementCount">-</strong>
+    </article>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="catalogEntries">目录条目</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="nameCol">名称</th>
+            <th>ID</th>
+            <th data-i18n="kindCol">类型</th>
+            <th data-i18n="verificationCol">核验状态</th>
+            <th data-i18n="tagsCol">标签</th>
+            <th data-i18n="gemTierCol">宝石阶级</th>
+            <th data-i18n="detailSourceCol">详情来源</th>
+            <th data-i18n="acquisitionCol">获取</th>
+            <th data-i18n="supportLimitCol">辅助限制</th>
+          </tr>
+        </thead>
+        <tbody id="catalogRows">
+          <tr><td colspan="9">读取中...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 data-i18n="usageBoundary">使用边界</h2>
+    <ul id="catalogRules">
+      <li>目录来源以 manifest 当前 <code>skills.catalog</code> 为准；手工种子和编年史快照会分开标记。</li>
+      <li><code>poe2db.gemTier</code> 是编年史列表里的宝石阶级，不等同角色等级。</li>
+      <li><code>poe2db.detail.from</code> 来自单个技能页的 <code>From</code> 区块，可用于追踪未切宝石阶级、被动或武器来源；它仍不是实时市场数据。</li>
+      <li>具体章节和实际角色练级流程仍以攻略阶段说明为准，目录只保存可追踪来源字段。</li>
+    </ul>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+let catalog = null;
+let activeVersion = null;
+let currentLang = 'zhCN';
+
+const ui = {
+  zhCN: {
+    pageHeading: '技能资料',
+    home: '首页',
+    gemFlip: '技能倒卖',
+    dataUpdate: '数据更新',
+    pageTitle: '技能本体与辅助宝石目录',
+    sourceNoteSnapshot: '当前目录用于核对攻略引用的技能和辅助 ID；编年史快照提供来源证据，但不直接等同角色实际练级顺序。',
+    sourceNoteManual: '当前目录用于核对攻略引用的技能和辅助 ID；手工种子只用于校验引用，不作为官方获取等级或兼容性结论。',
+    kindFilter: '类型',
+    verificationFilter: '核验',
+    qualityFilter: '资料质量',
+    searchLabel: '搜索',
+    searchPlaceholder: '名称、ID、标签',
+    all: '全部',
+    activeKind: '技能本体',
+    supportKind: '辅助宝石',
+    needsReview: '待编年史复核',
+    verified: '已核验',
+    hasDetail: '有详情页',
+    hasFrom: '有 From 来源',
+    hasRequirement: '有需求信息',
+    missingDetail: '缺详情页',
+    metaSource: '数据来源',
+    metaVersion: '版本',
+    metaEntries: '条目数量',
+    pendingShort: '待复核',
+    detailPage: '详情页',
+    fromSource: 'From 来源',
+    requirementData: '需求信息',
+    catalogEntries: '目录条目',
+    nameCol: '名称',
+    kindCol: '类型',
+    verificationCol: '核验状态',
+    tagsCol: '标签',
+    gemTierCol: '宝石阶级',
+    detailSourceCol: '详情来源',
+    acquisitionCol: '获取',
+    supportLimitCol: '辅助限制',
+    usageBoundary: '使用边界',
+    noMatches: '没有匹配条目',
+    loadFailed: '读取失败',
+    pendingDetail: '待详情页',
+    sourcePending: '待来源数据',
+    requiresHit: '需要命中',
+    ruleCatalog: '目录来源以 manifest 当前 <code>skills.catalog</code> 为准；手工种子和编年史快照会分开标记。',
+    ruleGemTier: '<code>poe2db.gemTier</code> 是编年史列表里的宝石阶级，不等同角色等级。',
+    ruleFrom: '<code>poe2db.detail.from</code> 来自单个技能页的 <code>From</code> 区块，可用于追踪未切宝石阶级、被动或武器来源；它仍不是实时市场数据。',
+    ruleGuide: '具体章节和实际角色练级流程仍以攻略阶段说明为准，目录只保存可追踪来源字段。'
+  },
+  zhTW: {
+    pageHeading: '技能資料',
+    home: '首頁',
+    gemFlip: '技能倒賣',
+    dataUpdate: '資料更新',
+    pageTitle: '技能本體與輔助寶石目錄',
+    sourceNoteSnapshot: '目前目錄用於核對攻略引用的技能和輔助 ID；編年史快照提供來源證據，但不直接等同角色實際練級順序。',
+    sourceNoteManual: '目前目錄用於核對攻略引用的技能和輔助 ID；手工種子只用於校驗引用，不作為官方取得等級或相容性結論。',
+    kindFilter: '類型',
+    verificationFilter: '核驗',
+    qualityFilter: '資料品質',
+    searchLabel: '搜尋',
+    searchPlaceholder: '名稱、ID、標籤',
+    all: '全部',
+    activeKind: '技能本體',
+    supportKind: '輔助寶石',
+    needsReview: '待編年史複核',
+    verified: '已核驗',
+    hasDetail: '有詳情頁',
+    hasFrom: '有 From 來源',
+    hasRequirement: '有需求資訊',
+    missingDetail: '缺詳情頁',
+    metaSource: '資料來源',
+    metaVersion: '版本',
+    metaEntries: '條目數量',
+    pendingShort: '待複核',
+    detailPage: '詳情頁',
+    fromSource: 'From 來源',
+    requirementData: '需求資訊',
+    catalogEntries: '目錄條目',
+    nameCol: '名稱',
+    kindCol: '類型',
+    verificationCol: '核驗狀態',
+    tagsCol: '標籤',
+    gemTierCol: '寶石階級',
+    detailSourceCol: '詳情來源',
+    acquisitionCol: '取得',
+    supportLimitCol: '輔助限制',
+    usageBoundary: '使用邊界',
+    noMatches: '沒有匹配條目',
+    loadFailed: '讀取失敗',
+    pendingDetail: '待詳情頁',
+    sourcePending: '待來源資料',
+    requiresHit: '需要命中',
+    ruleCatalog: '目錄來源以 manifest 目前 <code>skills.catalog</code> 為準；手工種子和編年史快照會分開標記。',
+    ruleGemTier: '<code>poe2db.gemTier</code> 是編年史列表裡的寶石階級，不等同角色等級。',
+    ruleFrom: '<code>poe2db.detail.from</code> 來自單個技能頁的 <code>From</code> 區塊，可用於追蹤未切寶石階級、被動或武器來源；它仍不是即時市場資料。',
+    ruleGuide: '具體章節和實際角色練級流程仍以攻略階段說明為準，目錄只保存可追蹤來源欄位。'
+  },
+  en: {
+    pageHeading: 'Skill Data',
+    home: 'Home',
+    gemFlip: 'Gem Flip',
+    dataUpdate: 'Data Update',
+    pageTitle: 'Active Skill and Support Gem Catalog',
+    sourceNoteSnapshot: 'Use this catalog to check skill and support IDs referenced by guides. PoE2DB snapshots are source evidence, not a character leveling order.',
+    sourceNoteManual: 'Use this catalog to check skill and support IDs referenced by guides. Manual seeds are only for reference validation, not official unlock or compatibility claims.',
+    kindFilter: 'Type',
+    verificationFilter: 'Verification',
+    qualityFilter: 'Data Quality',
+    searchLabel: 'Search',
+    searchPlaceholder: 'Name, ID, tag',
+    all: 'All',
+    activeKind: 'Active Skill',
+    supportKind: 'Support Gem',
+    needsReview: 'Needs PoE2DB review',
+    verified: 'Verified',
+    hasDetail: 'Has detail page',
+    hasFrom: 'Has From source',
+    hasRequirement: 'Has requirement data',
+    missingDetail: 'Missing detail page',
+    metaSource: 'Data source',
+    metaVersion: 'Version',
+    metaEntries: 'Entries',
+    pendingShort: 'Pending',
+    detailPage: 'Detail page',
+    fromSource: 'From source',
+    requirementData: 'Requirement data',
+    catalogEntries: 'Catalog Entries',
+    nameCol: 'Name',
+    kindCol: 'Type',
+    verificationCol: 'Verification',
+    tagsCol: 'Tags',
+    gemTierCol: 'Gem tier',
+    detailSourceCol: 'Detail source',
+    acquisitionCol: 'Acquisition',
+    supportLimitCol: 'Support limits',
+    usageBoundary: 'Usage Boundaries',
+    noMatches: 'No matching entries',
+    loadFailed: 'Load failed',
+    pendingDetail: 'Pending detail page',
+    sourcePending: 'Pending source data',
+    requiresHit: 'Requires hit',
+    ruleCatalog: 'The catalog source follows the current manifest <code>skills.catalog</code>; manual seeds and PoE2DB snapshots are marked separately.',
+    ruleGemTier: '<code>poe2db.gemTier</code> is the gem tier from PoE2DB lists, not the character level.',
+    ruleFrom: '<code>poe2db.detail.from</code> comes from a skill page <code>From</code> block and can trace uncut gems, passives, or weapon sources; it is not market data.',
+    ruleGuide: 'Exact acts and real leveling flow still come from guide stages. The catalog only stores traceable source fields.'
+  }
+};
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+}
+
+function localized(value) {
+  if (!value || typeof value !== 'object') return value ?? '';
+  return value[currentLang] || value.zhCN || value.en || '';
+}
+
+function kindLabel(kind) {
+  if (currentLang === 'en') return kind === 'support' ? 'Support Gem' : 'Skill Gem';
+  if (currentLang === 'zhTW') return kind === 'support' ? '輔助寶石' : '技能本體';
+  return kind === 'support' ? '辅助宝石' : '技能本体';
+}
+
+function verificationLabel(status) {
+  if (status === 'verified') {
+    if (currentLang === 'en') return 'Verified';
+    if (currentLang === 'zhTW') return '已核驗';
+    return '已核验';
+  }
+  if (currentLang === 'en') return 'Needs PoE2DB verification';
+  if (currentLang === 'zhTW') return '待編年史複核';
+  return '待编年史复核';
+}
+
+function sourceTypeLabel(type) {
+  if (type === 'manual-seed-needs-poe2db') {
+    if (currentLang === 'en') return 'Manual seed, needs PoE2DB';
+    if (currentLang === 'zhTW') return '手工種子，待編年史';
+    return '手工种子，待编年史';
+  }
+  if (currentLang === 'en') return 'PoE2DB snapshot';
+  if (currentLang === 'zhTW') return '編年史快照';
+  return '编年史快照';
+}
+
+function renderTags(tags) {
+  return `<span class="tag-list">${(tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}</span>`;
+}
+
+function renderAcquisition(acquisition) {
+  if (!acquisition || (!acquisition.act && !acquisition.level && !acquisition.sourceRef)) {
+    return `<span class="warn">${escapeHtml(ui[currentLang].sourcePending)}</span>`;
+  }
+  const parts = [];
+  if (acquisition.act) parts.push(acquisition.act);
+  if (acquisition.level) parts.push(`Lv ${acquisition.level}`);
+  if (acquisition.sourceRef) parts.push(acquisition.sourceRef);
+  return escapeHtml(parts.join(' / '));
+}
+
+function renderRequirements(requirements) {
+  if (!requirements) return '-';
+  const parts = [];
+  if (requirements.requiresHit) parts.push(ui[currentLang].requiresHit);
+  if (requirements.requiresTags?.length) parts.push(`tags: ${requirements.requiresTags.join(', ')}`);
+  if (requirements.damageTypes?.length) parts.push(`damage: ${requirements.damageTypes.join(', ')}`);
+  if (requirements.notes?.length) parts.push(...requirements.notes);
+  if (requirements.sourceRef) parts.push(requirements.sourceRef);
+  return parts.length ? escapeHtml(parts.join('；')) : '-';
+}
+
+function renderGemTier(entry) {
+  return entry.poe2db?.gemTier ? escapeHtml(entry.poe2db.gemTier) : '-';
+}
+
+function renderDetailSource(entry) {
+  const detail = entry.poe2db?.detail;
+  if (!detail) return `<span class="warn">${escapeHtml(ui[currentLang].pendingDetail)}</span>`;
+  const pieces = [];
+  if (detail.from?.text) pieces.push(detail.from.text);
+  if (detail.requirementsText) pieces.push(detail.requirementsText);
+  if (detail.reservation) pieces.push(detail.reservation);
+  return escapeHtml(pieces.join('；') || detail.sourceRef || '-');
+}
+
+function hasDetail(entry) {
+  return Boolean(entry.poe2db?.detail || entry.detail);
+}
+
+function hasFrom(entry) {
+  return Boolean(entry.poe2db?.detail?.from || entry.acquisition?.sourceRef);
+}
+
+function hasRequirement(entry) {
+  return Boolean(entry.poe2db?.detail?.requirementsText || entry.poe2db?.detail?.requiresLevelRange || entry.supportRequirements);
+}
+
+function updateMeta(entries) {
+  const all = catalog?.entries || [];
+  const activeCount = all.filter((entry) => entry.kind === 'active').length;
+  const supportCount = all.filter((entry) => entry.kind === 'support').length;
+  const needsReview = all.filter((entry) => entry.verificationStatus === 'needs-poe2db-verification').length;
+  const gemTierCount = all.filter((entry) => Number.isInteger(entry.poe2db?.gemTier)).length;
+  const detailCount = all.filter(hasDetail).length;
+  const fromCount = all.filter(hasFrom).length;
+  const requirementCount = all.filter(hasRequirement).length;
+  document.getElementById('catalogStatus').textContent = sourceTypeLabel(catalog?.source?.type || '');
+  document.getElementById('metaSourceType').textContent = sourceTypeLabel(catalog?.source?.type || '');
+  document.getElementById('metaVersionId').textContent = activeVersion?.id || '-';
+  document.getElementById('metaEntryCount').textContent = `${entries.length} / ${all.length}`;
+  document.getElementById('metaActiveCount').textContent = String(activeCount);
+  document.getElementById('metaSupportCount').textContent = String(supportCount);
+  document.getElementById('metaNeedsReview').textContent = String(needsReview);
+  document.getElementById('metaDetailCount').textContent = `${detailCount} / ${all.length}`;
+  document.getElementById('metaFromCount').textContent = `${fromCount} / ${all.length}`;
+  document.getElementById('metaRequirementCount').textContent = `${requirementCount} / ${all.length}`;
+  document.getElementById('sourceNote').textContent =
+    catalog?.source?.type === 'manual-seed-needs-poe2db'
+      ? ui[currentLang].sourceNoteManual
+      : ui[currentLang].sourceNoteSnapshot;
+  document.body.dataset.skillCatalogSourceType = catalog?.source?.type || '';
+  document.body.dataset.skillCatalogVersion = activeVersion?.id || '';
+  document.body.dataset.skillCatalogDataRoot = activeVersion?.dataRoot || '';
+  document.body.dataset.skillCatalogEntryCount = String(all.length);
+  document.body.dataset.skillCatalogActiveCount = String(activeCount);
+  document.body.dataset.skillCatalogSupportCount = String(supportCount);
+  document.body.dataset.skillCatalogNeedsReviewCount = String(needsReview);
+  document.body.dataset.skillCatalogVisibleCount = String(entries.length);
+  document.body.dataset.skillCatalogGemTierCount = String(gemTierCount);
+  document.body.dataset.skillCatalogDetailCount = String(detailCount);
+  document.body.dataset.skillCatalogFromCount = String(fromCount);
+  document.body.dataset.skillCatalogRequirementCount = String(requirementCount);
+  document.body.dataset.skillCatalogQualityFilter = document.getElementById('qualityFilter').value;
+}
+
+function render() {
+  if (!catalog) return;
+  const kind = document.getElementById('kindFilter').value;
+  const verification = document.getElementById('verificationFilter').value;
+  const quality = document.getElementById('qualityFilter').value;
+  const query = document.getElementById('searchInput').value.trim().toLowerCase();
+  const entries = (catalog.entries || []).filter((entry) => {
+    if (kind !== 'all' && entry.kind !== kind) return false;
+    if (verification !== 'all' && entry.verificationStatus !== verification) return false;
+    if (quality === 'has-detail' && !hasDetail(entry)) return false;
+    if (quality === 'has-from' && !hasFrom(entry)) return false;
+    if (quality === 'has-requirement' && !hasRequirement(entry)) return false;
+    if (quality === 'missing-detail' && hasDetail(entry)) return false;
+    if (!query) return true;
+    const haystack = [
+      entry.id,
+      localized(entry.name),
+      entry.name?.zhCN,
+      entry.name?.zhTW,
+      entry.name?.en,
+      ...(entry.tags || [])
+    ].filter(Boolean).join(' ').toLowerCase();
+    return haystack.includes(query);
+  });
+  updateMeta(entries);
+  const rows = document.getElementById('catalogRows');
+  rows.innerHTML = '';
+  entries.forEach((entry) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${escapeHtml(localized(entry.name))}</strong></td>
+      <td><code>${escapeHtml(entry.id)}</code></td>
+      <td>${kindLabel(entry.kind)}</td>
+      <td class="${entry.verificationStatus === 'verified' ? 'ok' : 'warn'}">${verificationLabel(entry.verificationStatus)}</td>
+      <td>${renderTags(entry.tags)}</td>
+      <td>${renderGemTier(entry)}</td>
+      <td>${renderDetailSource(entry)}</td>
+      <td>${renderAcquisition(entry.acquisition)}</td>
+      <td>${renderRequirements(entry.supportRequirements)}</td>
+    `;
+    rows.appendChild(tr);
+  });
+  if (!entries.length) {
+    rows.innerHTML = `<tr><td colspan="9">${escapeHtml(ui[currentLang].noMatches)}</td></tr>`;
+  }
+}
+
+function applyLanguage() {
+  const dict = ui[currentLang];
+  document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    node.textContent = dict[node.dataset.i18n] || node.textContent;
+  });
+  document.querySelectorAll('[data-i18n-option]').forEach((node) => {
+    node.textContent = dict[node.dataset.i18nOption] || node.textContent;
+  });
+  document.getElementById('pageTitle').textContent = dict.pageTitle;
+  document.getElementById('searchInput').placeholder = dict.searchPlaceholder;
+  document.getElementById('catalogRules').innerHTML = [
+    dict.ruleCatalog,
+    dict.ruleGemTier,
+    dict.ruleFrom,
+    dict.ruleGuide
+  ].map((rule) => `<li>${rule}</li>`).join('');
+  document.body.dataset.skillCatalogLang = currentLang;
+  document.body.dataset.skillCatalogUiLocalized = 'true';
+}
+
+async function main() {
+  const versions = await window.POE2Versions.readJson('../data/versions.json');
+  const version = window.POE2Versions.selectedVersion(versions);
+  activeVersion = version;
+  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const file = manifest.skills?.catalog;
+  if (!file) throw new Error(`skills.catalog missing in ${version.dataRoot}/manifest.json`);
+  catalog = await window.POE2Versions.readJson(`../${version.dataRoot}/${file}`);
+  render();
+}
+
+document.getElementById('kindFilter').addEventListener('change', render);
+document.getElementById('verificationFilter').addEventListener('change', render);
+document.getElementById('qualityFilter').addEventListener('change', render);
+document.getElementById('searchInput').addEventListener('input', render);
+document.querySelectorAll('[data-lang]').forEach((button) => {
+  button.addEventListener('click', () => {
+    currentLang = button.dataset.lang;
+    document.querySelectorAll('[data-lang]').forEach((item) => {
+      item.classList.toggle('active', item === button);
+    });
+    applyLanguage();
+    render();
+  });
+});
+
+main().catch((error) => {
+  document.body.dataset.skillCatalogSourceType = 'load-error';
+  document.getElementById('catalogStatus').textContent = ui[currentLang].loadFailed;
+  document.getElementById('catalogRows').innerHTML = `<tr><td colspan="9" class="bad">${escapeHtml(error.message)}</td></tr>`;
+});
+
+applyLanguage();
+</script>
+</body>
+</html>

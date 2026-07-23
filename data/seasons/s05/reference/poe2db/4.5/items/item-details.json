@@ -1,0 +1,964 @@
+{
+  "id": "s05-poe2db-4.5-item-details",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "source": {
+    "type": "poe2db-item-detail-pages",
+    "version": "4.5",
+    "fetchedAt": "2026-07-23T06:27:56.280Z",
+    "skipped": []
+  },
+  "entries": [
+    {
+      "id": "Runeforged_Sleek_Jacket",
+      "kind": "item-detail",
+      "title": {
+        "en": "Runeforged Sleek Jacket",
+        "zhCN": "符文滑布外衣",
+        "zhTW": "符鍛光滑外衣"
+      },
+      "properties": {
+        "en": [
+          "Body Armours",
+          "Evasion Rating : 114",
+          "Energy Shield : 35",
+          "Base Movement Speed: -0.03",
+          "Runic Ward : 395"
+        ],
+        "zhCN": [
+          "护甲",
+          "闪避值 : 114",
+          "能量护盾 : 35",
+          "基础移动速度: -0.03",
+          "符文结界 : 395"
+        ],
+        "zhTW": [
+          "胸甲",
+          "閃避值 : 114",
+          "能量護盾 : 35",
+          "基礎移動速度: -0.03",
+          "保護: 395"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 65 , 67 Dex , 67 Int"
+        ],
+        "zhCN": [
+          "需求： 等级 65 , 67 敏捷 , 67 智慧"
+        ],
+        "zhTW": [
+          "需求: 等級 65 , 67 敏捷 , 67 智慧"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Runeforged_Sleek_Jacket",
+        "zhCN": "https://poe2db.tw/cn/Runeforged_Sleek_Jacket",
+        "zhTW": "https://poe2db.tw/tw/Runeforged_Sleek_Jacket"
+      }
+    },
+    {
+      "id": "Guiding_Palm_of_the_Heart",
+      "kind": "item-detail",
+      "title": {
+        "en": "Guiding Palm of the Heart Shrine Sceptre",
+        "zhCN": "心脏之指引之掌 圣地权杖",
+        "zhTW": "引導之掌：心 神殿權杖"
+      },
+      "properties": {
+        "en": [
+          "Sceptres",
+          "Spirit: 100"
+        ],
+        "zhCN": [
+          "权杖",
+          "精魂: 100"
+        ],
+        "zhTW": [
+          "權杖",
+          "精魂: 100"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 65 , 17 Str , 38 Int",
+          "Grants Skill: Purity of Fire",
+          "Gain 25 % of Damage as Extra Fire Damage",
+          "Allies in your Presence deal (15-23) to (28-35) added Attack Fire Damage",
+          "50 % of your Base Life Regeneration is granted to Allies in your Presence",
+          "+(20-30) to Strength",
+          "25 % increased Light Radius",
+          "Grants effect of Guided Meteoric Shrine"
+        ],
+        "zhCN": [
+          "需求： 等级 65 , 17 力量 , 38 智慧",
+          "获得技能: 火焰净化",
+          "获得 相当于伤害 25 % 的额外 火焰 伤害",
+          "在场 的 友军 附加 (15-23) - (28-35) 攻击 火焰 伤害",
+          "基础生命再生的 50 % 对 在场 的 友军 生效",
+          "+(20-30) 力量",
+          "照亮范围 提高 25 %",
+          "获得 导引陨星神龛 的效果"
+        ],
+        "zhTW": [
+          "需求: 等級 65 , 17 力量 , 38 智慧",
+          "賦予技能: 火焰淨化",
+          "獲得 等同於傷害 25 %的額外 火焰 傷害",
+          "處於你 存在範圍 中的 友方 造成 (15-23) 至 (28-35) 額外 攻擊 火焰 傷害",
+          "賦予 存在範圍 內的 友方 你自身 50 %的基礎生命回復",
+          "+(20-30) 點 力量",
+          "增加 25 % 光線範圍",
+          "賦予 引導隕石神殿 的效果"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Guiding_Palm_of_the_Heart",
+        "zhCN": "https://poe2db.tw/cn/Guiding_Palm_of_the_Heart",
+        "zhTW": "https://poe2db.tw/tw/Guiding_Palm_of_the_Heart"
+      }
+    },
+    {
+      "id": "Mageblood",
+      "kind": "item-detail",
+      "title": {
+        "en": "Mageblood Utility Belt",
+        "zhCN": "法师之血 万用腰带",
+        "zhTW": "魔血 實用腰帶"
+      },
+      "properties": {
+        "en": [
+          "Belts"
+        ],
+        "zhCN": [
+          "腰带"
+        ],
+        "zhTW": [
+          "腰帶"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 55",
+          "Has (1-3) Charm Slots",
+          "20 % of Flask Recovery applied Instantly",
+          "All Mage's Legacies have (25-50) % increased effect per duplicate Mage's Legacy you have",
+          "Legacy of Mages Legacy"
+        ],
+        "zhCN": [
+          "需求： 等级 55",
+          "具有 (1-3) 个 咒符 位",
+          "20 % 的 药剂 回复量立即生效",
+          "你每拥有一个重复的 法师遗产 ，所有 法师遗产 效果提高 (25-50) %",
+          "Mages Legacy 继承"
+        ],
+        "zhTW": [
+          "需求: 等級 55",
+          "有 (1-3) 個 護符 欄位",
+          "20 %的 藥劑 回復立即生效",
+          "你每擁有一個重複的 魔遺 ，即增加 (25-50) %所有 魔遺 效果",
+          "Mages Legacy 之遺"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Mageblood",
+        "zhCN": "https://poe2db.tw/cn/Mageblood",
+        "zhTW": "https://poe2db.tw/tw/Mageblood"
+      }
+    },
+    {
+      "id": "Sapphire_Ring",
+      "kind": "item-detail",
+      "title": {
+        "en": "Sapphire Ring",
+        "zhCN": "蓝玉戒指",
+        "zhTW": "藍玉戒指"
+      },
+      "properties": {
+        "en": [
+          "Rings"
+        ],
+        "zhCN": [
+          "戒指"
+        ],
+        "zhTW": [
+          "戒指"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 12",
+          "+(20-30) % to Cold Resistance",
+          "(20-30) % increased Cold Damage",
+          "+(40-60) to maximum Mana",
+          "+(10-15) to Strength",
+          "Enemies Chilled by your Hits can be Shattered as though Frozen",
+          "(10-15) % increased maximum Mana",
+          "(30-50) % increased Mana Regeneration Rate",
+          "You cannot be Chilled or Frozen",
+          "Requires: Level 32",
+          "(5-10) % increased Skill Speed",
+          "+(10-20) to Dexterity",
+          "(25-35) % increased Mana Regeneration Rate",
+          "100 % of Cold Damage Converted to Lightning Damage"
+        ],
+        "zhCN": [
+          "需求： 等级 12",
+          "冰霜抗性 +(20-30) %",
+          "冰霜 伤害提高 (20-30) %",
+          "+(40-60) 魔力上限",
+          "+(10-15) 力量",
+          "被你的 击中 攻击 冰缓 的敌人可以像 冻结 一样 击碎",
+          "魔力上限提高 (10-15) %",
+          "魔力再生率提高 (30-50) %",
+          "无法被 冰缓 或 冻结",
+          "需求： 等级 32",
+          "技能速度 提高 (5-10) %",
+          "+(10-20) 敏捷",
+          "魔力再生率提高 (25-35) %",
+          "冰霜 伤害的 100 % 转化 为 闪电 伤害"
+        ],
+        "zhTW": [
+          "需求: 等級 12",
+          "+(20-30) % 冰冷抗性",
+          "增加 (20-30) % 冰冷 傷害",
+          "+(40-60) 最大魔力",
+          "+(10-15) 點 力量",
+          "被你的 擊中 造成 冰緩 的敵人視同被 冰凍 而能被 粉碎",
+          "增加 (10-15) %最大魔力",
+          "增加 (30-50) %魔力回復率",
+          "你無法被 冰緩 或 冰凍",
+          "需求: 等級 32",
+          "增加 (5-10) % 技能速度",
+          "+(10-20) 點 敏捷",
+          "增加 (25-35) %魔力回復率",
+          "將 100 %的 冰冷 傷害 轉換 為 閃電 傷害"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Sapphire_Ring",
+        "zhCN": "https://poe2db.tw/cn/Sapphire_Ring",
+        "zhTW": "https://poe2db.tw/tw/Sapphire_Ring"
+      }
+    },
+    {
+      "id": "The_Ordained",
+      "kind": "item-detail",
+      "title": {
+        "en": "The Ordained Grand Spear",
+        "zhCN": "天选之人 宏伟战矛",
+        "zhTW": "神授命使 宏偉長矛"
+      },
+      "properties": {
+        "en": [
+          "Spears",
+          "Physical Damage: (140-196) to (210-294)",
+          "Critical Hit Chance: 5%",
+          "Attacks per Second: 1.4",
+          "Weapon Range: 1.5",
+          "Lightning Damage: 1 to (200-300)"
+        ],
+        "zhCN": [
+          "战矛",
+          "物理 伤害: (140-196) to (210-294)",
+          "暴击 率: 5%",
+          "每秒攻击次数: 1.4",
+          "武器范围: 1.5",
+          "闪电伤害: 1 to (200-300)"
+        ],
+        "zhTW": [
+          "長矛",
+          "物理 傷害: (140-196) to (210-294)",
+          "暴擊 率: 5%",
+          "每秒攻擊次數: 1.4",
+          "武器範圍: 1.5",
+          "Lightning Damage: 1 to (200-300)"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 79 , 68 Str , 109 Dex",
+          "Grants Skill: Spear Throw",
+          "Grants Skill: Level 18 Righteous Descent",
+          "25 % increased Melee Strike Range with this weapon",
+          "(150-250) % increased Physical Damage",
+          "Adds 1 to (200-300) Lightning Damage",
+          "+(5-8) % to Critical Hit Chance",
+          "Life Leech recovers based on your Lightning damage as well as Physical damage",
+          "Create a Fragment of Divinity in your Presence every 4 seconds"
+        ],
+        "zhCN": [
+          "需求： 等级 79 , 68 力量 , 109 敏捷",
+          "获得技能: 战矛飞掷",
+          "获得技能: 等级 18 正义天降",
+          "此武器的 近战 打击 范围提高 25 %",
+          "物理 伤害提高 (150-250) %",
+          "附加 1 - (200-300) 闪电 伤害",
+          "暴击 几率 +(5-8) %",
+          "生命偷取 回复量由你的 闪电 伤害和 物理 伤害决定",
+          "在你的 在场 范围内，每 4 秒创造一个 神圣碎片"
+        ],
+        "zhTW": [
+          "需求: 等級 79 , 68 力量 , 109 敏捷",
+          "賦予技能: 長矛投擲",
+          "賦予技能: 等級 18 神翼懲降",
+          "此武器增加 25 % 近戰 打擊 範圍",
+          "增加 (150-250) % 物理 傷害",
+          "附加 1 至 (200-300) 閃電 傷害",
+          "+(5-8) % 暴擊 率",
+          "生命偷取 恢復量同時基於你的 閃電 傷害與 物理 傷害",
+          "每4秒在你的 存在範圍 內產生一個 神性碎片"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/The_Ordained",
+        "zhCN": "https://poe2db.tw/cn/The_Ordained",
+        "zhTW": "https://poe2db.tw/tw/The_Ordained"
+      }
+    },
+    {
+      "id": "Daggerfoot_Shoes",
+      "kind": "item-detail",
+      "title": {
+        "en": "Daggerfoot Shoes",
+        "zhCN": "捷足便鞋",
+        "zhTW": "捷足輕鞋"
+      },
+      "properties": {
+        "en": [
+          "Boots",
+          "Evasion Rating : 140",
+          "Energy Shield : 43",
+          "Evasion Rating : 56",
+          "Energy Shield : 17",
+          "Runic Ward : 194"
+        ],
+        "zhCN": [
+          "鞋子",
+          "闪避值 : 140",
+          "能量护盾 : 43",
+          "闪避值 : 56",
+          "能量护盾 : 17",
+          "符文结界 : 194"
+        ],
+        "zhTW": [
+          "鞋子",
+          "閃避值 : 140",
+          "能量護盾 : 43",
+          "閃避值 : 56",
+          "能量護盾 : 17",
+          "保護: 194"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 80 , 59 Dex , 59 Int"
+        ],
+        "zhCN": [
+          "需求： 等级 80 , 59 敏捷 , 59 智慧"
+        ],
+        "zhTW": [
+          "需求: 等級 80 , 59 敏捷 , 59 智慧"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Daggerfoot_Shoes",
+        "zhCN": "https://poe2db.tw/cn/Daggerfoot_Shoes",
+        "zhTW": "https://poe2db.tw/tw/Daggerfoot_Shoes"
+      }
+    },
+    {
+      "id": "Gold_Amulet",
+      "kind": "item-detail",
+      "title": {
+        "en": "Gold Amulet",
+        "zhCN": "帝金项链",
+        "zhTW": "帝金護身符"
+      },
+      "properties": {
+        "en": [
+          "Amulets"
+        ],
+        "zhCN": [
+          "项链"
+        ],
+        "zhTW": [
+          "項鍊"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 35",
+          "(12-20) % increased Rarity of Items found",
+          "(20-30) % reduced maximum Life",
+          "+(10-15) to all Attributes",
+          "Cannot be Light Stunned",
+          "+(10-20) to all Attributes",
+          "+(17-23) % to Chaos Resistance",
+          "(20-30) % increased Mana Regeneration Rate",
+          "Gain an additional Charge when you gain a Charge"
+        ],
+        "zhCN": [
+          "需求： 等级 35",
+          "物品稀有度 提高 (12-20) %",
+          "生命上限降低 (20-30) %",
+          "+(10-15) 全 属性",
+          "无法被 轻度晕眩",
+          "+(10-20) 全 属性",
+          "混沌抗性 +(17-23) %",
+          "魔力再生率提高 (20-30) %",
+          "获得一个 能量球 时，获得一个额外 能量球"
+        ],
+        "zhTW": [
+          "需求: 等級 35",
+          "增加 (12-20) %找到的 物品稀有度",
+          "減少 (20-30) %最大生命",
+          "+(10-15) 點全部 能力值",
+          "不會 被輕微暈眩",
+          "+(10-20) 點全部 能力值",
+          "+(17-23) % 混沌抗性",
+          "增加 (20-30) %魔力回復率",
+          "當你獲得一顆 能量球 時，獲得一顆額外的 能量球"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Gold_Amulet",
+        "zhCN": "https://poe2db.tw/cn/Gold_Amulet",
+        "zhTW": "https://poe2db.tw/tw/Gold_Amulet"
+      }
+    },
+    {
+      "id": "Runeforged_Fists_of_Stone",
+      "kind": "item-detail",
+      "title": {
+        "en": "Runeforged Fists of Stone",
+        "zhCN": "符文石拳",
+        "zhTW": "符鍛磐石之拳"
+      },
+      "properties": {
+        "en": [
+          "Gloves"
+        ],
+        "zhCN": [
+          "手套"
+        ],
+        "zhTW": [
+          "手套"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Has +2 to Evasion Rating per player level\nHas +1 to maximum Energy Shield per player level\nHas +1 to maximum Runic Ward per player level"
+        ],
+        "zhCN": [
+          "每有一级玩家等级， +2 闪避 值\n每有一级玩家等级， +1 能量护盾 上限\n每有一级玩家等级， +1 符文结界 上限"
+        ],
+        "zhTW": [
+          "每一玩家等級 +2 閃避 值\n每一玩家等級 +1 最大 能量護盾\n每一玩家等級擁有 +1 最大 符文保護"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Runeforged_Fists_of_Stone",
+        "zhCN": "https://poe2db.tw/cn/Runeforged_Fists_of_Stone",
+        "zhTW": "https://poe2db.tw/tw/Runeforged_Fists_of_Stone"
+      }
+    },
+    {
+      "id": "Soaring_Spear",
+      "kind": "item-detail",
+      "title": {
+        "en": "Soaring Spear",
+        "zhCN": "翱翔战矛",
+        "zhTW": "展翼長矛"
+      },
+      "properties": {
+        "en": [
+          "Spears",
+          "Physical Damage: 35-65",
+          "Critical Hit Chance: 5%",
+          "Attacks per Second: 1.7",
+          "Weapon Range: 1.5"
+        ],
+        "zhCN": [
+          "战矛",
+          "物理 伤害: 35-65",
+          "暴击 率: 5%",
+          "每秒攻击次数: 1.7",
+          "武器范围: 1.5"
+        ],
+        "zhTW": [
+          "長矛",
+          "物理 傷害: 35-65",
+          "暴擊 率: 5%",
+          "每秒攻擊次數: 1.7",
+          "武器範圍: 1.5"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 70 , 41 Str , 115 Dex",
+          "Grants Skill: Spear Throw"
+        ],
+        "zhCN": [
+          "需求： 等级 70 , 41 力量 , 115 敏捷",
+          "获得技能: 战矛飞掷"
+        ],
+        "zhTW": [
+          "需求: 等級 70 , 41 力量 , 115 敏捷",
+          "賦予技能: 長矛投擲"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Soaring_Spear",
+        "zhCN": "https://poe2db.tw/cn/Soaring_Spear",
+        "zhTW": "https://poe2db.tw/tw/Soaring_Spear"
+      }
+    },
+    {
+      "id": "The_Black_Insignia",
+      "kind": "item-detail",
+      "title": {
+        "en": "The Black Insignia Corsair Cap",
+        "zhCN": "黑盗勋章 海贼帽",
+        "zhTW": "漆黑徽章 海盜便帽"
+      },
+      "properties": {
+        "en": [
+          "Helmets",
+          "Evasion Rating : (357-420)",
+          "Evasion Rating : 202",
+          "Runic Ward : 37"
+        ],
+        "zhCN": [
+          "头盔",
+          "闪避值 : (357-420)",
+          "闪避值 : 202",
+          "符文结界 : 37"
+        ],
+        "zhTW": [
+          "頭部",
+          "閃避值 : (357-420)",
+          "閃避值 : 202",
+          "保護: 37"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 45 , 64 Dex",
+          "(70-100) % increased Evasion Rating",
+          "(10-20) % increased Rarity of Items found",
+          "+(15-25) % to Lightning Resistance",
+          "Gain Tailwind on Critical Hit , no more than once per second",
+          "Lose all Tailwind when Hit",
+          "Requires: Level 55 , 78 Dex"
+        ],
+        "zhCN": [
+          "需求： 等级 45 , 64 敏捷",
+          "闪避 值提高 (70-100) %",
+          "物品稀有度 提高 (10-20) %",
+          "闪电抗性 +(15-25) %",
+          "暴击 时获得 提速尾流 ，每秒只能触发一次",
+          "被击中 时失去所有 提速尾流",
+          "需求： 等级 55 , 78 敏捷"
+        ],
+        "zhTW": [
+          "需求: 等級 45 , 64 敏捷",
+          "增加 (70-100) % 閃避 值",
+          "增加 (10-20) %找到的 物品稀有度",
+          "+(15-25) % 閃電抗性",
+          "暴擊 時獲得 流順之風 ，每秒只能觸發一次",
+          "遭 擊中 時，失去所有 流順之風",
+          "需求: 等級 55 , 78 敏捷"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/The_Black_Insignia",
+        "zhCN": "https://poe2db.tw/cn/The_Black_Insignia",
+        "zhTW": "https://poe2db.tw/tw/The_Black_Insignia"
+      }
+    },
+    {
+      "id": "The_Taming",
+      "kind": "item-detail",
+      "title": {
+        "en": "The Taming",
+        "zhCN": "元素之章 三相戒指",
+        "zhTW": "元素之章"
+      },
+      "properties": {
+        "en": [
+          "Rings"
+        ],
+        "zhCN": [
+          "戒指"
+        ],
+        "zhTW": [
+          "戒指"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 42",
+          "+(7-10) % to all Elemental Resistances",
+          "+(10-20) % to all Elemental Resistances",
+          "(10-20) % increased Damage for each type of Elemental Ailment on Enemy",
+          "Wind Skills which can be boosted by Elemental Ground Surfaces can be boosted by multiple Elemental Ground Surfaces",
+          "Wind Skills which can be boosted by Elemental Ground Surfaces count\nas being boosted by Ignited , Shocked , and Chilled Ground"
+        ],
+        "zhCN": [
+          "需求： 等级 42",
+          "所有 元素 抗性 +(7-10) %",
+          "所有 元素 抗性 +(10-20) %",
+          "敌人每受到一种 元素异常状态 影响，伤害提高 (10-20) %",
+          "可被 元素地面效果 加持的 风系技能 可被多种 元素地面效果 加持",
+          "可被 元素地面效果 加持的 风系技能 视作\n被 点燃地面 ， 感电地面 和 冰缓地面 加持"
+        ],
+        "zhTW": [
+          "需求: 等級 42",
+          "+(7-10) %全 元素 抗性",
+          "+(10-20) %全 元素 抗性",
+          "每對敵人施加一種 元素異常狀態 ，增加 (10-20) %傷害",
+          "可被 元素地表 強化的 疾風技能 可被多個 元素地表 強化",
+          "可被 元素地表 強化的 疾風技能 視為\n受到 點燃 、 感電 、和 冰緩地面 強化"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/The_Taming",
+        "zhCN": "https://poe2db.tw/cn/The_Taming",
+        "zhTW": "https://poe2db.tw/tw/The_Taming"
+      }
+    },
+    {
+      "id": "Ultimate_Mana_Flask",
+      "kind": "item-detail",
+      "title": {
+        "en": "Ultimate Mana Flask",
+        "zhCN": "终极魔力药剂",
+        "zhTW": "終極魔力藥劑"
+      },
+      "properties": {
+        "en": [
+          "Mana Flasks",
+          "Recovers 310 Mana over 3 Second",
+          "Consumes 10 of 75 Charges on use",
+          "Currently has 75 Charges"
+        ],
+        "zhCN": [
+          "魔力药剂",
+          "3 秒内回复 310 魔力",
+          "每次使用会从 75 充能次数中消耗 10 次",
+          "目前有 75 充能次数"
+        ],
+        "zhTW": [
+          "魔力藥劑",
+          "3 秒內恢復 310 魔力",
+          "每次使用會從 75 充能次數中消耗 10 次",
+          "目前有 75 充能次數"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 60",
+          "Effect is not removed when Unreserved Mana is Filled",
+          "(200-250) % increased Duration",
+          "Every 3 seconds during Effect, deal 100 % of Mana spent in those seconds as Chaos Damage to Enemies within 3 metres",
+          "Deals 25 % of current Mana as Chaos Damage to you when Effect ends"
+        ],
+        "zhCN": [
+          "需求： 等级 60",
+          "未保留的魔力全满时不移除效果",
+          "持续时间提高 (200-250) %",
+          "生效期间每过 3 秒，对 3 米内的敌人造成这几秒内消耗魔力的 100 % 的 混沌伤害",
+          "效果结束时对你造成当前魔力 25 % 的 混沌伤害"
+        ],
+        "zhTW": [
+          "需求: 等級 60",
+          "未保留魔力已滿時不移除效果",
+          "增加 (200-250) %持續時間",
+          "在效果期間內每3秒，對3公尺內的敵人造成等同於在該秒數內所消耗魔力 100 %的 混沌傷害",
+          "效果結束時，對你造成等同於當前魔力 25 %的 混沌傷害"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Ultimate_Mana_Flask",
+        "zhCN": "https://poe2db.tw/cn/Ultimate_Mana_Flask",
+        "zhTW": "https://poe2db.tw/tw/Ultimate_Mana_Flask"
+      }
+    },
+    {
+      "id": "Ultimate_Life_Flask",
+      "kind": "item-detail",
+      "title": {
+        "en": "Ultimate Life Flask",
+        "zhCN": "终极生命药剂",
+        "zhTW": "終極生命藥劑"
+      },
+      "properties": {
+        "en": [
+          "Life Flasks",
+          "Recovers 920 Life over 3 Second",
+          "Consumes 10 of 75 Charges on use",
+          "Currently has 75 Charges"
+        ],
+        "zhCN": [
+          "生命药剂",
+          "3 秒内回复 920 生命",
+          "每次使用会从 75 充能次数中消耗 10 次",
+          "目前有 75 充能次数"
+        ],
+        "zhTW": [
+          "生命藥劑",
+          "3 秒內恢復 920 生命",
+          "每次使用會從 75 充能次數中消耗 10 次",
+          "目前有 75 充能次數"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 60",
+          "(100-150) % increased Charges per use",
+          "Regenerate (2.5-5) % of maximum Runic Ward per second during Effect",
+          "Gain Guard equal to Current Runic Ward for 10 seconds when Effect ends",
+          "Effect is not removed when Unreserved Life is Filled",
+          "Cannot be Used manually",
+          "Used when you release a skill with Perfect Timing",
+          "Skills have (80-120) % longer Perfect Timing window during effect",
+          "(100-150) % increased Amount Recovered",
+          "(25-50) % reduced Recovery rate",
+          "(50-75) % reduced Charges per use"
+        ],
+        "zhCN": [
+          "需求： 等级 60",
+          "每次使用消耗的充能次数提高 (100-150) %",
+          "效果期间，每秒回复 符文结界 上限的 (2.5-5) %",
+          "效果结束时，获得相当于当前 符文结界 的 防卫 ，持续 10 秒",
+          "未保留的生命全满时不移除效果",
+          "不能手动使用",
+          "在你于 完美时机 释放技能时使用",
+          "技能在效果持续期间的 完美时机 窗口延长 (80-120) %",
+          "回复量提高 (100-150) %",
+          "回复速度降低 (25-50) %",
+          "每次使用消耗的充能次数降低 (50-75) %"
+        ],
+        "zhTW": [
+          "需求: 等級 60",
+          "每次使用增加 (100-150) %充能",
+          "效果期間內每秒回復 (2.5-5) %最大 符文保護",
+          "效果結束時獲得等同於當前 符文保護 的 守護 ，持續 10 秒",
+          "未保留生命已滿時不移除效果",
+          "無法被手動使用",
+          "將於你釋放一個擁有 完美時機 的技能時使用",
+          "技能在效果持續時間內擁有 (80-120) %更長的 完美時機 空檔",
+          "增加 (100-150) %恢復量",
+          "減少 (25-50) %恢復率",
+          "每次使用減少 (50-75) %充能"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Ultimate_Life_Flask",
+        "zhCN": "https://poe2db.tw/cn/Ultimate_Life_Flask",
+        "zhTW": "https://poe2db.tw/tw/Ultimate_Life_Flask"
+      }
+    },
+    {
+      "id": "Rite_of_Passage",
+      "kind": "item-detail",
+      "title": {
+        "en": "Rite of Passage Golden Charm",
+        "zhCN": "仪式通道 黄金咒符",
+        "zhTW": "儀式通道 黃金護符"
+      },
+      "properties": {
+        "en": [
+          "Charms",
+          "Lasts 1 Second",
+          "Consumes 80 of 80 Charges on use",
+          "Currently has 80 Charges"
+        ],
+        "zhCN": [
+          "咒符",
+          "持续 1 秒",
+          "每次使用会从 80 充能次数中消耗 80 次",
+          "目前有 80 充能次数"
+        ],
+        "zhTW": [
+          "護符",
+          "持續 1 秒",
+          "每次使用會從 80 充能次數中消耗 80 次",
+          "目前有 80 充能次數"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 50",
+          "Used when you kill a Rare or Unique enemy",
+          "Possessed by Spirit Of The [Azmeri Spirit] for (10-20) seconds on use"
+        ],
+        "zhCN": [
+          "需求： 等级 50",
+          "当你击败 稀有 或 传奇 敌人时使用",
+          "Possessed by Spirit Of The [Azmeri Spirit] for (10-20) seconds on use"
+        ],
+        "zhTW": [
+          "需求: 等級 50",
+          "當你擊殺 稀有 或 傳奇 敵人時使用",
+          "Possessed by Spirit Of The [Azmeri Spirit] for (10-20) seconds on use"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Rite_of_Passage",
+        "zhCN": "https://poe2db.tw/cn/Rite_of_Passage",
+        "zhTW": "https://poe2db.tw/tw/Rite_of_Passage"
+      }
+    },
+    {
+      "id": "Silver_Charm",
+      "kind": "item-detail",
+      "title": {
+        "en": "Silver Charm",
+        "zhCN": "真银咒符",
+        "zhTW": "白銀護符"
+      },
+      "properties": {
+        "en": [
+          "Charms",
+          "Lasts 3 Second",
+          "Consumes 20 of 40 Charges on use",
+          "Currently has 40 Charges"
+        ],
+        "zhCN": [
+          "咒符",
+          "持续 3 秒",
+          "每次使用会从 40 充能次数中消耗 20 次",
+          "目前有 40 充能次数"
+        ],
+        "zhTW": [
+          "護符",
+          "持續 3 秒",
+          "每次使用會從 40 充能次數中消耗 20 次",
+          "目前有 40 充能次數"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 10",
+          "Used when you are affected by a Slow",
+          "Grants Onslaught during effect"
+        ],
+        "zhCN": [
+          "需求： 等级 10",
+          "当你受到 减速 影响时使用",
+          "效果期间获得 猛攻"
+        ],
+        "zhTW": [
+          "需求: 等級 10",
+          "當你受到 緩速 效果影響時使用",
+          "在效果期間賦予 猛攻"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Silver_Charm",
+        "zhCN": "https://poe2db.tw/cn/Silver_Charm",
+        "zhTW": "https://poe2db.tw/tw/Silver_Charm"
+      }
+    },
+    {
+      "id": "Nascent_Hope",
+      "kind": "item-detail",
+      "title": {
+        "en": "Nascent Hope Thawing Charm",
+        "zhCN": "新生希望 融冰咒符",
+        "zhTW": "萌芽希望 解凍護符"
+      },
+      "properties": {
+        "en": [
+          "Charms",
+          "Lasts 3 Second",
+          "Consumes 40 of 40 Charges on use",
+          "Currently has 40 Charges"
+        ],
+        "zhCN": [
+          "咒符",
+          "持续 3 秒",
+          "每次使用会从 40 充能次数中消耗 40 次",
+          "目前有 40 充能次数"
+        ],
+        "zhTW": [
+          "護符",
+          "持續 3 秒",
+          "每次使用會從 40 充能次數中消耗 40 次",
+          "目前有 40 充能次數"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 12",
+          "Used when you become Frozen",
+          "(20-25) % Chance to gain a Charge when you kill an enemy",
+          "Energy Shield Recharge starts on use"
+        ],
+        "zhCN": [
+          "需求： 等级 12",
+          "陷入 冻结 时自动使用",
+          "击败敌人时有 (20-25) % 的几率获得一个 能量球",
+          "使用时开始 能量护盾充能"
+        ],
+        "zhTW": [
+          "需求: 等級 12",
+          "當你被 冰凍 時使用",
+          "殺死敵人時有 (20-25) %機率獲得一個 充能",
+          "使用時開始 能量護盾充能"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Nascent_Hope",
+        "zhCN": "https://poe2db.tw/cn/Nascent_Hope",
+        "zhTW": "https://poe2db.tw/tw/Nascent_Hope"
+      }
+    },
+    {
+      "id": "Heart_of_the_Well",
+      "kind": "item-detail",
+      "title": {
+        "en": "Heart of the Well",
+        "zhCN": "泉井之心 宝钻",
+        "zhTW": "水井之心 鑽石"
+      },
+      "properties": {
+        "en": [
+          "Jewels",
+          "Limited To: 1"
+        ],
+        "zhCN": [
+          "珠宝",
+          "仅限: 1"
+        ],
+        "zhTW": [
+          "珠寶",
+          "僅限: 1"
+        ]
+      },
+      "mods": {
+        "en": [
+          "Requires: Level 20",
+          "[Custom Desecrated prefix]",
+          "[Custom Desecrated suffix]"
+        ],
+        "zhCN": [
+          "需求： 等级 20",
+          "[Custom Desecrated prefix]",
+          "[Custom Desecrated suffix]"
+        ],
+        "zhTW": [
+          "需求: 等級 20",
+          "[Custom Desecrated prefix]",
+          "[Custom Desecrated suffix]"
+        ]
+      },
+      "sourceRef": {
+        "en": "https://poe2db.tw/us/Heart_of_the_Well",
+        "zhCN": "https://poe2db.tw/cn/Heart_of_the_Well",
+        "zhTW": "https://poe2db.tw/tw/Heart_of_the_Well"
+      }
+    }
+  ]
+}

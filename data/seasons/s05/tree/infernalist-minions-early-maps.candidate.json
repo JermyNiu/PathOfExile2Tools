@@ -1,0 +1,850 @@
+{
+  "nodeIds": [
+    6077,
+    27296,
+    8737,
+    35645,
+    33240,
+    39461,
+    54453,
+    4748,
+    22691,
+    3823,
+    51184,
+    17973,
+    95,
+    26945,
+    18160,
+    30720,
+    62887,
+    61026,
+    41905,
+    30523,
+    21164,
+    11376,
+    14945,
+    31826
+  ],
+  "classId": 0,
+  "ascendancyId": 0,
+  "alternateAscendancyId": 0,
+  "locales": {
+    "en": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 8737,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 35645,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 33240,
+        "name": "Lord of Horrors",
+        "kind": "Notable",
+        "stats": [
+          "12% increased [Reservation] [Efficiency] of [Minion] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 39461,
+        "name": "Minion Damage and Life",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 6% increased maximum Life",
+          "[Minion|Minions] deal 6% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 54453,
+        "name": "Minion Damage and Life",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 6% increased maximum Life",
+          "[Minion|Minions] deal 6% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 4748,
+        "name": "Energy Shield Delay",
+        "kind": "Normal",
+        "stats": [
+          "6% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+          "Witch: [Minion|Minions] have 10% increased maximum Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 22691,
+        "name": "Energy Shield Delay",
+        "kind": "Normal",
+        "stats": [
+          "6% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+          "Witch: [Minion|Minions] have 10% increased maximum Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 3823,
+        "name": "Elemental Force",
+        "kind": "Notable",
+        "stats": [
+          "+3% to all [ElementalDamage|Elemental] [Resistances]",
+          "20% increased [ElementalDamage|Elemental Damage]",
+          "Witch: [Minion|Minions] deal 20% increased Damage",
+          "Witch: [Minion|Minions] have 4% increased [Attack] and Cast Speed"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 51184,
+        "name": "Raw Power",
+        "kind": "Notable",
+        "stats": [
+          "20% increased [Spell] Damage",
+          "+10 to [Intelligence]",
+          "Witch: 16% increased [Spell] Damage",
+          "Witch: [Minion|Minions] deal 16% increased Damage",
+          "Witch: +10 to [Intelligence]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 17973,
+        "name": "Rapid Recharge",
+        "kind": "Notable",
+        "stats": [
+          "12% increased [ESRechargeRate|Energy Shield Recharge Rate]",
+          "12% [FasterESRechargeStart|faster start of Energy Shield Recharge]",
+          "Witch: [Minion|Minions] have 15% increased maximum Life",
+          "Witch: [Minion|Minions] [Reviving|Revive] 15% faster"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 95,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 26945,
+        "name": "Minion Critical Chance",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [Critical|Critical Hit Chance]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 18160,
+        "name": "Minion Critical Chance",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [Critical|Critical Hit Chance]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 30720,
+        "name": "Entropic Incarnation",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have +13% to [Chaos] [Resistances|Resistance]",
+          "[Minion|Minions] gain 10% of [Physical|Physical] Damage as [Chaos|Chaos] Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 62887,
+        "name": "Living Death",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have +22% to all Elemental [Resistances]",
+          "[Minion|Minions] have +3% to all [MaximumResistances|Maximum Elemental Resistances]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 61026,
+        "name": "Crystalline Flesh",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have +20% to all Elemental [Resistances]",
+          "[Minion|Minions] have +5% to all [MaximumResistances|Maximum Elemental Resistances]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 41905,
+        "name": "Gravedigger",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] [Reviving|Revive] 15% faster",
+          "Recover 2% of maximum Life when one of your [Minion|Minions] is [Reviving|Revived]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 30523,
+        "name": "Dead can Dance",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have 25% increased maximum Life",
+          "[Minion|Minions] have 25% increased [Evasion] Rating"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 21164,
+        "name": "Fleshcrafting",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] gain 15% of their maximum Life as Extra maximum [EnergyShield|Energy Shield]",
+          "4% of Maximum Life [StatConversion|Converted] to [EnergyShield|Energy Shield]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 22,
+        "id": 11376,
+        "name": "Necrotic Touch",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have 40% increased [Critical|Critical Hit Chance]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 23,
+        "id": 14945,
+        "name": "Growing Swarm",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have 20% increased Area of Effect",
+          "Minions have 20% increased Cooldown Recovery Rate"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 24,
+        "id": 31826,
+        "name": "Long Distance Relationship",
+        "kind": "Notable",
+        "stats": [
+          "30% increased [Presence|Presence] Area of Effect",
+          "[Minion|Minions] have 15% increased Area of Effect"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-CN": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 8737,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 35645,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 33240,
+        "name": "惊怖主宰",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物技能的保留效能提高 12%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 39461,
+        "name": "召唤生物伤害和生命",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的生命上限提高 6%",
+          "召唤生物的伤害提高 6%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 54453,
+        "name": "召唤生物伤害和生命",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的生命上限提高 6%",
+          "召唤生物的伤害提高 6%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 4748,
+        "name": "能量护盾延迟",
+        "kind": "Normal",
+        "stats": [
+          "能量护盾充能时间提前 6%",
+          "女巫: 召唤生物的生命上限提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 22691,
+        "name": "能量护盾延迟",
+        "kind": "Normal",
+        "stats": [
+          "能量护盾充能时间提前 6%",
+          "女巫: 召唤生物的生命上限提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 3823,
+        "name": "元素之力",
+        "kind": "Notable",
+        "stats": [
+          "所有元素抗性 +3%",
+          "元素伤害提高 20%",
+          "女巫: 召唤生物的伤害提高 20%",
+          "女巫: 召唤生物的攻击和施法速度提高 4%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 51184,
+        "name": "原始力量",
+        "kind": "Notable",
+        "stats": [
+          "法术伤害提高 20%",
+          "+10 智慧",
+          "女巫: 法术伤害提高 16%",
+          "女巫: 召唤生物的伤害提高 16%",
+          "女巫: +10 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 17973,
+        "name": "迅速充能",
+        "kind": "Notable",
+        "stats": [
+          "能量护盾充能率提高 12%",
+          "能量护盾充能时间提前 12%",
+          "女巫: 召唤生物的生命上限提高 15%",
+          "女巫: 召唤生物的复活速度加快 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 95,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 26945,
+        "name": "召唤生物暴击率",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的暴击率提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 18160,
+        "name": "召唤生物暴击率",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的暴击率提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 30720,
+        "name": "熵能化身",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物有 +13% 混沌抗性",
+          "召唤生物将物理伤害的 10% 视为额外混沌伤害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 62887,
+        "name": "鲜活亡躯",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物有 +22% 元素抗性",
+          "召唤生物获得 +3% 元素抗性上限"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 61026,
+        "name": "结晶之躯",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物有 +20% 元素抗性",
+          "召唤生物获得 +5% 元素抗性上限"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 41905,
+        "name": "掘墓人",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物的复活速度加快 15%",
+          "当你的一个召唤生物复活时，回复生命上限的 2%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 30523,
+        "name": "亡魂舞步",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物的生命上限提高 25%",
+          "召唤生物的闪避值提高 25%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 21164,
+        "name": "塑命巨匠",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物获得相当于生命上限 15% 的能量护盾上限",
+          "生命上限的 4% 转化为能量护盾"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 22,
+        "id": 11376,
+        "name": "通灵之触",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物的暴击率提高 40%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 23,
+        "id": 14945,
+        "name": "成群结队",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物的效果区域提高 20%",
+          "召唤生物的冷却回复率提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 24,
+        "id": 31826,
+        "name": "长距离关系",
+        "kind": "Notable",
+        "stats": [
+          "在场范围提高 30%",
+          "召唤生物的效果区域提高 15%"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-TW": [
+      {
+        "order": 1,
+        "id": 6077,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 27296,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 8737,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 35645,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 33240,
+        "name": "恐懼領主",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]技能增加12%[Reservation|保留]效率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 39461,
+        "name": "召喚物傷害及生命",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|召喚物]增加6%最大生命",
+          "增加6%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 54453,
+        "name": "召喚物傷害及生命",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|召喚物]增加6%最大生命",
+          "增加6%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 4748,
+        "name": "能量護盾延遲",
+        "kind": "Normal",
+        "stats": [
+          "[FasterESRechargeStart|能量護盾開始充能速度加快]6%",
+          "女巫: [Minion|召喚物]增加10%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 22691,
+        "name": "能量護盾延遲",
+        "kind": "Normal",
+        "stats": [
+          "[FasterESRechargeStart|能量護盾開始充能速度加快]6%",
+          "女巫: [Minion|召喚物]增加10%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 3823,
+        "name": "元素之力",
+        "kind": "Notable",
+        "stats": [
+          "+3%全[ElementalDamage|元素][Resistances|抗性]",
+          "增加20%[ElementalDamage|元素傷害]",
+          "女巫: 增加20%[Minion|召喚物]造成的傷害",
+          "女巫: [Minion|召喚物]增加4%[Attack|攻擊]和施放速度"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 51184,
+        "name": "原始力量",
+        "kind": "Notable",
+        "stats": [
+          "增加20%[Spell|法術]傷害",
+          "+10[Intelligence|智慧]",
+          "女巫: 增加16%[Spell|法術]傷害",
+          "女巫: 增加16%[Minion|召喚物]造成的傷害",
+          "女巫: +10[Intelligence|智慧]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 17973,
+        "name": "快速充能",
+        "kind": "Notable",
+        "stats": [
+          "增加12%[ESRechargeRate|能量護盾充能率]",
+          "[FasterESRechargeStart|能量護盾開始充能速度加快]12%",
+          "女巫: [Minion|召喚物]增加15%最大生命",
+          "女巫: [Minion|召喚物]的[Reviving|復甦]速度加快15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 95,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 26945,
+        "name": "召喚物暴擊率",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Critical|暴擊率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 18160,
+        "name": "召喚物暴擊率",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Critical|暴擊率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 30720,
+        "name": "熵熱化身",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]+13%[Chaos|混沌][Resistances|抗性]",
+          "[Minion|召喚物]獲得等同於10%[Physical|物理]傷害的[Chaos|混沌]傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 62887,
+        "name": "行屍走肉",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]+22%全部元素[Resistances|抗性]",
+          "[Minion|召喚物]+3%全部[MaximumResistances|最大元素抗性]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 61026,
+        "name": "結晶血肉",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]+20%全部元素[Resistances|抗性]",
+          "[Minion|召喚物]+5%全部[MaximumResistances|最大元素抗性]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 41905,
+        "name": "掘墓者",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]的[Reviving|復甦]速度加快15%",
+          "你的其中一個[Minion|召喚物][Reviving|復甦]時，恢復2%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 30523,
+        "name": "亡者之舞",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]增加25%最大生命",
+          "增加25%[Minion|召喚物]的[Evasion|閃避]值"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 21164,
+        "name": "血肉塑造",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]獲得等同於其最大生命15%的額外最大[EnergyShield|能量護盾]",
+          "4%最大生命[StatConversion|轉換]為[EnergyShield|能量護盾]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 22,
+        "id": 11376,
+        "name": "亡者之觸",
+        "kind": "Notable",
+        "stats": [
+          "增加40%[Minion|召喚物]的[Critical|暴擊率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 23,
+        "id": 14945,
+        "name": "人海戰術",
+        "kind": "Notable",
+        "stats": [
+          "增加20%[Minion|召喚物]的範圍效果",
+          "增加20%召喚物的冷卻時間恢復率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 24,
+        "id": 31826,
+        "name": "遠距關係",
+        "kind": "Notable",
+        "stats": [
+          "增加30%[Presence|存在範圍]的範圍效果",
+          "增加15%[Minion|召喚物]的範圍效果"
+        ],
+        "asc": ""
+      }
+    ]
+  },
+  "meta": {
+    "buildId": "infernalist-minions",
+    "stageId": "early-maps",
+    "origin": "hand-tuned-manual",
+    "source": "scaffold-route.mjs",
+    "overridePolicy": "manual-review-required",
+    "handTuned": true,
+    "nodes": 24,
+    "nodeCount": 24,
+    "poe2dbVersion": "4.5",
+    "createdAt": "2026-07-23T00:40:37.862Z",
+    "review": {
+      "status": "待复核",
+      "reason": "由节点 ID 生成的手调候选路线；写入 manifest 前必须人工确认顺序、属性和阶段适配。",
+      "useUntil": "仅作为候选文件，不代表当前版本正式路线。",
+      "manualChecks": [
+        "确认节点 ID 顺序来自实际开荒阶段，而不是终局路线截断。",
+        "确认该阶段需要的属性、精魂、生存和输出节点没有过早绕路。",
+        "确认独立天赋树查看器能高亮全部节点并显示三语言属性。"
+      ]
+    }
+  }
+}

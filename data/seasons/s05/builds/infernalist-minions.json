@@ -1,0 +1,1539 @@
+{
+  "id": "infernalist-minions",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "title": {
+    "zhCN": "魔巫召唤开荒",
+    "zhTW": "魔巫召喚拓荒",
+    "en": "Infernalist Minions Starter"
+  },
+  "class": {
+    "base": {
+      "zhCN": "魔巫",
+      "zhTW": "魔巫",
+      "en": "Witch"
+    },
+    "ascendancy": {
+      "zhCN": "魔巫",
+      "zhTW": "魔巫",
+      "en": "Infernalist"
+    }
+  },
+  "source": {
+    "pobb": "",
+    "notes": "Draft created from the S05 build candidate queue. Guide modules, skills, gear thresholds, crafting plans, and report export are filled, but the build stays unpublished until all staged passive routes are hand-tuned, validated, and registered."
+  },
+  "overview": {
+    "difficulty": {
+      "zhCN": "中等，草稿待复核",
+      "zhTW": "中等，草稿待複核",
+      "en": "Medium, draft review pending"
+    },
+    "budget": {
+      "zhCN": "目标低预算，价格不使用样例市场推断",
+      "zhTW": "目標低預算，價格不使用範例市場推斷",
+      "en": "Targets low budget; prices are not inferred from sample market data"
+    },
+    "bestFor": {
+      "zhCN": [
+        "想用召唤物降低操作压力，并愿意等技能、装备和天赋路线复核完成后再照抄的玩家。"
+      ],
+      "zhTW": [
+        "想用召喚物降低操作壓力，並願意等技能、裝備和天賦路線複核完成後再照抄的玩家。"
+      ],
+      "en": [
+        "Players who want minions to lower execution pressure and are willing to wait for reviewed skills, gear, and passive routes before copying it."
+      ]
+    },
+    "strengths": {
+      "zhCN": [
+        "候选方向适合沉淀成召唤物 BD 写作样例：技能、辅助、召唤物选择和装备门槛都能结构化。"
+      ],
+      "zhTW": [
+        "候選方向適合沉澱成召喚物 BD 寫作樣例：技能、輔助、召喚物選擇和裝備門檻都能結構化。"
+      ],
+      "en": [
+        "Good candidate for a structured minion guide because skills, supports, minion choices, and gear gates can be modeled explicitly."
+      ]
+    },
+    "risks": {
+      "zhCN": [
+        "技能、辅助、召唤物选择、装备门槛、制作方案和 4 个阶段天赋候选文件已结构化；主要缺口是候选路线仍需人工复核，并登记到正式 manifest。"
+      ],
+      "zhTW": [
+        "技能、輔助、召喚物選擇、裝備門檻、製作方案和 4 個階段天賦候選檔已結構化；主要缺口是候選路線仍需人工複核，並登記到正式 manifest。"
+      ],
+      "en": [
+        "Skills, supports, minion choices, gear gates, crafting plans, and all 4 staged passive candidate files are structured; the main gap is manual route review and formal manifest registration."
+      ]
+    }
+  },
+  "guideArticle": {
+    "title": {
+      "zhCN": "开荒正文速读",
+      "zhTW": "拓荒正文速讀",
+      "en": "Leveling Guide Read First"
+    },
+    "intro": {
+      "zhCN": "这是一份未发布草稿，用来把魔巫召唤方向拆成可校验的数据模块。当前攻略正文、技能/辅助边界、召唤物选择、装备门槛、制作方案和 4 个阶段天赋候选文件已经补齐；发布前还需要人工复核节点顺序与阶段适配，并把复核后的路线登记到正式 manifest。",
+      "zhTW": "這是一份未發布草稿，用來把魔巫召喚方向拆成可校驗的資料模組。目前攻略正文、技能/輔助邊界、召喚物選擇、裝備門檻、製作方案和 4 個階段天賦候選檔已經補齊；發布前還需要人工複核節點順序與階段適配，並把複核後的路線登記到正式 manifest。",
+      "en": "This unpublished draft breaks the Infernalist minion direction into verifiable data modules. The guide article, skill/support boundaries, minion choices, gear gates, crafting plans, and all 4 staged passive candidate files are now filled; before publication, node order and stage fit still need manual review, then reviewed routes must be registered in the formal manifest."
+    },
+    "sections": [
+      {
+        "id": "start-class",
+        "title": {
+          "zhCN": "起什么职业",
+          "zhTW": "起什麼職業",
+          "en": "What to Start"
+        },
+        "body": {
+          "zhCN": "起号方向暂定为女巫进入魔巫升华，目标是把召唤物作为主要战斗框架。剧情早期、第一次升华和进入异界前的技能替换还没有完成实战复核。",
+          "zhTW": "起號方向暫定為女巫進入魔巫昇華，目標是把召喚物作為主要戰鬥框架。劇情早期、第一次昇華和進入異界前的技能替換還沒有完成實戰複核。",
+          "en": "The draft starts from Witch into Infernalist and aims to use minions as the main combat framework. Early campaign, first ascendancy, and pre-map skill swaps still need practical review."
+        },
+        "checks": {
+          "zhCN": [
+            "先补剧情早期可用技能，再补第一次升华后的召唤物组合。",
+            "任何阶段天赋未手调前，都不能标成可照抄路线。",
+            "技能本体、召唤物选择和辅助宝石必须分开登记。"
+          ],
+          "zhTW": [
+            "先補劇情早期可用技能，再補第一次昇華後的召喚物組合。",
+            "任何階段天賦未手調前，都不能標成可照抄路線。",
+            "技能本體、召喚物選擇和輔助寶石必須分開登記。"
+          ],
+          "en": [
+            "Fill early campaign usable skills before the post-ascendancy minion package.",
+            "Do not mark any stage route as copy-ready before hand tuning.",
+            "Register active skills, minion choice rules, and support gems separately."
+          ]
+        }
+      },
+      {
+        "id": "transition-window",
+        "title": {
+          "zhCN": "什么时候进入召唤框架",
+          "zhTW": "什麼時候進入召喚框架",
+          "en": "When to Move Into the Minion Framework"
+        },
+        "body": {
+          "zhCN": "草稿阶段先把转型条件写清楚：不要因为目标是召唤物，就在剧情早期强行放弃更顺手的过渡技能。等主输出召唤物、前排承伤、基础抗性和精魂/孔位都能同时成立，再把召唤物作为主要战斗框架。",
+          "zhTW": "草稿階段先把轉型條件寫清楚：不要因為目標是召喚物，就在劇情早期強行放棄更順手的過渡技能。等主輸出召喚物、前排承傷、基礎抗性和精魂/孔位都能同時成立，再把召喚物作為主要戰鬥框架。",
+          "en": "The draft defines the transition rule first: do not abandon a smoother leveling skill early just because the target build is minions. Move into the minion framework only when main damage minions, frontline bodies, basic resistances, and Spirit/socket room can all exist together."
+        },
+        "checks": {
+          "zhCN": [
+            "清图速度还靠过渡技能时，不急着删掉它。",
+            "主输出召唤物至少要有一组有效辅助后再当核心。",
+            "精魂或孔位不够时，先少带召唤物，不拆主输出链。"
+          ],
+          "zhTW": [
+            "清圖速度還靠過渡技能時，不急著刪掉它。",
+            "主輸出召喚物至少要有一組有效輔助後再當核心。",
+            "精魂或孔位不夠時，先少帶召喚物，不拆主輸出鏈。"
+          ],
+          "en": [
+            "If clear speed still comes from the leveling skill, do not remove it yet.",
+            "Use the main damage minion as the core only after it has at least one useful support set.",
+            "When Spirit or sockets are short, run fewer minions instead of breaking the main link."
+          ]
+        }
+      },
+      {
+        "id": "skill-rule",
+        "title": {
+          "zhCN": "技能和辅助怎么分",
+          "zhTW": "技能和輔助怎麼分",
+          "en": "How to Separate Skills and Supports"
+        },
+        "body": {
+          "zhCN": "这套草稿坚持把技能本体、辅助宝石、召唤物选择三条线分开。冰霜法师、纵火者、骷髅战士、掠夺者、牧师是技能本体；集结、厚重、凋零之触、肉盾、最后一息是辅助宝石，只能接到对应技能下面。",
+          "zhTW": "這套草稿堅持把技能本體、輔助寶石、召喚物選擇三條線分開。冰霜法師、縱火者、骷髏戰士、掠奪者、牧師是技能本體；集結、厚重、凋零之觸、肉盾、最後一息是輔助寶石，只能接到對應技能下面。",
+          "en": "This draft keeps active skills, support gems, and minion choice rules separate. Frost Mage, Arsonist, Skeletal Warrior, Reaver, and Cleric are active skills; Muster, Heft, Withering Touch, Meat Shield, and Last Gasp are supports that must attach to compatible skills."
+        },
+        "checks": {
+          "zhCN": [
+            "主动技能决定你召唤什么和保留什么。",
+            "辅助宝石只强化某个技能，不能作为独立技能写进选择列表。",
+            "每次补链接时，先确认它服务的是主输出、前排还是功能位。"
+          ],
+          "zhTW": [
+            "主動技能決定你召喚什麼和保留什麼。",
+            "輔助寶石只強化某個技能，不能作為獨立技能寫進選擇列表。",
+            "每次補連線時，先確認它服務的是主輸出、前排還是功能位。"
+          ],
+          "en": [
+            "Active skills define what you summon or reserve.",
+            "Support gems enhance a skill and must not be written as standalone minion choices.",
+            "Before adding a link, decide whether it serves damage, frontline, or utility."
+          ]
+        }
+      },
+      {
+        "id": "gear-rule",
+        "title": {
+          "zhCN": "前期装备先解决什么",
+          "zhTW": "前期裝備先解決什麼",
+          "en": "What Early Gear Must Solve First"
+        },
+        "body": {
+          "zhCN": "装备部分还没进入可照抄阈值，因此正文只保留原则：先保证角色本体不暴毙，再保证精魂、孔位和召唤物相关词缀能支撑主输出链。价格仍不能从样例市场数据推断。",
+          "zhTW": "裝備部分還沒進入可照抄門檻，因此正文只保留原則：先保證角色本體不暴斃，再保證精魂、孔位和召喚物相關詞綴能支撐主輸出鏈。價格仍不能從範例市場資料推斷。",
+          "en": "Gear is not yet at copy-ready thresholds, so the article keeps only the rule: stop the character from dying first, then make sure Spirit, sockets, and minion-related affixes can support the main damage link. Prices still cannot be inferred from sample market data."
+        },
+        "checks": {
+          "zhCN": [
+            "死亡多先看生命、抗性、防御层和前排稳定性。",
+            "清图慢再看主输出召唤物等级、孔位和辅助完整度。",
+            "任何购买建议都要等真实来源和预算边界补齐。"
+          ],
+          "zhTW": [
+            "死亡多先看生命、抗性、防禦層和前排穩定性。",
+            "清圖慢再看主輸出召喚物等級、孔位和輔助完整度。",
+            "任何購買建議都要等真實來源和預算邊界補齊。"
+          ],
+          "en": [
+            "If deaths are frequent, check life, resistances, defenses, and frontline stability first.",
+            "If clear is slow, then inspect main minion level, sockets, and support completeness.",
+            "Any purchase advice must wait for real sources and budget boundaries."
+          ]
+        }
+      },
+      {
+        "id": "publish-boundary",
+        "title": {
+          "zhCN": "什么时候可以发布",
+          "zhTW": "什麼時候可以發布",
+          "en": "When This Can Be Published"
+        },
+        "body": {
+          "zhCN": "当前页面仍是未发布草稿。攻略正文、执行路线、装备门槛、制作方案、技能获取来源、HTML 攻略报告和 4 个阶段候选天赋文件已经补齐；只有人工复核节点顺序与阶段适配后，才允许把它登记进 manifest 正式 BD 列表。",
+          "zhTW": "目前頁面仍是未發布草稿。攻略正文、執行路線、裝備門檻、製作方案、技能取得來源、HTML 攻略報告和 4 個階段候選天賦檔已補齊；只有人工複核節點順序與階段適配後，才允許把它登記進 manifest 正式 BD 列表。",
+          "en": "This page remains an unpublished draft. Guide text, execution steps, gear thresholds, crafting plans, skill acquisition sources, the HTML guide report, and all 4 staged passive candidate files are filled; register it in the formal manifest build list only after manual node-order and stage-fit review."
+        },
+        "checks": {
+          "zhCN": [
+            "候选天赋按钮只能标记为预览/复核，不作为可照抄正式路线。",
+            "未补装备阈值前，不把预算和购买顺序写成结论。",
+            "未通过完整套件前，不进入首页正式开荒 BD。"
+          ],
+          "zhTW": [
+            "候選天賦按鈕只能標記為預覽/複核，不作為可照抄正式路線。",
+            "未補裝備門檻前，不把預算和購買順序寫成結論。",
+            "未通過完整套件前，不進入首頁正式拓荒 BD。"
+          ],
+          "en": [
+            "Expose passive-tree buttons only as preview/review candidates, not as copy-ready formal routes.",
+            "Do not turn budget or purchase order into conclusions before gear thresholds exist.",
+            "Do not enter the homepage starter list before the full suite passes."
+          ]
+        }
+      }
+    ]
+  },
+  "evidenceSummary": {
+    "title": {
+      "zhCN": "资料可信度与待复核",
+      "zhTW": "資料可信度與待複核",
+      "en": "Evidence Quality and Review Queue"
+    },
+    "intro": {
+      "zhCN": "标明哪些内容来自本地版本数据、PoE2DB、手工攻略或待复核来源。",
+      "zhTW": "標明哪些內容來自本地版本資料、PoE2DB、手工攻略或待複核來源。",
+      "en": "Mark what comes from local version data, PoE2DB, manual guide writing, or pending review."
+    },
+    "checks": [
+      {
+        "id": "source-review",
+        "status": {
+          "zhCN": "待复核",
+          "zhTW": "待複核",
+          "en": "Needs review"
+        },
+        "evidence": {
+          "zhCN": "候选队列和草稿 JSON 已落盘，页面只展示写作进度和缺口。",
+          "zhTW": "候選佇列和草稿 JSON 已落盤，頁面只展示寫作進度和缺口。",
+          "en": "The candidate queue and draft JSON exist; the page only exposes writing progress and gaps."
+        },
+        "limitation": {
+          "zhCN": "不能把当前草稿当成实战攻略。",
+          "zhTW": "不能把目前草稿當成實戰攻略。",
+          "en": "Do not treat the current draft as a real guide."
+        },
+        "nextAction": {
+          "zhCN": "补数据来源、路线来源和待复核动作。",
+          "zhTW": "補資料來源、路線來源和待複核動作。",
+          "en": "Fill source evidence, route origin, and review action."
+        },
+        "severity": "pending"
+      }
+    ]
+  },
+  "guideStrategy": {
+    "coreLoop": {
+      "title": "核心循环",
+      "steps": [
+        "草稿目标是先确定召唤物主输出、前排承伤和功能补位，再决定哪些辅助宝石优先接给主输出。"
+      ]
+    },
+    "powerSignals": [
+      {
+        "id": "power-signal",
+        "title": "变强信号",
+        "good": "召唤物能稳定清理普通怪，角色本体不需要频繁贴脸补伤害。",
+        "check": "如果清怪慢，优先检查主输出召唤物和第一批辅助宝石是否已经登记并实测。"
+      }
+    ],
+    "failureDiagnosis": [
+      {
+        "symptom": "卡关症状",
+        "likelyCause": "常见原因",
+        "fix": "处理顺序",
+        "priority": "高"
+      }
+    ],
+    "decisionRules": [
+      {
+        "id": "transition-rule",
+        "title": "什么时候转型",
+        "rules": [
+          "只有在技能链接、精魂占用、抗性补齐和阶段天赋都复核后，才把草稿推进到可照抄阶段。"
+        ]
+      }
+    ]
+  },
+  "executionPlan": {
+    "title": "新号照抄执行路线",
+    "intro": "草稿阶段先按可执行顺序拆分，并用候选天赋按钮接到独立天赋树预览；未复核前不把它标成正式照抄路线，也不使用市场样例给购买结论。每个阶段只写当前应该做什么、先找什么属性、什么时候停止投入、卡住后怎么回退。",
+    "stages": [
+      {
+        "stageId": "campaign-early",
+        "mainAction": "用当前手感最顺的剧情技能推进，把召唤物当补伤和挡怪工具，不在技能和精魂都不足时强行全转召唤。",
+        "buyFirst": [
+          "移动速度鞋",
+          "带生命、抗性或属性的便宜黄装",
+          "能明显提高当前清怪技能的武器或副手"
+        ],
+        "stopLine": "低等级装备只要解决一个明显短板就停，不深做、不追召唤词缀。",
+        "fallback": "剧情首领打不动时，先换当前清怪技能的伤害来源和辅助，再补抗性；不要因为目标是召唤物就提前拆掉过渡技能。",
+        "nextGate": "移动速度舒服、本体不会频繁暴毙，并且至少拿到一组可用召唤物后，再进入召唤框架试运行。"
+      },
+      {
+        "stageId": "minion-transition",
+        "mainAction": "确立一组主输出召唤物，再放入前排承伤召唤物；精魂或孔位紧张时少带功能位，不拆主输出链。",
+        "buyFirst": [
+          "能提高精魂的副手或等价来源",
+          "主输出召唤物需要的一到两颗有效辅助",
+          "补力量、敏捷、智力和缺口抗性的饰品"
+        ],
+        "stopLine": "主输出召唤物没有有效辅助、前排扛不住或抗性断档时，不继续增加功能召唤物。",
+        "fallback": "转型后清图变慢，就保留过渡技能，同时把辅助集中给主输出召唤物；死亡多则先补前排和本体抗性。",
+        "nextGate": "主输出召唤物能稳定清怪，前排能拖住怪，换装后精魂和属性不断档，再推进到异界前整理。"
+      },
+      {
+        "stageId": "early-maps",
+        "mainAction": "进入白黄图后先稳定抗性、生命、精魂和主输出链接，再考虑更多召唤物或输出词。",
+        "buyFirst": [
+          "补满元素抗性的防具和饰品",
+          "精魂来源",
+          "召唤技能等级或召唤物伤害词缀"
+        ],
+        "stopLine": "抗性没补齐、生命太低或主输出链不完整时，不买只提供单条召唤物伤害的装备。",
+        "fallback": "清图慢补主输出链；死亡多补抗性、生命和前排承伤；精魂紧张就删功能召唤物。",
+        "nextGate": "白黄图可以连续推进、精魂足够保主输出和前排后，再开始准备红图装备门槛。"
+      },
+      {
+        "stageId": "red-map-prep",
+        "mainAction": "围绕红图稳定性逐件替换装备，每次换装后重新检查抗性、属性、精魂和主输出链接。",
+        "buyFirst": [
+          "生命加缺口抗性的高底子防具",
+          "更高精魂来源",
+          "服务主输出召唤物的技能等级或双有效词"
+        ],
+        "stopLine": "任何升级导致抗性、属性、精魂或主输出链接崩掉，都先回退，不把毕业件硬塞进未成型角色。",
+        "fallback": "红图死亡多时先撤回一件压缩抗性的装备，用戒指、腰带、手套补洞；伤害慢再升级主输出召唤物。",
+        "nextGate": "红图压力主要来自词缀和操作，而不是普通怪持续压垮角色后，再进入毕业制作和高价件筛选。"
+      }
+    ]
+  },
+  "routes": {},
+  "tags": [
+    "draft",
+    "infernalist-minions"
+  ],
+  "stages": [
+    {
+      "id": "campaign-early",
+      "title": "剧情早期",
+      "status": "draft",
+      "summary": "先用顺手过渡技能推剧情，召唤物只作为补伤和挡怪，不强行提前全转。",
+      "priorities": [
+        "移动速度",
+        "生命和抗性",
+        "当前清怪技能伤害",
+        "基础属性门槛"
+      ],
+      "playbook": {
+        "title": "先保证剧情推进手感",
+        "steps": [
+          "捡到高伤武器或顺手范围技能就先用，不因为终局是召唤物而放弃过渡。",
+          "召唤物先承担补伤和挡怪职责，主输出链没成型前不要把所有孔位都给召唤物。",
+          "装备只看短板：鞋子移动速度、防具生命抗性、饰品属性和抗性。",
+          "每次换装后检查技能是否还能使用，避免属性不够导致主技能断档。"
+        ],
+        "checks": [
+          "跑图速度不拖。",
+          "本体不会被普通怪频繁秒杀。",
+          "当前清怪技能有至少一组有效辅助。",
+          "低等级装备没有投入高成本制作。"
+        ],
+        "mistakes": [
+          "剧情早期为了召唤词放弃移动速度或抗性。",
+          "主输出召唤物没辅助就强行当核心。",
+          "把辅助宝石当成独立技能写进技能栏。"
+        ]
+      }
+    },
+    {
+      "id": "minion-transition",
+      "title": "召唤框架转型",
+      "status": "draft",
+      "summary": "开始固定主输出召唤物和前排承伤召唤物，按精魂和孔位决定是否增加功能位。",
+      "priorities": [
+        "主输出召唤物链接",
+        "前排承伤召唤物",
+        "精魂余量",
+        "抗性和属性不断档"
+      ],
+      "playbook": {
+        "title": "先保主输出链",
+        "steps": [
+          "在冰霜法师或纵火者里选一组作为主输出，不要同时把所有输出召唤物都配满。",
+          "前排用骷髅战士或掠夺者承担贴脸压力，优先接肉盾、最后一息等承伤辅助。",
+          "精魂不够时先删功能补位，不拆主输出召唤物的伤害辅助。",
+          "保留一套过渡清图技能，直到召唤物清图比过渡技能更稳定。"
+        ],
+        "checks": [
+          "主输出召唤物至少有一到两条有效辅助。",
+          "前排能让角色本体少贴脸。",
+          "换装后精魂足够维持核心召唤物。",
+          "清图变慢时有过渡技能兜底。"
+        ],
+        "mistakes": [
+          "为了多带功能召唤物拆掉主输出辅助。",
+          "只补召唤物伤害，不补本体抗性。",
+          "清图慢和死亡多同时处理，导致不知道到底是哪条线出问题。"
+        ]
+      }
+    },
+    {
+      "id": "early-maps",
+      "title": "白黄图整理",
+      "status": "draft",
+      "summary": "优先把抗性、生命、精魂和主输出链接整理到稳定状态，再增加输出词和功能位。",
+      "priorities": [
+        "元素抗性",
+        "生命和防御底子",
+        "精魂来源",
+        "召唤技能等级或召唤物伤害"
+      ],
+      "playbook": {
+        "title": "先让地图连续推进",
+        "steps": [
+          "用防具和饰品补满主要抗性，生命和属性不够时先不追输出词。",
+          "精魂来源提升后，先确认主输出和前排都能常驻，再加功能召唤物。",
+          "主输出召唤物优先吃伤害辅助，前排召唤物优先吃承伤辅助。",
+          "白黄图能连续推进后，再记录哪些装备槽位最影响体感。"
+        ],
+        "checks": [
+          "抗性没有明显缺口。",
+          "主输出链完整度比剧情期更高。",
+          "前排召唤物不频繁断档。",
+          "精魂变化有记录，不靠感觉换装。"
+        ],
+        "mistakes": [
+          "抗性没满就买纯输出召唤物装备。",
+          "一次换多件导致属性和精魂同时崩。",
+          "把样例市场价格当成真实购买排序。"
+        ]
+      }
+    },
+    {
+      "id": "red-map-prep",
+      "title": "红图前准备",
+      "status": "draft",
+      "summary": "每次只替换少量装备，用红图稳定性倒推生命、抗性、精魂和输出链缺口。",
+      "priorities": [
+        "生命加抗性装备",
+        "高精魂来源",
+        "主输出召唤技能等级",
+        "召唤物双有效词"
+      ],
+      "playbook": {
+        "title": "按短板升级，不按毕业清单硬换",
+        "steps": [
+          "一次只换一到两件装备，换完重新检查生命、抗性、属性和精魂。",
+          "如果换高价值件后更容易死，先退回能补抗性的稀有装。",
+          "输出不足时先升级主输出召唤物链接，再考虑功能召唤物或珠宝。",
+          "把红图死亡原因分成普通怪压力、首领压力和危险词缀三类记录。"
+        ],
+        "checks": [
+          "红图死亡不是常规小怪持续压垮角色。",
+          "主输出召唤物链接没有因为换装被拆。",
+          "属性门槛和精魂余量换装后仍成立。",
+          "毕业制作开始前已有明确短板清单。"
+        ],
+        "mistakes": [
+          "看到毕业件就直接全换，导致抗性和属性断档。",
+          "伤害慢时先买功能位，而不是补主输出链。",
+          "没有真实行情快照时给出价格结论。"
+        ]
+      }
+    }
+  ],
+  "skills": {
+    "overview": {
+      "title": {
+        "zhCN": "这套技能到底怎么玩",
+        "zhTW": "這套技能到底怎麼玩",
+        "en": "How the Skill Setup Works"
+      },
+      "intro": {
+        "zhCN": "草稿阶段先保留技能、召唤物选择和辅助宝石三条独立数据线。当前只把召唤物选择逻辑写清楚，具体等级、购买时机和最终链接仍待复核。",
+        "zhTW": "草稿階段先保留技能、召喚物選擇和輔助寶石三條獨立資料線。目前只把召喚物選擇邏輯寫清楚，具體等級、購買時機和最終連線仍待複核。",
+        "en": "Keep active skills, minion choice rules, and support gems as separate data tracks. This draft only clarifies minion choice logic; exact levels, acquisition timing, and final links still need review."
+      },
+      "cards": [
+        {
+          "id": "main-damage-line",
+          "title": {
+            "zhCN": "先确立一条主输出召唤链",
+            "zhTW": "先確立一條主輸出召喚鏈",
+            "en": "Set One Main Damage Minion Link First"
+          },
+          "body": {
+            "zhCN": "冰霜法师和纵火者先作为主输出候选。草稿阶段不要同时把所有输出召唤物都配满，先选一组集中给集结、厚重、凋零之触这类伤害辅助。",
+            "zhTW": "冰霜法師和縱火者先作為主輸出候選。草稿階段不要同時把所有輸出召喚物都配滿，先選一組集中給集結、厚重、凋零之觸這類傷害輔助。",
+            "en": "Frost Mage and Arsonist are the first main-damage candidates. Do not fully link every damage minion in the draft; pick one group and concentrate Muster, Heft, Withering Touch, or similar damage supports there."
+          },
+          "checks": {
+            "zhCN": [
+              "清图慢时先检查主输出召唤物是否有完整辅助。",
+              "孔位少时先保一条主输出链，不追求所有召唤物同时上场。",
+              "伤害辅助只写在辅助列表或链接规则里，不能混进技能本体列表。"
+            ],
+            "zhTW": [
+              "清圖慢時先檢查主輸出召喚物是否有完整輔助。",
+              "孔位少時先保一條主輸出鏈，不追求所有召喚物同時上場。",
+              "傷害輔助只寫在輔助列表或連線規則裡，不能混進技能本體列表。"
+            ],
+            "en": [
+              "If clear is slow, check whether the main damage minion has real supports first.",
+              "When sockets are scarce, protect one main link instead of fielding every minion.",
+              "Damage supports belong in support lists or link rules, never in the active-skill list."
+            ]
+          }
+        },
+        {
+          "id": "frontline-line",
+          "title": {
+            "zhCN": "前排解决贴脸和倒地问题",
+            "zhTW": "前排解決貼臉和倒地問題",
+            "en": "Use Frontline Minions to Solve Pressure"
+          },
+          "body": {
+            "zhCN": "骷髅战士和掠夺者先承担前排职责。死亡多时不要继续硬堆后排伤害，优先给前排肉盾、最后一息，并同步补角色本体抗性。",
+            "zhTW": "骷髏戰士和掠奪者先承擔前排職責。死亡多時不要繼續硬堆後排傷害，優先給前排肉盾、最後一息，並同步補角色本體抗性。",
+            "en": "Skeletal Warrior and Reaver are the draft frontline. If deaths are the issue, stop forcing more backline damage and give the frontline Meat Shield, Last Gasp, and player resist fixes first."
+          },
+          "checks": {
+            "zhCN": [
+              "被怪贴脸时先看前排是否常驻。",
+              "后排开战就倒时，优先补前排生存辅助。",
+              "死亡问题和伤害问题分开处理，不用一套辅助同时解决所有事。"
+            ],
+            "zhTW": [
+              "被怪貼臉時先看前排是否常駐。",
+              "後排開戰就倒時，優先補前排生存輔助。",
+              "死亡問題和傷害問題分開處理，不用一套輔助同時解決所有事。"
+            ],
+            "en": [
+              "When enemies reach you, check whether the frontline stays active.",
+              "If backline minions die immediately, add frontline survival supports first.",
+              "Separate death problems from damage problems; one support package should not solve everything."
+            ]
+          }
+        },
+        {
+          "id": "utility-line",
+          "title": {
+            "zhCN": "功能位最后补，不抢主链资源",
+            "zhTW": "功能位最後補，不搶主鏈資源",
+            "en": "Add Utility Last Without Stealing Core Resources"
+          },
+          "body": {
+            "zhCN": "牧师这类功能召唤物只在主输出和前排都稳定后再补。精魂或孔位紧张时，它是第一批让位对象，不应该挤掉主输出链的核心辅助。",
+            "zhTW": "牧師這類功能召喚物只在主輸出和前排都穩定後再補。精魂或孔位緊張時，它是第一批讓位對象，不應該擠掉主輸出鏈的核心輔助。",
+            "en": "Utility minions such as Cleric come only after damage and frontline are stable. When Spirit or sockets are tight, utility is the first cut and should not displace core damage supports."
+          },
+          "checks": {
+            "zhCN": [
+              "主输出没成型前，不优先扩功能召唤物。",
+              "前排不稳时，功能位不能替代承伤位。",
+              "每次换装备后重新检查精魂和孔位，再决定是否补功能召唤物。"
+            ],
+            "zhTW": [
+              "主輸出沒成型前，不優先擴功能召喚物。",
+              "前排不穩時，功能位不能替代承傷位。",
+              "每次換裝備後重新檢查精魂和孔位，再決定是否補功能召喚物。"
+            ],
+            "en": [
+              "Do not expand utility before the main damage link exists.",
+              "Utility does not replace a missing or unstable frontline.",
+              "After each gear swap, recheck Spirit and sockets before adding utility minions."
+            ]
+          }
+        }
+      ]
+    },
+    "active": [
+      {
+        "id": "frost-mage",
+        "role": "damage-minion",
+        "name": {
+          "zhCN": "冰霜法师",
+          "zhTW": "冰霜法師",
+          "en": "Frost Mage"
+        },
+        "supportProfile": "draft-damage-minion"
+      },
+      {
+        "id": "arsonist",
+        "role": "damage-minion",
+        "name": {
+          "zhCN": "纵火者",
+          "zhTW": "縱火者",
+          "en": "Arsonist"
+        },
+        "supportProfile": "draft-damage-minion"
+      },
+      {
+        "id": "skeletal-warrior",
+        "role": "frontline-minion",
+        "name": {
+          "zhCN": "骷髅战士",
+          "zhTW": "骷髏戰士",
+          "en": "Skeletal Warrior"
+        },
+        "supportProfile": "draft-frontline-minion"
+      },
+      {
+        "id": "reaver",
+        "role": "frontline-minion",
+        "name": {
+          "zhCN": "掠夺者",
+          "zhTW": "掠奪者",
+          "en": "Reaver"
+        },
+        "supportProfile": "draft-frontline-minion"
+      },
+      {
+        "id": "cleric",
+        "role": "utility-minion",
+        "name": {
+          "zhCN": "牧师",
+          "zhTW": "牧師",
+          "en": "Cleric"
+        },
+        "supportProfile": "draft-utility-minion"
+      }
+    ],
+    "supports": {
+      "muster": {
+        "zhCN": "集结",
+        "zhTW": "集結",
+        "en": "Muster"
+      },
+      "heft": {
+        "zhCN": "厚重",
+        "zhTW": "厚重",
+        "en": "Heft"
+      },
+      "withering-touch": {
+        "zhCN": "凋零之触",
+        "zhTW": "凋零之觸",
+        "en": "Withering Touch"
+      },
+      "meat-shield": {
+        "zhCN": "肉盾",
+        "zhTW": "肉盾",
+        "en": "Meat Shield"
+      },
+      "last-gasp": {
+        "zhCN": "最后一息",
+        "zhTW": "最後一息",
+        "en": "Last Gasp"
+      }
+    },
+    "supportProfiles": {
+      "draft-damage-minion": [
+        "muster",
+        "heft",
+        "withering-touch"
+      ],
+      "draft-frontline-minion": [
+        "meat-shield",
+        "last-gasp"
+      ],
+      "draft-utility-minion": [
+        "meat-shield",
+        "last-gasp"
+      ]
+    },
+    "recommendedLinks": [],
+    "supportSelectionRules": [],
+    "minionSelectionGuide": {
+      "title": {
+        "zhCN": "召唤物到底选哪几个",
+        "zhTW": "召喚物到底選哪幾個",
+        "en": "Which Minions to Pick"
+      },
+      "intro": {
+        "zhCN": "这份魔巫召唤草稿先按职责选召唤物：一组主输出、一组前排承伤，最后才补功能位。当前仍是写作草稿，所有技能等级、精魂占用和最终链接都要等实战复核。",
+        "zhTW": "這份魔巫召喚草稿先按職責選召喚物：一組主輸出、一組前排承傷，最後才補功能位。目前仍是寫作草稿，所有技能等級、精魂占用和最終連線都要等實戰複核。",
+        "en": "This Infernalist minion draft picks minions by job: one main damage group, one frontline group, then utility. It remains a writing draft; levels, Spirit cost, and final links still require play review."
+      },
+      "groups": [
+        {
+          "id": "main-damage",
+          "title": {
+            "zhCN": "主输出召唤物",
+            "zhTW": "主輸出召喚物",
+            "en": "Main Damage Minions"
+          },
+          "skillIds": [
+            "frost-mage",
+            "arsonist"
+          ],
+          "job": {
+            "zhCN": "负责清图和首领伤害，优先把孔位和伤害辅助留给这一组。",
+            "zhTW": "負責清圖和首領傷害，優先把孔位和傷害輔助留給這一組。",
+            "en": "Carries clear and boss damage, so sockets and damage supports go here first."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "清怪慢或首领战拖太久时，先检查主输出召唤物是否成组。",
+              "孔位只够一条高价值链接时，不要同时养多组输出召唤物。",
+              "当前伤害辅助能稳定作用在它身上，再考虑扩第二组输出。"
+            ],
+            "zhTW": [
+              "清怪慢或首領戰拖太久時，先檢查主輸出召喚物是否成組。",
+              "孔位只夠一條高價值連線時，不要同時養多組輸出召喚物。",
+              "目前傷害輔助能穩定作用在它身上，再考慮擴第二組輸出。"
+            ],
+            "en": [
+              "If clear is slow or bosses drag on, check whether the main damage minion group is actually set up.",
+              "When sockets only support one high-value link, do not build multiple damage minion groups at once.",
+              "Add a second damage group only after the current damage supports reliably apply to the first one."
+            ]
+          },
+          "firstSupports": [
+            "muster",
+            "heft",
+            "withering-touch"
+          ],
+          "cutFirst": {
+            "zhCN": "不要先砍主输出召唤物。需要降配时，先删功能位或第二输出组。",
+            "zhTW": "不要先砍主輸出召喚物。需要降配時，先刪功能位或第二輸出組。",
+            "en": "Do not cut the main damage minion first. Downgrade utility or a second damage group before this."
+          }
+        },
+        {
+          "id": "frontline",
+          "title": {
+            "zhCN": "前排承伤召唤物",
+            "zhTW": "前排承傷召喚物",
+            "en": "Frontline Minions"
+          },
+          "skillIds": [
+            "skeletal-warrior",
+            "reaver"
+          ],
+          "job": {
+            "zhCN": "负责挡怪和拖住贴脸压力，让角色本体与后排召唤物有安全输出时间。",
+            "zhTW": "負責擋怪和拖住貼臉壓力，讓角色本體與後排召喚物有安全輸出時間。",
+            "en": "Absorbs pressure and holds enemies so the player and backline minions get safer uptime."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "角色频繁被怪贴脸，或者后排刚开打就倒。",
+              "死亡问题比伤害问题更明显。",
+              "你已经愿意把生存辅助让给前排，而不是继续堆纸面伤害。"
+            ],
+            "zhTW": [
+              "角色頻繁被怪貼臉，或者後排剛開打就倒。",
+              "死亡問題比傷害問題更明顯。",
+              "你已經願意把生存輔助讓給前排，而不是繼續堆紙面傷害。"
+            ],
+            "en": [
+              "Enemies reach the player too often, or backline minions collapse immediately.",
+              "Deaths are a clearer problem than damage.",
+              "You are ready to give survival supports to the frontline instead of chasing sheet damage."
+            ]
+          },
+          "firstSupports": [
+            "meat-shield",
+            "last-gasp"
+          ],
+          "cutFirst": {
+            "zhCN": "前排死光时输出也会断，不要为了一个低收益伤害辅助先砍前排。",
+            "zhTW": "前排死光時輸出也會斷，不要為了一個低收益傷害輔助先砍前排。",
+            "en": "When the frontline collapses, damage uptime drops too; do not cut it for a low-value damage support."
+          }
+        },
+        {
+          "id": "utility",
+          "title": {
+            "zhCN": "功能补位召唤物",
+            "zhTW": "功能補位召喚物",
+            "en": "Utility Minions"
+          },
+          "skillIds": [
+            "cleric"
+          ],
+          "job": {
+            "zhCN": "只在主输出和前排稳定后补容错，不抢核心输出链的孔位。",
+            "zhTW": "只在主輸出和前排穩定後補容錯，不搶核心輸出鏈的孔位。",
+            "en": "Adds forgiveness only after damage and frontline are stable, without stealing sockets from the core damage link."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "主输出已经能清怪，前排也不会瞬间倒。",
+              "还有精魂或孔位余量，不会挤掉主输出辅助。",
+              "你需要容错、补位或节奏稳定，而不是单纯提高伤害数字。"
+            ],
+            "zhTW": [
+              "主輸出已經能清怪，前排也不會瞬間倒。",
+              "還有精魂或孔位餘量，不會擠掉主輸出輔助。",
+              "你需要容錯、補位或節奏穩定，而不是單純提高傷害數字。"
+            ],
+            "en": [
+              "The damage minion already clears and the frontline no longer dies instantly.",
+              "You have spare Spirit or sockets without removing supports from the main damage link.",
+              "You need forgiveness, coverage, or rhythm stability rather than raw damage."
+            ]
+          },
+          "firstSupports": [
+            "meat-shield",
+            "last-gasp"
+          ],
+          "cutFirst": {
+            "zhCN": "精魂、孔位或操作压力紧张时，功能召唤物通常第一个删。",
+            "zhTW": "精魂、孔位或操作壓力緊張時，功能召喚物通常第一個刪。",
+            "en": "When Spirit, sockets, or button pressure are tight, utility minions are usually the first cut."
+          }
+        }
+      ],
+      "rules": {
+        "zhCN": [
+          "默认顺序：主输出召唤物 > 前排承伤 > 功能补位。",
+          "清图慢先补主输出链；死亡多先补前排和本体抗性，不要把两个问题混在一起。",
+          "每次换装备后重新检查精魂和孔位；如果多带一个召唤物会挤掉主输出辅助，就先少带召唤物。"
+        ],
+        "zhTW": [
+          "預設順序：主輸出召喚物 > 前排承傷 > 功能補位。",
+          "清圖慢先補主輸出鏈；死亡多先補前排和本體抗性，不要把兩個問題混在一起。",
+          "每次換裝備後重新檢查精魂和孔位；如果多帶一個召喚物會擠掉主輸出輔助，就先少帶召喚物。"
+        ],
+        "en": [
+          "Default order: main damage minion > frontline > utility.",
+          "Slow clear means improve the main damage link; too many deaths means improve frontline and player resistances. Do not mix the two problems.",
+          "Recheck Spirit and sockets after each gear swap; if one more minion removes supports from the main damage link, run fewer minions."
+        ]
+      }
+    },
+    "supportDecisionMatrix": []
+  },
+  "skillAcquisition": [
+    {
+      "stageId": "campaign-early",
+      "timing": "剧情早期先拿顺手过渡技能和第一批召唤物，不强制用未成型召唤物独自通关。",
+      "take": [
+        "保留当前清怪最快的过渡技能",
+        "拿到冰霜法师或纵火者后先作为补伤",
+        "有前排压力时加入骷髅战士"
+      ],
+      "activeSkillIds": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior"
+      ],
+      "doNotForce": [
+        "不要为了召唤物主题删掉更顺手的剧情技能",
+        "不要在精魂和孔位不足时同时带满所有召唤物"
+      ],
+      "confirmBefore": [
+        "主技能能清怪",
+        "鞋子和抗性不拖节奏",
+        "至少有一个召唤物能稳定参与战斗"
+      ],
+      "sourceUse": [
+        "当前仅使用本地技能目录确认技能/辅助名称",
+        "实际章节和等级来源待后续补 PoE2DB 获取证据"
+      ],
+      "fallback": [
+        "清图慢就回到过渡技能",
+        "首领压力大先补抗性和前排",
+        "孔位不足时只保一个召唤物链接"
+      ],
+      "evidenceNote": "草稿阶段的拿取顺序是手工写作判断，不等同实战最速路线。",
+      "sourceStatus": "draft-manual-skill-acquisition"
+    },
+    {
+      "stageId": "minion-transition",
+      "timing": "主输出召唤物能接到有效辅助后，开始把召唤框架作为主要战斗方式。",
+      "take": [
+        "在冰霜法师和纵火者里选一组作为主输出",
+        "加入骷髅战士或掠夺者承担前排",
+        "按精魂余量决定牧师是否上场"
+      ],
+      "activeSkillIds": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior",
+        "reaver",
+        "cleric"
+      ],
+      "doNotForce": [
+        "不要同时给所有召唤物配满辅助",
+        "不要让功能位挤掉主输出链"
+      ],
+      "confirmBefore": [
+        "主输出召唤物至少一组有效辅助",
+        "前排能缓解贴脸压力",
+        "换装后精魂和属性不断档"
+      ],
+      "sourceUse": [
+        "辅助兼容性仍按草稿规则使用",
+        "后续需要接入技能详情页逐条复核"
+      ],
+      "fallback": [
+        "清图慢就集中辅助给主输出",
+        "死亡多就补前排和本体抗性",
+        "精魂不够就删牧师等功能位"
+      ],
+      "evidenceNote": "转型条件来自草稿优先级，真实开荒要用玩家样本复核。",
+      "sourceStatus": "draft-manual-skill-acquisition"
+    },
+    {
+      "stageId": "early-maps",
+      "timing": "白黄图开始后，技能拿取重点从能用转为稳定：固定主输出、前排和必要功能位。",
+      "take": [
+        "固定一组主输出召唤物",
+        "固定一组前排承伤召唤物",
+        "只在精魂允许时加入牧师"
+      ],
+      "activeSkillIds": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior",
+        "reaver",
+        "cleric"
+      ],
+      "doNotForce": [
+        "不要因为多一个召唤物而拆主输出辅助",
+        "不要在抗性未补齐时追纯输出技能扩展"
+      ],
+      "confirmBefore": [
+        "元素抗性没有明显缺口",
+        "主输出链接完整",
+        "前排不会频繁断档"
+      ],
+      "sourceUse": [
+        "当前阶段不使用市场价格判断技能取舍",
+        "后续通过忍者导入样本观察常见链接"
+      ],
+      "fallback": [
+        "清图慢补主输出辅助",
+        "首领慢补单体辅助或诅咒来源",
+        "死亡多优先撤功能位补生存"
+      ],
+      "evidenceNote": "白黄图技能框架是草稿版本，仍需实战和样本校对。",
+      "sourceStatus": "draft-manual-skill-acquisition"
+    },
+    {
+      "stageId": "red-map-prep",
+      "timing": "红图前不再盲目加技能数量，只围绕主输出链、前排稳定和功能位价值做取舍。",
+      "take": [
+        "保留主输出召唤物和前排承伤召唤物",
+        "按短板决定是否保留牧师",
+        "把辅助优先级集中给最常用的召唤物"
+      ],
+      "activeSkillIds": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior",
+        "reaver",
+        "cleric"
+      ],
+      "doNotForce": [
+        "不要为了毕业模板牺牲当前红图稳定性",
+        "不要在精魂不足时强行保留低价值功能位"
+      ],
+      "confirmBefore": [
+        "红图普通怪压力可控",
+        "主输出链不会因换装被拆",
+        "精魂、属性和抗性同时成立"
+      ],
+      "sourceUse": [
+        "后续应结合忍者解析样本复核常见高阶链接",
+        "市场数据只用于独立行情工具，不写入草稿购买结论"
+      ],
+      "fallback": [
+        "红图死亡多就回退功能位和输出装备",
+        "伤害不足先补主输出链",
+        "换装破坏精魂时撤回上一件装备"
+      ],
+      "evidenceNote": "红图前技能取舍仍为手工攻略草稿，不能标记为毕业方案。",
+      "sourceStatus": "draft-manual-skill-acquisition"
+    }
+  ],
+  "gearOverview": {
+    "title": "装备先解决短板，再追毕业件",
+    "intro": "草稿阶段先记录装备写作原则：先让角色本体活下来，再让精魂、孔位和召唤物相关词缀支撑主输出链。这里不使用样例市场价格推断购买建议。",
+    "cards": [
+      {
+        "id": "survival-before-damage",
+        "title": "先补生存和抗性",
+        "body": "魔巫召唤不是角色本体无敌。剧情和白图阶段先让生命、抗性、移动速度和基础防御达标，避免为了一个召唤词缀牺牲太多生存。",
+        "checks": [
+          "鞋子优先移动速度。",
+          "防具至少解决生命、抗性、属性中的一个短板。",
+          "死亡多时先看本体抗性和前排稳定性。",
+          "不要因为一条召唤物伤害词放弃关键抗性。"
+        ]
+      },
+      {
+        "id": "spirit-and-sockets",
+        "title": "精魂和孔位决定能带几个召唤物",
+        "body": "召唤物数量不是越多越好。精魂和孔位不够时，先保一条主输出链和必要前排，不要为了多开功能召唤物拆掉主输出辅助。",
+        "checks": [
+          "换装后重新计算精魂余量。",
+          "主输出召唤物至少保留一组有效辅助。",
+          "前排承伤位不要被功能位挤掉。",
+          "孔位紧张时先少带召唤物。"
+        ]
+      },
+      {
+        "id": "minion-affix-after-basics",
+        "title": "召唤词缀排在基础短板之后",
+        "body": "召唤技能等级、召唤物伤害和精魂都很重要，但必须建立在能穿装备、能活下来、主链能接满的前提上。草稿阶段只写优先级，不写价格结论。",
+        "checks": [
+          "先确认力量、敏捷、智力门槛。",
+          "召唤技能等级优先给主输出链服务。",
+          "召唤物伤害不要覆盖抗性和生命底线。",
+          "任何价格判断都等真实行情快照。"
+        ]
+      }
+    ]
+  },
+  "gearPriorities": [
+    {
+      "slot": "主手",
+      "early": "剧情期先用能明显提高当前清怪技能的武器。",
+      "mid": "召唤框架稳定后，优先找召唤技能等级、召唤物伤害或等价增益。",
+      "endgame": "毕业底子和暗金方向待复核，不在草稿阶段给购买结论。",
+      "priorityStats": [
+        "当前主技能伤害",
+        "召唤技能等级",
+        "召唤物伤害",
+        "属性补位"
+      ],
+      "avoid": [
+        "转召唤后继续高价追只强化角色本体攻击的武器",
+        "为了输出词牺牲穿装属性"
+      ]
+    },
+    {
+      "slot": "副手",
+      "early": "有精魂、抗性或属性就可以先用。",
+      "mid": "优先找高精魂来源，确保主输出、前排和必要功能位能同时存在。",
+      "endgame": "终局精魂模板待实战和行情复核。",
+      "priorityStats": [
+        "精魂",
+        "召唤技能等级",
+        "召唤物伤害",
+        "抗性或全属性"
+      ],
+      "avoid": [
+        "精魂很低但价格很高的输出副手",
+        "换上后反而少开关键召唤物"
+      ]
+    },
+    {
+      "slot": "防具",
+      "early": "生命、抗性、移动速度和属性门槛优先。",
+      "mid": "补满元素抗性后，再追更好的生命、防御底子和召唤相关词。",
+      "endgame": "暗金和高价值稀有件必须等抗性补洞方案明确后再换。",
+      "priorityStats": [
+        "生命",
+        "元素抗性",
+        "移动速度",
+        "力量/敏捷/智力"
+      ],
+      "avoid": [
+        "只看召唤词而忽略抗性缺口",
+        "同时换多件暗金导致属性断档"
+      ]
+    },
+    {
+      "slot": "饰品",
+      "early": "优先补抗性、属性和生命。",
+      "mid": "用戒指、项链、腰带修复换装后的抗性和属性缺口。",
+      "endgame": "再考虑召唤相关词、技能等级或高价值特殊词。",
+      "priorityStats": [
+        "缺口抗性",
+        "属性门槛",
+        "生命",
+        "精魂或召唤相关词"
+      ],
+      "avoid": [
+        "为了单条输出词放弃抗性修补位",
+        "没有真实行情时把样例价格当购买建议"
+      ]
+    }
+  ],
+  "earlyGearStatPriority": [
+    {
+      "id": "campaign-basics",
+      "title": "剧情捡装优先级",
+      "priority": [
+        "鞋子移动速度",
+        "生命",
+        "缺口元素抗性",
+        "当前主技能伤害",
+        "力量/敏捷/智力门槛"
+      ],
+      "rule": "剧情期一件装备只要解决一个明显短板就能先穿，不要深做低等级黄装。",
+      "avoid": [
+        "低等级装备投入高成本通货",
+        "只因为有召唤词就放弃移动速度或抗性"
+      ]
+    },
+    {
+      "id": "minion-transition",
+      "title": "进入召唤框架后的优先级",
+      "priority": [
+        "精魂",
+        "主输出召唤物链接完整度",
+        "召唤技能等级",
+        "召唤物伤害",
+        "生命和抗性"
+      ],
+      "rule": "召唤体系成型后提高精魂和召唤词权重，但本体抗性和属性仍是换装前置条件。",
+      "avoid": [
+        "多带一个功能召唤物却拆掉主输出辅助",
+        "换上后导致关键召唤物无法常驻"
+      ]
+    }
+  ],
+  "gearStatThresholds": [
+    {
+      "stageId": "campaign-early",
+      "title": "剧情早期最低可用线",
+      "sourceStatus": "draft-manual-threshold",
+      "note": "草稿最低线只用于写作拆分，具体数值需要等阶段路线和实战复核。",
+      "thresholds": [
+        {
+          "stat": "移动速度",
+          "minimum": "鞋子 10%+",
+          "upgradeTarget": "15%+",
+          "priority": 1,
+          "reason": "跑图和躲技能体感收益最高。"
+        },
+        {
+          "stat": "生命",
+          "minimum": "多数防具至少有一条生命或防御短板词",
+          "upgradeTarget": "进入异界前逐步替换为生命+抗性",
+          "priority": 2,
+          "reason": "召唤物抗压前，角色本体不能暴毙。"
+        },
+        {
+          "stat": "缺口抗性",
+          "minimum": "不要出现明显负值",
+          "upgradeTarget": "按当前章节伤害类型优先补高",
+          "priority": 3,
+          "reason": "死亡多时通常比多一条召唤伤害词更关键。"
+        }
+      ]
+    },
+    {
+      "stageId": "minion-transition",
+      "title": "召唤框架转型最低线",
+      "sourceStatus": "draft-manual-threshold",
+      "note": "用于约束转型判断，不代表最终购买清单。",
+      "thresholds": [
+        {
+          "stat": "精魂",
+          "minimum": "能保留主输出召唤物和必要前排",
+          "upgradeTarget": "再补功能位或第二输出组",
+          "priority": 1,
+          "reason": "精魂直接决定召唤物数量和链接取舍。"
+        },
+        {
+          "stat": "主输出链接",
+          "minimum": "至少一组有效辅助",
+          "upgradeTarget": "两到三条有效辅助",
+          "priority": 2,
+          "reason": "清图慢优先从主输出链解决。"
+        },
+        {
+          "stat": "属性门槛",
+          "minimum": "能穿当前装备并使用核心技能",
+          "upgradeTarget": "饰品留出补属性空间",
+          "priority": 3,
+          "reason": "换装不能导致技能或装备断档。"
+        }
+      ]
+    },
+    {
+      "stageId": "early-maps",
+      "title": "白黄图最低可用线",
+      "sourceStatus": "draft-manual-threshold",
+      "note": "用于约束进入异界后的稳定性，不代表购买清单。",
+      "thresholds": [
+        {
+          "stat": "元素抗性",
+          "minimum": "主要抗性不要有明显缺口",
+          "upgradeTarget": "逐步接近满抗，并用饰品补洞",
+          "priority": 1,
+          "reason": "白黄图死亡多通常先来自本体抗性和生命不足。"
+        },
+        {
+          "stat": "主输出链接",
+          "minimum": "一组主输出召唤物有两条有效辅助",
+          "upgradeTarget": "按技能兼容性补第三条有效辅助",
+          "priority": 2,
+          "reason": "清图和首领都先依赖主输出链。"
+        },
+        {
+          "stat": "精魂",
+          "minimum": "主输出和前排能同时常驻",
+          "upgradeTarget": "再加入功能位或第二输出召唤物",
+          "priority": 3,
+          "reason": "精魂不足时，多召唤物会直接挤掉核心链接。"
+        }
+      ]
+    },
+    {
+      "stageId": "red-map-prep",
+      "title": "红图前准备最低线",
+      "sourceStatus": "draft-manual-threshold",
+      "note": "用于判断是否继续推红图，仍需真实玩家样本校对。",
+      "thresholds": [
+        {
+          "stat": "生命和抗性",
+          "minimum": "换装后不出现明显抗性断档",
+          "upgradeTarget": "关键部位同时带生命和缺口抗性",
+          "priority": 1,
+          "reason": "红图前最怕高价值件挤掉基础防御。"
+        },
+        {
+          "stat": "主输出召唤等级",
+          "minimum": "至少有一个装备或链接方向服务主输出",
+          "upgradeTarget": "逐步寻找召唤技能等级或双有效输出词",
+          "priority": 2,
+          "reason": "伤害升级要优先服务最稳定的召唤物。"
+        },
+        {
+          "stat": "换装完整度",
+          "minimum": "每次换装后重新核对精魂、属性和孔位",
+          "upgradeTarget": "形成毕业制作前的短板清单",
+          "priority": 3,
+          "reason": "红图阶段的单件提升很容易破坏整体框架。"
+        }
+      ]
+    }
+  ],
+  "gearStagePlan": [
+    {
+      "stageId": "campaign-early",
+      "budgetTier": "草稿低预算",
+      "focus": "移动速度、生命、抗性和当前清怪技能伤害。",
+      "mustHave": [
+        "鞋子移动速度",
+        "至少修一个主要抗性缺口",
+        "当前主技能能顺畅清怪"
+      ],
+      "upgradeWhen": "进入召唤框架前只做低成本替换。"
+    },
+    {
+      "stageId": "minion-transition",
+      "budgetTier": "草稿低预算",
+      "focus": "精魂、主输出召唤物链接、前排稳定性。",
+      "mustHave": [
+        "主输出召唤物有有效辅助",
+        "前排召唤物能承担贴脸压力",
+        "换装后抗性和属性不断档"
+      ],
+      "upgradeWhen": "召唤框架比过渡技能更稳定后再继续投入。"
+    },
+    {
+      "stageId": "early-maps",
+      "budgetTier": "草稿低预算",
+      "focus": "元素抗性、生命、精魂和主输出召唤物链接。",
+      "mustHave": [
+        "主要抗性没有明显缺口",
+        "主输出召唤物至少两条有效辅助",
+        "主输出和前排能同时常驻"
+      ],
+      "upgradeWhen": "白黄图能连续推进后，再追召唤技能等级和更好的召唤词。"
+    },
+    {
+      "stageId": "red-map-prep",
+      "budgetTier": "草稿中低预算",
+      "focus": "红图稳定性、换装完整度和主输出召唤物升级。",
+      "mustHave": [
+        "换装后抗性和属性不断档",
+        "精魂足够保核心召唤物",
+        "主输出链不因换装被拆"
+      ],
+      "upgradeWhen": "红图普通怪压力稳定后，再进入毕业制作和高价值件筛选。"
+    }
+  ],
+  "craftingPlan": [
+    {
+      "id": "campaign-gap-fill",
+      "title": "剧情补洞黄装",
+      "stageId": "campaign-early",
+      "sourceStatus": "draft-manual-crafting",
+      "goal": "用最低成本解决移动速度、生命、抗性和属性短板，让剧情推进不断档。",
+      "base": "鞋子、防具、戒指、腰带等任意能补当前缺口的普通或魔法底子。",
+      "purchaseFirst": "剧情期优先捡装和低价买成品；只有装备刚好缺一条抗性或属性时再轻点。",
+      "priorityMods": [
+        "鞋子移动速度",
+        "生命",
+        "缺口元素抗性",
+        "力量、敏捷、智力门槛"
+      ],
+      "materials": [
+        "捡到的白底或蓝底装备",
+        "低成本蜕变、增幅、点金类通货",
+        "能补最后一条抗性或属性的工艺"
+      ],
+      "steps": [
+        "先列出当前最低抗性和缺少的属性。",
+        "鞋子优先找移动速度，防具和饰品优先找生命、抗性、属性。",
+        "一件装备能解决一个明显短板就先穿。",
+        "等级很低的装备不要继续深做，几章后直接替换。"
+      ],
+      "successChecks": [
+        "跑图速度提升或不再频繁被普通怪秒杀。",
+        "技能和装备属性门槛没有断档。",
+        "没有为了召唤词牺牲移动速度、生命或关键抗性。"
+      ],
+      "fallback": [
+        "点不到关键词就停止，不继续砸低等级底子。",
+        "如果换装后主技能不能使用，立刻换回旧装备或用饰品补属性。"
+      ],
+      "stopRule": "剧情低等级装备只做补洞，不追满词，不为召唤词投入高成本。"
+    },
+    {
+      "id": "spirit-transition",
+      "title": "精魂转型件",
+      "stageId": "minion-transition",
+      "sourceStatus": "draft-manual-crafting",
+      "goal": "提高精魂余量，让主输出召唤物和前排承伤召唤物能同时常驻。",
+      "base": "带精魂的副手、权杖或其它能提供精魂的过渡装备。",
+      "purchaseFirst": "先找便宜高精魂成品或半成品；只有底子便宜且失败可接受时再自己加工。",
+      "priorityMods": [
+        "精魂",
+        "召唤技能等级",
+        "召唤物伤害",
+        "抗性或属性补位"
+      ],
+      "materials": [
+        "高精魂底子",
+        "低成本点金、富豪、重铸类通货",
+        "用于补抗性或属性的饰品替换件"
+      ],
+      "steps": [
+        "先确认多出的精魂能让哪一个核心召唤物上线。",
+        "底子只有精魂时先当过渡，不继续重投入。",
+        "同时出现精魂和召唤技能等级或召唤物伤害时，再考虑后续加工。",
+        "换上后重新核对主输出、前排和功能位是否都按预期存在。"
+      ],
+      "successChecks": [
+        "换上后精魂净增加。",
+        "主输出召唤物和前排召唤物能同时保留。",
+        "抗性和属性没有跌破当前阶段门槛。"
+      ],
+      "fallback": [
+        "只多精魂但导致抗性崩掉时，先保留旧装备。",
+        "精魂仍不够时，删功能召唤物，不拆主输出链。"
+      ],
+      "stopRule": "精魂件必须服务核心召唤物；如果只让功能位上线却拆掉主输出链，就先不换。"
+    },
+    {
+      "id": "early-map-defence",
+      "title": "白黄图防具整理",
+      "stageId": "early-maps",
+      "sourceStatus": "draft-manual-crafting",
+      "goal": "把白黄图所需的生命、元素抗性、属性门槛和基础防御整理到稳定状态。",
+      "base": "头盔、衣服、手套、鞋子、腰带、戒指等能补两个以上短板的稀有底子。",
+      "purchaseFirst": "防具优先买便宜双缺口成品；自己制作只用于市场上同类补洞件很少的部位。",
+      "priorityMods": [
+        "生命",
+        "当前最低元素抗性",
+        "力量、敏捷、智力门槛",
+        "护甲、闪避或能量护盾底子防御"
+      ],
+      "materials": [
+        "对应部位高等级白底或蓝底",
+        "点金、富豪、精华类低成本通货",
+        "工艺台最后补抗性或属性"
+      ],
+      "steps": [
+        "记录当前最低两条抗性和缺少的属性。",
+        "只找能同时解决两个以上短板的装备。",
+        "有生命、抗性、属性三类中的两类就可以先用。",
+        "主输出链和精魂稳定后，再替换低生命或低防御过渡件。"
+      ],
+      "successChecks": [
+        "替换后抗性没有明显缺口。",
+        "至少同时解决生命、抗性、属性、防御底子中的两类。",
+        "没有牺牲关键精魂来源或主输出链接。"
+      ],
+      "fallback": [
+        "只多一条召唤物伤害但少生命抗性时不换。",
+        "死亡频繁时暂停输出件投入，优先补防具和饰品。"
+      ],
+      "stopRule": "白黄图防具的第一目标是稳定推进，不为单条输出词放弃基础防御。"
+    },
+    {
+      "id": "red-map-minion-core",
+      "title": "红图主召唤核心件",
+      "stageId": "red-map-prep",
+      "sourceStatus": "draft-manual-crafting",
+      "goal": "围绕主输出召唤物升级召唤技能等级、召唤物伤害和精魂，同时保住红图稳定性。",
+      "base": "召唤技能等级武器、高精魂副手、召唤相关珠宝或能补生命抗性的高底子稀有装。",
+      "purchaseFirst": "红图前仍先买半成品或双有效词便宜件；只有成本可控时再尝试制作。",
+      "priorityMods": [
+        "召唤技能等级",
+        "精魂",
+        "召唤物伤害或召唤物速度",
+        "生命、抗性和属性补偿"
+      ],
+      "materials": [
+        "目标召唤底子或珠宝底子",
+        "低成本改造、增幅、富豪、点金类通货",
+        "用于回补抗性和属性的戒指、腰带、手套"
+      ],
+      "steps": [
+        "先确认当前主输出召唤物是哪一组。",
+        "制作或购买只服务这组主输出，不平均投资所有召唤物。",
+        "每换一件核心件，都重新核对精魂、抗性、属性和孔位。",
+        "红图稳定后再继续追更高数值或第三条有效词。"
+      ],
+      "successChecks": [
+        "主输出召唤物等级、伤害或常驻数量有明确提升。",
+        "红图普通怪压力没有因为换装变差。",
+        "抗性、属性、精魂和主输出链接都仍然成立。"
+      ],
+      "fallback": [
+        "换上后更容易死就回退到旧防具或补抗饰品。",
+        "只提升功能召唤物但主输出没变时，暂停继续投入。"
+      ],
+      "stopRule": "红图核心件必须同时通过输出和稳定性检查；只涨面板但破坏整体循环就回退。"
+    }
+  ],
+  "transitionChecks": {
+    "canSwitch": [],
+    "waitBeforeSwitch": [],
+    "stuckFixes": []
+  },
+  "skillProgression": [
+    {
+      "stageId": "campaign-early",
+      "activeSkills": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior"
+      ],
+      "minions": [
+        "冰霜法师或纵火者补伤",
+        "骷髅战士挡怪"
+      ],
+      "supportPriority": [
+        "先保当前清怪技能辅助",
+        "召唤物只接一条最有效辅助",
+        "孔位不足时不扩功能位"
+      ],
+      "swapRule": "过渡技能仍然更快时不转；召唤物只是补伤和挡怪。"
+    },
+    {
+      "stageId": "minion-transition",
+      "activeSkills": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior",
+        "reaver",
+        "cleric"
+      ],
+      "minions": [
+        "一组主输出召唤物",
+        "一组前排承伤召唤物",
+        "精魂允许时加入牧师"
+      ],
+      "supportPriority": [
+        "主输出先接集结、厚重或凋零之触",
+        "前排先接肉盾和最后一息",
+        "功能位最后补"
+      ],
+      "swapRule": "主输出召唤物有有效辅助并且前排稳定后，才减少过渡技能依赖。"
+    },
+    {
+      "stageId": "early-maps",
+      "activeSkills": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior",
+        "reaver",
+        "cleric"
+      ],
+      "minions": [
+        "固定主输出",
+        "固定前排",
+        "按精魂决定功能位"
+      ],
+      "supportPriority": [
+        "主输出链完整优先",
+        "前排生存第二",
+        "功能位只吃剩余孔位"
+      ],
+      "swapRule": "白黄图死亡多时先删功能位补生存；清图慢时补主输出链。"
+    },
+    {
+      "stageId": "red-map-prep",
+      "activeSkills": [
+        "frost-mage",
+        "arsonist",
+        "skeletal-warrior",
+        "reaver",
+        "cleric"
+      ],
+      "minions": [
+        "保主输出",
+        "保前排",
+        "功能位按短板取舍"
+      ],
+      "supportPriority": [
+        "主输出召唤等级和伤害优先",
+        "前排承伤补足",
+        "功能位不抢精魂"
+      ],
+      "swapRule": "红图稳定性下降时先回退最近一次技能或装备扩展。"
+    }
+  ]
+}
