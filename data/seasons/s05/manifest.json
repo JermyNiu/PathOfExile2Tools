@@ -111,7 +111,8 @@
     "passives": {
       "en": "tree/raw/4.5/data_us.json",
       "zhCN": "tree/raw/4.5/data_cn.json",
-      "zhTW": "tree/raw/4.5/data_tw.json"
+      "zhTW": "tree/raw/4.5/data_tw.json",
+      "names": "reference/poe2db/4.5/passive-names.json"
     },
     "skills": {
       "catalog": "skills/snapshots/catalog-poe2db-4.5-complete.json",

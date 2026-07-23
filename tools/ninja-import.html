@@ -1331,7 +1331,7 @@ async function loadAnalysisContext(versions, versionId, requestedBuildId = null)
   const skillCatalog = manifest.skills?.catalog
     ? await window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.skills.catalog}`)
     : null;
-  const [uniqueItems, baseItems, itemDetails, modifiers, extraModifiers] = await Promise.all([
+  const [uniqueItems, baseItems, itemDetails, passiveNames, modifiers, extraModifiers] = await Promise.all([
     manifest.reference?.items?.uniques
       ? window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.reference.items.uniques}`).catch(() => null)
       : null,
@@ -1340,6 +1340,9 @@ async function loadAnalysisContext(versions, versionId, requestedBuildId = null)
       : null,
     manifest.reference?.items?.details
       ? window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.reference.items.details}`).catch(() => null)
+      : null,
+    manifest.reference?.passives?.names
+      ? window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.reference.passives.names}`).catch(() => null)
       : null,
     manifest.reference?.stats?.modifiers
       ? window.POE2Versions.readJson(`../${version.dataRoot}/${manifest.reference.stats.modifiers}`).catch(() => null)
@@ -1356,7 +1359,7 @@ async function loadAnalysisContext(versions, versionId, requestedBuildId = null)
     endgameNodeIds,
     stageRoutes,
     skillCatalog,
-    reference: { uniqueItems, baseItems, itemDetails, modifiers, extraModifiers }
+    reference: { uniqueItems, baseItems, itemDetails, passiveNames, modifiers, extraModifiers }
   };
   resetReferenceCaches(version.id);
   document.body.dataset.compareBuildCount = String(compareBuildOptions.length);
@@ -1364,6 +1367,7 @@ async function loadAnalysisContext(versions, versionId, requestedBuildId = null)
   document.body.dataset.ninjaReferenceUniqueItems = String(uniqueItems?.entries?.length || 0);
   document.body.dataset.ninjaReferenceBaseItems = String(baseItems?.entries?.length || 0);
   document.body.dataset.ninjaReferenceItemDetails = String(itemDetails?.entries?.length || 0);
+  document.body.dataset.ninjaReferencePassiveNames = String(passiveNames?.entries?.length || 0);
   document.body.dataset.ninjaReferenceModifiers = String(modifiers?.entries?.length || 0);
   document.body.dataset.ninjaReferenceExtraModifiers = String(extraModifiers?.entries?.length || 0);
 }
@@ -1581,7 +1585,7 @@ function itemTooltipSectionsFromText(text) {
   if (rawSections.length === 1) {
     const lines = rawSections[0];
     const implicitCount = Number((lines.find((line) => /^Implicits:/i.test(line)) || '').match(/:\s*(\d+)/)?.[1] || 0);
-    let seenModArea = implicitCount <= 0;
+    let seenModArea = false;
     let implicitRemaining = implicitCount;
     lines.forEach((line) => {
       const raw = line.trim();
@@ -2485,6 +2489,14 @@ function importedGemContextDisplayName(value) {
   return importedGemDisplayNameAnyKind(text);
 }
 
+function importedRuneDisplayName(value) {
+  const fallback = String(value || '').trim();
+  if (!fallback) return '';
+  const match = findReferenceItemByNames([fallback], referenceItemEntries(), { includeTypeLine: false });
+  if (match?.name) return localizedField(match.name, fallback);
+  return localizeKnownEnglishNamesInLine(fallback);
+}
+
 function importedItemSlotDisplayName(value, fallback) {
   const jewelMatch = String(value || '').match(/^Jewel\s+(\d+)$/i);
   if (jewelMatch) {
@@ -2722,6 +2734,21 @@ function itemDetailEntries() {
   return currentAnalysisContext?.reference?.itemDetails?.entries || [];
 }
 
+function passiveNameEntries() {
+  return currentAnalysisContext?.reference?.passiveNames?.entries || [];
+}
+
+function findPassiveNameByEnglishName(name) {
+  const normalized = normalizeName(name);
+  if (!normalized) return null;
+  return passiveNameEntries().find((entry) => normalizeName(entry.name?.en) === normalized)
+    || passiveNameEntries().find((entry) => {
+      const candidate = normalizeName(entry.name?.en);
+      return candidate && (candidate.includes(normalized) || normalized.includes(candidate));
+    })
+    || null;
+}
+
 function findItemDetailById(id) {
   if (!id) return null;
   return itemDetailEntries().find((entry) => normalizeName(entry.id) === normalizeName(id)) || null;
@@ -2891,7 +2918,10 @@ function globalModifierRows() {
     return enLines.map((line, index) => ({
       en: line,
       zhCN: cnLines[index] || line,
-      zhTW: twLines[index] || line
+      zhTW: twLines[index] || line,
+      affix: entry.affix || null,
+      level: entry.level || '',
+      name: entry.name || null
     }));
   });
   globalModifierRowsCache = [
@@ -2933,6 +2963,10 @@ function findLocalizedModLine(mod, rows, { allowPartial = true } = {}) {
     })
     || null;
   return partial;
+}
+
+function itemRarityKey(item) {
+  return String(item?.rarity || item?.raw?.rarity || String(item?.raw?.rawText || '').match(/Rarity:\s*([^\n]+)/i)?.[1] || '').trim().toUpperCase();
 }
 
 function importedItemModDisplayLine(mod, item) {
@@ -3031,6 +3065,13 @@ function translateKnownItemStatLine(mod) {
     const grantsText = currentLang === 'zhTW' ? '賦予技能' : '获得技能';
     const levelText = currentLang === 'zhTW' ? '等級' : '等级';
     return `${prefix}${grantsText}: ${grants[1] ? `${levelText} ${grants[1]} ` : ''}${skillName}`;
+  }
+  const allocates = source.match(/^Allocates\s+(.+)$/i);
+  if (allocates) {
+    const passive = findPassiveNameByEnglishName(allocates[1]);
+    const passiveName = passive?.name?.[currentLang] || passive?.name?.en || allocates[1];
+    const allocatesText = currentLang === 'zhTW' ? '配置' : '配置';
+    return `${prefix}${allocatesText}: ${passiveName}`;
   }
   const mageLegacy = source.match(/^Legacy of (Silver|Bismuth|Gold|Jade)$/i);
   if (mageLegacy) {
@@ -4155,7 +4196,7 @@ function itemModGroupsForProfile(item) {
   return {};
 }
 
-function equipmentModSectionHtml(label, rows, item) {
+function equipmentModSectionHtml(label, rows, item, sectionKind = '') {
   const values = uniqueRows(rows);
   if (!values.length) return '';
   const sectionClass = /corrupt|腐化/i.test(label) ? ' equipment-tooltip-section corrupted' : ' equipment-tooltip-section';
@@ -4169,15 +4210,15 @@ function equipmentModSectionsHtml(item) {
   const labels = profileModSectionLabels();
   const groups = itemModGroupsForProfile(item);
   return [
-    equipmentModSectionHtml(labels.requirements, groups.requirements, item),
-    equipmentModSectionHtml(labels.implicit, groups.implicit, item),
-    equipmentModSectionHtml(labels.enchant, groups.enchant, item),
-    equipmentModSectionHtml(labels.fractured, groups.fractured, item),
-    equipmentModSectionHtml(labels.prefix, groups.prefix, item),
-    equipmentModSectionHtml(labels.suffix, groups.suffix, item),
-    equipmentModSectionHtml(labels.explicit, groups.explicit, item),
-    equipmentModSectionHtml(labels.crafted, groups.crafted, item),
-    equipmentModSectionHtml(labels.corrupted, groups.corrupted, item)
+    equipmentModSectionHtml(labels.requirements, groups.requirements, item, 'requirements'),
+    equipmentModSectionHtml(labels.implicit, groups.implicit, item, 'implicit'),
+    equipmentModSectionHtml(labels.enchant, groups.enchant, item, 'enchant'),
+    equipmentModSectionHtml(labels.fractured, groups.fractured, item, 'fractured'),
+    equipmentModSectionHtml(labels.prefix, groups.prefix, item, 'prefix'),
+    equipmentModSectionHtml(labels.suffix, groups.suffix, item, 'suffix'),
+    equipmentModSectionHtml(labels.explicit, groups.explicit, item, 'explicit'),
+    equipmentModSectionHtml(labels.crafted, groups.crafted, item, 'crafted'),
+    equipmentModSectionHtml(labels.corrupted, groups.corrupted, item, 'corrupted')
   ].filter(Boolean).join('<div class="equipment-tooltip-sep"></div>');
 }
 
@@ -4278,7 +4319,7 @@ function equipmentTooltipHtml(item) {
   const baseName = importedItemBaseDisplayName(item);
   const propertyLines = properties.map((property) => `<div class="equipment-tooltip-property">${escapeHtml(translateKnownItemStatLine(property))}</div>`).join('');
   const runeList = runes.length
-    ? `<div class="rune-list" aria-label="${escapeHtml(t.profileRunes)}">${runes.map((rune) => `<span class="rune-chip">${escapeHtml(localizeKnownEnglishNamesInLine(rune))}</span>`).join('')}</div>`
+    ? `<div class="rune-list" aria-label="${escapeHtml(t.profileRunes)}">${runes.map((rune) => `<span class="rune-chip">${escapeHtml(importedRuneDisplayName(rune))}</span>`).join('')}</div>`
     : '';
   const modSections = equipmentModSectionsHtml(item);
   const modList = modSections
