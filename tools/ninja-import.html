@@ -887,6 +887,19 @@ let currentAnalysisContext = null;
 let loadedVersions = null;
 let compareBuildOptions = [];
 let archivedImportRows = [];
+let referenceCacheKey = '';
+let globalModifierRowsCache = null;
+let extraModifierRowsCache = null;
+const itemDisplayCache = new Map();
+let itemDisplayCacheHits = 0;
+
+function resetReferenceCaches(versionId = '') {
+  referenceCacheKey = versionId;
+  globalModifierRowsCache = null;
+  extraModifierRowsCache = null;
+  itemDisplayCache.clear();
+  itemDisplayCacheHits = 0;
+}
 
 const sample = {
   version: 's05-tree-4.5',
@@ -1162,6 +1175,7 @@ async function loadAnalysisContext(versions, versionId, requestedBuildId = null)
     skillCatalog,
     reference: { uniqueItems, baseItems, itemDetails, modifiers, extraModifiers }
   };
+  resetReferenceCaches(version.id);
   document.body.dataset.compareBuildCount = String(compareBuildOptions.length);
   document.body.dataset.compareBuildId = build.id;
   document.body.dataset.ninjaReferenceUniqueItems = String(uniqueItems?.entries?.length || 0);
@@ -2446,6 +2460,7 @@ function localizedRowsFromReferenceItem(entry) {
 }
 
 function globalModifierRows() {
+  if (globalModifierRowsCache) return globalModifierRowsCache;
   const modifierRows = [
     ...(currentAnalysisContext?.reference?.modifiers?.entries || []),
     ...(currentAnalysisContext?.reference?.extraModifiers?.entries || [])
@@ -2459,16 +2474,18 @@ function globalModifierRows() {
       zhTW: twLines[index] || line
     }));
   });
-  return [
+  globalModifierRowsCache = [
     ...modifierRows,
     ...itemDetailEntries().flatMap(localizedRowsFromItemDetail),
     ...referenceItemEntries('unique').flatMap(localizedRowsFromReferenceItem),
     ...referenceItemEntries('base').flatMap(localizedRowsFromReferenceItem)
   ];
+  return globalModifierRowsCache;
 }
 
 function extraModifierRows() {
-  return (currentAnalysisContext?.reference?.extraModifiers?.entries || []).flatMap((entry) => {
+  if (extraModifierRowsCache) return extraModifierRowsCache;
+  extraModifierRowsCache = (currentAnalysisContext?.reference?.extraModifiers?.entries || []).flatMap((entry) => {
     const enLines = String(entry.description?.en || '').split('\n').map((line) => line.trim()).filter(Boolean);
     const cnLines = String(entry.description?.zhCN || '').split('\n').map((line) => line.trim()).filter(Boolean);
     const twLines = String(entry.description?.zhTW || '').split('\n').map((line) => line.trim()).filter(Boolean);
@@ -2478,6 +2495,7 @@ function extraModifierRows() {
       zhTW: twLines[index] || line
     }));
   });
+  return extraModifierRowsCache;
 }
 
 function findLocalizedModLine(mod, rows, { allowPartial = true } = {}) {
@@ -2499,6 +2517,24 @@ function findLocalizedModLine(mod, rows, { allowPartial = true } = {}) {
 
 function importedItemModDisplayLine(mod, item) {
   if (currentLang === 'en') return mod;
+  const cacheKey = [
+    referenceCacheKey,
+    currentLang,
+    item?.name || '',
+    item?.baseType || item?.raw?.typeLine || '',
+    item?.context || item?.slot || '',
+    mod
+  ].join('\u001f');
+  if (itemDisplayCache.has(cacheKey)) {
+    itemDisplayCacheHits += 1;
+    document.body.dataset.ninjaItemDisplayCacheHits = String(itemDisplayCacheHits);
+    return itemDisplayCache.get(cacheKey);
+  }
+  const finish = (value) => {
+    itemDisplayCache.set(cacheKey, value);
+    document.body.dataset.ninjaItemDisplayCacheSize = String(itemDisplayCache.size);
+    return value;
+  };
   const itemMatch = findImportedItemReference(item);
   const itemDetail = findItemDetailById(itemMatch.entry?.id);
   const baseDetail = findItemDetailById(findReferenceItemByNames(itemImportedBaseCandidates(item), referenceItemEntries('base'), { includeTypeLine: true })?.id);
@@ -2512,16 +2548,16 @@ function importedItemModDisplayLine(mod, item) {
     || findLocalizedModLine(mod, extraModifierRows(), { allowPartial: false })
     || findLocalizedModLine(mod, globalModifierRows(), { allowPartial: false });
   if (row?.[currentLang]) {
-    return `${modSourcePrefix(mod)}${localizeKnownEnglishNamesInLine(applyImportedValuesToLocalizedTemplate(mod, row[currentLang]))}`;
+    return finish(`${modSourcePrefix(mod)}${localizeKnownEnglishNamesInLine(applyImportedValuesToLocalizedTemplate(mod, row[currentLang]))}`);
   }
   const fallback = localizeKnownEnglishNamesInLine(translateKnownItemStatLine(mod));
   if (currentLang !== 'en' && /[A-Za-z]{3,}/.test(fallback)) {
     const tokens = numericTokensFromLine(mod).join(' / ');
     const label = currentLang === 'zhTW' ? '未匹配詞綴' : '未匹配词缀';
     const suffix = tokens ? `：${tokens}` : (currentLang === 'zhTW' ? '（待補資料）' : '（待补数据）');
-    return `${modSourcePrefix(mod)}${label}${suffix}`;
+    return finish(`${modSourcePrefix(mod)}${label}${suffix}`);
   }
-  return fallback;
+  return finish(fallback);
 }
 
 function translateKnownItemStatLine(mod) {
