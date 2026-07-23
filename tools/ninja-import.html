@@ -1608,7 +1608,7 @@ function itemTooltipSectionsFromText(text) {
         return;
       }
       if (tag === 'crafted') {
-        sections.push({ kind: 'crafted', lines: [cleaned] });
+        sections.push({ kind: 'explicit', lines: [`{crafted}${cleaned}`] });
         return;
       }
       const kind = tag ? 'explicit' : (implicitRemaining > 0 ? 'implicit' : 'explicit');
@@ -2830,20 +2830,30 @@ function modSourcePrefix(value) {
   const labels = {
     zhCN: {
       desecrated: '渎灵',
+      crafted: '深渊',
       rune: '符文',
       enchant: '附魔',
       bonded: '绑定'
     },
     zhTW: {
       desecrated: '褻瀆',
+      crafted: '深淵',
       rune: '符文',
       enchant: '附魔',
       bonded: '綁定'
+    },
+    en: {
+      desecrated: 'Desecrated',
+      crafted: 'Abyss',
+      rune: 'Rune',
+      enchant: 'Enchant',
+      bonded: 'Bonded'
     }
   };
   const label = labels[currentLang] || labels.zhCN;
   const parts = [];
   if (/\{desecrated\}/i.test(text)) parts.push(label.desecrated);
+  if (/\{crafted\}/i.test(text)) parts.push(label.crafted);
   if (/\{rune\}/i.test(text)) parts.push(label.rune);
   else if (/\{enchant\}/i.test(text)) parts.push(label.enchant);
   if (/\bBonded:\s*/i.test(text)) parts.push(label.bonded);
@@ -2970,7 +2980,10 @@ function itemRarityKey(item) {
 }
 
 function importedItemModDisplayLine(mod, item) {
-  if (currentLang === 'en') return mod;
+  if (currentLang === 'en') {
+    const prefix = modSourcePrefix(mod);
+    return prefix ? `${prefix}${cleanModLookupText(mod)}` : mod;
+  }
   const cacheKey = [
     referenceCacheKey,
     currentLang,
@@ -4180,8 +4193,11 @@ function itemModGroupsForProfile(item) {
       fractured: uniqueRows(groups.fractured),
       prefix: uniqueRows(groups.prefix),
       suffix: uniqueRows(groups.suffix),
-      explicit: uniqueRows(groups.explicit),
-      crafted: uniqueRows(groups.crafted),
+      explicit: uniqueRows([
+        ...(groups.explicit || []),
+        ...(groups.crafted || []).map((line) => /^\{crafted\}/i.test(String(line || '')) ? line : `{crafted}${line}`)
+      ]),
+      crafted: [],
       corrupted: uniqueRows(groups.corrupted)
     };
   }
@@ -4217,7 +4233,6 @@ function equipmentModSectionsHtml(item) {
     equipmentModSectionHtml(labels.prefix, groups.prefix, item, 'prefix'),
     equipmentModSectionHtml(labels.suffix, groups.suffix, item, 'suffix'),
     equipmentModSectionHtml(labels.explicit, groups.explicit, item, 'explicit'),
-    equipmentModSectionHtml(labels.crafted, groups.crafted, item, 'crafted'),
     equipmentModSectionHtml(labels.corrupted, groups.corrupted, item, 'corrupted')
   ].filter(Boolean).join('<div class="equipment-tooltip-sep"></div>');
 }
@@ -4461,9 +4476,7 @@ function renderProfileGems(result) {
   const jewels = result.socketedJewels || collectSocketedJewels(result.items);
   stats.innerHTML = [
     profileStat(t.profileSocketedJewels, jewels.length),
-    profileStat(t.profileJewelSockets, jewels.filter((item) => item.socketNodeId || /^jewel\s+\d+$/i.test(String(item.context || item.slot || ''))).length),
-    profileStat(t.itemsTitle, result.items.length),
-    profileStat(t.profileTotalNodes, result.passiveIds.length)
+    profileStat(t.profileJewelSockets, jewels.filter((item) => item.socketNodeId || /^jewel\s+\d+$/i.test(String(item.context || item.slot || ''))).length)
   ].join('');
   if (!jewels.length) {
     groupsNode.innerHTML = `<article class="skill-group">${escapeHtml(t.profileNoGems)}</article>`;
