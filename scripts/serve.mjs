@@ -31,8 +31,8 @@ async function cachedFetchText(key, target, ttlMs) {
 
 function parseArgs(argv) {
   const args = {
-    host: '127.0.0.1',
-    port: 8766,
+    host: process.env.HOST || '127.0.0.1',
+    port: Number(process.env.PORT || 8766),
     strictPort: false
   };
   for (let i = 0; i < argv.length; i += 1) {
