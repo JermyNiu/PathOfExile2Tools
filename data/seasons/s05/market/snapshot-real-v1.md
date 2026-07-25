@@ -49,9 +49,13 @@ Every entry in a real snapshot must include `marketEvidence`:
   a stale or manipulated listing.
 - `depthNote`: short note explaining depth or filtering.
 
-Gem flipping entries still use `category=active|support`, `buyPrice`,
-`sellPrice`, `targetLevel`, `quality`, `liquidity`, `risk`, localized `name`,
-and localized `notes`.
+Gem flipping entries rank finished `21/20/5` gems. They may keep legacy
+`buyPrice`, but the preferred contract is a top-level `recipeTemplate` plus each
+entry's `materialPrices`; the page computes crafting cost from recipe material
+quantities and unit prices, then subtracts estimated resale fee from
+`sellPrice`. Entries still use `category=active|support`, `sellPrice`,
+`targetLevel`, `quality`, optional `targetSockets`, `liquidity`, `risk`,
+localized `name`, and localized `notes`.
 
 Hideout gold entries still use `category=currency|crafting|base|map`,
 `goldCost`, `cashCost`, `sellPrice`, `liquidity`, `risk`, localized `name`, and

@@ -121,6 +121,26 @@ async function handlePoeNinjaCurrencyDetailsProxy(request, response) {
   return true;
 }
 
+async function handlePoe2LensGemBootstrapProxy(request, response) {
+  const url = new URL(request.url || '/', 'http://local.poe2-tools');
+  const league = url.searchParams.get('league') || 'Runes of Aldur';
+  if (request.method !== 'GET') {
+    response.writeHead(405, { 'content-type': 'application/json; charset=utf-8' });
+    response.end(JSON.stringify({ error: 'Method not allowed' }));
+    return true;
+  }
+  const target = `https://poe2lens.com/api/v1/bootstrap?league_name=${encodeURIComponent(league)}`;
+  const result = await cachedFetchText(`poe2lens:gem-bootstrap:${league}`, target, 30000);
+  response.writeHead(result.ok ? 200 : result.status, {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-poe2lens-cache': result.fromCache ? 'hit' : 'miss',
+    ...(result.stale ? { 'x-poe2lens-stale': String(result.upstreamStatus || '') } : {})
+  });
+  response.end(result.text);
+  return true;
+}
+
 function safeFilePath(requestUrl) {
   const url = new URL(requestUrl, 'http://local.poe2-tools');
   const decodedPath = decodeURIComponent(url.pathname);
@@ -167,6 +187,10 @@ function createServer() {
       }
       if (requestPath === '/api/poe-ninja/currency-details') {
         await handlePoeNinjaCurrencyDetailsProxy(request, response);
+        return;
+      }
+      if (requestPath === '/api/poe2lens/gem-bootstrap') {
+        await handlePoe2LensGemBootstrapProxy(request, response);
         return;
       }
       const filePath = safeFilePath(request.url || '/');

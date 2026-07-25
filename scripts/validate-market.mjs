@@ -105,6 +105,42 @@ function validateOptionalAlerts(entry, label, failures) {
   }
 }
 
+function recipeMaterials(data, entry) {
+  const template = data.recipeTemplate || {};
+  const defaultPrices = template.defaultMaterialPrices || {};
+  const entryPrices = entry.materialPrices || {};
+  const materials = Array.isArray(entry.recipe?.materials) ? entry.recipe.materials : (template.materials || []);
+  return materials.map((material) => {
+    const quantity = Number(material?.quantity) || 0;
+    const unitPrice = Number(entryPrices[material?.key] ?? defaultPrices[material?.key] ?? material?.unitPrice ?? 0);
+    return { quantity, unitPrice };
+  });
+}
+
+function computeGemCraftCost(data, entry) {
+  if (isFiniteNumber(entry.buyPrice)) return entry.buyPrice;
+  if (isFiniteNumber(entry.craftCost)) return entry.craftCost;
+  return recipeMaterials(data, entry).reduce((sum, material) => sum + material.quantity * material.unitPrice, 0);
+}
+
+function validateRecipeTemplate(data, file, failures) {
+  if (data.recipeTemplate === undefined) return;
+  const recipe = data.recipeTemplate;
+  assert(recipe && typeof recipe === 'object', `${file} recipeTemplate should be an object`, failures);
+  assert(Number.isInteger(recipe?.targetLevel) && recipe.targetLevel > 0, `${file} recipeTemplate invalid targetLevel`, failures);
+  assert(isFiniteNumber(recipe?.targetQuality) && recipe.targetQuality >= 0, `${file} recipeTemplate invalid targetQuality`, failures);
+  assert(Number.isInteger(recipe?.targetSockets) && recipe.targetSockets > 0, `${file} recipeTemplate invalid targetSockets`, failures);
+  assert(isFiniteNumber(recipe?.successChance) && recipe.successChance > 0 && recipe.successChance <= 1, `${file} recipeTemplate invalid successChance`, failures);
+  assert(Number.isInteger(recipe?.goldCost) && recipe.goldCost >= 0, `${file} recipeTemplate invalid goldCost`, failures);
+  assert(Array.isArray(recipe?.materials) && recipe.materials.length > 0, `${file} recipeTemplate missing materials`, failures);
+  for (const [index, material] of (recipe?.materials || []).entries()) {
+    const label = `${file} recipeTemplate.materials[${index}]`;
+    assert(typeof material?.key === 'string' && material.key.trim().length > 0, `${label} missing key`, failures);
+    assert(isFiniteNumber(material?.quantity) && material.quantity > 0, `${label} invalid quantity`, failures);
+    validateLocalizedText(material?.name, `${label}.name`, failures);
+  }
+}
+
 function marketEvidenceStats(entries) {
   const evidenceEntries = (entries || []).filter((entry) => entry.marketEvidence);
   if (!evidenceEntries.length) {
@@ -155,6 +191,7 @@ function validateBaseSnapshot(data, kind, file, failures) {
 function validateGemFlip(data, file) {
   const failures = [];
   validateBaseSnapshot(data, 'gemFlips', file, failures);
+  validateRecipeTemplate(data, file, failures);
   const minListingDepth = data.source?.filters?.minListingDepth || 0;
   for (const key of ['netProfit', 'roi', 'liquidity', 'risk']) {
     assert(isFiniteNumber(data.scoreWeights?.[key]), `${file} missing score weight ${key}`, failures);
@@ -171,7 +208,9 @@ function validateGemFlip(data, file) {
     validateLocalizedText(entry.notes, `${label}.notes`, failures);
     assert(Number.isInteger(entry.targetLevel) && entry.targetLevel > 0, `${label} invalid targetLevel`, failures);
     assert(isFiniteNumber(entry.quality) && entry.quality >= 0, `${label} invalid quality`, failures);
-    assert(isFiniteNumber(entry.buyPrice) && entry.buyPrice >= 0, `${label} invalid buyPrice`, failures);
+    if (entry.targetSockets !== undefined) assert(Number.isInteger(entry.targetSockets) && entry.targetSockets > 0, `${label} invalid targetSockets`, failures);
+    const cost = computeGemCraftCost(data, entry);
+    assert(isFiniteNumber(cost) && cost >= 0, `${label} invalid craft cost`, failures);
     assert(isFiniteNumber(entry.sellPrice) && entry.sellPrice >= 0, `${label} invalid sellPrice`, failures);
     assert(isFiniteNumber(entry.liquidity) && entry.liquidity >= 0 && entry.liquidity <= 100, `${label} invalid liquidity`, failures);
     assert(isFiniteNumber(entry.risk) && entry.risk >= 0 && entry.risk <= 100, `${label} invalid risk`, failures);
@@ -179,8 +218,8 @@ function validateGemFlip(data, file) {
     validateOptionalTrend(entry, label, failures);
     validateOptionalAlerts(entry, label, failures);
     const fee = entry.sellPrice * data.feeRate;
-    const netProfit = entry.sellPrice - entry.buyPrice - fee;
-    const roi = entry.buyPrice > 0 ? netProfit / entry.buyPrice : 0;
+    const netProfit = entry.sellPrice - cost - fee;
+    const roi = cost > 0 ? netProfit / cost : 0;
     assert(Number.isFinite(fee) && Number.isFinite(netProfit) && Number.isFinite(roi), `${label} invalid computed profit`, failures);
   }
   return failures;
