@@ -192,6 +192,12 @@
     color:var(--muted);
     font-size:12px;
   }
+  .refresh-line {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
   .segmented {
     display:inline-flex;
     gap:4px;
@@ -303,6 +309,10 @@
       <h2 data-i18n="subHeading">21 级技能与辅助宝石价差排序</h2>
     </div>
     <p class="muted" id="sourceNote" data-i18n="sourceNote">当前页面先验证倒卖排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。</p>
+    <div class="refresh-line">
+      <button class="btn primary" id="refreshLivePriceBtn" type="button" data-i18n="refreshLivePrices">刷新行情</button>
+      <span class="pill" id="lastPriceRefresh">上次刷新：-</span>
+    </div>
     <div class="filters hidden-control">
       <label><span data-i18n="categoryFilter">类型</span>
         <select id="categoryFilter">
@@ -356,7 +366,7 @@
         <h2 data-i18n="materialPricesTitle">材料价格</h2>
         <p class="muted" id="materialRefreshStatus" data-i18n="materialPricesNote">按拉取价计算；手填后会立即重算收益。</p>
       </div>
-      <button class="btn primary" id="refreshMaterialPricesBtn" type="button" data-i18n="refreshMaterialPrices">刷新并使用拉取价</button>
+      <button class="btn primary" id="refreshMaterialPricesBtn" type="button" data-i18n="refreshMaterialPrices">刷新行情并使用拉取价</button>
     </div>
     <div class="material-grid" id="materialPriceRows"></div>
   </section>
@@ -564,13 +574,16 @@ const ui = {
     marketReview: '市场复核',
     subHeading: '技能倒卖收益排行',
     sourceNote: '实时拉取 poe2lens 的 21级 / 20品质 / 5孔 成品价和材料价，按收益率排序；利润口径为成品价减制作成本。',
+    refreshLivePrices: '刷新行情',
+    lastPriceRefresh: '上次刷新',
     materialPricesTitle: '材料价格',
     materialPricesNote: '按拉取价计算；手填后会立即重算收益。',
-    refreshMaterialPrices: '刷新并使用拉取价',
+    refreshMaterialPrices: '刷新行情并使用拉取价',
     fetchedPriceLabel: '拉取价',
     customPriceLabel: '手填价',
     customPricePlaceholder: '留空用拉取价',
-    materialRefreshDone: '已刷新，并切回拉取价。',
+    materialRefreshDone: '已刷新行情，并切回拉取价。',
+    liveRefreshDone: '已刷新行情。',
     materialRefreshFailed: '刷新失败',
     categoryFilter: '类型',
     sortFilter: '排序',
@@ -700,13 +713,16 @@ const ui = {
     marketReview: '市場複核',
     subHeading: '技能倒賣收益排行',
     sourceNote: '即時拉取 poe2lens 的 21級 / 20品質 / 5孔 成品價和材料價，按收益率排序；利潤口徑為成品價減製作成本。',
+    refreshLivePrices: '刷新行情',
+    lastPriceRefresh: '上次刷新',
     materialPricesTitle: '材料價格',
     materialPricesNote: '按拉取價計算；手填後會立即重算收益。',
-    refreshMaterialPrices: '刷新並使用拉取價',
+    refreshMaterialPrices: '刷新行情並使用拉取價',
     fetchedPriceLabel: '拉取價',
     customPriceLabel: '手填價',
     customPricePlaceholder: '留空用拉取價',
-    materialRefreshDone: '已刷新，並切回拉取價。',
+    materialRefreshDone: '已刷新行情，並切回拉取價。',
+    liveRefreshDone: '已刷新行情。',
     materialRefreshFailed: '刷新失敗',
     categoryFilter: '類型',
     sortFilter: '排序',
@@ -836,13 +852,16 @@ const ui = {
     marketReview: 'Market Review',
     subHeading: 'Gem Flip Profit Ranking',
     sourceNote: 'Fetches poe2lens live 21/20/5 finished gem and material prices, then ranks by ROI. Profit is finished price minus crafting cost.',
+    refreshLivePrices: 'Refresh Prices',
+    lastPriceRefresh: 'Last refresh',
     materialPricesTitle: 'Material Prices',
     materialPricesNote: 'Uses fetched prices by default; manual edits recalculate profit immediately.',
-    refreshMaterialPrices: 'Refresh and Use Fetched',
+    refreshMaterialPrices: 'Refresh Prices and Use Fetched',
     fetchedPriceLabel: 'Fetched',
     customPriceLabel: 'Manual',
     customPricePlaceholder: 'blank = fetched',
-    materialRefreshDone: 'Refreshed and reset to fetched prices.',
+    materialRefreshDone: 'Prices refreshed and reset to fetched values.',
+    liveRefreshDone: 'Prices refreshed.',
     materialRefreshFailed: 'Refresh failed',
     categoryFilter: 'Type',
     sortFilter: 'Sort',
@@ -1289,11 +1308,13 @@ function renderDataQuality() {
 
 function renderSnapshotMeta(entries) {
   const sourceType = snapshot?.source?.type || 'unknown';
+  const refreshedAt = snapshot?.source?.fetchedAt || snapshot?.updatedAt;
   document.getElementById('snapshotStatus').textContent = snapshotTypeLabel(sourceType);
   document.getElementById('sourceNote').textContent =
     sourceType === 'sample-manual-seed'
       ? t('sampleSourceSuffix')
       : (snapshot.source.note || t('sourceNote'));
+  document.getElementById('lastPriceRefresh').textContent = `${t('lastPriceRefresh')}：${formatDateTime(refreshedAt)}`;
   document.getElementById('metaSourceType').textContent = snapshotTypeLabel(sourceType);
   document.getElementById('metaUpdatedAt').textContent = formatDateTime(snapshot.updatedAt);
   document.getElementById('metaSourceId').textContent = sourceType;
@@ -1701,22 +1722,26 @@ function handleMaterialPriceInput(event) {
   render();
 }
 
-async function refreshMaterialPrices() {
-  const button = document.getElementById('refreshMaterialPricesBtn');
+function setPriceRefreshDisabled(disabled) {
+  document.getElementById('refreshLivePriceBtn').disabled = disabled;
+  document.getElementById('refreshMaterialPricesBtn').disabled = disabled;
+}
+
+async function refreshLivePrices({ resetOverrides = true } = {}) {
   const status = document.getElementById('materialRefreshStatus');
-  if (button) button.disabled = true;
+  setPriceRefreshDisabled(true);
   if (status) status.textContent = t('loading');
   try {
     const nextSnapshot = await loadLiveGemSnapshot(latestSkillCatalog || { entries: [] });
     snapshot = nextSnapshot;
-    materialPriceOverrides.clear();
+    if (resetOverrides) materialPriceOverrides.clear();
     renderMaterialPrices();
     render();
-    if (status) status.textContent = t('materialRefreshDone');
+    if (status) status.textContent = t(resetOverrides ? 'materialRefreshDone' : 'liveRefreshDone');
   } catch (error) {
     if (status) status.textContent = `${t('materialRefreshFailed')}: ${error.message}`;
   } finally {
-    if (button) button.disabled = false;
+    setPriceRefreshDisabled(false);
   }
 }
 
@@ -1809,7 +1834,8 @@ document.getElementById('evidenceFilter').addEventListener('change', render);
 document.getElementById('budgetCapitalInput').addEventListener('input', render);
 document.getElementById('copyBudgetUrlBtn').addEventListener('click', copyBudgetUrl);
 document.getElementById('materialPriceRows').addEventListener('input', handleMaterialPriceInput);
-document.getElementById('refreshMaterialPricesBtn').addEventListener('click', refreshMaterialPrices);
+document.getElementById('refreshLivePriceBtn').addEventListener('click', () => refreshLivePrices({ resetOverrides: false }));
+document.getElementById('refreshMaterialPricesBtn').addEventListener('click', () => refreshLivePrices({ resetOverrides: true }));
 document.querySelectorAll('[data-lang]').forEach((button) => {
   button.addEventListener('click', () => {
     currentLang = button.dataset.lang;
