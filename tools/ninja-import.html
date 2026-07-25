@@ -26,6 +26,9 @@
     color:var(--text);
   }
   header {
+    position:sticky;
+    top:0;
+    z-index:20;
     padding:14px 20px;
     border-bottom:1px solid var(--line);
     background:#0b1120;
@@ -40,8 +43,16 @@
   h2 { font-size:18px; font-weight:650; }
   h3 { font-size:15px; font-weight:650; }
   a { color:inherit; text-decoration:none; }
-  .nav { display:flex; gap:8px; flex-wrap:wrap; }
-  .btn {
+  .brand-nav, .main-nav, .top-controls, .nav {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .brand-nav {
+    gap:18px;
+  }
+  .btn, .nav-link {
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -53,9 +64,15 @@
     color:var(--text);
     font:inherit;
     font-size:14px;
+  }
+  .btn {
     cursor:pointer;
   }
   .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .nav-link.active {
+    border-color:#0ea5e9;
+    background:#075985;
+  }
   .btn.disabled { color:var(--muted); cursor:not-allowed; opacity:.65; }
   .shell {
     width:min(1280px, calc(100% - 32px));
@@ -426,15 +443,25 @@
 </head>
 <body>
 <header>
-  <h1 data-i18n="pageTitle">忍者网配置解析</h1>
-  <nav class="nav">
-    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html" data-i18n="home">首页</a>
+      <a class="nav-link" href="../builds/index.html" data-i18n="buildsNav">开荒</a>
+      <a class="nav-link" href="hideout-flip.html" data-i18n="hideoutNav">藏身处战神</a>
+      <a class="nav-link" href="value-curve.html" data-i18n="valueCurveNav">价值曲线</a>
+      <a class="nav-link" href="gem-flip.html" data-i18n="gemFlipNav">技能倒卖</a>
+      <a class="nav-link active" href="ninja-import.html" data-i18n="ninjaImportNav">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
+    <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
     <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
       <button class="active" type="button" data-lang="zhCN">简体</button>
       <button type="button" data-lang="zhTW">繁体</button>
       <button type="button" data-lang="en">English</button>
     </div>
-  </nav>
+  </div>
 </header>
 
 <main class="shell">
@@ -520,6 +547,12 @@ const i18n = {
     documentTitle: 'POE2 Tools - 忍者网配置解析',
     pageTitle: '忍者网配置解析',
     home: '首页',
+    buildsNav: '开荒',
+    hideoutNav: '藏身处战神',
+    valueCurveNav: '价值曲线',
+    gemFlipNav: '技能倒卖',
+    ninjaImportNav: '忍者网配置解析',
+    dataUpdate: '数据更新',
     languageSelect: '语言选择',
     localParse: '本地解析',
     importTitle: '导入配置',
@@ -702,6 +735,12 @@ const i18n = {
     documentTitle: 'POE2 Tools - 忍者網配置解析',
     pageTitle: '忍者網配置解析',
     home: '首頁',
+    buildsNav: '開荒',
+    hideoutNav: '藏身處戰神',
+    valueCurveNav: '價值曲線',
+    gemFlipNav: '技能倒賣',
+    ninjaImportNav: '忍者網配置解析',
+    dataUpdate: '資料更新',
     languageSelect: '語言選擇',
     localParse: '本地解析',
     importTitle: '匯入配置',
@@ -884,6 +923,12 @@ const i18n = {
     documentTitle: 'POE2 Tools - Ninja Config Parser',
     pageTitle: 'Ninja Config Parser',
     home: 'Home',
+    buildsNav: 'Leveling',
+    hideoutNav: 'Hideout Warrior',
+    valueCurveNav: 'Value Curves',
+    gemFlipNav: 'Gem Flipping',
+    ninjaImportNav: 'Ninja Config Parser',
+    dataUpdate: 'Data Update',
     languageSelect: 'Language selector',
     localParse: 'Local Parser',
     importTitle: 'Import Config',

@@ -1,0 +1,460 @@
+{
+  "snapshotSchemaVersion": 1,
+  "id": "s05-hideout-warrior-hideout-warrior-runes-of-aldur-2026-07-24t07",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "updatedAt": "2026-07-24T07:55:50.589Z",
+  "source": {
+    "type": "real-snapshot-v1",
+    "provider": "poe.ninja",
+    "league": "Runes of Aldur",
+    "fetchedAt": "2026-07-24T07:55:50.589Z",
+    "note": "poe.ninja Runes of Aldur prices joined with manual hideout warrior gold-cost offers.",
+    "filters": {
+      "minListingDepth": 5,
+      "abnormalPriceRules": [
+        "Use poe.ninja Currency overview instead of single listing price.",
+        "Flag short-window spikes separately from buy-now recommendations.",
+        "Treat manual gold-cost input as player-provided data."
+      ]
+    }
+  },
+  "currency": "exalted",
+  "goldUnit": 10000,
+  "feeRate": 0.08,
+  "scoreWeights": {
+    "netProfit": 0.35,
+    "profitPerGoldUnit": 0.3,
+    "liquidity": 0.2,
+    "risk": -0.25
+  },
+  "entries": [
+    {
+      "id": "greater-jewellers-orb",
+      "category": "currency",
+      "name": {
+        "zhCN": "高级工匠石",
+        "zhTW": "高級工匠石",
+        "en": "Greater Jeweller's Orb"
+      },
+      "goldCost": 15000,
+      "cashCost": 0,
+      "sellPrice": 0.7846231,
+      "liquidity": 100,
+      "risk": 51,
+      "notes": {
+        "zhCN": "市场价参考 poe.ninja 聚合快照；最近点变化 -40.8%；有预警。",
+        "zhTW": "市場價參考 poe.ninja 聚合快照；最近點變化 -40.8%；有預警。",
+        "en": "Market price from poe.ninja aggregate snapshot; recent-point change -40.8%; falling-fast -40.85%."
+      },
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "greater-jewellers-orb",
+        "text": "Greater Jeweller's Orb"
+      },
+      "marketEvidence": {
+        "observedAt": "2026-07-24T07:55:50.590Z",
+        "buyListingCount": 721,
+        "sellListingCount": 721,
+        "priceConfidence": 90,
+        "depthNote": "poe.ninja volume 721; 7 trend points"
+      },
+      "trend": {
+        "provider": "poe.ninja",
+        "league": "Runes of Aldur",
+        "currentPrice": 0.7846231,
+        "currentQuantity": 721,
+        "oneHourChangePct": -40.85,
+        "sixHourChangePct": null,
+        "dayChangePct": 37.97,
+        "priceLogs": [
+          {
+            "price": 0.9219,
+            "time": "poe.ninja-sparkline-1",
+            "quantity": 721,
+            "changePct": 62.11
+          },
+          {
+            "price": 0.9085,
+            "time": "poe.ninja-sparkline-2",
+            "quantity": 721,
+            "changePct": 59.76
+          },
+          {
+            "price": 1.0532,
+            "time": "poe.ninja-sparkline-3",
+            "quantity": 721,
+            "changePct": 85.19
+          },
+          {
+            "price": 1.486,
+            "time": "poe.ninja-sparkline-4",
+            "quantity": 721,
+            "changePct": 161.3
+          },
+          {
+            "price": 1.0313,
+            "time": "poe.ninja-sparkline-5",
+            "quantity": 721,
+            "changePct": 81.34
+          },
+          {
+            "price": 1.0169,
+            "time": "poe.ninja-sparkline-6",
+            "quantity": 721,
+            "changePct": 78.82
+          },
+          {
+            "price": 0.7846,
+            "time": "poe.ninja-sparkline-7",
+            "quantity": 721,
+            "changePct": 37.97
+          }
+        ],
+        "poeNinja": {
+          "primaryValue": 0.001751,
+          "exaltedRate": 448.1,
+          "volumePrimaryValue": 1.61,
+          "maxVolumeCurrency": "exalted",
+          "maxVolumeRate": 1.27,
+          "sparkline": {
+            "totalChange": 37.97,
+            "data": [
+              62.11,
+              59.76,
+              85.19,
+              161.3,
+              81.34,
+              78.82,
+              37.97
+            ]
+          }
+        }
+      },
+      "alerts": [
+        {
+          "level": "info",
+          "type": "falling-fast",
+          "window": "1h",
+          "changePct": -40.85
+        }
+      ]
+    },
+    {
+      "id": "perfect-jewellers-orb",
+      "category": "currency",
+      "name": {
+        "zhCN": "完美工匠石",
+        "zhTW": "完美工匠石",
+        "en": "Perfect Jeweller's Orb"
+      },
+      "goldCost": 42000,
+      "cashCost": 0,
+      "sellPrice": 139.26948000000002,
+      "liquidity": 100,
+      "risk": 1,
+      "notes": {
+        "zhCN": "市场价参考 poe.ninja 聚合快照；最近点变化 -1.2%；暂无预警。",
+        "zhTW": "市場價參考 poe.ninja 聚合快照；最近點變化 -1.2%；暫無預警。",
+        "en": "Market price from poe.ninja aggregate snapshot; recent-point change -1.2%; no alert."
+      },
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "perfect-jewellers-orb",
+        "text": "Perfect Jeweller's Orb"
+      },
+      "marketEvidence": {
+        "observedAt": "2026-07-24T07:55:50.590Z",
+        "buyListingCount": 389936,
+        "sellListingCount": 389936,
+        "priceConfidence": 100,
+        "depthNote": "poe.ninja volume 389936; 7 trend points"
+      },
+      "trend": {
+        "provider": "poe.ninja",
+        "league": "Runes of Aldur",
+        "currentPrice": 139.26948000000002,
+        "currentQuantity": 389936,
+        "oneHourChangePct": -1.17,
+        "sixHourChangePct": null,
+        "dayChangePct": -16.06,
+        "priceLogs": [
+          {
+            "price": 169.184,
+            "time": "poe.ninja-sparkline-1",
+            "quantity": 389936,
+            "changePct": 1.97
+          },
+          {
+            "price": 183.6021,
+            "time": "poe.ninja-sparkline-2",
+            "quantity": 389936,
+            "changePct": 10.66
+          },
+          {
+            "price": 172.0046,
+            "time": "poe.ninja-sparkline-3",
+            "quantity": 389936,
+            "changePct": 3.67
+          },
+          {
+            "price": 170.81,
+            "time": "poe.ninja-sparkline-4",
+            "quantity": 389936,
+            "changePct": 2.95
+          },
+          {
+            "price": 161.3197,
+            "time": "poe.ninja-sparkline-5",
+            "quantity": 389936,
+            "changePct": -2.77
+          },
+          {
+            "price": 141.2107,
+            "time": "poe.ninja-sparkline-6",
+            "quantity": 389936,
+            "changePct": -14.89
+          },
+          {
+            "price": 139.2695,
+            "time": "poe.ninja-sparkline-7",
+            "quantity": 389936,
+            "changePct": -16.06
+          }
+        ],
+        "poeNinja": {
+          "primaryValue": 0.3108,
+          "exaltedRate": 448.1,
+          "volumePrimaryValue": 870.2,
+          "maxVolumeCurrency": "divine",
+          "maxVolumeRate": 3.22,
+          "sparkline": {
+            "totalChange": -16.06,
+            "data": [
+              1.97,
+              10.66,
+              3.67,
+              2.95,
+              -2.77,
+              -14.89,
+              -16.06
+            ]
+          }
+        }
+      },
+      "alerts": []
+    },
+    {
+      "id": "greater-exalted-orb",
+      "category": "currency",
+      "name": {
+        "zhCN": "高级崇高石",
+        "zhTW": "高級崇高石",
+        "en": "Greater Exalted Orb"
+      },
+      "goldCost": 18000,
+      "cashCost": 0,
+      "sellPrice": 6.385425000000001,
+      "liquidity": 100,
+      "risk": 20,
+      "notes": {
+        "zhCN": "市场价参考 poe.ninja 聚合快照；最近点变化 20.4%；暂无预警。",
+        "zhTW": "市場價參考 poe.ninja 聚合快照；最近點變化 20.4%；暫無預警。",
+        "en": "Market price from poe.ninja aggregate snapshot; recent-point change 20.4%; no alert."
+      },
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "greater-exalted-orb",
+        "text": "Greater Exalted Orb"
+      },
+      "marketEvidence": {
+        "observedAt": "2026-07-24T07:55:50.591Z",
+        "buyListingCount": 45706,
+        "sellListingCount": 45706,
+        "priceConfidence": 100,
+        "depthNote": "poe.ninja volume 45706; 7 trend points"
+      },
+      "trend": {
+        "provider": "poe.ninja",
+        "league": "Runes of Aldur",
+        "currentPrice": 6.385425000000001,
+        "currentQuantity": 45706,
+        "oneHourChangePct": 20.36,
+        "sixHourChangePct": null,
+        "dayChangePct": 19.21,
+        "priceLogs": [
+          {
+            "price": 7.0319,
+            "time": "poe.ninja-sparkline-1",
+            "quantity": 45706,
+            "changePct": 31.28
+          },
+          {
+            "price": 7.0828,
+            "time": "poe.ninja-sparkline-2",
+            "quantity": 45706,
+            "changePct": 32.23
+          },
+          {
+            "price": 6.5938,
+            "time": "poe.ninja-sparkline-3",
+            "quantity": 45706,
+            "changePct": 23.1
+          },
+          {
+            "price": 6.6768,
+            "time": "poe.ninja-sparkline-4",
+            "quantity": 45706,
+            "changePct": 24.65
+          },
+          {
+            "price": 5.9296,
+            "time": "poe.ninja-sparkline-5",
+            "quantity": 45706,
+            "changePct": 10.7
+          },
+          {
+            "price": 5.2949,
+            "time": "poe.ninja-sparkline-6",
+            "quantity": 45706,
+            "changePct": -1.15
+          },
+          {
+            "price": 6.3854,
+            "time": "poe.ninja-sparkline-7",
+            "quantity": 45706,
+            "changePct": 19.21
+          }
+        ],
+        "poeNinja": {
+          "primaryValue": 0.01425,
+          "exaltedRate": 448.1,
+          "volumePrimaryValue": 102,
+          "maxVolumeCurrency": "divine",
+          "maxVolumeRate": 70.17,
+          "sparkline": {
+            "totalChange": 19.21,
+            "data": [
+              31.28,
+              32.23,
+              23.1,
+              24.65,
+              10.7,
+              -1.15,
+              19.21
+            ]
+          }
+        }
+      },
+      "alerts": []
+    },
+    {
+      "id": "greater-chaos-orb",
+      "category": "currency",
+      "name": {
+        "zhCN": "高级混沌石",
+        "zhTW": "高級混沌石",
+        "en": "Greater Chaos Orb"
+      },
+      "goldCost": 32000,
+      "cashCost": 0,
+      "sellPrice": 156.56614,
+      "liquidity": 100,
+      "risk": 5,
+      "notes": {
+        "zhCN": "市场价参考 poe.ninja 聚合快照；最近点变化 -5.4%；暂无预警。",
+        "zhTW": "市場價參考 poe.ninja 聚合快照；最近點變化 -5.4%；暫無預警。",
+        "en": "Market price from poe.ninja aggregate snapshot; recent-point change -5.4%; no alert."
+      },
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "greater-chaos-orb",
+        "text": "Greater Chaos Orb"
+      },
+      "marketEvidence": {
+        "observedAt": "2026-07-24T07:55:50.591Z",
+        "buyListingCount": 1654385,
+        "sellListingCount": 1654385,
+        "priceConfidence": 100,
+        "depthNote": "poe.ninja volume 1654385; 7 trend points"
+      },
+      "trend": {
+        "provider": "poe.ninja",
+        "league": "Runes of Aldur",
+        "currentPrice": 156.56614,
+        "currentQuantity": 1654385,
+        "oneHourChangePct": -5.41,
+        "sixHourChangePct": null,
+        "dayChangePct": -15.51,
+        "priceLogs": [
+          {
+            "price": 187.3457,
+            "time": "poe.ninja-sparkline-1",
+            "quantity": 1654385,
+            "changePct": 1.1
+          },
+          {
+            "price": 178.0433,
+            "time": "poe.ninja-sparkline-2",
+            "quantity": 1654385,
+            "changePct": -3.92
+          },
+          {
+            "price": 182.2127,
+            "time": "poe.ninja-sparkline-3",
+            "quantity": 1654385,
+            "changePct": -1.67
+          },
+          {
+            "price": 181.9347,
+            "time": "poe.ninja-sparkline-4",
+            "quantity": 1654385,
+            "changePct": -1.82
+          },
+          {
+            "price": 178.3768,
+            "time": "poe.ninja-sparkline-5",
+            "quantity": 1654385,
+            "changePct": -3.74
+          },
+          {
+            "price": 166.5913,
+            "time": "poe.ninja-sparkline-6",
+            "quantity": 1654385,
+            "changePct": -10.1
+          },
+          {
+            "price": 156.5661,
+            "time": "poe.ninja-sparkline-7",
+            "quantity": 1654385,
+            "changePct": -15.51
+          }
+        ],
+        "poeNinja": {
+          "primaryValue": 0.3494,
+          "exaltedRate": 448.1,
+          "volumePrimaryValue": 3692,
+          "maxVolumeCurrency": "divine",
+          "maxVolumeRate": 2.86,
+          "sparkline": {
+            "totalChange": -15.51,
+            "data": [
+              1.1,
+              -3.92,
+              -1.67,
+              -1.82,
+              -3.74,
+              -10.1,
+              -15.51
+            ]
+          }
+        }
+      },
+      "alerts": []
+    }
+  ]
+}

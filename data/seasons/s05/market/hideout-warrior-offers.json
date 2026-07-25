@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-23T22:50:00+08:00",
+  "source": {
+    "type": "manual-hideout-warrior-offers",
+    "note": "Manual input for the current hideout warrior / gold vendor offers. Gold cost is not fetched from a public API."
+  },
+  "currency": "exalted",
+  "goldUnit": 10000,
+  "feeRate": 0.08,
+  "entries": [
+    {
+      "id": "greater-jewellers-orb",
+      "category": "currency",
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "greater-jewellers-orb",
+        "text": "Greater Jeweller's Orb"
+      },
+      "name": {
+        "zhCN": "高级工匠石",
+        "zhTW": "高級工匠石",
+        "en": "Greater Jeweller's Orb"
+      },
+      "goldCost": 15000,
+      "cashCost": 0,
+      "notes": {
+        "zhCN": "手动录入金币成本；市场价由 poe.ninja 当前联赛补齐。",
+        "zhTW": "手動錄入金幣成本；市場價由 poe.ninja 目前聯賽補齊。",
+        "en": "Manual gold-cost input; market price is enriched from the current poe.ninja league."
+      }
+    },
+    {
+      "id": "perfect-jewellers-orb",
+      "category": "currency",
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "perfect-jewellers-orb",
+        "text": "Perfect Jeweller's Orb"
+      },
+      "name": {
+        "zhCN": "完美工匠石",
+        "zhTW": "完美工匠石",
+        "en": "Perfect Jeweller's Orb"
+      },
+      "goldCost": 42000,
+      "cashCost": 0,
+      "notes": {
+        "zhCN": "高价值通货，需重点看短时涨幅是否伴随足够深度。",
+        "zhTW": "高價值通貨，需重點看短時漲幅是否伴隨足夠深度。",
+        "en": "High-value currency; short spikes need enough depth before action."
+      }
+    },
+    {
+      "id": "greater-exalted-orb",
+      "category": "currency",
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "greater-exalted-orb",
+        "text": "Greater Exalted Orb"
+      },
+      "name": {
+        "zhCN": "高级崇高石",
+        "zhTW": "高級崇高石",
+        "en": "Greater Exalted Orb"
+      },
+      "goldCost": 18000,
+      "cashCost": 0,
+      "notes": {
+        "zhCN": "手动录入金币成本；市场价由 poe.ninja 当前联赛补齐。",
+        "zhTW": "手動錄入金幣成本；市場價由 poe.ninja 目前聯賽補齊。",
+        "en": "Manual gold-cost input; market price is enriched from the current poe.ninja league."
+      }
+    },
+    {
+      "id": "greater-chaos-orb",
+      "category": "currency",
+      "marketRef": {
+        "provider": "poe.ninja",
+        "type": "currency",
+        "apiId": "greater-chaos-orb",
+        "text": "Greater Chaos Orb"
+      },
+      "name": {
+        "zhCN": "高级混沌石",
+        "zhTW": "高級混沌石",
+        "en": "Greater Chaos Orb"
+      },
+      "goldCost": 32000,
+      "cashCost": 0,
+      "notes": {
+        "zhCN": "手动录入金币成本；市场价由 poe.ninja 当前联赛补齐。",
+        "zhTW": "手動錄入金幣成本；市場價由 poe.ninja 目前聯賽補齊。",
+        "en": "Manual gold-cost input; market price is enriched from the current poe.ninja league."
+      }
+    }
+  ]
+}

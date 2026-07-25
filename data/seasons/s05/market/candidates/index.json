@@ -1,5 +1,22 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-23T00:00:00+08:00",
-  "candidates": []
+  "updatedAt": "2026-07-24T07:55:50.709Z",
+  "candidates": [
+    {
+      "key": "hideout-warrior-runes-of-aldur-2026-07-24t07",
+      "kind": "hideoutFlips",
+      "file": "market/candidates/hideoutFlips-hideout-warrior-runes-of-aldur-2026-07-24t07.json",
+      "snapshotId": "s05-hideout-warrior-hideout-warrior-runes-of-aldur-2026-07-24t07",
+      "sourceType": "real-snapshot-v1",
+      "provider": "poe.ninja",
+      "league": "Runes of Aldur",
+      "fetchedAt": "2026-07-24T07:55:50.589Z",
+      "entries": 4,
+      "evidenceEntries": 4,
+      "avgConfidence": 97.5,
+      "minBuyDepth": 721,
+      "minSellDepth": 721,
+      "validationStatus": "ok"
+    }
+  ]
 }

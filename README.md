@@ -34,6 +34,7 @@ This folder is the starting point for a local Path of Exile 2 tool suite.
 - `scripts/validate-builds.mjs`: validates build data files registered in a season manifest.
 - `scripts/validate-market.mjs`: validates market snapshot files registered in a season manifest.
 - `scripts/normalize-market-snapshot.mjs`: normalizes raw market entries into a validated `real-snapshot-v1` candidate.
+- `scripts/fetch-market-prices.mjs`: joins manual hideout-warrior gold-cost offers with poe.ninja currency prices, volume, trends, and spike alerts.
 - `scripts/validate-ninja.mjs`: validates parsed ninja/player import JSON registered in a season manifest.
 - `data/versions.json`: current source and version metadata.
 - `data/README.md`: data layout and versioning rules.
@@ -61,6 +62,11 @@ Market module previews on the home page include the same default budget-plan
 summary as the detail tools: skill flipping uses 100 exalted, and hideout gold
 flipping uses 100,000 gold plus 50 exalted. These previews preserve the
 `sample-plan-only` boundary while the active market data is still sample-backed.
+For hideout warrior / gold-vendor arbitrage, current in-game gold costs remain
+manual input in `data/seasons/s05/market/hideout-warrior-offers.json`. Run
+`node scripts/fetch-market-prices.mjs --season s05 --kind hideoutFlips --offers market/hideout-warrior-offers.json`
+to enrich those offers with poe.ninja prices and trend alerts; add `--write` only
+after reviewing the dry-run candidate.
 
 The home page loads version choices from `data/versions.json` and stores the
 selected version in `localStorage` under `poe2-tools:selected-version`. Detail

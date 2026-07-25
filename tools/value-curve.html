@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 价值曲线</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    position:sticky;
+    top:0;
+    z-index:20;
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  .brand-nav, .main-nav, .top-controls, .nav {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .brand-nav { gap:18px; }
+  .btn, .nav-link {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font:inherit;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .nav-link.active, .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .shell {
+    width:min(1320px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel, .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .card { background:var(--panel2); padding:14px; }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:12px;
+  }
+  .curve-grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .muted { color:var(--muted); line-height:1.55; }
+  .ok { color:var(--ok); }
+  .warn { color:var(--warn); }
+  .bad { color:var(--bad); }
+  .pill {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 8px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:12px;
+  }
+  .sparkline {
+    width:100%;
+    height:72px;
+    display:block;
+    border:1px solid rgba(148,163,184,.2);
+    border-radius:6px;
+    background:#0b1120;
+  }
+  .mini-curves {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:8px;
+  }
+  .mini-curve {
+    display:grid;
+    gap:6px;
+    min-width:0;
+  }
+  .mini-curve span {
+    color:var(--muted);
+    font-size:12px;
+  }
+  .chart-head, .stat-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  table {
+    width:100%;
+    min-width:1080px;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th, td {
+    padding:10px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+  }
+  th { color:var(--muted); background:#0b1120; font-weight:650; }
+  tr:last-child td { border-bottom:0; }
+  .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:8px; }
+  code {
+    color:var(--accent);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  @media (max-width: 920px) {
+    .grid, .curve-grid { grid-template-columns:1fr; }
+    .mini-curves { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html">首页</a>
+      <a class="nav-link" href="../builds/index.html">开荒</a>
+      <a class="nav-link" href="hideout-flip.html">藏身处战神</a>
+      <a class="nav-link active" href="value-curve.html">价值曲线</a>
+      <a class="nav-link" href="gem-flip.html">技能倒卖</a>
+      <a class="nav-link" href="ninja-import.html">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
+    <a class="btn" href="data-update.html">数据更新</a>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="panel">
+    <div class="chart-head">
+      <div class="nav">
+        <span class="pill" id="status">读取中</span>
+        <h2>通货 D/E 价值曲线</h2>
+      </div>
+      <button class="btn" id="refreshBtn" type="button">刷新 poe.ninja</button>
+    </div>
+    <p class="muted">这页只看通货价值本身：当前值多少 Divine、多少 Exalted，以及 D 价格、E 价格、D/E 折算差三条曲线。藏身处战神页会复用这里的行情数据，再单独叠加金币成本和整数批次收益。</p>
+  </section>
+
+  <section class="grid" id="summaryGrid">
+    <article class="card"><span class="muted">Divine / Exalted 汇率</span><strong id="divineRate">-</strong></article>
+    <article class="card"><span class="muted">最大 D/E 差值</span><strong id="bestDirection">-</strong></article>
+    <article class="card"><span class="muted">更新时间</span><strong id="updatedAt">-</strong></article>
+  </section>
+
+  <section class="panel">
+    <h2>D/E 价格曲线</h2>
+    <div class="curve-grid" id="curveGrid">
+      <div class="muted">读取中...</div>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+const league = 'Runes of Aldur';
+let rows = [];
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+}
+
+function localized(name) {
+  return name?.zhCN || name?.en || name || '-';
+}
+
+function normalizeNameKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function buildItemNameMap(entries) {
+  const map = new Map();
+  for (const entry of entries || []) {
+    if (!entry?.name) continue;
+    const keys = [
+      entry.id,
+      entry.name.en,
+      normalizeNameKey(entry.id),
+      normalizeNameKey(entry.name.en)
+    ].filter(Boolean);
+    keys.forEach((key) => map.set(normalizeNameKey(key), entry.name));
+  }
+  return map;
+}
+
+function fmt(value, digits = 2) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return '-';
+  return number.toLocaleString('zh-CN', { maximumFractionDigits: digits });
+}
+
+function fmtPct(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return '-';
+  return `${number > 0 ? '+' : ''}${number.toFixed(1)}%`;
+}
+
+function pctClass(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || Math.abs(number) < 0.1) return '';
+  return number > 0 ? 'ok' : 'bad';
+}
+
+function pairById(details, id) {
+  return (details.pairs || []).find((pair) => pair.id === id) || null;
+}
+
+function valueAt(pair, timestamp) {
+  return (pair?.history || []).find((point) => point.timestamp === timestamp)?.rate ?? null;
+}
+
+function buildHistory(divinePair, exaltedPair, divineToExalted) {
+  const timestamps = [...new Set([
+    ...(divinePair?.history || []).map((point) => point.timestamp),
+    ...(exaltedPair?.history || []).map((point) => point.timestamp)
+  ])].sort();
+  return timestamps.map((timestamp) => {
+    const divine = Number(valueAt(divinePair, timestamp));
+    const exaltedFromPair = Number(valueAt(exaltedPair, timestamp));
+    const exalted = Number.isFinite(exaltedFromPair) ? exaltedFromPair : divine * divineToExalted;
+    const exaltedFromDivine = divine * divineToExalted;
+    const deSpreadPct = Number.isFinite(exaltedFromDivine) && Number.isFinite(exalted) && exalted > 0
+      ? (exaltedFromDivine - exalted) / exalted * 100
+      : null;
+    return {
+      timestamp,
+      divine,
+      exalted,
+      deSpreadPct
+    };
+  });
+}
+
+function enrichCurrency(currency, details, divineToExalted) {
+  const divinePair = pairById(details, 'divine');
+  const exaltedPair = pairById(details, 'exalted');
+  const divineRate = Number(divinePair?.rate);
+  const exaltedPairRate = Number(exaltedPair?.rate);
+  const exaltedRate = Number.isFinite(exaltedPairRate) ? exaltedPairRate : divineRate * divineToExalted;
+  const exaltedFromDivine = divineRate * divineToExalted;
+  const deSpreadPct = Number.isFinite(exaltedFromDivine) && Number.isFinite(exaltedRate) && exaltedRate > 0
+    ? (exaltedFromDivine - exaltedRate) / exaltedRate * 100
+    : null;
+  return {
+    id: currency.id,
+    name: currency.name || details.item?.name,
+    divineRate,
+    exaltedRate,
+    deSpreadPct,
+    volume: Math.max(Number(divinePair?.volumePrimaryValue) || 0, Number(exaltedPair?.volumePrimaryValue) || 0),
+    history: buildHistory(divinePair, exaltedPair, divineToExalted)
+  };
+}
+
+function sparkline(values) {
+  const width = 420;
+  const height = 92;
+  const padding = 10;
+  const numeric = values.filter((value) => Number.isFinite(Number(value))).map(Number);
+  if (numeric.length < 2) {
+    return `<svg class="sparkline" viewBox="0 0 ${width} ${height}"><text x="14" y="50" fill="#9ca3af" font-size="13">暂无曲线</text></svg>`;
+  }
+  const min = Math.min(...numeric, 0);
+  const max = Math.max(...numeric, 0);
+  const spread = max - min || 1;
+  const points = numeric.map((value, index) => {
+    const x = padding + index * ((width - padding * 2) / Math.max(1, numeric.length - 1));
+    const y = height - padding - ((value - min) / spread) * (height - padding * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  const zeroY = height - padding - ((0 - min) / spread) * (height - padding * 2);
+  const latest = numeric[numeric.length - 1];
+  const color = latest >= 0 ? '#34d399' : '#fb7185';
+  return `
+    <svg class="sparkline" viewBox="0 0 ${width} ${height}" role="img">
+      <line x1="${padding}" y1="${zeroY.toFixed(1)}" x2="${width - padding}" y2="${zeroY.toFixed(1)}" stroke="#334155" stroke-width="1"></line>
+      <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+    </svg>
+  `;
+}
+
+function curveBlock(label, values, classValue) {
+  return `
+    <div class="mini-curve">
+      <span>${escapeHtml(label)}</span>
+      ${sparkline(values)}
+      <strong class="${pctClass(classValue)}">${label.includes('差') ? fmtPct(classValue) : fmt(values.at(-1), label.includes('D') ? 4 : 2)}</strong>
+    </div>
+  `;
+}
+
+function render() {
+  const sorted = [...rows].sort((a, b) => Math.abs(b.deSpreadPct || 0) - Math.abs(a.deSpreadPct || 0));
+  const best = sorted[0];
+  document.getElementById('bestDirection').textContent = best ? `${localized(best.name)} / ${fmtPct(best.deSpreadPct)}` : '-';
+  document.getElementById('curveGrid').innerHTML = sorted.map((row) => {
+    const divineSeries = row.history.map((point) => point.divine).filter((value) => Number.isFinite(Number(value)));
+    const exaltedSeries = row.history.map((point) => point.exalted).filter((value) => Number.isFinite(Number(value)));
+    const spreadSeries = row.history.map((point) => point.deSpreadPct).filter((value) => Number.isFinite(Number(value)));
+    const latestSpread = spreadSeries.at(-1);
+    return `
+      <article class="card">
+        <div class="chart-head">
+          <strong>${escapeHtml(localized(row.name))}</strong>
+          <span>${fmt(row.divineRate, 4)}D / ${fmt(row.exaltedRate, 2)}E</span>
+        </div>
+        <div class="mini-curves">
+          ${curveBlock('D 价格', divineSeries, divineSeries.at(-1))}
+          ${curveBlock('E 价格', exaltedSeries, exaltedSeries.at(-1))}
+          ${curveBlock('D/E 差值', spreadSeries, latestSpread)}
+        </div>
+      </article>
+    `;
+  }).join('');
+  document.body.dataset.hideoutValueCurveRows = String(sorted.length);
+  document.body.dataset.hideoutValueCurveTopId = best?.id || '';
+}
+
+async function readJson(url) {
+  const response = await fetch(url, { headers: { accept: 'application/json' } });
+  if (!response.ok) throw new Error(`${url} HTTP ${response.status}`);
+  return response.json();
+}
+
+async function load() {
+  document.getElementById('status').textContent = '正在拉取 poe.ninja';
+  const [overview, versions] = await Promise.all([
+    readJson(`../api/poe-ninja/currency?league=${encodeURIComponent(league)}`),
+    window.POE2Versions.readJson('../data/versions.json')
+  ]);
+  const version = window.POE2Versions.selectedVersion(versions);
+  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const baseItemsFile = manifest.reference?.items?.baseItems;
+  const baseItems = baseItemsFile ? await window.POE2Versions.readJson(`../${version.dataRoot}/${baseItemsFile}`).catch(() => []) : [];
+  const itemNameMap = buildItemNameMap(Array.isArray(baseItems) ? baseItems : baseItems.entries || baseItems.items || []);
+  const divineToExalted = Number(overview.core?.rates?.exalted);
+  if (!divineToExalted) throw new Error('poe.ninja 缺少 Divine/Exalted 汇率');
+  const items = new Map((overview.items || []).map((item) => [item.id, item]));
+  const currencyRows = (overview.lines || [])
+    .map((line) => {
+      const ninjaName = items.get(line.id)?.name || line.id;
+      return {
+        id: line.id,
+        name: itemNameMap.get(normalizeNameKey(ninjaName)) || itemNameMap.get(normalizeNameKey(line.id)) || { zhCN: ninjaName, zhTW: ninjaName, en: ninjaName }
+      };
+    })
+    .filter((line) => line.id && line.id !== 'divine' && line.id !== 'exalted');
+  const settled = await Promise.allSettled(currencyRows.map(async (currency) => {
+    const details = await readJson(`../api/poe-ninja/currency-details?league=${encodeURIComponent(league)}&id=${encodeURIComponent(currency.id)}`);
+    return enrichCurrency(currency, details, divineToExalted);
+  }));
+  rows = settled
+    .filter((result) => result.status === 'fulfilled' && Number.isFinite(Number(result.value.divineRate)) && Number.isFinite(Number(result.value.exaltedRate)))
+    .map((result) => result.value);
+  const fetchedAt = new Date().toISOString();
+  document.getElementById('divineRate').textContent = `1D = ${fmt(divineToExalted)}E`;
+  document.getElementById('updatedAt').textContent = new Date(fetchedAt).toLocaleString('zh-CN');
+  document.getElementById('status').textContent = `已加载 ${rows.length} 个通货`;
+  document.body.dataset.hideoutValueCurveStatus = 'ok';
+  render();
+}
+
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  load().catch((error) => {
+    document.getElementById('status').textContent = `读取失败：${error.message}`;
+    document.body.dataset.hideoutValueCurveStatus = 'failed';
+  });
+});
+
+load().catch((error) => {
+  document.getElementById('status').textContent = `读取失败：${error.message}`;
+  document.getElementById('curveGrid').innerHTML = `<div class="bad">${escapeHtml(error.message)}</div>`;
+  document.body.dataset.hideoutValueCurveStatus = 'failed';
+});
+</script>
+</body>
+</html>

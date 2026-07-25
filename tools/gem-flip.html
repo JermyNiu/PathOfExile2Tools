@@ -27,6 +27,9 @@
     color:var(--text);
   }
   header {
+    position:sticky;
+    top:0;
+    z-index:20;
     padding:14px 20px;
     border-bottom:1px solid var(--line);
     background:#0b1120;
@@ -41,13 +44,16 @@
   h2 { font-size:18px; font-weight:650; }
   h3 { font-size:15px; font-weight:650; }
   a { color:inherit; text-decoration:none; }
-  .nav, .filters {
+  .brand-nav, .main-nav, .top-controls, .nav, .filters {
     display:flex;
     gap:8px;
     flex-wrap:wrap;
     align-items:center;
   }
-  .btn {
+  .brand-nav {
+    gap:18px;
+  }
+  .btn, .nav-link {
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -59,9 +65,15 @@
     color:var(--text);
     font:inherit;
     font-size:14px;
+  }
+  .btn {
     cursor:pointer;
   }
   .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .nav-link.active {
+    border-color:#0ea5e9;
+    background:#075985;
+  }
   .shell {
     width:min(1280px, calc(100% - 32px));
     margin:0 auto;
@@ -212,12 +224,25 @@
 </head>
 <body>
 <header>
-  <h1 data-i18n="pageHeading">技能倒卖</h1>
-  <nav class="nav">
-    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html" data-i18n="home">首页</a>
+      <a class="nav-link" href="../builds/index.html" data-i18n="buildsNav">开荒</a>
+      <a class="nav-link" href="hideout-flip.html" data-i18n="hideoutNav">藏身处战神</a>
+      <a class="nav-link" href="value-curve.html" data-i18n="valueCurveNav">价值曲线</a>
+      <a class="nav-link active" href="gem-flip.html" data-i18n="gemFlipNav">技能倒卖</a>
+      <a class="nav-link" href="ninja-import.html" data-i18n="ninjaImportNav">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
     <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
-    <a class="btn" href="market-review.html" data-i18n="marketReview">市场复核</a>
-  </nav>
+    <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
+      <button class="active" type="button" data-lang="zhCN">简体</button>
+      <button type="button" data-lang="zhTW">繁体</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </div>
 </header>
 
 <main class="shell">
@@ -271,11 +296,6 @@
           <option value="required" data-i18n-option="evidenceOnly">只看有市场证据</option>
         </select>
       </label>
-      <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
-        <button class="active" type="button" data-lang="zhCN">简体</button>
-        <button type="button" data-lang="zhTW">繁体</button>
-        <button type="button" data-lang="en">English</button>
-      </div>
     </div>
   </section>
 
@@ -478,6 +498,11 @@ const ui = {
     documentTitle: 'POE2 Tools - 技能倒卖',
     pageHeading: '技能倒卖',
     home: '首页',
+    buildsNav: '开荒',
+    hideoutNav: '藏身处战神',
+    valueCurveNav: '价值曲线',
+    gemFlipNav: '技能倒卖',
+    ninjaImportNav: '忍者网配置解析',
     dataUpdate: '数据更新',
     marketReview: '市场复核',
     subHeading: '21 级技能与辅助宝石价差排序',
@@ -600,6 +625,11 @@ const ui = {
     documentTitle: 'POE2 Tools - 技能倒賣',
     pageHeading: '技能倒賣',
     home: '首頁',
+    buildsNav: '開荒',
+    hideoutNav: '藏身處戰神',
+    valueCurveNav: '價值曲線',
+    gemFlipNav: '技能倒賣',
+    ninjaImportNav: '忍者網配置解析',
     dataUpdate: '資料更新',
     marketReview: '市場複核',
     subHeading: '21 級技能與輔助寶石價差排序',
@@ -722,6 +752,11 @@ const ui = {
     documentTitle: 'POE2 Tools - Skill Flipping',
     pageHeading: 'Skill Flipping',
     home: 'Home',
+    buildsNav: 'Leveling',
+    hideoutNav: 'Hideout Warrior',
+    valueCurveNav: 'Value Curves',
+    gemFlipNav: 'Gem Flipping',
+    ninjaImportNav: 'Ninja Config Parser',
     dataUpdate: 'Data Update',
     marketReview: 'Market Review',
     subHeading: 'Level 21 Skill and Support Gem Spread Ranking',

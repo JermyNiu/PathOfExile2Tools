@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
@@ -18,6 +17,7 @@
     --ok:#34d399;
     --warn:#facc15;
     --bad:#fb7185;
+    --info:#60a5fa;
   }
   * { box-sizing:border-box; }
   body {
@@ -27,6 +27,9 @@
     color:var(--text);
   }
   header {
+    position:sticky;
+    top:0;
+    z-index:20;
     padding:14px 20px;
     border-bottom:1px solid var(--line);
     background:#0b1120;
@@ -41,13 +44,19 @@
   h2 { font-size:18px; font-weight:650; }
   h3 { font-size:15px; font-weight:650; }
   a { color:inherit; text-decoration:none; }
-  .nav, .filters {
+  .brand-nav, .main-nav, .nav, .filters {
     display:flex;
     gap:8px;
     flex-wrap:wrap;
     align-items:center;
   }
-  .btn {
+  .brand-nav {
+    gap:18px;
+  }
+  .hidden-control {
+    display:none !important;
+  }
+  .btn, .nav-link {
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -59,7 +68,13 @@
     color:var(--text);
     font:inherit;
     font-size:14px;
+  }
+  .btn {
     cursor:pointer;
+  }
+  .nav-link.active {
+    border-color:#0ea5e9;
+    background:#075985;
   }
   .shell {
     width:min(1280px, calc(100% - 32px));
@@ -114,6 +129,8 @@
   .muted, li { color:var(--muted); line-height:1.55; }
   .bad { color:var(--bad); }
   .ok { color:var(--ok); }
+  .warn { color:var(--warn); }
+  .info { color:var(--info); }
   select, input {
     border:1px solid var(--line);
     border-radius:6px;
@@ -161,13 +178,19 @@
     background:#075985;
     color:var(--text);
   }
+  .top-controls {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
   .table-wrap {
     overflow:auto;
     border:1px solid var(--line);
     border-radius:8px;
   }
   table {
-    min-width:1400px;
+    min-width:1120px;
     width:100%;
     border-collapse:collapse;
     font-size:14px;
@@ -188,6 +211,22 @@
     color:var(--accent);
     font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
+  .item-name {
+    display:block;
+    max-width:180px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .item-id {
+    display:block;
+    max-width:180px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:var(--muted);
+    font-size:12px;
+  }
   .pill {
     display:inline-flex;
     width:fit-content;
@@ -198,9 +237,85 @@
     background:#0b1120;
     font-size:12px;
   }
+  .trend-list {
+    display:grid;
+    gap:6px;
+  }
+  .trend-line {
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    border-bottom:1px solid rgba(148,163,184,.16);
+    padding-bottom:6px;
+    min-width:0;
+  }
+  .trend-line:last-child { border-bottom:0; padding-bottom:0; }
+  .trend-line strong, .trend-line span { overflow-wrap:anywhere; }
+  .focus-bar {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .live-status {
+    color:var(--muted);
+    font-size:13px;
+  }
+  .rate-row {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .rate-pill {
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:#0b1120;
+    color:var(--text);
+    padding:5px 10px;
+    font-size:13px;
+    line-height:1.2;
+  }
+  .rate-pill span {
+    color:var(--muted);
+  }
+  .chart-grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:12px;
+  }
+  .chart-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:12px;
+    display:grid;
+    gap:8px;
+    min-width:0;
+  }
+  .chart-head {
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    align-items:center;
+  }
+  .chart-head strong, .chart-head span { overflow-wrap:anywhere; }
+  .sparkline {
+    width:100%;
+    height:74px;
+    display:block;
+    border:1px solid rgba(148,163,184,.2);
+    border-radius:6px;
+    background:#0b1120;
+  }
+  .support-data {
+    display:none;
+  }
   ul { margin:0; padding-left:20px; display:grid; gap:5px; }
   @media (max-width: 920px) {
     .grid { grid-template-columns:1fr; }
+    .chart-grid { grid-template-columns:1fr; }
     .meta-grid { grid-template-columns:1fr 1fr; }
   }
   @media (max-width: 560px) {
@@ -210,22 +325,45 @@
 </head>
 <body>
 <header>
-  <h1 data-i18n="pageHeading">藏身处金币倒卖</h1>
-  <nav class="nav">
-    <a class="btn" href="../index.html" data-i18n="home">首页</a>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html" data-i18n="home">首页</a>
+      <a class="nav-link" href="../builds/index.html" data-i18n="buildsNav">开荒</a>
+      <a class="nav-link active" href="hideout-flip.html" data-i18n="hideoutNav">藏身处战神</a>
+      <a class="nav-link" href="value-curve.html" data-i18n="valueCurveNav">价值曲线</a>
+      <a class="nav-link" href="gem-flip.html" data-i18n="gemFlipNav">技能倒卖</a>
+      <a class="nav-link" href="ninja-import.html" data-i18n="ninjaImportNav">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
     <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
-    <a class="btn" href="market-review.html" data-i18n="marketReview">市场复核</a>
-  </nav>
+    <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
+      <button class="active" type="button" data-lang="zhCN">简体</button>
+      <button type="button" data-lang="zhTW">繁体</button>
+      <button type="button" data-lang="en">English</button>
+    </div>
+  </div>
 </header>
 
 <main class="shell">
   <section class="panel">
-    <div class="nav">
-      <span class="pill" id="snapshotStatus">读取中</span>
-      <h2 data-i18n="subHeading">金币兑换物品收益排序</h2>
+    <div class="focus-bar">
+      <div class="nav">
+        <span class="pill" id="snapshotStatus">市场快照</span>
+        <h2 data-i18n="subHeading">战神倒货收益排行</h2>
+      </div>
+      <div class="nav">
+        <button class="btn" id="refreshLivePriceBtn" type="button" data-i18n="refreshLivePrice" disabled="">刷新 poe.ninja 快照</button>
+        <span class="live-status" id="liveFetchStatus">正在拉取 poe.ninja...</span>
+      </div>
     </div>
-    <p class="muted" id="sourceNote" data-i18n="sourceNote">当前页面先验证金币差价排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。</p>
-    <div class="filters">
+    <div class="rate-row" aria-label="当前汇率" data-i18n-aria="exchangeRates">
+      <div class="rate-pill"><span data-i18n="divineExaltedRate">D/E 汇率</span> <strong id="divineExaltedRate">1D = 478.4E</strong></div>
+      <div class="rate-pill"><span data-i18n="divineChaosRate">D/C 汇率</span> <strong id="divineChaosRate">1D = 9.14C</strong></div>
+    </div>
+    <p class="muted" id="sourceNote" data-i18n="sourceNote">价格参考 poe.ninja 聚合快照；收益按最小可执行整数批次计算，例如买够能卖 1D 或 1D 能买够一批 E。按钮会重新请求 poe.ninja，但不是游戏内毫秒级实时订单价。金币成本仍按游戏内当次战神商品手动录入。</p>
+    <div class="filters hidden-control">
       <label><span data-i18n="categoryFilter">分类</span>
         <select id="categoryFilter">
           <option value="all" data-i18n-option="all">全部</option>
@@ -235,17 +373,18 @@
           <option value="map" data-i18n-option="mapKind">地图物品</option>
         </select>
       </label>
+    </div>
+    <div class="filters hidden-control">
       <label><span data-i18n="sortFilter">排序</span>
         <select id="sortMode">
-          <option value="score" data-i18n-option="scoreSort">综合评分</option>
-          <option value="netProfit" data-i18n-option="netProfit">净利润</option>
+          <option value="profitRate" data-i18n-option="profitRate" selected="">收益率</option>
           <option value="profitPerGoldUnit" data-i18n-option="profitPerGoldUnit">每万金币收益</option>
-          <option value="safetyMargin" data-i18n-option="safetyMargin">安全边际</option>
+          <option value="netProfit" data-i18n-option="netProfit">净利润</option>
           <option value="goldCost" data-i18n-option="lowGoldCost">低金币成本</option>
-          <option value="liquidity" data-i18n-option="liquidity">流动性</option>
-          <option value="risk" data-i18n-option="lowRisk">低风险</option>
         </select>
       </label>
+    </div>
+    <div class="filters hidden-control">
       <label><span data-i18n="profitFilter">利润</span>
         <select id="profitFilter">
           <option value="all" data-i18n-option="all">全部</option>
@@ -272,121 +411,136 @@
           <option value="required" data-i18n-option="evidenceOnly">只看有市场证据</option>
         </select>
       </label>
-      <div class="segmented" aria-label="语言选择" data-i18n-aria="languageSelect">
-        <button class="active" type="button" data-lang="zhCN">简体</button>
-        <button type="button" data-lang="zhTW">繁体</button>
-        <button type="button" data-lang="en">English</button>
-      </div>
     </div>
   </section>
 
-  <section class="meta-grid" id="snapshotMeta" aria-label="市场数据快照" data-i18n-aria="snapshotMeta">
+  <section class="grid" id="marketTrend">
+    <article class="card">
+      <h3 data-i18n="trendRising">短时上涨</h3>
+      <div class="trend-list" id="trendRisingList">-</div>
+    </article>
+    <article class="card">
+      <h3 data-i18n="trendFalling">短时下跌</h3>
+      <div class="trend-list" id="trendFallingList">-</div>
+    </article>
+    <article class="card">
+      <h3 data-i18n="trendAlerts">涨价预警</h3>
+      <div class="trend-list" id="trendAlertList">-</div>
+    </article>
+    <article class="card">
+      <h3 data-i18n="trendDropAlerts">跌价预警</h3>
+      <div class="trend-list" id="trendDropAlertList">-</div>
+    </article>
+  </section>
+
+  <section class="support-data">
+    <div id="snapshotMeta" aria-label="市场数据快照" data-i18n-aria="snapshotMeta">
     <article class="meta-card">
       <span data-i18n="metaSourceType">数据类型</span>
-      <strong id="metaSourceType">-</strong>
+      <strong id="metaSourceType">市场快照</strong>
     </article>
     <article class="meta-card">
       <span data-i18n="metaUpdatedAt">更新时间</span>
-      <strong id="metaUpdatedAt">-</strong>
+      <strong id="metaUpdatedAt">2026/7/25 00:11:50</strong>
     </article>
     <article class="meta-card">
       <span data-i18n="metaSourceId">来源标识</span>
-      <strong id="metaSourceId">-</strong>
+      <strong id="metaSourceId">real-snapshot-v1</strong>
     </article>
     <article class="meta-card">
       <span data-i18n="metaCurrency">计价通货</span>
-      <strong id="metaCurrency">-</strong>
+      <strong id="metaCurrency">exalted</strong>
     </article>
     <article class="meta-card">
       <span data-i18n="metaFeeRate">估算费用</span>
-      <strong id="metaFeeRate">-</strong>
+      <strong id="metaFeeRate">8.0%</strong>
     </article>
     <article class="meta-card">
       <span data-i18n="metaVersion">版本归属</span>
-      <strong id="metaVersion">-</strong>
+      <strong id="metaVersion">s05-tree-4.5</strong>
     </article>
-  </section>
+    </div>
 
-  <section class="grid" id="marketQuality">
+  <div id="marketQuality">
     <article class="card">
       <h3 data-i18n="dataQuality">数据质量</h3>
-      <p id="dataQualityStatus">读取中...</p>
+      <p id="dataQualityStatus">真实快照，需结合证据和新鲜度判断。</p>
     </article>
     <article class="card">
       <h3 data-i18n="evidenceCoverage">证据覆盖</h3>
-      <p id="dataQualityEvidence">读取中...</p>
+      <p id="dataQualityEvidence">27/27 条有市场证据 / 可信度 95% / 深度 181/181。</p>
     </article>
     <article class="card">
       <h3 data-i18n="filterRules">过滤规则</h3>
-      <p id="dataQualityFilters">读取中...</p>
+      <p id="dataQualityFilters">最低挂单深度 100；异常价格规则 3 条。</p>
     </article>
     <article class="card">
       <h3 data-i18n="usageAdvice">使用建议</h3>
-      <p id="dataQualityAction">读取中...</p>
+      <p id="dataQualityAction">新鲜，0.0 小时前抓取。 交易前检查时间过旧、可信度偏低和挂单深度不足。</p>
     </article>
-  </section>
+  </div>
 
-  <section class="grid" id="marketCandidateQueue">
+  <div id="marketCandidateQueue">
     <article class="card">
       <h3 data-i18n="candidateQueue">候选快照队列</h3>
-      <p id="candidateQueueStatus">读取中...</p>
+      <p id="candidateQueueStatus">1 / updated 2026/7/24 15:55:50</p>
     </article>
     <article class="card">
       <h3 data-i18n="candidateReady">可归档候选</h3>
-      <p id="candidateReadyStatus">读取中...</p>
+      <p id="candidateReadyStatus">1/1</p>
     </article>
     <article class="card">
       <h3 data-i18n="candidateKind">当前类型候选</h3>
-      <p id="candidateKindStatus">读取中...</p>
+      <p id="candidateKindStatus">1/1 hideoutFlips</p>
     </article>
     <article class="card">
       <h3 data-i18n="candidateAdvice">候选使用边界</h3>
-      <p id="candidateAdviceStatus">读取中...</p>
+      <p id="candidateAdviceStatus">候选只表示已标准化并等待归档，不能当作当前行情展示或交易建议。</p>
     </article>
-  </section>
+  </div>
 
-  <section class="grid">
+  <div>
     <article class="card">
       <h3 data-i18n="summaryCount">样本数量</h3>
-      <p id="summaryCount">-</p>
+      <p id="summaryCount">27 / 27 条</p>
     </article>
     <article class="card">
       <h3 data-i18n="summaryProfit">最高净利润</h3>
-      <p id="summaryProfit">-</p>
+      <p id="summaryProfit">破溃宝珠 / 1069.0 ex</p>
     </article>
     <article class="card">
-      <h3 data-i18n="summaryGold">最高金币效率</h3>
-      <p id="summaryGold">-</p>
+      <h3 data-i18n="summaryGold">最高收益率</h3>
+      <p id="summaryGold">皇家献祭宝珠 / +282.4%</p>
     </article>
     <article class="card">
       <h3 data-i18n="summaryVersion">数据版本</h3>
-      <p id="summaryVersion">-</p>
+      <p id="summaryVersion"><code>s05-tree-4.5</code></p>
     </article>
-  </section>
+  </div>
 
-  <section class="grid" id="marketDecision">
+  <div id="marketDecision">
     <article class="card">
       <h3 data-i18n="decisionTop">当前第一名</h3>
-      <p id="decisionTop">-</p>
+      <p id="decisionTop">皇家献祭宝珠 / 收益率 +282.4% / 预估净利润 353.0 ex / 深度 181</p>
     </article>
     <article class="card">
       <h3 data-i18n="decisionCapital">本金占用</h3>
-      <p id="decisionCapital">-</p>
+      <p id="decisionCapital">金币成本 待录入；额外成本 0.0 ex；预估净利润 353.0 ex</p>
     </article>
     <article class="card">
       <h3 data-i18n="decisionRisk">风险来源</h3>
-      <p id="decisionRisk">-</p>
+      <p id="decisionRisk">风险 50；流动性 23；收益率 +282.4%</p>
     </article>
     <article class="card">
       <h3 data-i18n="decisionAction">操作结论</h3>
-      <p id="decisionAction">-</p>
+      <p id="decisionAction">真实快照下仍需检查限购周期、挂单深度、最近成交和异常低价。</p>
     </article>
-  </section>
+  </div>
 
-  <section class="grid" id="goldBudgetPlan">
+  <div id="goldBudgetPlan">
     <article class="card">
       <h3 data-i18n="budgetPlanTitle">金币预算计划</h3>
-      <p id="budgetPlanTop">-</p>
+      <p id="budgetPlanTop">皇家献祭宝珠 / yuguls-orb-of-sacrifice</p>
     </article>
     <article class="card">
       <h3 data-i18n="budgetCapital">默认预算</h3>
@@ -400,74 +554,65 @@
           <input id="budgetCashInput" type="number" min="0" step="1" value="50">
         </label>
       </div>
-      <p id="budgetPlanCapital">-</p>
+      <p id="budgetPlanCapital">计划金币 100,000；计划通货 50.0 ex；可换次数 181</p>
     </article>
     <article class="card">
       <h3 data-i18n="budgetExpected">预计结果</h3>
-      <p id="budgetPlanExpected">-</p>
+      <p id="budgetPlanExpected">金币占用 0；通货占用 0.0 ex；剩余金币 100,000；剩余通货 50.0 ex；预计净利润 63893.0 ex</p>
     </article>
     <article class="card">
       <h3 data-i18n="budgetAction">执行边界</h3>
-      <p id="budgetPlanAction">-</p>
+      <p id="budgetPlanAction">真实快照下按限购次数、金币库存和挂单深度限制兑换次数。</p>
       <button class="btn" id="copyBudgetUrlBtn" type="button" data-i18n="copyBudgetUrl">复制预算链接</button>
       <p class="muted" id="budgetCopyStatus">-</p>
     </article>
-  </section>
+  </div>
 
-  <section class="grid" id="marketRankChange">
+  <div id="marketRankChange">
     <article class="card">
       <h3 data-i18n="rankChangeMode">当前口径</h3>
-      <p id="rankChangeMode">-</p>
+      <p id="rankChangeMode">收益率 / 皇家献祭宝珠</p>
     </article>
     <article class="card">
       <h3 data-i18n="rankChangeDefault">默认评分第一</h3>
-      <p id="rankChangeDefault">-</p>
+      <p id="rankChangeDefault">破溃宝珠 / score 391.15</p>
     </article>
     <article class="card">
       <h3 data-i18n="rankChangeFilters">筛选影响</h3>
-      <p id="rankChangeFilters">-</p>
+      <p id="rankChangeFilters">未启用筛选 / 27/27 条</p>
     </article>
     <article class="card">
       <h3 data-i18n="rankChangeWhy">变化原因</h3>
-      <p id="rankChangeWhy">-</p>
+      <p id="rankChangeWhy">排序由综合评分改为收益率。</p>
     </article>
+  </div>
   </section>
 
   <section class="panel">
-    <h2 data-i18n="rankingResults">排序结果</h2>
+    <h2 data-i18n="rankingResults">倒货收益排行</h2>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th data-i18n="rankCol">排名</th>
             <th data-i18n="itemCol">物品</th>
-            <th data-i18n="categoryCol">分类</th>
-            <th data-i18n="goldCostCol">金币成本</th>
-            <th data-i18n="cashCostCol">额外成本</th>
+            <th data-i18n="directionCol">方向</th>
             <th data-i18n="sellCol">卖出</th>
-            <th data-i18n="feeCol">费用</th>
-            <th data-i18n="breakEvenCol">保本卖价</th>
-            <th data-i18n="safetyMarginCol">安全边际</th>
+            <th data-i18n="currentQuantityCol">当前交易数量</th>
+            <th data-i18n="profitRateCol">收益率</th>
             <th data-i18n="netProfitCol">净利润</th>
-            <th data-i18n="profitPerGoldUnitCol">每万金币收益</th>
-            <th data-i18n="liquidityCol">流动性</th>
-            <th data-i18n="riskCol">风险</th>
-            <th data-i18n="marketEvidenceCol">市场证据</th>
-            <th data-i18n="notesCol">备注</th>
           </tr>
         </thead>
         <tbody id="resultRows">
-          <tr><td colspan="15" data-i18n="loading">读取中...</td></tr>
+          <tr><td colspan="7" data-i18n="loading">读取中...</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section class="panel">
+  <section class="support-data">
     <h2 data-i18n="scoreRulesTitle">评分规则</h2>
-    <ul id="scoreRules">
-      <li>读取中...</li>
-    </ul>
+    <ul id="scoreRules"><li>净利润权重：<code>0.35</code></li><li>每万金币收益权重：<code>0.3</code></li><li>流动性权重：<code>0.2</code></li><li>风险权重：<code>-0.25</code></li><li>费用按卖出价的 <code>8.0%</code> 估算</li><li>金币效率按每 <code>10,000</code> 金币计算</li><li>保本卖价公式：<code>额外成本 / (1 - 手续费率)</code>；金币只在每万金币收益里衡量</li><li>安全边际公式：<code>卖出价 - 保本卖价</code></li></ul>
     <p class="muted" data-i18n="scoreRulesNote">真实快照接入后，排序必须记录兑换来源、限购周期、挂单深度、成交速度和异常价格过滤。金币本身不能直接交易，所以这里用“每万金币换回多少净通货”衡量效率。</p>
   </section>
 </main>
@@ -477,16 +622,32 @@
 let snapshot = null;
 let candidateQueue = null;
 let currentLang = 'zhCN';
+let currentVersion = null;
+let liveFetchInFlight = false;
+let liveRefreshTimer = null;
+const RANK_LIMIT = 20;
 
 const ui = {
   zhCN: {
     documentTitle: 'POE2 Tools - 藏身处金币倒卖',
-    pageHeading: '藏身处金币倒卖',
+    pageHeading: '藏身处战神',
     home: '首页',
+    buildsNav: '开荒',
+    hideoutNav: '藏身处战神',
+    valueCurveNav: '价值曲线',
+    gemFlipNav: '技能倒卖',
+    ninjaImportNav: '忍者网配置解析',
     dataUpdate: '数据更新',
     marketReview: '市场复核',
-    subHeading: '金币兑换物品收益排序',
-    sourceNote: '当前页面先验证金币差价排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。',
+    subHeading: '战神倒货收益排行',
+    sourceNote: '价格参考 poe.ninja 聚合快照；收益按最小可执行整数批次计算，例如买够能卖 1D 或 1D 能买够一批 E。按钮会重新请求 poe.ninja，但不是游戏内毫秒级实时订单价。金币成本仍按游戏内当次战神商品手动录入。',
+    refreshLivePrice: '刷新 poe.ninja 快照',
+    liveFetching: '正在拉取 poe.ninja...',
+    liveFetched: '已刷新 poe.ninja 快照',
+    liveFetchFailed: '拉取失败，仍显示当前快照',
+    exchangeRates: '当前汇率',
+    divineExaltedRate: 'D/E 汇率',
+    divineChaosRate: 'D/C 汇率',
     categoryFilter: '分类',
     sortFilter: '排序',
     profitFilter: '利润',
@@ -499,6 +660,7 @@ const ui = {
     baseKind: '底材',
     mapKind: '地图物品',
     scoreSort: '综合评分',
+    profitRate: '收益率',
     netProfit: '净利润',
     profitPerGoldUnit: '每万金币收益',
     safetyMargin: '安全边际',
@@ -528,7 +690,7 @@ const ui = {
     candidateAdvice: '候选使用边界',
     summaryCount: '样本数量',
     summaryProfit: '最高净利润',
-    summaryGold: '最高金币效率',
+    summaryGold: '最高收益率',
     summaryVersion: '数据版本',
     decisionTop: '当前第一名',
     decisionCapital: '本金占用',
@@ -538,20 +700,32 @@ const ui = {
     rankChangeDefault: '默认评分第一',
     rankChangeFilters: '筛选影响',
     rankChangeWhy: '变化原因',
-    rankingResults: '排序结果',
+    trendRising: '短时上涨',
+    trendFalling: '短时下跌',
+    trendAlerts: '涨价预警',
+    trendDropAlerts: '跌价预警',
+    manualOfferBoundary: '金币成本来源',
+    manualOfferBoundaryText: '游戏内当次金币价需要手动录入；脚本只负责补市场价、深度和趋势。',
+    priceCurveTitle: '价格曲线',
+    priceCurveNote: '曲线按 poe.ninja sparkline 百分比反推，横轴为 poe.ninja 返回的趋势点；最近点涨跌不是严格 1 小时。',
+    rankingResults: '倒货收益排行',
     rankCol: '排名',
     itemCol: '物品',
     categoryCol: '分类',
     goldCostCol: '金币成本',
     cashCostCol: '额外成本',
     sellCol: '卖出',
+    directionCol: '方向',
     feeCol: '费用',
     breakEvenCol: '保本卖价',
     safetyMarginCol: '安全边际',
+    currentQuantityCol: '当前交易数量',
+    profitRateCol: '收益率',
     netProfitCol: '净利润',
     profitPerGoldUnitCol: '每万金币收益',
     liquidityCol: '流动性',
     riskCol: '风险',
+    trendCol: '趋势',
     marketEvidenceCol: '市场证据',
     notesCol: '备注',
     loading: '读取中...',
@@ -583,6 +757,11 @@ const ui = {
     decisionGoldCostText: '金币成本',
     decisionCashCostText: '额外成本',
     decisionExpectedNet: '预估净利润',
+    buyWithExaltedSellDivine: '崇高买入 -> 神圣卖出',
+    buyWithDivineSellExalted: '神圣买入 -> 崇高卖出',
+    executableBatch: '最小可执行批次',
+    goldCostMissing: '待录入',
+    exchangeSpreadMissing: '缺少 Divine/Exalted 双边估值，暂按旧聚合价展示。',
     decisionRiskText: '风险',
     decisionLiquidityText: '流动性',
     decisionSampleAction: '样例数据不能直接交易；接入 real-snapshot-v1 后再按证据、新鲜度和限购周期执行。',
@@ -609,16 +788,40 @@ const ui = {
     budgetCopyFailed: '复制失败，请直接复制地址栏链接。',
     candidateNoRows: '当前没有候选快照。',
     candidateBoundary: '候选只表示已标准化并等待归档，不能当作当前行情展示或交易建议。',
+    trendNoData: '暂无趋势数据',
+    trendNoAlerts: '暂无短时涨价预警',
+    trendNoDropAlerts: '暂无短时跌价预警',
+    trendRecentPoint: '最近点',
+    trendSixHour: '6小时',
+    trendTotal: '整段',
+    trendQuantity: '深度',
+    trendAlertCritical: '短时暴涨，先复核深度和异常价',
+    trendAlertWarning: '短时上涨过快，谨慎追价',
+    trendAlertInfo: '价格快速回落',
+    trendDropAlertCritical: '短时暴跌，先确认是否砸盘或异常价',
+    trendDropAlertWarning: '短时下跌过快，避免接下跌刀',
     loadFailed: '读取失败'
   },
   zhTW: {
     documentTitle: 'POE2 Tools - 藏身處金幣倒賣',
-    pageHeading: '藏身處金幣倒賣',
+    pageHeading: '藏身處戰神',
     home: '首頁',
+    buildsNav: '開荒',
+    hideoutNav: '藏身處戰神',
+    valueCurveNav: '價值曲線',
+    gemFlipNav: '技能倒賣',
+    ninjaImportNav: '忍者網配置解析',
     dataUpdate: '資料更新',
     marketReview: '市場複核',
-    subHeading: '金幣兌換物品收益排序',
-    sourceNote: '目前頁面先驗證金幣價差排序流程；真實使用前必須接入市場快照，不能把樣例價當成目前行情。',
+    subHeading: '戰神倒貨收益排行',
+    sourceNote: '價格參考 poe.ninja 聚合快照；收益按最小可執行整數批次計算，例如買夠能賣 1D 或 1D 能買夠一批 E。按鈕會重新請求 poe.ninja，但不是遊戲內毫秒級即時訂單價。金幣成本仍按遊戲內當次戰神商品手動錄入。',
+    refreshLivePrice: '刷新 poe.ninja 快照',
+    liveFetching: '正在拉取 poe.ninja...',
+    liveFetched: '已刷新 poe.ninja 快照',
+    liveFetchFailed: '拉取失敗，仍顯示目前快照',
+    exchangeRates: '目前匯率',
+    divineExaltedRate: 'D/E 匯率',
+    divineChaosRate: 'D/C 匯率',
     categoryFilter: '分類',
     sortFilter: '排序',
     profitFilter: '利潤',
@@ -631,6 +834,7 @@ const ui = {
     baseKind: '底材',
     mapKind: '地圖物品',
     scoreSort: '綜合評分',
+    profitRate: '收益率',
     netProfit: '淨利潤',
     profitPerGoldUnit: '每萬金幣收益',
     safetyMargin: '安全邊際',
@@ -660,7 +864,7 @@ const ui = {
     candidateAdvice: '候選使用邊界',
     summaryCount: '樣本數量',
     summaryProfit: '最高淨利潤',
-    summaryGold: '最高金幣效率',
+    summaryGold: '最高收益率',
     summaryVersion: '資料版本',
     decisionTop: '目前第一名',
     decisionCapital: '本金占用',
@@ -670,20 +874,32 @@ const ui = {
     rankChangeDefault: '預設評分第一',
     rankChangeFilters: '篩選影響',
     rankChangeWhy: '變化原因',
-    rankingResults: '排序結果',
+    trendRising: '短時上漲',
+    trendFalling: '短時下跌',
+    trendAlerts: '漲價預警',
+    trendDropAlerts: '跌價預警',
+    manualOfferBoundary: '金幣成本來源',
+    manualOfferBoundaryText: '遊戲內當次金幣價需要手動錄入；腳本只負責補市場價、深度和趨勢。',
+    priceCurveTitle: '價格曲線',
+    priceCurveNote: '曲線按 poe.ninja sparkline 百分比反推，橫軸為 poe.ninja 返回的趨勢點；最近點漲跌不是嚴格 1 小時。',
+    rankingResults: '倒貨收益排行',
     rankCol: '排名',
     itemCol: '物品',
     categoryCol: '分類',
     goldCostCol: '金幣成本',
     cashCostCol: '額外成本',
     sellCol: '賣出',
+    directionCol: '方向',
     feeCol: '費用',
     breakEvenCol: '保本賣價',
     safetyMarginCol: '安全邊際',
+    currentQuantityCol: '目前交易數量',
+    profitRateCol: '收益率',
     netProfitCol: '淨利潤',
     profitPerGoldUnitCol: '每萬金幣收益',
     liquidityCol: '流動性',
     riskCol: '風險',
+    trendCol: '趨勢',
     marketEvidenceCol: '市場證據',
     notesCol: '備註',
     loading: '讀取中...',
@@ -715,6 +931,11 @@ const ui = {
     decisionGoldCostText: '金幣成本',
     decisionCashCostText: '額外成本',
     decisionExpectedNet: '預估淨利潤',
+    buyWithExaltedSellDivine: '崇高買入 -> 神聖賣出',
+    buyWithDivineSellExalted: '神聖買入 -> 崇高賣出',
+    executableBatch: '最小可執行批次',
+    goldCostMissing: '待錄入',
+    exchangeSpreadMissing: '缺少 Divine/Exalted 雙邊估值，暫按舊聚合價展示。',
     decisionRiskText: '風險',
     decisionLiquidityText: '流動性',
     decisionSampleAction: '樣例資料不能直接交易；接入 real-snapshot-v1 後再按證據、新鮮度和限購週期執行。',
@@ -741,16 +962,40 @@ const ui = {
     budgetCopyFailed: '複製失敗，請直接複製網址列連結。',
     candidateNoRows: '目前沒有候選快照。',
     candidateBoundary: '候選只表示已標準化並等待歸檔，不能當作目前行情展示或交易建議。',
+    trendNoData: '暫無趨勢資料',
+    trendNoAlerts: '暫無短時漲價預警',
+    trendNoDropAlerts: '暫無短時跌價預警',
+    trendRecentPoint: '最近點',
+    trendSixHour: '6小時',
+    trendTotal: '整段',
+    trendQuantity: '深度',
+    trendAlertCritical: '短時暴漲，先複核深度和異常價',
+    trendAlertWarning: '短時上漲過快，謹慎追價',
+    trendAlertInfo: '價格快速回落',
+    trendDropAlertCritical: '短時暴跌，先確認是否砸盤或異常價',
+    trendDropAlertWarning: '短時下跌過快，避免接下跌刀',
     loadFailed: '讀取失敗'
   },
   en: {
     documentTitle: 'POE2 Tools - Hideout Gold Flipping',
-    pageHeading: 'Hideout Gold Flipping',
+    pageHeading: 'Hideout Warrior',
     home: 'Home',
+    buildsNav: 'Leveling',
+    hideoutNav: 'Hideout Warrior',
+    valueCurveNav: 'Value Curves',
+    gemFlipNav: 'Gem Flipping',
+    ninjaImportNav: 'Ninja Config Parser',
     dataUpdate: 'Data Update',
     marketReview: 'Market Review',
-    subHeading: 'Gold Vendor Exchange Profit Ranking',
-    sourceNote: 'This page validates the gold spread flow first. Connect a market snapshot before using any sample price as market advice.',
+    subHeading: 'Hideout Warrior Flip Ranking',
+    sourceNote: 'Prices reference the poe.ninja aggregate snapshot; profit uses the smallest executable integer batch, such as enough items to sell for 1D or enough items bought with 1D to sell for E. The button re-requests poe.ninja, but it is not a millisecond-level in-game order price. Gold costs are still entered manually.',
+    refreshLivePrice: 'Refresh poe.ninja Snapshot',
+    liveFetching: 'Fetching poe.ninja...',
+    liveFetched: 'poe.ninja snapshot refreshed',
+    liveFetchFailed: 'Fetch failed; still showing current snapshot',
+    exchangeRates: 'Current rates',
+    divineExaltedRate: 'D/E rate',
+    divineChaosRate: 'D/C rate',
     categoryFilter: 'Category',
     sortFilter: 'Sort',
     profitFilter: 'Profit',
@@ -763,6 +1008,7 @@ const ui = {
     baseKind: 'Base Item',
     mapKind: 'Map Item',
     scoreSort: 'Score',
+    profitRate: 'Profit Rate',
     netProfit: 'Net Profit',
     profitPerGoldUnit: 'Profit per 10k Gold',
     safetyMargin: 'Safety Margin',
@@ -792,7 +1038,7 @@ const ui = {
     candidateAdvice: 'Candidate Boundary',
     summaryCount: 'Sample Count',
     summaryProfit: 'Best Net Profit',
-    summaryGold: 'Best Gold Efficiency',
+    summaryGold: 'Best Profit Rate',
     summaryVersion: 'Data Version',
     decisionTop: 'Current Top Pick',
     decisionCapital: 'Capital Required',
@@ -802,20 +1048,32 @@ const ui = {
     rankChangeDefault: 'Default Score Top',
     rankChangeFilters: 'Filter Impact',
     rankChangeWhy: 'Why It Changed',
-    rankingResults: 'Ranking Results',
+    trendRising: 'Short-window Risers',
+    trendFalling: 'Short-window Fallers',
+    trendAlerts: 'Spike Alerts',
+    trendDropAlerts: 'Drop Alerts',
+    manualOfferBoundary: 'Gold Cost Source',
+    manualOfferBoundaryText: 'Current in-game gold costs must be entered manually; the script only enriches market price, depth, and trend.',
+    priceCurveTitle: 'Price Curves',
+    priceCurveNote: 'Curves are reconstructed from poe.ninja sparkline percentages. The x-axis is poe.ninja trend points; recent-point change is not strictly 1h.',
+    rankingResults: 'Flip Profit Ranking',
     rankCol: 'Rank',
     itemCol: 'Item',
     categoryCol: 'Category',
     goldCostCol: 'Gold Cost',
     cashCostCol: 'Extra Cost',
     sellCol: 'Sell',
+    directionCol: 'Direction',
     feeCol: 'Fee',
     breakEvenCol: 'Break-even Sell',
     safetyMarginCol: 'Safety Margin',
+    currentQuantityCol: 'Current Volume',
+    profitRateCol: 'Profit Rate',
     netProfitCol: 'Net Profit',
     profitPerGoldUnitCol: 'Profit per 10k Gold',
     liquidityCol: 'Liquidity',
     riskCol: 'Risk',
+    trendCol: 'Trend',
     marketEvidenceCol: 'Market Evidence',
     notesCol: 'Notes',
     loading: 'Loading...',
@@ -847,6 +1105,11 @@ const ui = {
     decisionGoldCostText: 'Gold cost',
     decisionCashCostText: 'Extra cost',
     decisionExpectedNet: 'Estimated net profit',
+    buyWithExaltedSellDivine: 'Buy with Exalted -> Sell for Divine',
+    buyWithDivineSellExalted: 'Buy with Divine -> Sell for Exalted',
+    executableBatch: 'Minimum executable batch',
+    goldCostMissing: 'Not entered',
+    exchangeSpreadMissing: 'Missing Divine/Exalted pair values; falling back to aggregate price.',
     decisionRiskText: 'Risk',
     decisionLiquidityText: 'Liquidity',
     decisionSampleAction: 'Sample data is not tradable advice. Use this after connecting real-snapshot-v1 evidence, freshness, and purchase limits.',
@@ -873,6 +1136,18 @@ const ui = {
     budgetCopyFailed: 'Copy failed. Copy the address bar link directly.',
     candidateNoRows: 'No candidate snapshots are queued.',
     candidateBoundary: 'Candidates only mean normalized data awaiting archive review; they are not current market display data or trade advice.',
+    trendNoData: 'No trend data yet',
+    trendNoAlerts: 'No short-window spike alerts',
+    trendNoDropAlerts: 'No short-window drop alerts',
+    trendRecentPoint: 'Recent point',
+    trendSixHour: '6h',
+    trendTotal: 'Total',
+    trendQuantity: 'Depth',
+    trendAlertCritical: 'Sharp short-window spike; review depth and outliers first',
+    trendAlertWarning: 'Rising too quickly; avoid chasing without review',
+    trendAlertInfo: 'Price is falling quickly',
+    trendDropAlertCritical: 'Sharp short-window drop; review dump or outlier first',
+    trendDropAlertWarning: 'Falling too quickly; avoid catching the knife',
     loadFailed: 'Load failed'
   }
 };
@@ -910,8 +1185,25 @@ function formatCurrency(value) {
   return `${Number(value).toFixed(1)} ex`;
 }
 
+function formatPlainNumber(value, digits = 1) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return '-';
+  return number.toFixed(digits).replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+}
+
+function formatExchangeRate(value, suffix) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number <= 0) return '-';
+  return `1D = ${formatPlainNumber(number, 2)}${suffix}`;
+}
+
 function formatGold(value) {
   return Number(value).toLocaleString(currentLang === 'en' ? 'en-US' : 'zh-CN');
+}
+
+function formatGoldCost(value) {
+  const number = Number(value);
+  return number > 0 ? formatGold(number) : t('goldCostMissing');
 }
 
 function snapshotTypeLabel(type) {
@@ -1000,6 +1292,7 @@ function readMarketFilters() {
 }
 
 function passesMarketFilters(entry, filters) {
+  if (entry.profitRate <= 0 || entry.netProfit <= 0) return false;
   if (filters.profitOnly && entry.netProfit <= 0) return false;
   if (entry.liquidity < filters.minLiquidity) return false;
   if (entry.risk > filters.maxRisk) return false;
@@ -1102,11 +1395,14 @@ function renderDataQuality() {
 
 function renderSnapshotMeta(entries) {
   const sourceType = snapshot?.source?.type || 'unknown';
+  const exchangeRates = snapshot?.source?.exchangeRates || {};
   document.getElementById('snapshotStatus').textContent = snapshotTypeLabel(sourceType);
-  document.getElementById('sourceNote').textContent =
-    sourceType === 'sample-manual-seed'
-      ? t('sampleSourceSuffix')
-      : (snapshot.source.note || t('sourceNote'));
+  document.getElementById('sourceNote').textContent = t('sourceNote');
+  document.getElementById('liveFetchStatus').textContent = snapshot?.source?.fetchedAt
+    ? `${snapshot.source.provider || 'poe.ninja'} / ${formatDateTime(snapshot.source.fetchedAt)}`
+    : '-';
+  document.getElementById('divineExaltedRate').textContent = formatExchangeRate(exchangeRates.divineToExalted, 'E');
+  document.getElementById('divineChaosRate').textContent = formatExchangeRate(exchangeRates.divineToChaos, 'C');
   document.getElementById('metaSourceType').textContent = snapshotTypeLabel(sourceType);
   document.getElementById('metaUpdatedAt').textContent = formatDateTime(snapshot.updatedAt);
   document.getElementById('metaSourceId').textContent = sourceType;
@@ -1117,12 +1413,66 @@ function renderSnapshotMeta(entries) {
   renderDataQuality();
 }
 
+function executableBatchFromSpread(spread) {
+  if (!spread) return null;
+  const divineRate = Number(spread.divineRate);
+  const exaltedRate = Number(spread.exaltedRate);
+  const divineToExalted = Number(spread.divineToExalted);
+  if (![divineRate, exaltedRate, divineToExalted].every((value) => Number.isFinite(value) && value > 0)) return null;
+  const buyWithExaltedUnitPrice = Math.ceil(exaltedRate);
+  const sellForExaltedUnitPrice = Math.floor(exaltedRate);
+  const divineAsExaltedFloor = Math.floor(divineToExalted);
+  const exToDivUnits = Math.max(1, Math.ceil(1 / divineRate));
+  const exToDivSellDivines = Math.floor(exToDivUnits * divineRate);
+  const exToDivCostExalted = exToDivUnits * buyWithExaltedUnitPrice;
+  const exToDivRevenueExalted = exToDivSellDivines * divineAsExaltedFloor;
+  const exToDivProfitExalted = exToDivRevenueExalted - exToDivCostExalted;
+  const divToExUnits = Math.max(1, Math.ceil(divineToExalted / exaltedRate));
+  const divToExCostDivines = Math.ceil(divToExUnits * divineRate);
+  const divToExRevenueExalted = divToExUnits * sellForExaltedUnitPrice;
+  const divToExCostExalted = Math.ceil(divToExCostDivines * divineToExalted);
+  const divToExProfitExalted = divToExRevenueExalted - divToExCostExalted;
+  return {
+    exToDiv: {
+      direction: 'ex-to-div',
+      units: exToDivUnits,
+      buyText: `${exToDivUnits} x ${formatPlainNumber(buyWithExaltedUnitPrice, 0)}E = ${formatPlainNumber(exToDivCostExalted, 0)}E`,
+      sellText: `${formatPlainNumber(exToDivSellDivines, 0)}D = ${formatPlainNumber(exToDivRevenueExalted, 0)}E`,
+      profitExalted: exToDivProfitExalted,
+      costExalted: exToDivCostExalted,
+      revenueExalted: exToDivRevenueExalted
+    },
+    divToEx: {
+      direction: 'div-to-ex',
+      units: divToExUnits,
+      buyText: `${formatPlainNumber(divToExCostDivines, 0)}D = ${formatPlainNumber(divToExCostExalted, 0)}E`,
+      sellText: `${divToExUnits} x ${formatPlainNumber(sellForExaltedUnitPrice, 0)}E = ${formatPlainNumber(divToExRevenueExalted, 0)}E`,
+      profitExalted: divToExProfitExalted,
+      costExalted: divToExCostExalted,
+      revenueExalted: divToExRevenueExalted
+    }
+  };
+}
+
 function enrich(entry) {
   const feeRate = snapshot?.feeRate ?? 0;
   const goldUnit = snapshot?.goldUnit ?? 10000;
-  const fee = entry.sellPrice * feeRate;
-  const netProfit = entry.sellPrice - entry.cashCost - fee;
-  const profitPerGoldUnit = entry.goldCost > 0 ? netProfit / entry.goldCost * goldUnit : 0;
+  const spread = entry.exchangeSpread;
+  const executableBatch = executableBatchFromSpread(spread);
+  const hasExchangeSpread = Boolean(executableBatch);
+  const bestBatch = hasExchangeSpread && executableBatch.exToDiv.profitExalted >= executableBatch.divToEx.profitExalted
+    ? executableBatch.exToDiv
+    : executableBatch?.divToEx;
+  const bestDirection = bestBatch?.direction || 'div-to-ex';
+  const exchangeNetProfit = hasExchangeSpread
+    ? bestBatch.profitExalted - Number(entry.cashCost || 0)
+    : null;
+  const batchGoldCost = hasExchangeSpread ? Number(entry.goldCost || 0) * bestBatch.units : Number(entry.goldCost || 0);
+  const fee = hasExchangeSpread ? 0 : entry.sellPrice * feeRate;
+  const netProfit = hasExchangeSpread ? exchangeNetProfit : entry.sellPrice - entry.cashCost - fee;
+  const profitPerGoldUnit = batchGoldCost > 0 ? netProfit / batchGoldCost * goldUnit : 0;
+  const profitBase = hasExchangeSpread ? bestBatch.costExalted : Math.max(Number(entry.cashCost || 0), 0);
+  const profitRate = profitBase > 0 ? netProfit / profitBase * 100 : 0;
   const breakEvenSellPrice = feeRate < 1 ? entry.cashCost / (1 - feeRate) : Infinity;
   const safetyMargin = entry.sellPrice - breakEvenSellPrice;
   const weights = snapshot?.scoreWeights || {};
@@ -1131,7 +1481,7 @@ function enrich(entry) {
     (profitPerGoldUnit * (weights.profitPerGoldUnit ?? 0.3)) +
     (entry.liquidity * (weights.liquidity ?? 0.2)) +
     (entry.risk * (weights.risk ?? -0.25));
-  return { ...entry, fee, netProfit, profitPerGoldUnit, breakEvenSellPrice, safetyMargin, score };
+  return { ...entry, fee, netProfit, profitRate, profitPerGoldUnit, breakEvenSellPrice, safetyMargin, score, bestDirection, executableBatch, bestBatch, batchGoldCost };
 }
 
 function sortEntries(entries, mode) {
@@ -1139,7 +1489,7 @@ function sortEntries(entries, mode) {
   sorted.sort((a, b) => {
     if (mode === 'risk') return a.risk - b.risk;
     if (mode === 'goldCost') return a.goldCost - b.goldCost;
-    return b[mode] - a[mode];
+    return (Number(b[mode]) || 0) - (Number(a[mode]) || 0);
   });
   return sorted;
 }
@@ -1168,9 +1518,402 @@ function marketEvidenceLabel(entry) {
   ].filter(Boolean).join(' / ');
 }
 
+function formatChangePct(value) {
+  if (!Number.isFinite(Number(value))) return '-';
+  const number = Number(value);
+  const sign = number > 0 ? '+' : '';
+  return `${sign}${number.toFixed(1)}%`;
+}
+
+function formatProfitRate(value) {
+  if (!Number.isFinite(Number(value))) return '-';
+  const number = Number(value);
+  const sign = number > 0 ? '+' : '';
+  return `${sign}${number.toFixed(1)}%`;
+}
+
+function trendClass(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number === 0) return '';
+  return number > 0 ? 'ok' : 'bad';
+}
+
+function normalizeKey(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function slug(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_.-]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'market-entry';
+}
+
+function shortItemId(value) {
+  const text = String(value || '');
+  return text.length > 18 ? `${text.slice(0, 18)}...` : text;
+}
+
+function normalizeNameKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function buildItemNameMap(entries) {
+  const map = new Map();
+  for (const entry of entries || []) {
+    if (!entry?.name) continue;
+    [entry.id, entry.name.en, normalizeNameKey(entry.id), normalizeNameKey(entry.name.en)]
+      .filter(Boolean)
+      .forEach((key) => map.set(normalizeNameKey(key), entry.name));
+  }
+  return map;
+}
+
+function buildPoeNinjaIndex(data) {
+  const items = new Map((data.items || []).map((item) => [normalizeKey(item.id), item]));
+  const rows = new Map();
+  for (const line of data.lines || []) {
+    const item = items.get(normalizeKey(line.id)) || {};
+    const row = { ...line, item, ApiId: line.id, Text: item.name || line.id };
+    rows.set(normalizeKey(line.id), row);
+    if (item.name) rows.set(normalizeKey(item.name), row);
+  }
+  return rows;
+}
+
+function offerByPoeNinjaId(offers) {
+  const map = new Map();
+  for (const offer of offers.entries || []) {
+    const ref = offer.marketRef || {};
+    [ref.apiId, ref.text, offer.id].filter(Boolean).forEach((key) => map.set(normalizeKey(key), offer));
+  }
+  return map;
+}
+
+function generatedLiveOffer(row, itemNameMap, manualOffer) {
+  const ninjaName = row.Text || row.item?.name || row.ApiId;
+  return {
+    id: manualOffer?.id || row.ApiId || slug(ninjaName),
+    category: manualOffer?.category || 'currency',
+    marketRef: {
+      provider: 'poe.ninja',
+      type: 'currency',
+      apiId: row.ApiId,
+      text: ninjaName
+    },
+    name: manualOffer?.name
+      || itemNameMap.get(normalizeNameKey(ninjaName))
+      || itemNameMap.get(normalizeNameKey(row.ApiId))
+      || { zhCN: ninjaName, zhTW: ninjaName, en: ninjaName },
+    goldCost: Number(manualOffer?.goldCost || 0),
+    cashCost: Number(manualOffer?.cashCost || 0),
+    notes: manualOffer?.notes || {
+      zhCN: '市场价由 poe.ninja 补齐；金币成本未录入，收益率只看 D/E 整数倒货价差。',
+      zhTW: '市場價由 poe.ninja 補齊；金幣成本未錄入，收益率只看 D/E 整數倒貨價差。',
+      en: 'Market price is enriched from poe.ninja; gold cost is not entered, so profit rate only measures integer D/E spread.'
+    }
+  };
+}
+
+function changePct(current, previous) {
+  if (!Number.isFinite(current) || !Number.isFinite(previous) || previous <= 0) return null;
+  return (current - previous) / previous * 100;
+}
+
+function trendFromPoeNinja(row, overview) {
+  const exaltedRate = Number(overview.core?.rates?.exalted) || 0;
+  if (!exaltedRate) throw new Error('poe.ninja response has no exalted exchange rate');
+  const sparkline = row.sparkline || {};
+  const points = Array.isArray(sparkline.data)
+    ? sparkline.data.filter((point) => Number.isFinite(Number(point))).map(Number)
+    : [];
+  const totalChange = Number.isFinite(Number(sparkline.totalChange)) ? Number(sparkline.totalChange) : null;
+  const lastPoint = points.length ? points[points.length - 1] : totalChange;
+  const prevPoint = points.length > 1 ? points[points.length - 2] : null;
+  const recentChange = Number.isFinite(lastPoint) && Number.isFinite(prevPoint) ? lastPoint - prevPoint : totalChange;
+  const currentPrice = Number(row.primaryValue || 0) * exaltedRate;
+  const currentQuantity = Math.floor(Number(row.volumePrimaryValue || 0) * exaltedRate);
+  const baseChange = Number.isFinite(totalChange) ? totalChange : lastPoint;
+  const basePrice = Number.isFinite(baseChange) && baseChange !== -100
+    ? currentPrice / (1 + baseChange / 100)
+    : currentPrice;
+  const priceLogs = points.map((point, index) => ({
+    price: Number((basePrice * (1 + point / 100)).toFixed(4)),
+    time: `poe.ninja-sparkline-${index + 1}`,
+    quantity: currentQuantity,
+    changePct: point
+  }));
+  return {
+    observedAt: new Date().toISOString(),
+    currentPrice,
+    currentQuantity,
+    logs: priceLogs,
+    oneHourChangePct: Number.isFinite(recentChange) ? recentChange : null,
+    sixHourChangePct: null,
+    dayChangePct: Number.isFinite(totalChange) ? totalChange : null,
+    poeNinja: {
+      primaryValue: Number(row.primaryValue || 0),
+      exaltedRate,
+      volumePrimaryValue: Number(row.volumePrimaryValue || 0),
+      maxVolumeCurrency: row.maxVolumeCurrency || '',
+      maxVolumeRate: Number(row.maxVolumeRate || 0),
+      sparkline: { totalChange, data: points }
+    }
+  };
+}
+
+function alertsFromTrend(trend, minListingDepth) {
+  const alerts = [];
+  const depth = Number(trend.currentQuantity) || 0;
+  const oneHour = Number(trend.oneHourChangePct);
+  if (Number.isFinite(oneHour) && oneHour >= 50 && depth >= minListingDepth) alerts.push({ level: 'critical', type: 'short-spike', window: 'short', changePct: Number(oneHour.toFixed(2)) });
+  else if (Number.isFinite(oneHour) && oneHour >= 25 && depth >= minListingDepth) alerts.push({ level: 'warning', type: 'rising-fast', window: 'short', changePct: Number(oneHour.toFixed(2)) });
+  if (Number.isFinite(oneHour) && oneHour >= 25 && depth < minListingDepth) alerts.push({ level: 'warning', type: 'possible-manipulation', window: 'short', changePct: Number(oneHour.toFixed(2)) });
+  if (Number.isFinite(oneHour) && oneHour <= -35 && depth >= minListingDepth) alerts.push({ level: 'critical', type: 'short-drop', window: 'short', changePct: Number(oneHour.toFixed(2)) });
+  else if (Number.isFinite(oneHour) && oneHour <= -20 && depth >= minListingDepth) alerts.push({ level: 'warning', type: 'falling-fast', window: 'short', changePct: Number(oneHour.toFixed(2)) });
+  return alerts;
+}
+
+function liveNotes(trend, alerts) {
+  const change = formatChangePct(trend.oneHourChangePct);
+  return {
+    zhCN: `poe.ninja 聚合快照；最近点变化 ${change}；${alerts.length ? '有预警' : '暂无预警'}。`,
+    zhTW: `poe.ninja 聚合快照；最近點變化 ${change}；${alerts.length ? '有預警' : '暫無預警'}。`,
+    en: `poe.ninja aggregate snapshot; recent-point change ${change}; ${alerts.length ? 'has alert' : 'no alert'}.`
+  };
+}
+
+function pairRate(details, id) {
+  const pair = (details?.pairs || []).find((item) => item.id === id);
+  return Number.isFinite(Number(pair?.rate)) ? Number(pair.rate) : null;
+}
+
+function normalizeLiveOffer(offer, row, trend, minListingDepth, details, divineToExalted) {
+  const alerts = alertsFromTrend(trend, minListingDepth);
+  const depth = Math.max(0, Math.floor(Number(trend.currentQuantity) || 0));
+  const confidence = Math.max(0, Math.min(100, Math.round(depth >= minListingDepth ? 95 : 65)));
+  const divineRate = pairRate(details, 'divine');
+  const exaltedRate = pairRate(details, 'exalted');
+  const hasExchangeSpread = Number.isFinite(divineRate) && Number.isFinite(exaltedRate) && Number.isFinite(divineToExalted) && divineToExalted > 0;
+  return {
+    id: offer.id || slug(row.ApiId || row.Text),
+    category: offer.category || 'currency',
+    name: offer.name || { zhCN: row.Text, zhTW: row.Text, en: row.Text },
+    goldCost: Number(offer.goldCost),
+    cashCost: Number(offer.cashCost || 0),
+    sellPrice: Number(trend.currentPrice),
+    exchangeSpread: hasExchangeSpread ? {
+      divineRate,
+      exaltedRate,
+      divineToExalted,
+      divineAsExalted: divineRate * divineToExalted,
+      exToDivProfitExalted: divineRate * divineToExalted - exaltedRate,
+      divToExProfitExalted: exaltedRate - divineRate * divineToExalted
+    } : null,
+    liquidity: Number.isFinite(Number(offer.liquidity)) ? Number(offer.liquidity) : Math.max(0, Math.min(100, Math.round(depth / Math.max(1, minListingDepth * 8) * 100))),
+    risk: Number.isFinite(Number(offer.risk)) ? Number(offer.risk) : Math.max(0, Math.min(100, Math.round(100 - confidence + Math.min(45, Math.abs(trend.oneHourChangePct || 0))))),
+    notes: liveNotes(trend, alerts),
+    marketRef: { ...(offer.marketRef || {}), provider: 'poe.ninja' },
+    marketEvidence: {
+      observedAt: trend.observedAt,
+      buyListingCount: depth,
+      sellListingCount: depth,
+      priceConfidence: confidence,
+      depthNote: `poe.ninja volume ${depth}`
+    },
+    trend: {
+      provider: 'poe.ninja',
+      league: 'Runes of Aldur',
+      currentPrice: Number(trend.currentPrice),
+      currentQuantity: depth,
+      oneHourChangePct: trend.oneHourChangePct === null ? null : Number(trend.oneHourChangePct.toFixed(2)),
+      sixHourChangePct: null,
+      dayChangePct: trend.dayChangePct === null ? null : Number(trend.dayChangePct.toFixed(2)),
+      priceLogs: trend.logs.slice(0, 8),
+      poeNinja: trend.poeNinja
+    },
+    alerts
+  };
+}
+
+function trendLabel(entry) {
+  const trend = entry.trend;
+  if (!trend) return t('trendNoData');
+  const hasSixHour = trend.sixHourChangePct !== null && trend.sixHourChangePct !== undefined && Number.isFinite(Number(trend.sixHourChangePct));
+  return [
+    `${t('trendRecentPoint')} ${formatChangePct(trend.oneHourChangePct)}`,
+    hasSixHour ? `${t('trendSixHour')} ${formatChangePct(trend.sixHourChangePct)}` : null,
+    `${t('trendTotal')} ${formatChangePct(trend.dayChangePct)}`,
+    `${t('trendQuantity')} ${formatGold(trend.currentQuantity || 0)}`
+  ].filter(Boolean).join(' / ');
+}
+
+function directionLabel(entry) {
+  if (!entry.exchangeSpread) return t('exchangeSpreadMissing');
+  return entry.bestDirection === 'ex-to-div' ? t('buyWithExaltedSellDivine') : t('buyWithDivineSellExalted');
+}
+
+function sellLabel(entry) {
+  const spread = entry.exchangeSpread;
+  if (!spread) return formatCurrency(entry.sellPrice);
+  const batch = entry.bestBatch;
+  if (!batch) return formatCurrency(entry.sellPrice);
+  return `${t('executableBatch')} ${batch.units} 件：${batch.buyText} -> ${batch.sellText}`;
+}
+
+function trendAlertText(alert) {
+  if (!alert) return '';
+  if (alert.type === 'short-drop') return t('trendDropAlertCritical');
+  if (alert.type === 'falling-fast') return t('trendDropAlertWarning');
+  if (alert.level === 'critical') return t('trendAlertCritical');
+  if (alert.level === 'warning') return t('trendAlertWarning');
+  return t('trendAlertInfo');
+}
+
+function renderTrendList(containerId, rows, emptyText, valueGetter) {
+  const container = document.getElementById(containerId);
+  if (!rows.length) {
+    container.textContent = emptyText;
+    return;
+  }
+  container.innerHTML = rows.map((entry) => {
+    const value = valueGetter(entry);
+    return `
+      <div class="trend-line">
+        <strong>${escapeHtml(localized(entry.name))}</strong>
+        <span class="${trendClass(value)}">${escapeHtml(formatChangePct(value))}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderAlertList(entries, options = {}) {
+  const direction = options.direction || 'up';
+  const alerts = entries
+    .flatMap((entry) => (entry.alerts || []).map((alert) => ({ entry, alert })))
+    .filter(({ alert }) => direction === 'down' ? Number(alert.changePct) < 0 : Number(alert.changePct) > 0)
+    .sort((a, b) => {
+      const levelScore = { critical: 3, warning: 2, info: 1 };
+      return (levelScore[b.alert.level] || 0) - (levelScore[a.alert.level] || 0) || Math.abs(b.alert.changePct) - Math.abs(a.alert.changePct);
+    });
+  const container = document.getElementById(options.containerId || 'trendAlertList');
+  if (!alerts.length) {
+    container.textContent = t(direction === 'down' ? 'trendNoDropAlerts' : 'trendNoAlerts');
+    return;
+  }
+  container.innerHTML = alerts.slice(0, 6).map(({ entry, alert }) => `
+    <div class="trend-line">
+      <strong>${escapeHtml(localized(entry.name))}</strong>
+      <span class="${alert.level === 'critical' ? 'bad' : alert.level === 'warning' ? 'warn' : 'info'}">${escapeHtml(formatChangePct(alert.changePct))} / ${escapeHtml(trendAlertText(alert))}</span>
+    </div>
+  `).join('');
+}
+
+function renderTrendPanel(entries) {
+  const trended = entries.filter((entry) => entry.trend);
+  const rising = trended
+    .filter((entry) => Number(entry.trend.oneHourChangePct) > 0)
+    .sort((a, b) => Number(b.trend.oneHourChangePct) - Number(a.trend.oneHourChangePct))
+    .slice(0, 4);
+  const falling = trended
+    .filter((entry) => Number(entry.trend.oneHourChangePct) < 0)
+    .sort((a, b) => Number(a.trend.oneHourChangePct) - Number(b.trend.oneHourChangePct))
+    .slice(0, 4);
+  renderTrendList('trendRisingList', rising, t('trendNoData'), (entry) => entry.trend.oneHourChangePct);
+  renderTrendList('trendFallingList', falling, t('trendNoData'), (entry) => entry.trend.oneHourChangePct);
+  renderAlertList(trended, { containerId: 'trendAlertList', direction: 'up' });
+  renderAlertList(trended, { containerId: 'trendDropAlertList', direction: 'down' });
+
+  const alertCount = trended.reduce((count, entry) => count + (entry.alerts?.length || 0), 0);
+  document.body.dataset.marketTrendEntryCount = String(trended.length);
+  document.body.dataset.marketTrendRisingCount = String(rising.length);
+  document.body.dataset.marketTrendFallingCount = String(falling.length);
+  document.body.dataset.marketTrendAlertCount = String(alertCount);
+  document.body.dataset.marketTrendTopRiserId = rising[0]?.id || '';
+  document.body.dataset.marketTrendTopFallerId = falling[0]?.id || '';
+}
+
+function sparklineSvg(values) {
+  const width = 300;
+  const height = 70;
+  const padding = 8;
+  const numeric = values.filter((value) => Number.isFinite(Number(value))).map(Number);
+  if (numeric.length < 2) {
+    return `<svg class="sparkline" viewBox="0 0 ${width} ${height}" role="img"><text x="12" y="38" fill="#9ca3af" font-size="12">${escapeHtml(t('trendNoData'))}</text></svg>`;
+  }
+  const min = Math.min(...numeric);
+  const max = Math.max(...numeric);
+  const spread = max - min || 1;
+  const points = numeric.map((value, index) => {
+    const x = padding + index * ((width - padding * 2) / Math.max(1, numeric.length - 1));
+    const y = height - padding - ((value - min) / spread) * (height - padding * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  const rising = numeric[numeric.length - 1] >= numeric[0];
+  const color = rising ? '#34d399' : '#fb7185';
+  return `
+    <svg class="sparkline" viewBox="0 0 ${width} ${height}" role="img">
+      <polyline points="${points}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      <circle cx="${points.split(' ').at(-1).split(',')[0]}" cy="${points.split(' ').at(-1).split(',')[1]}" r="3" fill="${color}"></circle>
+    </svg>
+  `;
+}
+
+function priceSeries(entry) {
+  const logs = entry.trend?.priceLogs || [];
+  const prices = logs
+    .filter((log) => log.price !== null && log.price !== undefined)
+    .map((log) => Number(log.price))
+    .filter(Number.isFinite);
+  if (prices.length >= 2) return prices;
+  const points = entry.trend?.poeNinja?.sparkline?.data || [];
+  const totalChange = Number(entry.trend?.poeNinja?.sparkline?.totalChange);
+  const currentPrice = Number(entry.sellPrice);
+  if (!points.length || !Number.isFinite(currentPrice)) return [];
+  const basePrice = Number.isFinite(totalChange) && totalChange !== -100
+    ? currentPrice / (1 + totalChange / 100)
+    : currentPrice;
+  return points.map((point) => basePrice * (1 + Number(point) / 100)).filter(Number.isFinite);
+}
+
+function renderPriceCurves(entries) {
+  const container = document.getElementById('priceCurveGrid');
+  if (!container) {
+    document.body.dataset.marketPriceCurveCount = '0';
+    return;
+  }
+  const rows = entries.filter((entry) => entry.trend).slice(0, 4);
+  if (!rows.length) {
+    container.textContent = t('trendNoData');
+    document.body.dataset.marketPriceCurveCount = '0';
+    return;
+  }
+  container.innerHTML = rows.map((entry) => {
+    const series = priceSeries(entry);
+    return `
+      <article class="chart-card">
+        <div class="chart-head">
+          <strong>${escapeHtml(localized(entry.name))}</strong>
+          <span class="${trendClass(entry.trend?.oneHourChangePct)}">${escapeHtml(formatChangePct(entry.trend?.oneHourChangePct))}</span>
+        </div>
+        ${sparklineSvg(series)}
+        <p class="muted">${escapeHtml(formatCurrency(entry.sellPrice))} / ${escapeHtml(t('profitPerGoldUnit'))} ${escapeHtml(formatCurrency(entry.profitPerGoldUnit))}</p>
+      </article>
+    `;
+  }).join('');
+  document.body.dataset.marketPriceCurveCount = String(rows.length);
+}
+
 function sortModeLabel(mode) {
   const labels = {
     score: t('scoreSort'),
+    profitRate: t('profitRate'),
     netProfit: t('netProfit'),
     profitPerGoldUnit: t('profitPerGoldUnit'),
     safetyMargin: t('safetyMargin'),
@@ -1266,11 +2009,11 @@ function renderDecision(sorted) {
     return;
   }
   document.getElementById('decisionTop').textContent =
-    `${localized(top.name)} / ${t('decisionTopReason')} / score ${top.score.toFixed(2)}`;
+    `${localized(top.name)} / ${t('profitRate')} ${formatProfitRate(top.profitRate)} / ${t('decisionExpectedNet')} ${formatCurrency(top.netProfit)} / ${t('trendQuantity')} ${formatGold(top.trend?.currentQuantity || 0)}`;
   document.getElementById('decisionCapital').textContent =
-    `${t('decisionGoldCostText')} ${formatGold(top.goldCost)}；${t('decisionCashCostText')} ${formatCurrency(top.cashCost)}；${t('decisionExpectedNet')} ${formatCurrency(top.netProfit)}`;
+    `${t('decisionGoldCostText')} ${formatGoldCost(top.goldCost)}；${t('decisionCashCostText')} ${formatCurrency(top.cashCost)}；${t('decisionExpectedNet')} ${formatCurrency(top.netProfit)}`;
   document.getElementById('decisionRisk').textContent =
-    `${t('decisionRiskText')} ${top.risk}；${t('decisionLiquidityText')} ${top.liquidity}；${t('profitPerGoldUnit')} ${formatCurrency(top.profitPerGoldUnit)}`;
+    `${t('decisionRiskText')} ${top.risk}；${t('decisionLiquidityText')} ${top.liquidity}；${t('profitRate')} ${formatProfitRate(top.profitRate)}`;
   document.getElementById('decisionAction').textContent = isSample ? t('decisionSampleAction') : t('decisionRealAction');
   document.body.dataset.marketDecisionTopId = top.id;
   document.body.dataset.marketDecisionGoldCost = String(top.goldCost);
@@ -1396,10 +2139,109 @@ async function copyBudgetUrl() {
   }
 }
 
+async function fetchLiveSnapshot() {
+  if (!currentVersion) throw new Error('version not ready');
+  if (liveFetchInFlight) return;
+  liveFetchInFlight = true;
+  const status = document.getElementById('liveFetchStatus');
+  const button = document.getElementById('refreshLivePriceBtn');
+  status.textContent = t('liveFetching');
+  button.disabled = true;
+  try {
+    const [offers, overview, manifest] = await Promise.all([
+      window.POE2Versions.readJson(`../${currentVersion.dataRoot}/market/hideout-warrior-offers.json`),
+      fetch('../api/poe-ninja/currency?league=Runes%20of%20Aldur', {
+        headers: { accept: 'application/json' }
+      }).then((response) => {
+        if (!response.ok) throw new Error(`poe.ninja HTTP ${response.status}`);
+        return response.json();
+      }),
+      window.POE2Versions.readJson(`../${currentVersion.dataRoot}/manifest.json`)
+    ]);
+    const index = buildPoeNinjaIndex(overview);
+    const baseItemsFile = manifest.reference?.items?.baseItems;
+    const baseItems = baseItemsFile
+      ? await window.POE2Versions.readJson(`../${currentVersion.dataRoot}/${baseItemsFile}`).catch(() => [])
+      : [];
+    const itemNameMap = buildItemNameMap(Array.isArray(baseItems) ? baseItems : baseItems.entries || baseItems.items || []);
+    const manualOffers = offerByPoeNinjaId(offers);
+    const divineToExalted = Number(overview.core?.rates?.exalted);
+    const divineToChaos = Number(overview.core?.rates?.chaos);
+    const minListingDepth = 250;
+    const entries = [];
+    const rows = [...new Map((overview.lines || [])
+      .map((line) => [normalizeKey(line.id), index.get(normalizeKey(line.id))])
+      .filter(([, row]) => row && !['divine', 'exalted'].includes(normalizeKey(row.ApiId)))).values()];
+    const candidates = rows
+      .map((row) => ({ row, trend: trendFromPoeNinja(row, overview) }))
+      .filter(({ trend }) => Number(trend.currentQuantity) >= minListingDepth)
+      .sort((a, b) => Number(b.trend.currentQuantity) - Number(a.trend.currentQuantity))
+      .slice(0, RANK_LIMIT + 40);
+    const settled = await Promise.allSettled(candidates.map(async ({ row, trend }) => {
+      const detailsId = row.ApiId;
+      const details = await fetch(`../api/poe-ninja/currency-details?league=Runes%20of%20Aldur&id=${encodeURIComponent(detailsId)}`, {
+        headers: { accept: 'application/json' }
+      }).then((response) => {
+        if (!response.ok) throw new Error(`poe.ninja details HTTP ${response.status}`);
+        return response.json();
+      });
+      if (!details?.pairs) return null;
+      const manualOffer = manualOffers.get(normalizeKey(detailsId)) || manualOffers.get(normalizeKey(row.Text));
+      const offer = generatedLiveOffer(row, itemNameMap, manualOffer);
+      return normalizeLiveOffer(offer, row, trend, minListingDepth, details, divineToExalted);
+    }));
+    settled.forEach((result) => {
+      if (result.status === 'fulfilled' && result.value?.exchangeSpread) entries.push(result.value);
+    });
+    if (!entries.length) throw new Error('poe.ninja has no currency entries with enough D/E data and volume');
+    const fetchedAt = new Date().toISOString();
+    snapshot = {
+      id: `${currentVersion.season.toLowerCase()}-hideout-warrior-live-poe-ninja`,
+      season: offers.season || currentVersion.season,
+      versionId: offers.versionId || currentVersion.id,
+      updatedAt: fetchedAt,
+      currency: offers.currency || 'exalted',
+      goldUnit: offers.goldUnit || 10000,
+      feeRate: offers.feeRate ?? 0.08,
+      source: {
+        type: 'real-snapshot-v1',
+        provider: 'poe.ninja',
+        league: 'Runes of Aldur',
+        fetchedAt,
+        exchangeRates: {
+          divineToExalted: Number.isFinite(divineToExalted) ? divineToExalted : null,
+          divineToChaos: Number.isFinite(divineToChaos) ? divineToChaos : null
+        },
+        note: 'Live poe.ninja Currency overview joined with manual hideout warrior gold-cost offers.',
+        filters: {
+          minListingDepth,
+          abnormalPriceRules: [
+            'Use poe.ninja Currency overview instead of a single listing.',
+            'Show short-window spikes separately from ranking.',
+            'Treat manual gold-cost input as player-provided data.'
+          ]
+        }
+      },
+      scoreWeights: offers.scoreWeights || { netProfit: 0.35, profitPerGoldUnit: 0.3, liquidity: 0.2, risk: -0.25 },
+      entries
+    };
+    document.body.dataset.marketLiveFetchStatus = 'ok';
+    document.body.dataset.marketLiveFetchMatched = String(entries.length);
+    status.textContent = `${t('liveFetched')} / ${formatDateTime(fetchedAt)}`;
+    render();
+  } catch (error) {
+    document.body.dataset.marketLiveFetchStatus = 'failed';
+    status.textContent = `${t('liveFetchFailed')}：${error.message}`;
+  } finally {
+    liveFetchInFlight = false;
+    button.disabled = false;
+  }
+}
+
 function render() {
   if (!snapshot) return;
   const category = document.getElementById('categoryFilter').value;
-  const mode = document.getElementById('sortMode').value;
+  const mode = 'profitRate';
   const filters = readMarketFilters();
   const allEntries = snapshot.entries.map(enrich);
   const baseEntries = snapshot.entries
@@ -1408,16 +2250,18 @@ function render() {
   const entries = baseEntries.filter((entry) => passesMarketFilters(entry, filters));
   const sorted = sortEntries(entries, mode);
   const bestProfit = sortEntries(entries, 'netProfit')[0];
-  const bestGold = sortEntries(entries, 'profitPerGoldUnit')[0];
+  const bestGold = sortEntries(entries, 'profitRate')[0];
   const bestSafetyMargin = sortEntries(entries, 'safetyMargin')[0];
 
   renderSnapshotMeta(entries);
   renderCandidateQueue();
+  renderTrendPanel(entries);
+  renderPriceCurves(sorted);
   updateFilterDataset(baseEntries.length, entries.length, filters);
   const bestBreakEven = sortEntries(entries, 'breakEvenSellPrice')[0];
   document.getElementById('summaryCount').textContent = `${entries.length} / ${baseEntries.length} ${t('itemCountSuffix')}`;
   document.getElementById('summaryProfit').textContent = bestProfit ? `${localized(bestProfit.name)} / ${formatCurrency(bestProfit.netProfit)}` : '-';
-  document.getElementById('summaryGold').textContent = bestGold ? `${localized(bestGold.name)} / ${formatCurrency(bestGold.profitPerGoldUnit)}` : '-';
+  document.getElementById('summaryGold').textContent = bestGold ? `${localized(bestGold.name)} / ${formatProfitRate(bestGold.profitRate)}` : '-';
   document.getElementById('summaryVersion').innerHTML = `<code>${escapeHtml(snapshot.versionId)}</code>`;
   renderDecision(sorted);
   renderBudgetPlan(sorted);
@@ -1426,26 +2270,18 @@ function render() {
   const tbody = document.getElementById('resultRows');
   tbody.innerHTML = '';
   if (!sorted.length) {
-    tbody.innerHTML = `<tr><td colspan="15">${escapeHtml(t('noResults'))}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7">${escapeHtml(t('noResults'))}</td></tr>`;
   }
-  sorted.forEach((entry, index) => {
+  sorted.slice(0, RANK_LIMIT).forEach((entry, index) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${index + 1}</td>
-      <td><strong>${escapeHtml(localized(entry.name))}</strong><br><code>${escapeHtml(entry.id)}</code></td>
-      <td>${categoryLabel(entry.category)}</td>
-      <td>${formatGold(entry.goldCost)}</td>
-      <td>${formatCurrency(entry.cashCost)}</td>
-      <td>${formatCurrency(entry.sellPrice)}</td>
-      <td>${formatCurrency(entry.fee)}</td>
-      <td>${formatCurrency(entry.breakEvenSellPrice)}</td>
-      <td class="${entry.safetyMargin >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.safetyMargin)}</td>
+      <td><strong class="item-name" title="${escapeHtml(localized(entry.name))}">${escapeHtml(localized(entry.name))}</strong><code class="item-id" title="${escapeHtml(entry.id)}">${escapeHtml(shortItemId(entry.id))}</code></td>
+      <td>${escapeHtml(directionLabel(entry))}</td>
+      <td>${escapeHtml(sellLabel(entry))}</td>
+      <td>${formatGold(entry.trend?.currentQuantity || 0)}</td>
+      <td class="${entry.profitRate >= 0 ? 'ok' : 'bad'}">${formatProfitRate(entry.profitRate)}</td>
       <td class="${entry.netProfit >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.netProfit)}</td>
-      <td>${formatCurrency(entry.profitPerGoldUnit)}</td>
-      <td>${entry.liquidity}</td>
-      <td>${entry.risk}</td>
-      <td>${escapeHtml(marketEvidenceLabel(entry))}</td>
-      <td>${escapeHtml(localized(entry.notes))}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -1471,6 +2307,7 @@ async function main() {
   applyBudgetQuery();
   const versions = await window.POE2Versions.readJson('../data/versions.json');
   const version = window.POE2Versions.selectedVersion(versions);
+  currentVersion = version;
   const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
   const file = manifest.market?.hideoutFlips;
   if (!file) throw new Error(`hideoutFlips missing in ${version.dataRoot}/manifest.json`);
@@ -1481,10 +2318,13 @@ async function main() {
   snapshot = snapshotData;
   candidateQueue = candidateIndex;
   render();
+  await fetchLiveSnapshot();
+  if (!liveRefreshTimer) {
+    liveRefreshTimer = window.setInterval(fetchLiveSnapshot, 10000);
+  }
 }
 
 document.getElementById('categoryFilter').addEventListener('change', render);
-document.getElementById('sortMode').addEventListener('change', render);
 document.getElementById('profitFilter').addEventListener('change', render);
 document.getElementById('liquidityFilter').addEventListener('change', render);
 document.getElementById('riskFilter').addEventListener('change', render);
@@ -1492,6 +2332,7 @@ document.getElementById('evidenceFilter').addEventListener('change', render);
 document.getElementById('budgetGoldInput').addEventListener('input', render);
 document.getElementById('budgetCashInput').addEventListener('input', render);
 document.getElementById('copyBudgetUrlBtn').addEventListener('click', copyBudgetUrl);
+document.getElementById('refreshLivePriceBtn').addEventListener('click', fetchLiveSnapshot);
 document.querySelectorAll('[data-lang]').forEach((button) => {
   button.addEventListener('click', () => {
     currentLang = button.dataset.lang;
@@ -1507,8 +2348,10 @@ applyLanguage();
 main().catch((error) => {
   document.body.dataset.marketSourceType = 'load-error';
   document.getElementById('snapshotStatus').textContent = t('loadFailed');
-  document.getElementById('resultRows').innerHTML = `<tr><td colspan="15" class="bad">${escapeHtml(error.message)}</td></tr>`;
+  document.getElementById('resultRows').innerHTML = `<tr><td colspan="7" class="bad">${escapeHtml(error.message)}</td></tr>`;
 });
 </script>
+
+
 </body>
 </html>

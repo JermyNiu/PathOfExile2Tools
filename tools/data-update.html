@@ -26,6 +26,9 @@
     color:var(--text);
   }
   header {
+    position:sticky;
+    top:0;
+    z-index:20;
     padding:14px 20px;
     border-bottom:1px solid var(--line);
     background:#0b1120;
@@ -40,7 +43,14 @@
   h2 { font-size:18px; font-weight:650; }
   h3 { font-size:15px; font-weight:650; }
   a { color:inherit; text-decoration:none; }
-  .btn {
+  .brand-nav, .main-nav, .top-controls {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .brand-nav { gap:18px; }
+  .btn, .nav-link {
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -51,8 +61,11 @@
     background:#0b1120;
     color:var(--text);
     font-size:14px;
+  }
+  .btn {
     cursor:pointer;
   }
+  .nav-link.active { border-color:#0ea5e9; background:#075985; }
   .btn.disabled {
     color:var(--muted);
     cursor:not-allowed;
@@ -155,13 +168,20 @@
 </head>
 <body>
 <header>
-  <h1>数据更新</h1>
-  <nav>
-    <a class="btn" href="../index.html">首页</a>
-    <a class="btn" href="version-history.html">版本历史</a>
-    <a class="btn" href="route-review.html">路线复核</a>
-    <a class="btn" href="market-review.html">市场复核</a>
-  </nav>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html">首页</a>
+      <a class="nav-link" href="../builds/index.html">开荒</a>
+      <a class="nav-link" href="hideout-flip.html">藏身处战神</a>
+      <a class="nav-link" href="value-curve.html">价值曲线</a>
+      <a class="nav-link" href="gem-flip.html">技能倒卖</a>
+      <a class="nav-link" href="ninja-import.html">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
+    <a class="btn" href="data-update.html">数据更新</a>
+  </div>
 </header>
 
 <main class="shell">
@@ -424,6 +444,17 @@ node scripts/validate-suite.mjs --season s05 --serve</pre>
         <div class="inline-actions">
           <button class="btn disabled" type="button" id="copyMarketRawTemplateCommandsBtn" aria-disabled="true">复制 raw 模板命令</button>
           <span class="muted" id="marketRawTemplateCopyStatus"></span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>藏身处战神拉价</h3>
+        <p class="muted">先手动更新 <code>market/hideout-warrior-offers.json</code> 里的金币成本，再用脚本从 poe.ninja 补当前市场价、成交量、趋势和短时预警。</p>
+        <ul id="hideoutWarriorPriceCommands">
+          <li>读取中...</li>
+        </ul>
+        <div class="inline-actions">
+          <button class="btn disabled" type="button" id="copyHideoutWarriorPriceCommandsBtn" aria-disabled="true">复制战神拉价命令</button>
+          <span class="muted" id="hideoutWarriorPriceCopyStatus"></span>
         </div>
       </article>
       <article class="card">
@@ -887,6 +918,24 @@ function marketRawTemplateLine(label, season, kind, file, key) {
   const dryRun = marketRawTemplateCommand(season, kind, file, key, false);
   const write = marketRawTemplateCommand(season, kind, file, key, true);
   return `${esc(label)}：模板 <code>${esc(file)}</code><br>dry-run <code>${esc(dryRun)}</code><br>写入候选 <code>${esc(write)}</code>`;
+}
+
+function hideoutWarriorPriceCommand(season, offersFile, write) {
+  return [
+    'node scripts/fetch-market-prices.mjs',
+    `--season ${season}`,
+    '--kind hideoutFlips',
+    `--offers ${offersFile}`,
+    '--provider poe.ninja',
+    '--league auto',
+    write ? '--write' : ''
+  ].filter(Boolean).join(' ');
+}
+
+function hideoutWarriorPriceLine(season, offersFile) {
+  const dryRun = hideoutWarriorPriceCommand(season, offersFile, false);
+  const write = hideoutWarriorPriceCommand(season, offersFile, true);
+  return `藏身处战神当前价：录入 <code>${esc(offersFile)}</code><br>dry-run <code>${esc(dryRun)}</code><br>写入候选 <code>${esc(write)}</code>`;
 }
 
 function rawTemplateEntriesForPreview(rawTemplate) {
@@ -1902,6 +1951,7 @@ async function main() {
     gem: 'market/examples/raw-gem-flips-v1.example.json',
     hideout: 'market/examples/raw-hideout-flips-v1.example.json'
   };
+  const hideoutWarriorOffersFile = 'market/hideout-warrior-offers.json';
   const [gemExample, hideoutExample, gemRawTemplate, hideoutRawTemplate] = await Promise.all([
     window.POE2Versions.readJson(`../${current.dataRoot}/${marketExampleFiles.gem}`),
     window.POE2Versions.readJson(`../${current.dataRoot}/${marketExampleFiles.hideout}`),
@@ -1957,11 +2007,19 @@ async function main() {
     marketRawTemplateCommand(current.season.toLowerCase(), 'hideoutFlips', `${current.dataRoot}/${marketRawTemplateFiles.hideout}`, 'manual-hideout-demo', false),
     marketRawTemplateCommand(current.season.toLowerCase(), 'hideoutFlips', `${current.dataRoot}/${marketRawTemplateFiles.hideout}`, 'manual-hideout-demo', true)
   ];
+  const hideoutWarriorPriceCommandLines = [
+    hideoutWarriorPriceCommand(current.season.toLowerCase(), hideoutWarriorOffersFile, false),
+    hideoutWarriorPriceCommand(current.season.toLowerCase(), hideoutWarriorOffersFile, true)
+  ];
   fillList('marketRawSnapshotTemplates', [
     marketRawTemplateLine('技能倒卖 raw 模板', current.season.toLowerCase(), 'gemFlips', `${current.dataRoot}/${marketRawTemplateFiles.gem}`, 'manual-gems-demo'),
     `技能模板检查：<code>${gemRawCheck.status}</code> / 条目 <code>${gemRawCheck.entries}</code> / 深度 <code>${gemRawCheck.minBuyDepth}/${gemRawCheck.minSellDepth}</code>`,
     marketRawTemplateLine('藏身处 raw 模板', current.season.toLowerCase(), 'hideoutFlips', `${current.dataRoot}/${marketRawTemplateFiles.hideout}`, 'manual-hideout-demo'),
     `藏身处模板检查：<code>${hideoutRawCheck.status}</code> / 条目 <code>${hideoutRawCheck.entries}</code> / 深度 <code>${hideoutRawCheck.minBuyDepth}/${hideoutRawCheck.minSellDepth}</code>`
+  ]);
+  fillList('hideoutWarriorPriceCommands', [
+    hideoutWarriorPriceLine(current.season.toLowerCase(), hideoutWarriorOffersFile),
+    `边界：脚本不会读取游戏内金币价；请先把当次战神商品和 <code>goldCost</code> 写入 <code>${hideoutWarriorOffersFile}</code>。`
   ]);
   fillList('marketCandidateQuality', candidateCheck.candidates.length ? [
     ...candidateCheck.candidates.map(marketCandidateLine),
@@ -2013,6 +2071,10 @@ async function main() {
   document.body.dataset.dataUpdateMarketRawTemplateCommandText = rawTemplateCommandLines.join('\n');
   document.body.dataset.dataUpdateMarketRawTemplateCommandCount = String(rawTemplateCommandLines.length);
   document.body.dataset.dataUpdateMarketRawTemplateCopyStatus = '';
+  document.body.dataset.dataUpdateHideoutWarriorPriceCommandText = hideoutWarriorPriceCommandLines.join('\n');
+  document.body.dataset.dataUpdateHideoutWarriorPriceCommandCount = String(hideoutWarriorPriceCommandLines.length);
+  document.body.dataset.dataUpdateHideoutWarriorPriceOffersFile = hideoutWarriorOffersFile;
+  document.body.dataset.dataUpdateHideoutWarriorPriceCopyStatus = '';
   document.body.dataset.dataUpdateMarketCandidateIndexSchema = String(candidateCheck.schemaVersion);
   document.body.dataset.dataUpdateMarketCandidateCount = String(candidateCheck.candidates.length);
   document.body.dataset.dataUpdateMarketCandidateReadyCount = String(candidateCheck.ready.length);
@@ -2027,6 +2089,7 @@ async function main() {
   document.body.dataset.dataUpdateMarketCandidatePreviewEntryCount = String(candidatePreviews.reduce((sum, item) => sum + item.entries.length, 0));
   document.body.dataset.dataUpdateMarketCandidatePreviewErrorCount = String(candidatePreviews.filter((item) => item.error).length);
   setCommandCopyButton('copyMarketRawTemplateCommandsBtn', rawTemplateCommandLines.length > 0);
+  setCommandCopyButton('copyHideoutWarriorPriceCommandsBtn', hideoutWarriorPriceCommandLines.length > 0);
   setCommandCopyButton('copyMarketCandidateArchiveCommandsBtn', archiveCommandLines.length > 0);
 
   fillList('skillFiles', [
@@ -2164,6 +2227,17 @@ document.getElementById('copyMarketRawTemplateCommandsBtn').addEventListener('cl
   );
 });
 
+document.getElementById('copyHideoutWarriorPriceCommandsBtn').addEventListener('click', (event) => {
+  if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
+  copyDatasetCommandText(
+    'dataUpdateHideoutWarriorPriceCommandText',
+    'hideoutWarriorPriceCopyStatus',
+    '已复制战神拉价命令',
+    '复制失败，请手动选择命令。',
+    'dataUpdateHideoutWarriorPriceCopyStatus'
+  );
+});
+
 document.getElementById('copyRouteArchiveCommandsBtn').addEventListener('click', (event) => {
   if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
   copyDatasetCommandText(
@@ -2241,6 +2315,7 @@ main().catch((error) => {
   fillList('buildOnboardingCommands', ['未读取']);
   fillList('marketFiles', ['未读取']);
   fillList('marketQuality', ['未读取']);
+  fillList('hideoutWarriorPriceCommands', ['未读取']);
   fillList('skillFiles', ['未读取']);
   fillList('skillCatalogQuality', ['未读取']);
   fillList('skillCatalogArchiveCommands', ['未读取']);
@@ -2251,6 +2326,7 @@ main().catch((error) => {
   fillList('ninjaExamples', ['未读取']);
   setCommandCopyButton('copyRouteArchiveCommandsBtn', false);
   setCommandCopyButton('copyMarketRawTemplateCommandsBtn', false);
+  setCommandCopyButton('copyHideoutWarriorPriceCommandsBtn', false);
   setCommandCopyButton('copyMarketCandidateArchiveCommandsBtn', false);
   setCommandCopyButton('copyNinjaArchiveCommandsBtn', false);
   setCommandCopyButton('copySkillCatalogArchiveCommandsBtn', false);

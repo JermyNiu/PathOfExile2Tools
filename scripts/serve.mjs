@@ -7,6 +7,27 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const poeNinjaCache = new Map();
+
+async function cachedFetchText(key, target, ttlMs) {
+  const now = Date.now();
+  const cached = poeNinjaCache.get(key);
+  if (cached && now - cached.updatedAt < ttlMs) return { ...cached, fromCache: true };
+  const upstream = await fetch(target, {
+    headers: {
+      accept: 'application/json',
+      'user-agent': 'poe2-tools-local/0.1'
+    }
+  });
+  const text = await upstream.text();
+  if (upstream.ok) {
+    const next = { ok: true, status: 200, text, updatedAt: now };
+    poeNinjaCache.set(key, next);
+    return { ...next, fromCache: false };
+  }
+  if (cached) return { ...cached, fromCache: true, stale: true, upstreamStatus: upstream.status };
+  return { ok: false, status: upstream.status, text, updatedAt: now, fromCache: false };
+}
 
 function parseArgs(argv) {
   const args = {
@@ -54,6 +75,52 @@ function contentType(filePath) {
   }[ext] || 'application/octet-stream';
 }
 
+async function handlePoeNinjaCurrencyProxy(request, response) {
+  const url = new URL(request.url || '/', 'http://local.poe2-tools');
+  const league = url.searchParams.get('league') || 'Runes of Aldur';
+  if (request.method !== 'GET') {
+    response.writeHead(405, { 'content-type': 'application/json; charset=utf-8' });
+    response.end(JSON.stringify({ error: 'Method not allowed' }));
+    return true;
+  }
+  const target = `https://poe.ninja/poe2/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Currency`;
+  const result = await cachedFetchText(`overview:${league}`, target, 10000);
+  response.writeHead(result.ok ? 200 : result.status, {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-poe-ninja-cache': result.fromCache ? 'hit' : 'miss',
+    ...(result.stale ? { 'x-poe-ninja-stale': String(result.upstreamStatus || '') } : {})
+  });
+  response.end(result.text);
+  return true;
+}
+
+async function handlePoeNinjaCurrencyDetailsProxy(request, response) {
+  const url = new URL(request.url || '/', 'http://local.poe2-tools');
+  const league = url.searchParams.get('league') || 'Runes of Aldur';
+  const id = url.searchParams.get('id');
+  if (request.method !== 'GET') {
+    response.writeHead(405, { 'content-type': 'application/json; charset=utf-8' });
+    response.end(JSON.stringify({ error: 'Method not allowed' }));
+    return true;
+  }
+  if (!id) {
+    response.writeHead(400, { 'content-type': 'application/json; charset=utf-8' });
+    response.end(JSON.stringify({ error: 'id is required' }));
+    return true;
+  }
+  const target = `https://poe.ninja/poe2/api/economy/exchange/current/details?league=${encodeURIComponent(league)}&type=Currency&id=${encodeURIComponent(id)}`;
+  const result = await cachedFetchText(`details:${league}:${id}`, target, 60000);
+  response.writeHead(200, {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-poe-ninja-cache': result.fromCache ? 'hit' : 'miss',
+    ...(result.stale ? { 'x-poe-ninja-stale': String(result.upstreamStatus || '') } : {})
+  });
+  response.end(result.ok ? result.text : JSON.stringify({ error: 'poe.ninja details unavailable', upstreamStatus: result.status, id }));
+  return true;
+}
+
 function safeFilePath(requestUrl) {
   const url = new URL(requestUrl, 'http://local.poe2-tools');
   const decodedPath = decodeURIComponent(url.pathname);
@@ -93,6 +160,15 @@ function listen(server, host, port) {
 function createServer() {
   return http.createServer(async (request, response) => {
     try {
+      const requestPath = new URL(request.url || '/', 'http://local.poe2-tools').pathname;
+      if (requestPath === '/api/poe-ninja/currency') {
+        await handlePoeNinjaCurrencyProxy(request, response);
+        return;
+      }
+      if (requestPath === '/api/poe-ninja/currency-details') {
+        await handlePoeNinjaCurrencyDetailsProxy(request, response);
+        return;
+      }
       const filePath = safeFilePath(request.url || '/');
       const resolvedFile = filePath ? await existingFilePath(filePath) : null;
       if (!resolvedFile) {

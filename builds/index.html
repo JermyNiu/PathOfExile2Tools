@@ -26,6 +26,9 @@
     color: var(--text);
   }
   header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     min-height: 68px;
     padding: 16px 24px;
     border-bottom: 1px solid var(--line);
@@ -41,6 +44,34 @@
   h2 { font-size: 17px; font-weight: 600; }
   h3 { font-size: 15px; font-weight: 600; }
   a { color: inherit; text-decoration: none; }
+  .brand-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .nav-link {
+    display: inline-flex;
+    min-height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 7px 12px;
+    background: #0b1120;
+    color: var(--text);
+    font-size: 14px;
+  }
+  .nav-link.active {
+    border-color: #0ea5e9;
+    background: #075985;
+  }
   select, input {
     border: 1px solid var(--line);
     border-radius: 6px;
@@ -194,14 +225,23 @@
 </head>
 <body>
 <header>
-  <h1>POE2 Tools / 开荒 BD</h1>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html">首页</a>
+      <a class="nav-link active" href="index.html">开荒</a>
+      <a class="nav-link" href="../tools/hideout-flip.html">藏身处战神</a>
+      <a class="nav-link" href="../tools/value-curve.html">价值曲线</a>
+      <a class="nav-link" href="../tools/gem-flip.html">技能倒卖</a>
+      <a class="nav-link" href="../tools/ninja-import.html">忍者网配置解析</a>
+    </nav>
+  </div>
   <div class="top-controls">
     <label class="control">版本
       <select id="versionSelect" aria-label="版本">
         <option selected>读取中...</option>
       </select>
     </label>
-    <a class="btn" href="../index.html">首页</a>
     <a class="btn" href="../tools/data-update.html">数据更新</a>
   </div>
 </header>

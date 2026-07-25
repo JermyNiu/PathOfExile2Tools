@@ -26,6 +26,9 @@
     color: var(--text);
   }
   header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     min-height: 68px;
     padding: 16px 24px;
     border-bottom: 1px solid var(--line);
@@ -41,6 +44,34 @@
   h2 { font-size: 17px; font-weight: 600; }
   h3 { font-size: 15px; font-weight: 600; }
   a { color: inherit; text-decoration: none; }
+  .brand-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .main-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .nav-link {
+    display: inline-flex;
+    min-height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 7px 12px;
+    background: #0b1120;
+    color: var(--text);
+    font-size: 14px;
+  }
+  .nav-link.active {
+    border-color: #0ea5e9;
+    background: #075985;
+  }
   .badge-row, .nav-row {
     display: flex;
     gap: 8px;
@@ -86,7 +117,7 @@
   }
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
     align-items: stretch;
   }
@@ -111,25 +142,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-  }
-  .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .tab {
-    min-height: 38px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 8px 12px;
-    background: #0b1120;
-    color: var(--text);
-    font: inherit;
-    cursor: pointer;
-  }
-  .tab[aria-selected="true"] {
-    border-color: #0ea5e9;
-    background: #075985;
   }
   .btn {
     display: inline-flex;
@@ -168,6 +180,9 @@
     line-height: 1.45;
   }
   .tab-panel[hidden] {
+    display: none;
+  }
+  .home-data-hydration {
     display: none;
   }
   .build-meta {
@@ -265,7 +280,17 @@
 </head>
 <body>
 <header>
-  <h1>POE2 Tools</h1>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link active" href="index.html">首页</a>
+      <a class="nav-link" href="builds/index.html">开荒</a>
+      <a class="nav-link" href="tools/hideout-flip.html">藏身处战神</a>
+      <a class="nav-link" href="tools/value-curve.html">价值曲线</a>
+      <a class="nav-link" href="tools/gem-flip.html">技能倒卖</a>
+      <a class="nav-link" href="tools/ninja-import.html">忍者网配置解析</a>
+    </nav>
+  </div>
   <div class="top-controls">
     <label class="control">版本
       <select id="versionSelect" aria-label="版本">
@@ -278,10 +303,6 @@
 
 <main class="shell">
   <section class="hero">
-    <div class="panel hero-copy">
-      <h2>流放之路 2 本地工具站</h2>
-      <p>目标是把开荒 BD、藏身处战神金币差价、技能倒卖、忍者网配置解析这些高频决策放进一个可版本回溯的工具里。当前先落地 S05 战术家 Supporting Fire，后续每个赛季保留独立数据。</p>
-    </div>
     <div class="panel">
       <h2>当前数据版本</h2>
       <table class="version-table">
@@ -299,121 +320,18 @@
       <div class="cta-row">
         <a class="btn" href="tools/version-history.html">查看版本历史</a>
         <a class="btn" href="tools/route-review.html">路线复核工作台</a>
-        <a class="btn" href="tools/market-review.html">市场复核工作台</a>
       </div>
     </div>
   </section>
 
-  <section class="panel">
-    <h2>模块</h2>
-    <div class="tabs" role="tablist" aria-label="工具模块">
-      <button class="tab" type="button" role="tab" id="tab-leveling" aria-controls="panel-leveling" aria-selected="true" data-tab="leveling">开荒</button>
-      <button class="tab" type="button" role="tab" id="tab-hideout" aria-controls="panel-hideout" aria-selected="false" data-tab="hideout">藏身处展示</button>
-      <button class="tab" type="button" role="tab" id="tab-gems" aria-controls="panel-gems" aria-selected="false" data-tab="gems">技能倒卖</button>
-      <button class="tab" type="button" role="tab" id="tab-ninja" aria-controls="panel-ninja" aria-selected="false" data-tab="ninja">忍者网配置解析</button>
-    </div>
-
-    <div id="panel-leveling" class="tab-panel" role="tabpanel" aria-labelledby="tab-leveling">
-      <div class="cta-row" style="margin-bottom:12px">
-        <a class="btn primary" href="builds/index.html">打开开荒 BD 列表</a>
-      </div>
-      <div id="levelingCandidateSummary" class="market-summary-grid" style="margin-bottom:12px">
-        <div class="market-summary-item"><span>BD 候选</span><strong>读取中...</strong></div>
-      </div>
-      <div class="grid modules" id="levelingBuildList">
-        <article class="module-card">
-          <span class="status ready">已可用</span>
-          <h3>S05 战术家 Supporting Fire</h3>
-          <div class="build-meta">
-            <span class="badge">佣兵 / 战术家</span>
-            <span class="badge">122 天赋节点</span>
-            <span class="badge">三语言</span>
-          </div>
-          <p>当前已包含详细攻略、装备选择、制作路线，并接入剧情早期、第一次升华、白黄图、红图、毕业各阶段天赋快照。</p>
-          <div class="cta-row">
-            <a class="btn primary" href="builds/tactician-supporting-fire.html">查看详细攻略</a>
-            <a class="btn" href="data/seasons/s05/builds/tactician-supporting-fire.json">查看 BD 数据</a>
-          </div>
-        </article>
-        <article class="module-card">
-          <span class="status planned">待添加</span>
-          <h3>更多开荒 BD</h3>
-          <p>后续每个 BD 都进入这个列表，而不是直接放在首页。列表支持按职业、赛季、预算、手感和版本筛选。</p>
-        </article>
-      </div>
-    </div>
-
-    <div id="panel-hideout" class="tab-panel" role="tabpanel" aria-labelledby="tab-hideout" hidden>
-      <article class="module-card">
-        <span class="status ready">基础可用</span>
-        <h3>藏身处金币倒卖</h3>
-        <p>汇总金币可兑换物品，结合金币成本、额外成本、交易卖价、手续费、流动性和风险，排序当前最值得倒的货。</p>
-        <p class="muted">当前先用样例快照验证金币收益排序，真实行情后续由数据更新脚本写入版本化 market 目录。</p>
-        <div class="market-summary" id="homeHideoutMarketSummary">
-          <div class="market-summary-grid">
-            <div class="market-summary-item"><span>数据类型</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>更新时间</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>条目数</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>最高每万金币收益</span><strong>读取中...</strong></div>
-          </div>
-        </div>
-        <div class="cta-row">
-          <a class="btn primary" href="tools/hideout-flip.html">打开藏身处倒卖</a>
-          <a class="btn" href="tools/market-review.html">市场快照复核</a>
-        </div>
-      </article>
-    </div>
-
-    <div id="panel-gems" class="tab-panel" role="tabpanel" aria-labelledby="tab-gems" hidden>
-      <article class="module-card">
-        <span class="status ready">基础可用</span>
-        <h3>技能倒卖系统</h3>
-        <p>跟踪 21 级技能、热门品质和关键辅助，计算买入成本、卖出价格、费用、净利润、收益率、流动性和成交风险。</p>
-        <p class="muted">当前先用样例快照验证排序流程，真实市场价后续由数据更新脚本写入版本化 market 目录。</p>
-        <div class="market-summary" id="homeGemMarketSummary">
-          <div class="market-summary-grid">
-            <div class="market-summary-item"><span>数据类型</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>更新时间</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>条目数</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>最高 ROI</span><strong>读取中...</strong></div>
-          </div>
-        </div>
-        <div class="market-summary" id="homeSkillCatalogSummary">
-          <div class="market-summary-grid">
-            <div class="market-summary-item"><span>技能目录</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>技能本体</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>辅助宝石</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>详情覆盖</span><strong>读取中...</strong></div>
-          </div>
-        </div>
-        <div class="cta-row">
-          <a class="btn primary" href="tools/gem-flip.html">打开技能倒卖</a>
-          <a class="btn" href="tools/skill-catalog.html">查看技能资料</a>
-          <a class="btn" href="tools/market-review.html">市场快照复核</a>
-        </div>
-      </article>
-    </div>
-
-    <div id="panel-ninja" class="tab-panel" role="tabpanel" aria-labelledby="tab-ninja" hidden>
-      <article class="module-card">
-        <span class="status ready">基础可用</span>
-        <h3>忍者网配置解析</h3>
-        <p>解析玩家导出的 JSON 或可解码文本，拆解版本归属、角色、技能、装备和天赋字段。没有版本字段时，按导入时选择的工具版本保存归属。</p>
-        <p class="muted">当前支持本地解析、BD 对比、版本化归档读取和导出；归档写入通过数据更新页的 dry-run 脚本确认后执行。</p>
-        <div class="market-summary" id="homeNinjaSummary">
-          <div class="market-summary-grid">
-            <div class="market-summary-item"><span>schema</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>parser hints</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>样例覆盖</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>PoB XML</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>当前归档</span><strong>读取中...</strong></div>
-            <div class="market-summary-item"><span>版本匹配</span><strong>读取中...</strong></div>
-          </div>
-        </div>
-        <div class="cta-row"><a class="btn primary" href="tools/ninja-import.html">打开解析器</a></div>
-      </article>
-    </div>
-  </section>
+  <div class="home-data-hydration" aria-hidden="true">
+    <div id="levelingCandidateSummary"></div>
+    <div id="levelingBuildList"></div>
+    <div id="homeHideoutMarketSummary"></div>
+    <div id="homeGemMarketSummary"></div>
+    <div id="homeSkillCatalogSummary"></div>
+    <div id="homeNinjaSummary"></div>
+  </div>
 </main>
 <script src="assets/version-context.js?v=20260722-skill-catalog"></script>
 <script>
@@ -1476,17 +1394,6 @@
       document.getElementById('versionSeason').textContent = error.message;
     });
 
-  document.querySelectorAll('[data-tab]').forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      document.querySelectorAll('[data-tab]').forEach((item) => {
-        item.setAttribute('aria-selected', String(item === tab));
-      });
-      document.querySelectorAll('.tab-panel').forEach((panel) => {
-        panel.hidden = panel.id !== `panel-${target}`;
-      });
-    });
-  });
 </script>
 </body>
 </html>

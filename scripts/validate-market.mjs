@@ -79,6 +79,32 @@ function validateEntryMarketEvidence(entry, label, failures, minListingDepth = 0
   assert(typeof evidence?.depthNote === 'string' && evidence.depthNote.trim().length > 0, `${label} missing marketEvidence.depthNote`, failures);
 }
 
+function validateOptionalTrend(entry, label, failures) {
+  if (entry.trend === undefined) return;
+  const trend = entry.trend;
+  assert(trend && typeof trend === 'object', `${label}.trend should be an object`, failures);
+  assert(typeof trend.provider === 'string' && trend.provider.trim().length > 0, `${label}.trend.provider missing`, failures);
+  assert(typeof trend.league === 'string' && trend.league.trim().length > 0, `${label}.trend.league missing`, failures);
+  assert(isFiniteNumber(trend.currentPrice) && trend.currentPrice >= 0, `${label}.trend.currentPrice invalid`, failures);
+  assert(Number.isInteger(trend.currentQuantity) && trend.currentQuantity >= 0, `${label}.trend.currentQuantity invalid`, failures);
+  for (const key of ['oneHourChangePct', 'sixHourChangePct', 'dayChangePct']) {
+    assert(trend[key] === null || isFiniteNumber(trend[key]), `${label}.trend.${key} invalid`, failures);
+  }
+  assert(Array.isArray(trend.priceLogs), `${label}.trend.priceLogs should be an array`, failures);
+}
+
+function validateOptionalAlerts(entry, label, failures) {
+  if (entry.alerts === undefined) return;
+  assert(Array.isArray(entry.alerts), `${label}.alerts should be an array`, failures);
+  for (const [index, alert] of entry.alerts.entries()) {
+    const alertLabel = `${label}.alerts[${index}]`;
+    assert(['info', 'warning', 'critical'].includes(alert?.level), `${alertLabel}.level invalid`, failures);
+    assert(typeof alert?.type === 'string' && alert.type.trim().length > 0, `${alertLabel}.type missing`, failures);
+    assert(typeof alert?.window === 'string' && alert.window.trim().length > 0, `${alertLabel}.window missing`, failures);
+    assert(isFiniteNumber(alert?.changePct), `${alertLabel}.changePct invalid`, failures);
+  }
+}
+
 function marketEvidenceStats(entries) {
   const evidenceEntries = (entries || []).filter((entry) => entry.marketEvidence);
   if (!evidenceEntries.length) {
@@ -150,6 +176,8 @@ function validateGemFlip(data, file) {
     assert(isFiniteNumber(entry.liquidity) && entry.liquidity >= 0 && entry.liquidity <= 100, `${label} invalid liquidity`, failures);
     assert(isFiniteNumber(entry.risk) && entry.risk >= 0 && entry.risk <= 100, `${label} invalid risk`, failures);
     if (data.source?.type === 'real-snapshot-v1') validateEntryMarketEvidence(entry, label, failures, minListingDepth);
+    validateOptionalTrend(entry, label, failures);
+    validateOptionalAlerts(entry, label, failures);
     const fee = entry.sellPrice * data.feeRate;
     const netProfit = entry.sellPrice - entry.buyPrice - fee;
     const roi = entry.buyPrice > 0 ? netProfit / entry.buyPrice : 0;
@@ -182,6 +210,8 @@ function validateHideoutFlip(data, file) {
     assert(isFiniteNumber(entry.liquidity) && entry.liquidity >= 0 && entry.liquidity <= 100, `${label} invalid liquidity`, failures);
     assert(isFiniteNumber(entry.risk) && entry.risk >= 0 && entry.risk <= 100, `${label} invalid risk`, failures);
     if (data.source?.type === 'real-snapshot-v1') validateEntryMarketEvidence(entry, label, failures, minListingDepth);
+    validateOptionalTrend(entry, label, failures);
+    validateOptionalAlerts(entry, label, failures);
     const fee = entry.sellPrice * data.feeRate;
     const netProfit = entry.sellPrice - entry.cashCost - fee;
     const profitPerGoldUnit = netProfit / entry.goldCost * data.goldUnit;

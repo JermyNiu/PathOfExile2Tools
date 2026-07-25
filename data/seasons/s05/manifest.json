@@ -132,7 +132,7 @@
   },
   "market": {
     "gemFlips": "market/gem-flips.json",
-    "hideoutFlips": "market/hideout-flips.json"
+    "hideoutFlips": "market/snapshots/hideoutFlips-hideout-warrior-poe-ninja-2026-07-24t07.json"
   },
   "ninja": {
     "sampleImport": "ninja/sample-import.json"
