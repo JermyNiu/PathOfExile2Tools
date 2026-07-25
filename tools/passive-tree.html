@@ -10907,6 +10907,11 @@ window.tree_highlight = function(nodes) {
 <script>
 (async function() {
   const stageNames = {
+    'act1-crossbow': { 'zh-CN':'Act 1 弩开荒', 'zh-TW':'Act 1 弩拓荒', en:'Act 1 Crossbow' },
+    'act1-minions': { 'zh-CN':'Act 1 召唤开荒', 'zh-TW':'Act 1 召喚拓荒', en:'Act 1 Minions' },
+    'act2-supporting-fire-start': { 'zh-CN':'Act 2 支援火力启动', 'zh-TW':'Act 2 支援火力啟動', en:'Act 2 Supporting Fire Start' },
+    'act3-maps': { 'zh-CN':'Act 3 到进图', 'zh-TW':'Act 3 到輿圖', en:'Act 3 to Maps' },
+    'deep-late-game': { 'zh-CN':'深后期', 'zh-TW':'深後期', en:'Deep Late Game' },
     'campaign-early': { 'zh-CN':'剧情早期', 'zh-TW':'劇情早期', en:'Early Campaign' },
     'first-ascendancy': { 'zh-CN':'第一次升华', 'zh-TW':'第一次昇華', en:'First Ascendancy' },
     'minion-transition': { 'zh-CN':'召唤转型', 'zh-TW':'召喚轉型', en:'Minion Transition' },
@@ -10963,7 +10968,10 @@ window.tree_highlight = function(nodes) {
 
   function routeListForBuild(manifest, build) {
     const routes = manifest.tree && Array.isArray(manifest.tree.routes) ? manifest.tree.routes : [];
-    return routes.filter(route => route.buildId === build);
+    return routes.filter(route => (
+      route.buildId === build
+      && (route.handTuned || route.stageId === 'endgame')
+    ));
   }
 
   function findRoute(manifest, build, stage) {
@@ -11292,7 +11300,80 @@ window.tree_highlight = function(nodes) {
 	  let currentMode = 'manifest-route';
   let currentRouteReview = null;
 
-  function ui() { return data.ui[currentLang]; }
+  function defaultRouteUi(lang) {
+    const title = data?.meta?.title || stageText(currentRoute || {});
+    const count = data?.nodeIds?.length || 0;
+    const poe2db = data?.meta?.poe2dbVersion || '4.5';
+    const source = currentRoute?.origin === 'mobalytics-kami-step' ? '来源攻略阶段 + 编年史' : '路线文件 + 编年史';
+    const common = {
+      en: {
+        title: title || 'POE2 Passive Tree',
+        nodesBadge: `${count} selected nodes`,
+        buildBadge: 'Mercenary / Tactician',
+        sourceBadge: `${source} ${poe2db}`,
+        search: 'Search node name or stat, e.g. Spirit / Minion / Strength',
+        hint: 'Blue links come from tree_load and yellow nodes from tree_highlight.',
+        waiting: 'Waiting for inline SVG native highlighter...',
+        ready: 'Called inline SVG native tree_load/tree_highlight, highlighted nodes: ',
+        failed: 'Inline SVG native tree_load is not ready.',
+        nodeId: 'Node ID',
+        noStats: 'No explicit stat',
+        none: 'No matching nodes.',
+        headers: ['#', 'Node', 'Type', 'Stats'],
+        language: 'Language',
+        copyNodes: 'Copy nodes',
+        copyUrl: 'Copy link',
+        downloadJson: 'Download JSON',
+        copied: 'Copied',
+        exportTitle: 'Route export'
+      },
+      'zh-CN': {
+        title: title || 'POE2 天赋树',
+        nodesBadge: `${count} 已点节点`,
+        buildBadge: '佣兵 / 战术家',
+        sourceBadge: `${source} ${poe2db}`,
+        search: '搜索节点名或属性，例如 精魂 / 召唤生物 / 力量',
+        hint: '蓝色连线由底图 tree_load 生成，黄色节点由 tree_highlight 生成。',
+        waiting: '等待内联 SVG 原生高亮函数...',
+        ready: '已调用内联 SVG 原生 tree_load/tree_highlight，高亮节点：',
+        failed: '内联 SVG 原生 tree_load 未就绪。',
+        nodeId: '节点 ID',
+        noStats: '无显式属性',
+        none: '没有匹配节点。',
+        headers: ['#', '节点', '类型', '属性'],
+        language: '语言',
+        copyNodes: '复制节点',
+        copyUrl: '复制链接',
+        downloadJson: '下载 JSON',
+        copied: '已复制',
+        exportTitle: '路线导出'
+      },
+      'zh-TW': {
+        title: title || 'POE2 天賦樹',
+        nodesBadge: `${count} 已配置節點`,
+        buildBadge: '傭兵 / 戰術家',
+        sourceBadge: `${source} ${poe2db}`,
+        search: '搜尋節點名稱或屬性，例如 精魂 / 召喚物 / 力量',
+        hint: '藍色連線由底圖 tree_load 生成，黃色節點由 tree_highlight 生成。',
+        waiting: '等待內嵌 SVG 原生高亮函式...',
+        ready: '已呼叫內嵌 SVG 原生 tree_load/tree_highlight，高亮節點：',
+        failed: '內嵌 SVG 原生 tree_load 尚未就緒。',
+        nodeId: '節點 ID',
+        noStats: '無明確屬性',
+        none: '沒有符合的節點。',
+        headers: ['#', '節點', '類型', '屬性'],
+        language: '語言',
+        copyNodes: '複製節點',
+        copyUrl: '複製連結',
+        downloadJson: '下載 JSON',
+        copied: '已複製',
+        exportTitle: '路線匯出'
+      }
+    };
+    return common[lang] || common['zh-CN'];
+  }
+
+  function ui() { return data.ui?.[currentLang] || defaultRouteUi(currentLang); }
   function nodes() { return data.locales[currentLang]; }
   function activeNode() { return nodes().find(node => node.id === activeId) || nodes()[0]; }
   function esc(value) { return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -11314,11 +11395,6 @@ window.tree_highlight = function(nodes) {
       if (currentLang === 'zh-TW') return '候選路線檔案';
       return '候选路线文件';
     }
-    if (route.handTuned) {
-      if (currentLang === 'en') return 'Hand tuned';
-      if (currentLang === 'zh-TW') return '已手調';
-      return '已手调';
-    }
     if (route.origin === 'projected-from-endgame-order') {
       if (currentLang === 'en') return 'Projected from endgame order';
       if (currentLang === 'zh-TW') return '終局順序投影';
@@ -11328,6 +11404,16 @@ window.tree_highlight = function(nodes) {
       if (currentLang === 'en') return 'Imported from PoB endgame';
       if (currentLang === 'zh-TW') return 'PoB 終局匯入';
       return 'PoB 终局导入';
+    }
+    if (route.origin === 'mobalytics-kami-step') {
+      if (currentLang === 'en') return 'Source guide step';
+      if (currentLang === 'zh-TW') return '來源攻略階段';
+      return '来源攻略阶段';
+    }
+    if (route.handTuned) {
+      if (currentLang === 'en') return 'Hand tuned';
+      if (currentLang === 'zh-TW') return '已手調';
+      return '已手调';
     }
     return route.origin || '-';
   }
@@ -11354,7 +11440,7 @@ window.tree_highlight = function(nodes) {
       routeMeta.innerHTML = `
         <strong>${labels.title}</strong>
         <div>${labels.routeFile}</div>
-        <div>${labels.source}：${esc(routeOriginLabel(currentRoute))} / ${currentRoute.handTuned ? '已手调' : '待手调'}</div>
+        <div>${labels.source}：${esc(routeOriginLabel(currentRoute))}</div>
         ${review ? `<div>${labels.review}：${esc(review.status)} / ${esc(review.reason)}</div>` : `<div>${labels.review}：-</div>`}
         ${checks.length ? `<div>${labels.checks}：${esc(checks.slice(0, 2).join('；'))}</div>` : ''}
       `;
@@ -11366,9 +11452,21 @@ window.tree_highlight = function(nodes) {
     }
     const review = currentRouteReview;
     const checks = review?.manualChecks || [];
+    if (currentRoute.origin === 'mobalytics-kami-step') {
+      routeMeta.innerHTML = `
+        <strong>${labels.title}</strong>
+        <div>${labels.source}：${esc(routeOriginLabel(currentRoute))}</div>
+        <div>${esc(stageText(currentRoute))}</div>
+      `;
+      document.body.dataset.treeRouteOrigin = currentRoute.origin || '';
+      document.body.dataset.treeRouteHandTuned = String(Boolean(currentRoute.handTuned));
+      document.body.dataset.treeRouteReviewStatus = 'source-guide-step';
+      document.body.dataset.treeRouteReviewCheckCount = '0';
+      return;
+    }
     routeMeta.innerHTML = `
       <strong>${labels.title}</strong>
-      <div>${labels.source}：${esc(routeOriginLabel(currentRoute))} / ${currentRoute.handTuned ? '已手调' : '待手调'}</div>
+      <div>${labels.source}：${esc(routeOriginLabel(currentRoute))}</div>
       ${review ? `<div>${labels.review}：${esc(review.status)} / ${esc(review.reason)}</div>` : `<div>${labels.review}：-</div>`}
       ${checks.length ? `<div>${labels.checks}：${esc(checks.slice(0, 2).join('；'))}</div>` : ''}
     `;

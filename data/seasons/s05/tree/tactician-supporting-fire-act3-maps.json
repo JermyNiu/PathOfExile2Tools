@@ -1,0 +1,2793 @@
+{
+  "nodeIds": [
+    59779,
+    42350,
+    61438,
+    28510,
+    45969,
+    25374,
+    16168,
+    54232,
+    7721,
+    44659,
+    36629,
+    26532,
+    41657,
+    45992,
+    17029,
+    60620,
+    25482,
+    16725,
+    27373,
+    53405,
+    17468,
+    22616,
+    51052,
+    22558,
+    55933,
+    32194,
+    49357,
+    38856,
+    50423,
+    46358,
+    30979,
+    44733,
+    1433,
+    95,
+    8737,
+    41511,
+    35560,
+    6077,
+    35645,
+    15782,
+    46628,
+    40894,
+    1218,
+    14945,
+    58651,
+    5777,
+    51702,
+    22975,
+    26725,
+    63114,
+    21387,
+    53719,
+    59777,
+    10362,
+    9163,
+    44952,
+    27082,
+    3446,
+    62498,
+    51561,
+    7716,
+    11786,
+    29447,
+    18157,
+    25927,
+    32847,
+    34840,
+    29148,
+    11679,
+    15885,
+    22783,
+    17501,
+    54036,
+    30720,
+    27726,
+    32416,
+    46023,
+    26324,
+    27950,
+    10830,
+    59589
+  ],
+  "classId": 5,
+  "ascendancyId": 1,
+  "alternateAscendancyId": 0,
+  "locales": {
+    "en": [
+      {
+        "order": 1,
+        "id": 59779,
+        "name": "Armour and Evasion",
+        "kind": "Normal",
+        "stats": [
+          "+10 to [Armour]",
+          "+8 to [Evasion] Rating"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 42350,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 61438,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 28510,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 45969,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 25374,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 16168,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 54232,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 7721,
+        "name": "Relentless",
+        "kind": "Notable",
+        "stats": [
+          "15% increased [Armour]",
+          "Regenerate 0.5% of maximum Life per second",
+          "+10 to [Strength]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 44659,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 36629,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 26532,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 41657,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 45992,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 17029,
+        "name": "Blade Catcher",
+        "kind": "Notable",
+        "stats": [
+          "Defend with 200% of [Armour] against [Critical|Critical Hits]",
+          "+15 to [Strength]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 60620,
+        "name": "Strength",
+        "kind": "Normal",
+        "stats": [
+          "+8 to [Strength]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 25482,
+        "name": "Beef",
+        "kind": "Notable",
+        "stats": [
+          "+25 to [Strength]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 16725,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 27373,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 53405,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 17468,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 22,
+        "id": 22616,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 23,
+        "id": 51052,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 24,
+        "id": 22558,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 25,
+        "id": 55933,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 26,
+        "id": 32194,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 27,
+        "id": 49357,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 28,
+        "id": 38856,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 29,
+        "id": 50423,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 30,
+        "id": 46358,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 31,
+        "id": 30979,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 32,
+        "id": 44733,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 33,
+        "id": 1433,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 34,
+        "id": 95,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 35,
+        "id": 8737,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 36,
+        "id": 41511,
+        "name": "Command Skill Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 15% increased Damage with [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 37,
+        "id": 35560,
+        "name": "At your Command",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage with [Command] Skills for each different type of [Persistent] [Minion] in your [Presence]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 38,
+        "id": 6077,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 39,
+        "id": 35645,
+        "name": "Command Skill Cooldown",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 20% increased [CooldownRecovery|Cooldown Recovery Rate] for [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 40,
+        "id": 15782,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 41,
+        "id": 46628,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 42,
+        "id": 40894,
+        "name": "Minion Life",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 10% increased maximum Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 43,
+        "id": 1218,
+        "name": "Minion Life",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] have 10% increased maximum Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 44,
+        "id": 14945,
+        "name": "Growing Swarm",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have 20% increased Area of Effect",
+          "Minions have 20% increased Cooldown Recovery Rate"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 45,
+        "id": 58651,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage",
+          "Druid: 12% increased [Armour]",
+          "Druid: 12% increased maximum [EnergyShield|Energy Shield]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 46,
+        "id": 5777,
+        "name": "Deadly Swarm",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] deal 15% increased Damage",
+          "[Minion|Minions] have 20% increased [Critical|Critical Hit Chance]",
+          "Druid: 16% increased [Armour]",
+          "Druid: 16% increased maximum [EnergyShield|Energy Shield]",
+          "Druid: 20% increased [AilmentThreshold|Elemental Ailment Threshold]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 47,
+        "id": 51702,
+        "name": "Strength",
+        "kind": "Normal",
+        "stats": [
+          "+8 to [Strength]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 48,
+        "id": 22975,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 49,
+        "id": 26725,
+        "name": "[Jewel] Socket",
+        "kind": "JewelSocket",
+        "stats": [],
+        "asc": ""
+      },
+      {
+        "order": 50,
+        "id": 63114,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 51,
+        "id": 21387,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 52,
+        "id": 53719,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 53,
+        "id": 59777,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 54,
+        "id": 10362,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 55,
+        "id": 9163,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "18% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 56,
+        "id": 44952,
+        "name": "Made to Last",
+        "kind": "Notable",
+        "stats": [
+          "30% increased [Armour]",
+          "5% of Physical Damage prevented [Recoup|Recouped] as Life"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 57,
+        "id": 27082,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 58,
+        "id": 3446,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 59,
+        "id": 62498,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 60,
+        "id": 51561,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 61,
+        "id": 7716,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "10% increased [Armour]",
+          "+5% of [Armour|Armour] also applies to [ElementalDamage|Elemental Damage]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 62,
+        "id": 11786,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "10% increased [Armour]",
+          "+5% of [Armour|Armour] also applies to [ElementalDamage|Elemental Damage]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 63,
+        "id": 29447,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "10% increased [Armour]",
+          "+5% of [Armour|Armour] also applies to [ElementalDamage|Elemental Damage]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 64,
+        "id": 18157,
+        "name": "Tempered Defences",
+        "kind": "Notable",
+        "stats": [
+          "25% increased [Armour]",
+          "+15% of [Armour|Armour] also applies to [ElementalDamage|Elemental Damage]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 65,
+        "id": 25927,
+        "name": "Command Skill Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 20% increased Damage with [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 66,
+        "id": 32847,
+        "name": "Command Skill Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 20% increased Damage with [Command] Skills"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 67,
+        "id": 34840,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 68,
+        "id": 29148,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 69,
+        "id": 11679,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 70,
+        "id": 15885,
+        "name": "Attribute",
+        "kind": "Normal",
+        "stats": [
+          "+5 to any [Attributes|Attribute]",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 71,
+        "id": 22783,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 72,
+        "id": 17501,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 73,
+        "id": 54036,
+        "name": "Minion Damage",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|Minions] deal 10% increased Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 74,
+        "id": 30720,
+        "name": "Entropic Incarnation",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|Minions] have +13% to [Chaos] [Resistances|Resistance]",
+          "[Minion|Minions] gain 10% of [Physical|Physical] Damage as [Chaos|Chaos] Damage"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 75,
+        "id": 27726,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 76,
+        "id": 32416,
+        "name": "Sturdy Metal",
+        "kind": "Notable",
+        "stats": [
+          "80% increased [Armour] from Equipped Body Armour"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 77,
+        "id": 46023,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 78,
+        "id": 26324,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "15% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 79,
+        "id": 27950,
+        "name": "Polished Iron",
+        "kind": "Notable",
+        "stats": [
+          "25% increased [Armour]",
+          "Gain additional [StunThreshold|Stun Threshold] equal to 30% of [ItemArmour|Item Armour] on [EquipArmour|Equipped Armour Items]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 80,
+        "id": 10830,
+        "name": "Armour",
+        "kind": "Normal",
+        "stats": [
+          "18% increased [Armour]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 81,
+        "id": 59589,
+        "name": "Heavy Armour",
+        "kind": "Notable",
+        "stats": [
+          "Gain [Armour] equal to 150% of total [Strength] Requirements of Equipped Boots, Gloves and Helmet"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-CN": [
+      {
+        "order": 1,
+        "id": 59779,
+        "name": "护甲和闪避",
+        "kind": "Normal",
+        "stats": [
+          "+10 护甲",
+          "+8 点闪避值"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 42350,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 61438,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 28510,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 45969,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 25374,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 16168,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 54232,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 7721,
+        "name": "冷酷无情",
+        "kind": "Notable",
+        "stats": [
+          "护甲提高 15%",
+          "生命每秒再生 0.5%",
+          "+10 力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 44659,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 36629,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 26532,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 41657,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 45992,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 17029,
+        "name": "空手入白刃",
+        "kind": "Notable",
+        "stats": [
+          "对暴击以 200% 的护甲防御",
+          "+15 力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 60620,
+        "name": "力量",
+        "kind": "Normal",
+        "stats": [
+          "+8 力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 25482,
+        "name": "壮汉",
+        "kind": "Notable",
+        "stats": [
+          "+25 力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 16725,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 27373,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 53405,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 17468,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 22,
+        "id": 22616,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 23,
+        "id": 51052,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 24,
+        "id": 22558,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 25,
+        "id": 55933,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 26,
+        "id": 32194,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 27,
+        "id": 49357,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 28,
+        "id": 38856,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 29,
+        "id": 50423,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 30,
+        "id": 46358,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 31,
+        "id": 30979,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 32,
+        "id": 44733,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 33,
+        "id": 1433,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 34,
+        "id": 95,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 35,
+        "id": 8737,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 36,
+        "id": 41511,
+        "name": "命令技能伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物使用命令技能造成的伤害提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 37,
+        "id": 35560,
+        "name": "悉听遵命",
+        "kind": "Notable",
+        "stats": [
+          "在场范围内每有一种不同类型的永久性召唤生物，召唤生物使用命令技能造成的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 38,
+        "id": 6077,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 39,
+        "id": 35645,
+        "name": "命令技能冷却",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的命令技能的冷却回复速度提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 40,
+        "id": 15782,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 41,
+        "id": 46628,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 42,
+        "id": 40894,
+        "name": "召唤生物生命",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的生命上限提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 43,
+        "id": 1218,
+        "name": "召唤生物生命",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的生命上限提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 44,
+        "id": 14945,
+        "name": "成群结队",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物的效果区域提高 20%",
+          "召唤生物的冷却回复率提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 45,
+        "id": 58651,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%",
+          "德鲁伊: 护甲提高 12%",
+          "德鲁伊: 能量护盾上限提高 12%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 46,
+        "id": 5777,
+        "name": "群凶毕至",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物的伤害提高 15%",
+          "召唤生物的暴击率提高 20%",
+          "德鲁伊: 护甲提高 16%",
+          "德鲁伊: 能量护盾上限提高 16%",
+          "德鲁伊: 元素异常状态阈值提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 47,
+        "id": 51702,
+        "name": "力量",
+        "kind": "Normal",
+        "stats": [
+          "+8 力量"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 48,
+        "id": 22975,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 49,
+        "id": 26725,
+        "name": "[Jewel|珠宝]插槽",
+        "kind": "JewelSocket",
+        "stats": [],
+        "asc": ""
+      },
+      {
+        "order": 50,
+        "id": 63114,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 51,
+        "id": 21387,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 52,
+        "id": 53719,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 53,
+        "id": 59777,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 54,
+        "id": 10362,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 55,
+        "id": 9163,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 18%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 56,
+        "id": 44952,
+        "name": "经久不衰",
+        "kind": "Notable",
+        "stats": [
+          "护甲提高 30%",
+          "阻挡的物理伤害的 5% 吸纳为生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 57,
+        "id": 27082,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 58,
+        "id": 3446,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 59,
+        "id": 62498,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 60,
+        "id": 51561,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 61,
+        "id": 7716,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 10%",
+          "+5% 的护甲同样作用于元素伤害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 62,
+        "id": 11786,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 10%",
+          "+5% 的护甲同样作用于元素伤害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 63,
+        "id": 29447,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 10%",
+          "+5% 的护甲同样作用于元素伤害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 64,
+        "id": 18157,
+        "name": "钢化防御",
+        "kind": "Notable",
+        "stats": [
+          "护甲提高 25%",
+          "+15% 的护甲同样作用于元素伤害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 65,
+        "id": 25927,
+        "name": "命令技能伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物使用命令技能造成的伤害提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 66,
+        "id": 32847,
+        "name": "命令技能伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物使用命令技能造成的伤害提高 20%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 67,
+        "id": 34840,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 68,
+        "id": 29148,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 69,
+        "id": 11679,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 70,
+        "id": 15885,
+        "name": "属性",
+        "kind": "Normal",
+        "stats": [
+          "+5 任意属性",
+          "\n+5 力量\n+5 敏捷\n+5 智慧"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 71,
+        "id": 22783,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 72,
+        "id": 17501,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 73,
+        "id": 54036,
+        "name": "召唤生物伤害",
+        "kind": "Normal",
+        "stats": [
+          "召唤生物的伤害提高 10%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 74,
+        "id": 30720,
+        "name": "熵能化身",
+        "kind": "Notable",
+        "stats": [
+          "召唤生物有 +13% 混沌抗性",
+          "召唤生物将物理伤害的 10% 视为额外混沌伤害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 75,
+        "id": 27726,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 76,
+        "id": 32416,
+        "name": "刚毅金属",
+        "kind": "Notable",
+        "stats": [
+          "装备身体护甲的护甲提高 80%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 77,
+        "id": 46023,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 78,
+        "id": 26324,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 15%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 79,
+        "id": 27950,
+        "name": "辉光之钢",
+        "kind": "Notable",
+        "stats": [
+          "护甲提高 25%",
+          "获得额外晕眩阈值，相当于已装备护甲物品上物品护甲的 30%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 80,
+        "id": 10830,
+        "name": "护甲",
+        "kind": "Normal",
+        "stats": [
+          "护甲提高 18%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 81,
+        "id": 59589,
+        "name": "全副武装",
+        "kind": "Notable",
+        "stats": [
+          "获得的护甲等同于装备的鞋子、手套与头盔的力量需求总和的 150%"
+        ],
+        "asc": ""
+      }
+    ],
+    "zh-TW": [
+      {
+        "order": 1,
+        "id": 59779,
+        "name": "護甲和閃避",
+        "kind": "Normal",
+        "stats": [
+          "+10[Armour|護甲值]",
+          "+8[Evasion|閃避]值"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 2,
+        "id": 42350,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 3,
+        "id": 61438,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 4,
+        "id": 28510,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 5,
+        "id": 45969,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 6,
+        "id": 25374,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 7,
+        "id": 16168,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 8,
+        "id": 54232,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 9,
+        "id": 7721,
+        "name": "冷酷無情",
+        "kind": "Notable",
+        "stats": [
+          "增加15%[Armour|護甲值]",
+          "每秒回復0.5%生命",
+          "+10[Strength|力量]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 10,
+        "id": 44659,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 11,
+        "id": 36629,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 12,
+        "id": 26532,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 13,
+        "id": 41657,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 14,
+        "id": 45992,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 15,
+        "id": 17029,
+        "name": "捕刃者",
+        "kind": "Notable",
+        "stats": [
+          "以200%的[Armour|護甲值]抵抗[Critical|暴擊]",
+          "+15[Strength|力量]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 16,
+        "id": 60620,
+        "name": "力量",
+        "kind": "Normal",
+        "stats": [
+          "+8[Strength|力量]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 17,
+        "id": 25482,
+        "name": "壯漢",
+        "kind": "Notable",
+        "stats": [
+          "+25[Strength|力量]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 18,
+        "id": 16725,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 19,
+        "id": 27373,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 20,
+        "id": 53405,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 21,
+        "id": 17468,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 22,
+        "id": 22616,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 23,
+        "id": 51052,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 24,
+        "id": 22558,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 25,
+        "id": 55933,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 26,
+        "id": 32194,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 27,
+        "id": 49357,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 28,
+        "id": 38856,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 29,
+        "id": 50423,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 30,
+        "id": 46358,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 31,
+        "id": 30979,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 32,
+        "id": 44733,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 33,
+        "id": 1433,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 34,
+        "id": 95,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 35,
+        "id": 8737,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 36,
+        "id": 41511,
+        "name": "指令技能傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Minion|召喚物]的[Command|號令]技能造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 37,
+        "id": 35560,
+        "name": "任你指揮",
+        "kind": "Notable",
+        "stats": [
+          "在你[Presence|存在範圍]內每種不同的[Persistent|持續][Minion|召喚物]都會增加10%[Minion|召喚物]的[Command|號令]技能傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 38,
+        "id": 6077,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 39,
+        "id": 35645,
+        "name": "指令技能冷卻時間",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能[CooldownRecovery|冷卻時間恢復率]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 40,
+        "id": 15782,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 41,
+        "id": 46628,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 42,
+        "id": 40894,
+        "name": "召喚物生命",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|召喚物]增加10%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 43,
+        "id": 1218,
+        "name": "召喚物生命",
+        "kind": "Normal",
+        "stats": [
+          "[Minion|召喚物]增加10%最大生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 44,
+        "id": 14945,
+        "name": "人海戰術",
+        "kind": "Notable",
+        "stats": [
+          "增加20%[Minion|召喚物]的範圍效果",
+          "增加20%召喚物的冷卻時間恢復率"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 45,
+        "id": 58651,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害",
+          "德魯伊: 增加12%[Armour|護甲值]",
+          "德魯伊: 增加12%最大[EnergyShield|能量護盾]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 46,
+        "id": 5777,
+        "name": "致命群襲",
+        "kind": "Notable",
+        "stats": [
+          "增加15%[Minion|召喚物]造成的傷害",
+          "增加20%[Minion|召喚物]的[Critical|暴擊率]",
+          "德魯伊: 增加16%[Armour|護甲值]",
+          "德魯伊: 增加16%最大[EnergyShield|能量護盾]",
+          "德魯伊: 增加20%[AilmentThreshold|元素異常狀態門檻]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 47,
+        "id": 51702,
+        "name": "力量",
+        "kind": "Normal",
+        "stats": [
+          "+8[Strength|力量]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 48,
+        "id": 22975,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 49,
+        "id": 26725,
+        "name": "[Jewel|珠寶]插槽",
+        "kind": "JewelSocket",
+        "stats": [],
+        "asc": ""
+      },
+      {
+        "order": 50,
+        "id": 63114,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 51,
+        "id": 21387,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 52,
+        "id": 53719,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 53,
+        "id": 59777,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 54,
+        "id": 10362,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 55,
+        "id": 9163,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加18%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 56,
+        "id": 44952,
+        "name": "經久耐用",
+        "kind": "Notable",
+        "stats": [
+          "增加30%[Armour|護甲值]",
+          "抵禦物理傷害時，其5%[Recoup|補償]為生命"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 57,
+        "id": 27082,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 58,
+        "id": 3446,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 59,
+        "id": 62498,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 60,
+        "id": 51561,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 61,
+        "id": 7716,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Armour|護甲值]",
+          "+5%的[Armour|護甲值]也會套用至[ElementalDamage|元素傷害]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 62,
+        "id": 11786,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Armour|護甲值]",
+          "+5%的[Armour|護甲值]也會套用至[ElementalDamage|元素傷害]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 63,
+        "id": 29447,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Armour|護甲值]",
+          "+5%的[Armour|護甲值]也會套用至[ElementalDamage|元素傷害]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 64,
+        "id": 18157,
+        "name": "緩和防禦",
+        "kind": "Notable",
+        "stats": [
+          "增加25%[Armour|護甲值]",
+          "+15%的[Armour|護甲值]也會套用至[ElementalDamage|元素傷害]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 65,
+        "id": 25927,
+        "name": "指令技能傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 66,
+        "id": 32847,
+        "name": "指令技能傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加20%[Minion|召喚物]的[Command|號令]技能造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 67,
+        "id": 34840,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 68,
+        "id": 29148,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 69,
+        "id": 11679,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 70,
+        "id": 15885,
+        "name": "能力",
+        "kind": "Normal",
+        "stats": [
+          "任何[Attributes|能力值]+5",
+          "\nbase strength [5]\nbase dexterity [5]\nbase intelligence [5]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 71,
+        "id": 22783,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 72,
+        "id": 17501,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 73,
+        "id": 54036,
+        "name": "召喚物傷害",
+        "kind": "Normal",
+        "stats": [
+          "增加10%[Minion|召喚物]造成的傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 74,
+        "id": 30720,
+        "name": "熵熱化身",
+        "kind": "Notable",
+        "stats": [
+          "[Minion|召喚物]+13%[Chaos|混沌][Resistances|抗性]",
+          "[Minion|召喚物]獲得等同於10%[Physical|物理]傷害的[Chaos|混沌]傷害"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 75,
+        "id": 27726,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 76,
+        "id": 32416,
+        "name": "堅固金屬",
+        "kind": "Notable",
+        "stats": [
+          "來自已裝備身體護甲的[Armour|護甲值]增加80%"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 77,
+        "id": 46023,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 78,
+        "id": 26324,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加15%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 79,
+        "id": 27950,
+        "name": "拋光之鋼",
+        "kind": "Notable",
+        "stats": [
+          "增加25%[Armour|護甲值]",
+          "獲得等同於[EquipArmour|已裝備護甲物品]的[ItemArmour|物品護甲值]30%的額外[StunThreshold|暈眩門檻]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 80,
+        "id": 10830,
+        "name": "護甲",
+        "kind": "Normal",
+        "stats": [
+          "增加18%[Armour|護甲值]"
+        ],
+        "asc": ""
+      },
+      {
+        "order": 81,
+        "id": 59589,
+        "name": "沉重鎧甲",
+        "kind": "Notable",
+        "stats": [
+          "獲得等同於裝備鞋子、手套與頭盔總[Strength|力量]需求150%的[Armour|護甲]"
+        ],
+        "asc": ""
+      }
+    ]
+  },
+  "meta": {
+    "id": "tactician-supporting-fire-act3-maps",
+    "buildId": "tactician-supporting-fire",
+    "stageId": "act3-maps",
+    "season": "S05",
+    "versionId": "s05-tree-4.5",
+    "title": "战术家支援火力 - Act 3 到进图",
+    "nodes": 81,
+    "nodeCount": 81,
+    "source": "Mobalytics build data mirrored by Kami Labs BUILD-1070 tree-viewer, extracted 2026-07-25.",
+    "sourceBuildId": "aa3ec835-b8e9-40ae-9704-6758f0b8fa58",
+    "sourceBuildName": "[0.5] Supporting Fire Only Tact - One Button King",
+    "sourceStep": "Act 3 - Maps",
+    "sourceVariantId": "1",
+    "origin": "mobalytics-kami-step",
+    "overridePolicy": "manual-review-required",
+    "handTuned": true,
+    "generatedAt": "2026-07-25",
+    "notables": [
+      {
+        "id": 7721,
+        "name": "Relentless"
+      },
+      {
+        "id": 17029,
+        "name": "Blade Catcher"
+      },
+      {
+        "id": 25482,
+        "name": "Beef"
+      },
+      {
+        "id": 35560,
+        "name": "At your Command"
+      },
+      {
+        "id": 14945,
+        "name": "Growing Swarm"
+      },
+      {
+        "id": 5777,
+        "name": "Deadly Swarm"
+      },
+      {
+        "id": 44952,
+        "name": "Made to Last"
+      },
+      {
+        "id": 18157,
+        "name": "Tempered Defences"
+      },
+      {
+        "id": 30720,
+        "name": "Entropic Incarnation"
+      },
+      {
+        "id": 32416,
+        "name": "Sturdy Metal"
+      },
+      {
+        "id": 27950,
+        "name": "Polished Iron"
+      },
+      {
+        "id": 59589,
+        "name": "Heavy Armour"
+      }
+    ],
+    "ascendancy": {
+      "nodeCount": 5,
+      "selectedNodeIds": [
+        36252,
+        762,
+        1988,
+        29162,
+        15044
+      ],
+      "notables": [
+        {
+          "id": 1988,
+          "name": "Unleash Hell!"
+        },
+        {
+          "id": 15044,
+          "name": "A Solid Plan"
+        }
+      ]
+    },
+    "review": {
+      "status": "来源阶段路线",
+      "reason": "节点来自来源攻略的分阶段 tree-viewer，不再使用终局 PoB 前缀截断。",
+      "useUntil": "按该来源攻略执行；如果游戏版本或原作者更新 BUILD-1070，需要重新抽取。",
+      "manualChecks": [
+        "确认当前阶段名称和来源 tree-viewer step 一致。",
+        "确认 Act 1 弩开荒和 Act 1 召唤开荒是替代方案，不串成一条路线。",
+        "确认 Act 2 后的支援火力转型包含释放地狱升华和召唤主树。"
+      ]
+    }
+  }
+}

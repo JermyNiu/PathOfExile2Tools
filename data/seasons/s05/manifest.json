@@ -25,57 +25,69 @@
     "routes": [
       {
         "buildId": "tactician-supporting-fire",
-        "stageId": "campaign-early",
-        "data": "tree/tactician-supporting-fire-campaign-early.json",
-        "nodes": 21,
+        "stageId": "act1-crossbow",
+        "data": "tree/tactician-supporting-fire-act1-crossbow.json",
+        "nodes": 32,
         "status": "ready",
-        "source": "projected-from-endgame-order",
-        "origin": "projected-from-endgame-order",
-        "overridePolicy": "replaceable-until-hand-tuned",
-        "handTuned": false
+        "source": "mobalytics-kami-step",
+        "origin": "mobalytics-kami-step",
+        "overridePolicy": "manual-review-required",
+        "handTuned": true
       },
       {
         "buildId": "tactician-supporting-fire",
-        "stageId": "first-ascendancy",
-        "data": "tree/tactician-supporting-fire-first-ascendancy.json",
-        "nodes": 38,
+        "stageId": "act1-minions",
+        "data": "tree/tactician-supporting-fire-act1-minions.json",
+        "nodes": 30,
         "status": "ready",
-        "source": "projected-from-endgame-order",
-        "origin": "projected-from-endgame-order",
-        "overridePolicy": "replaceable-until-hand-tuned",
-        "handTuned": false
+        "source": "mobalytics-kami-step",
+        "origin": "mobalytics-kami-step",
+        "overridePolicy": "manual-review-required",
+        "handTuned": true
       },
       {
         "buildId": "tactician-supporting-fire",
-        "stageId": "yellow-maps",
-        "data": "tree/tactician-supporting-fire-yellow-maps.json",
-        "nodes": 68,
+        "stageId": "act2-supporting-fire-start",
+        "data": "tree/tactician-supporting-fire-act2-supporting-fire-start.json",
+        "nodes": 39,
         "status": "ready",
-        "source": "projected-from-endgame-order",
-        "origin": "projected-from-endgame-order",
-        "overridePolicy": "replaceable-until-hand-tuned",
-        "handTuned": false
+        "source": "mobalytics-kami-step",
+        "origin": "mobalytics-kami-step",
+        "overridePolicy": "manual-review-required",
+        "handTuned": true
       },
       {
         "buildId": "tactician-supporting-fire",
-        "stageId": "red-maps",
-        "data": "tree/tactician-supporting-fire-red-maps.json",
-        "nodes": 96,
+        "stageId": "act3-maps",
+        "data": "tree/tactician-supporting-fire-act3-maps.json",
+        "nodes": 81,
         "status": "ready",
-        "source": "projected-from-endgame-order",
-        "origin": "projected-from-endgame-order",
-        "overridePolicy": "replaceable-until-hand-tuned",
-        "handTuned": false
+        "source": "mobalytics-kami-step",
+        "origin": "mobalytics-kami-step",
+        "overridePolicy": "manual-review-required",
+        "handTuned": true
       },
       {
         "buildId": "tactician-supporting-fire",
         "stageId": "endgame",
         "data": "tree/tactician-supporting-fire-endgame.json",
-        "nodes": 122,
+        "nodes": 102,
         "status": "ready",
-        "origin": "imported-from-pob-endgame",
+        "source": "mobalytics-kami-step",
+        "origin": "mobalytics-kami-step",
         "overridePolicy": "manual-review-required",
-        "handTuned": false
+        "handTuned": true
+      },
+      {
+        "buildId": "tactician-supporting-fire",
+        "stageId": "deep-late-game",
+        "data": "tree/tactician-supporting-fire-deep-late-game.json",
+        "nodes": 123,
+        "status": "ready",
+        "source": "mobalytics-kami-step",
+        "origin": "mobalytics-kami-step",
+        "overridePolicy": "manual-review-required",
+        "handTuned": true
       }
     ]
   },

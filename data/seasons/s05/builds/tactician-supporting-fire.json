@@ -21,7 +21,10 @@
   },
   "source": {
     "pobb": "https://pobb.in/WeXbUcAmS0bL",
-    "notes": "Current HTML guide was manually written from the imported PoB and local tree data."
+    "notes": "Guide stages and route node sets were extracted from Mobalytics/Kami BUILD-1070 tree-viewer on 2026-07-25.",
+    "mobalytics": "https://mobalytics.gg/poe-2/builds/supporting-fire-only-tact-one-button-king",
+    "kamiMirror": "https://kami-labs.fr/en/path-of-exile-2/builds-path-of-exile-2/build-mercenaire-supporting-fire-tactician-saison-5-2/",
+    "kamiTreeViewer": "https://kami-labs.fr/wp-content/uploads/poe2-builds/BUILD-1070/tree-viewer.html?embed=1&lang=en"
   },
   "overview": {
     "difficulty": {
@@ -53,36 +56,36 @@
     },
     "strengths": {
       "zhCN": [
-        "阶段天赋、装备、技能替换和制作路线已经拆成数据",
-        "天赋树可按剧情早期、第一次升华、白黄图、红图和毕业切换",
-        "技能本体和辅助宝石已经分开，避免把辅助当成可单独使用的技能"
+        "开荒阶段已按来源攻略拆成 Act 1 弩/召唤、Act 2 支援火力启动、Act 3 到进图。",
+        "天赋树不再使用终局前缀截断，正式路线来自来源 tree-viewer 的分阶段节点。",
+        "技能本体和辅助宝石已经分开，避免把辅助当成可单独使用的技能。"
       ],
       "zhTW": [
-        "階段天賦、裝備、技能替換和製作路線已經拆成資料",
-        "天賦樹可按劇情早期、第一次昇華、白黃圖、紅圖和畢業切換",
-        "技能本體和輔助寶石已經分開，避免把輔助當成可單獨使用的技能"
+        "拓荒階段已按來源攻略拆成 Act 1 弩/召喚、Act 2 支援火力啟動、Act 3 到輿圖。",
+        "天賦樹不再使用終局前綴截斷，正式路線來自來源 tree-viewer 的分階段節點。",
+        "技能本體和輔助寶石已經分開，避免把輔助當成可單獨使用的技能。"
       ],
       "en": [
-        "Staged passives, gear, skill swaps, and crafting are data-backed",
-        "Passive tree switches between early campaign, first ascendancy, yellow maps, red maps, and endgame",
-        "Active skills and support gems are separated so supports are not treated as standalone skills"
+        "Leveling is split by the source guide into Act 1 Crossbow/Minions, Act 2 Supporting Fire start, and Act 3 to maps.",
+        "Passive trees no longer use endgame-prefix projections; official route files use the source tree-viewer step nodes.",
+        "Active skills and support gems are separated so supports are not treated as standalone skills."
       ]
     },
     "risks": {
       "zhCN": [
-        "前中期天赋路线仍是从终局顺序投影，后续需要实战手调",
-        "技能 From、宝石阶级和需求已接入编年史快照；精确章节、商店来源和实际开荒等级仍待专项整理",
-        "市场相关内容仍是样例快照，不能当实时行情"
+        "Act 1 弩开荒到 Act 2 转召唤/支援火力时，来源攻略明确提示可能需要花金币重置。",
+        "Mobalytics 原站可能更新，当前本地数据以 2026-07-25 抽取的 Kami BUILD-1070 镜像为准。",
+        "市场相关内容仍依赖行情接口和快照，不等于游戏内即时成交。"
       ],
       "zhTW": [
-        "前中期天賦路線仍是從終局順序投影，後續需要實戰手調",
-        "具體技能取得章節和等級尚未接入官方/編年史技能資料",
-        "市場相關內容仍是範例快照，不能當即時行情"
+        "Act 1 弩拓荒到 Act 2 轉召喚/支援火力時，來源攻略明確提示可能需要花金幣重置。",
+        "Mobalytics 原站可能更新，目前本地資料以 2026-07-25 抽取的 Kami BUILD-1070 鏡像為準。",
+        "市場相關內容仍依賴行情介面和快照，不等於遊戲內即時成交。"
       ],
       "en": [
-        "Early and midgame passive routes are projected from the endgame order and still need hand tuning",
-        "Exact skill unlock acts and levels are not wired to official or PoE2DB skill data yet",
-        "Market-related content still uses sample snapshots and is not live pricing"
+        "The source guide notes that crossbow leveling may require a gold respec when transitioning to the minion tree around the end of Act 2.",
+        "Mobalytics may update; this local data is based on the Kami BUILD-1070 mirror extracted on 2026-07-25.",
+        "Market content still depends on pricing APIs and snapshots, not guaranteed in-game instant trades."
       ]
     }
   },
@@ -257,34 +260,34 @@
       "en": "Evidence Quality and Review Queue"
     },
     "intro": {
-      "zhCN": "这块专门标明本攻略每类内容的证据来源。能被 PoE2DB/本地版本数据证明的内容按已接入展示；仍是手工计划或终局投影的内容必须继续标待复核。",
-      "zhTW": "這塊專門標明本攻略每類內容的證據來源。能被 PoE2DB/本地版本資料證明的內容按已接入展示；仍是手工計畫或終局投影的內容必須繼續標待複核。",
-      "en": "This section marks the evidence source for each guide area. Content proven by PoE2DB or local version data is shown as wired; manual plans and endgame projections stay marked for review."
+      "zhCN": "这块专门标明本攻略每类内容的证据来源。天赋阶段来自来源攻略 tree-viewer，技能和装备仍按本地数据继续结构化。",
+      "zhTW": "這塊專門標明本攻略每類內容的證據來源。天賦階段來自來源攻略 tree-viewer，技能和裝備仍按本地資料繼續結構化。",
+      "en": "This section marks evidence sources. Passive stages come from the source guide tree-viewer; skills and gear remain structured from local data."
     },
     "checks": [
       {
         "id": "passive-routes",
         "status": {
-          "zhCN": "待手调",
-          "zhTW": "待手調",
-          "en": "Needs hand tuning"
+          "zhCN": "来源阶段路线",
+          "zhTW": "來源階段路線",
+          "en": "Source guide steps"
         },
         "evidence": {
-          "zhCN": "阶段天赋文件已登记到 manifest，能用独立天赋树展示节点和属性。",
-          "zhTW": "階段天賦檔案已登記到 manifest，能用獨立天賦樹展示節點和屬性。",
-          "en": "Stage route files are registered in the manifest and can be opened in the shared passive tree viewer."
+          "zhCN": "6 个阶段天赋已从 Mobalytics/Kami BUILD-1070 tree-viewer 抽取并登记到 manifest。",
+          "zhTW": "6 個階段天賦已從 Mobalytics/Kami BUILD-1070 tree-viewer 抽取並登記到 manifest。",
+          "en": "Six passive stages were extracted from the Mobalytics/Kami BUILD-1070 tree-viewer and registered in the manifest."
         },
         "limitation": {
-          "zhCN": "前中期路线仍来自终局顺序投影，不等于已验证最快开荒路线。",
-          "zhTW": "前中期路線仍來自終局順序投影，不等於已驗證最快拓荒路線。",
-          "en": "Early and midgame routes are still projected from the endgame order, not verified fastest leveling paths."
+          "zhCN": "Act 1 弩和 Act 1 召唤是替代方案；弩开荒到 Act 2 转召唤/支援火力时可能需要金币重置。",
+          "zhTW": "Act 1 弩和 Act 1 召喚是替代方案；弩拓荒到 Act 2 轉召喚/支援火力時可能需要金幣重置。",
+          "en": "Act 1 Crossbow and Act 1 Minions are alternatives; crossbow leveling may need a gold respec when switching to minions/Supporting Fire in Act 2."
         },
         "nextAction": {
-          "zhCN": "按剧情、第一次升华、白黄图、红图逐段手调，并把 handTuned 改为 true。",
-          "zhTW": "按劇情、第一次昇華、白黃圖、紅圖逐段手調，並把 handTuned 改為 true。",
-          "en": "Hand tune campaign, first ascendancy, yellow-map, and red-map routes, then set handTuned to true."
+          "zhCN": "原作者更新后重新抽取 BUILD-1070，并复核 Act 2 转型成本。",
+          "zhTW": "原作者更新後重新抽取 BUILD-1070，並複核 Act 2 轉型成本。",
+          "en": "Re-extract BUILD-1070 after author updates and recheck the Act 2 transition cost."
         },
-        "severity": "pending"
+        "severity": "ok"
       },
       {
         "id": "skill-catalog",
@@ -487,64 +490,76 @@
     "intro": "这块按实战推进顺序写，不把终局装备清单提前塞给新号。每个阶段只做当前最能解决问题的事，遇到短板先按回退动作处理。",
     "stages": [
       {
-        "stageId": "campaign-early",
-        "mainAction": "用当前最高伤害的佣兵弩、榴弹或顺手范围技能推剧情，召唤物只补伤和挡怪。",
+        "stageId": "act1-crossbow",
+        "mainAction": "用爆炸榴弹、弩技能和高伤武器快速推 Act 1。",
         "buyFirst": [
-          "高秒伤过渡武器",
+          "高秒伤弩",
           "移动速度鞋",
-          "带生命、抗性或属性的便宜黄装"
+          "生命/抗性黄装"
         ],
-        "stopLine": "不要深做低等级装备；一件装备有一到两条有效词就先穿。",
-        "fallback": "剧情首领打不动时，先换武器和技能辅助，再检查抗性，不先洗远端召唤路线。",
-        "nextGate": "过渡技能清怪顺、移动速度舒服、生命抗性没有明显短板后，继续推进到第一次升华。"
+        "stopLine": "不要把这条弩路线当后期路线；Act 2 转型准备重置。",
+        "fallback": "弩伤害不够就换武器和辅助，不先绕远路点召唤圈。",
+        "nextGate": "Act 1 推进顺、装备不缺属性后，进入 Act 2 支援火力准备。"
       },
       {
-        "stageId": "first-ascendancy",
-        "mainAction": "点出释放地狱后加入支援火力，但保留过渡清图技能，让支援火力先负责稀有怪和首领窗口。",
+        "stageId": "act1-minions",
+        "mainAction": "用骷髅狙击手、火墙、愤怒狂灵等召唤组合过 Act 1。",
         "buyFirst": [
-          "能提高精魂或召唤技能等级的便宜武器/副手",
-          "补力量和抗性的戒指、腰带、手套",
-          "一组主输出召唤物需要的核心辅助"
+          "生命/抗性黄装",
+          "能补伤害的法杖或副手",
+          "移动速度鞋"
         ],
-        "stopLine": "支援火力没稳定前，不删过渡技能；精魂不够时不强行塞多组召唤物。",
-        "fallback": "支援火力存在感低时，先补主输出召唤物链接和冷却手感，继续用过渡技能清图。",
-        "nextGate": "支援火力能稳定处理稀有怪，至少一组主输出召唤物能常驻，再开始减少自打投入。"
+        "stopLine": "这是 Act 1 替代方案，不和弩路线一起全点。",
+        "fallback": "召唤物清怪慢就保留榴弹或法术补清图。",
+        "nextGate": "召唤物能稳定补伤后，进入 Act 2 支援火力启动。"
       },
       {
-        "stageId": "yellow-maps",
-        "mainAction": "固定支援火力、脆弱诅咒和一组主输出召唤物，先把白黄图推进变稳定。",
+        "stageId": "act2-supporting-fire-start",
+        "mainAction": "升华拿释放地狱，开始用支援火力和召唤物打稀有怪/首领。",
+        "buyFirst": [
+          "精魂或召唤技能等级来源",
+          "力量和抗性补位",
+          "主输出召唤物核心辅助"
+        ],
+        "stopLine": "支援火力没稳定前，不删过渡技能。",
+        "fallback": "支援火力弱就先补主输出召唤物链接，继续用过渡技能清图。",
+        "nextGate": "支援火力能稳定参与输出，主输出召唤物能常驻。"
+      },
+      {
+        "stageId": "act3-maps",
+        "mainAction": "补齐支援火力、诅咒、主输出召唤物和前排，准备进图。",
         "buyFirst": [
           "补满元素抗性的装备",
-          "高精魂权杖或等价精魂来源",
+          "精魂来源",
           "便宜双有效词召唤珠宝"
         ],
-        "stopLine": "抗性没满、生命池薄、前排站不住时，不继续买纯输出珠宝。",
-        "fallback": "清图慢补后排输出召唤物，首领慢补诅咒覆盖和终结，死亡多先补前排生存和本体防御。",
-        "nextGate": "白黄图能连续推进、精魂数量够用、主输出链完整后，再考虑红图装备替换。"
-      },
-      {
-        "stageId": "red-maps",
-        "mainAction": "围绕红图稳定性升级，一次只换一到两件装备，换完重新核对精魂、属性和抗性。",
-        "buyFirst": [
-          "能同时补生命和缺口抗性的稀有防具",
-          "召唤技能等级或高精魂核心件",
-          "主输出召唤物需要的双有效词珠宝"
-        ],
-        "stopLine": "任何暗金或珠宝升级只要导致抗性、属性、精魂或召唤物数量崩掉，就先不换。",
-        "fallback": "红图死亡多时先回退一件暗金，用稀有戒指、腰带、手套补回抗性和属性。",
-        "nextGate": "红图死亡主要来自失误或危险词缀，而不是普通怪压力，再进入毕业微调。"
+        "stopLine": "抗性没满、生命池薄、前排站不住时，不买纯输出珠宝。",
+        "fallback": "清图慢补输出召唤物，死亡多先补前排和本体防御。",
+        "nextGate": "剧情结束并能稳定进入白黄图。"
       },
       {
         "stageId": "endgame",
-        "mainAction": "按终局模板补齐核心暗金、高精魂副手、召唤珠宝和 122 点天赋，但每次升级都以短板为准。",
+        "mainAction": "按 End Game 树和装备逐步成型，一次只换一到两件。",
         "buyFirst": [
-          "沟木棍或等价召唤技能等级核心",
-          "均衡之符解决属性门槛",
-          "不败之人、乌勒尔之骨和高质量召唤珠宝"
+          "召唤技能等级核心",
+          "均衡之符或属性补位",
+          "高精魂/召唤珠宝"
         ],
-        "stopLine": "毕业件不是越早越好；替换后召唤循环、精魂、抗性或属性变差，就先回退。",
-        "fallback": "如果换装后体感变差，保留输出核心，优先回退导致抗性或精魂崩盘的部位。",
-        "nextGate": "后续通过忍者解析和真实玩家样本复核天赋、技能链接和装备优先级。"
+        "stopLine": "换装导致抗性、属性、精魂或召唤数量崩掉就先回退。",
+        "fallback": "红图死亡多先回退暗金，用稀有戒指、腰带、手套补缺口。",
+        "nextGate": "地图推进稳定后，再看 Deep Late Game。"
+      },
+      {
+        "stageId": "deep-late-game",
+        "mainAction": "装备和珠宝质量够了以后，进入深后期树微调。",
+        "buyFirst": [
+          "高质量召唤珠宝",
+          "完整防御和属性补位",
+          "深后期核心暗金/稀有件"
+        ],
+        "stopLine": "装备没到位时不硬抄深后期节点。",
+        "fallback": "深后期换装体感变差，就回到 End Game 树和稳定装备。",
+        "nextGate": "后续只做忍者样本和版本更新复核。"
       }
     ]
   },
@@ -561,251 +576,284 @@
   ],
   "stages": [
     {
-      "id": "campaign-early",
-      "title": "剧情早期",
+      "id": "act1-crossbow",
+      "title": "Act 1 弩开荒",
       "status": "ready",
-      "treeStage": "campaign-early",
-      "summary": "先用佣兵弩、榴弹或任意高伤技能推进，不强行等支援火力。",
-      "priorities": [
-        "最高秒伤过渡武器",
-        "移速鞋",
-        "生命和抗性",
-        "近路伤害和属性点"
-      ],
-      "treeData": "../tree/tactician-supporting-fire-campaign-early.json",
-      "treeNodes": 21,
-      "routeSource": "projected-from-endgame-order",
-      "routeOrigin": "projected-from-endgame-order",
-      "overridePolicy": "replaceable-until-hand-tuned",
-      "handTuned": false,
+      "treeStage": "act1-crossbow",
+      "treeData": "../tree/tactician-supporting-fire-act1-crossbow.json",
+      "treeNodes": 32,
+      "routeSource": "mobalytics-kami-step",
+      "routeOrigin": "mobalytics-kami-step",
+      "overridePolicy": "manual-review-required",
+      "handTuned": true,
       "routeReview": {
-        "status": "待手调",
-        "reason": "当前 21 点只是终局路线前缀，能保证和毕业树方向一致，但剧情早期不一定是最快通关点法。",
-        "useUntil": "用于占位展示和检查节点属性；实战开荒时如果武器技能伤害不足，应优先改成近路武器伤害、属性和生存点。",
+        "status": "来源阶段路线",
+        "reason": "来自 Mobalytics/Kami BUILD-1070 的分阶段 tree-viewer，不再使用终局路线前缀截断。",
+        "useUntil": "按该来源攻略执行；原作者或赛季天赋更新后重新抽取。",
         "manualChecks": [
-          "剧情早期是否真的已经转召唤，而不是仍靠弩/榴弹清怪。",
-          "21 点内是否绕路拿到过早的召唤珠宝孔。",
-          "是否缺力量、敏捷或智力导致技能/装备穿不上。",
-          "首领战死亡时是否需要先补生命或防御而不是召唤输出。"
+          "确认当前阶段和来源 step 名称一致。",
+          "确认 Act 1 弩开荒和 Act 1 召唤开荒是二选一方案。",
+          "确认 Act 2 转型后已经拿到释放地狱并开始支援火力循环。"
         ]
       },
+      "summary": "来源攻略的快速 Act 1 方案：先用佣兵弩和榴弹推进，后面转支援火力/召唤时准备重置。",
+      "priorities": [
+        "弩和榴弹伤害",
+        "Relentless",
+        "Singular Purpose",
+        "Overwhelm",
+        "移速、生命、抗性"
+      ],
       "playbook": {
-        "title": "先用武器通关",
+        "title": "最快推进 Act 1",
         "steps": [
-          "剧情早期最重要的是武器秒伤、移速和抗性，不要硬等召唤体系成型。",
-          "捡到高伤弩、榴弹相关技能或任意手感好的清怪技能，都可以先用来推剧情。",
-          "天赋先拿近路效率点、属性点和必要生命，不要为了远端召唤圈绕大路。",
-          "首领打不动时优先换武器，低等级黄装只要有生命/抗性/属性就够。"
+          "主线用爆炸榴弹和弩技能清怪，不急着把自己锁死在召唤体系。",
+          "天赋沿佣兵起点拿武器、投射物/范围和近路效率点，目标是让剧情推进顺。",
+          "这是后续要转型的开荒方案，不是一路点到后期的召唤树。"
         ],
         "checks": [
-          "武器伤害明显高于旧武器，清小怪不用反复回头补刀。",
-          "鞋子有移动速度，跑剧情不拖节奏。",
-          "每个装备部位至少在生命、抗性、属性里有一条有效词。",
-          "背包里保留一套高伤过渡技能，不因为后期会接入召唤物协同就提前丢掉。"
+          "爆炸榴弹清怪顺，稀有怪不用磨太久。",
+          "移动速度、生命、抗性没有明显短板。",
+          "准备好 Act 2 后重置到召唤/支援火力路线的金币。"
         ],
         "mistakes": [
-          "剧情早期就追远端召唤天赋，导致路上伤害和属性都不够。",
-          "把低等级装备加工太深，几级后马上淘汰。",
-          "只看最终 BD 名称，强行用未成型召唤物打剧情。"
+          "把弩开荒树硬接到后期召唤树。",
+          "Act 1 就绕远路追召唤大圈。"
         ]
       }
     },
     {
-      "id": "first-ascendancy",
-      "title": "第一次升华",
+      "id": "act1-minions",
+      "title": "Act 1 召唤开荒",
       "status": "ready",
-      "treeStage": "first-ascendancy",
-      "summary": "点出释放地狱后，开始围绕支援火力和召唤物体系转型。",
+      "treeStage": "act1-minions",
+      "treeData": "../tree/tactician-supporting-fire-act1-minions.json",
+      "treeNodes": 30,
+      "routeSource": "mobalytics-kami-step",
+      "routeOrigin": "mobalytics-kami-step",
+      "overridePolicy": "manual-review-required",
+      "handTuned": true,
+      "routeReview": {
+        "status": "来源阶段路线",
+        "reason": "来自 Mobalytics/Kami BUILD-1070 的分阶段 tree-viewer，不再使用终局路线前缀截断。",
+        "useUntil": "按该来源攻略执行；原作者或赛季天赋更新后重新抽取。",
+        "manualChecks": [
+          "确认当前阶段和来源 step 名称一致。",
+          "确认 Act 1 弩开荒和 Act 1 召唤开荒是二选一方案。",
+          "确认 Act 2 转型后已经拿到释放地狱并开始支援火力循环。"
+        ]
+      },
+      "summary": "来源攻略给的另一个 Act 1 方案：更早接入召唤物，路径和弩开荒不同，二选一即可。",
       "priorities": [
-        "支援火力手感稳定",
+        "Relentless",
+        "Blade Catcher",
+        "Deadly Swarm",
         "召唤物伤害",
-        "精魂",
-        "力量和抗性"
+        "本体生存"
       ],
-      "treeData": "../tree/tactician-supporting-fire-first-ascendancy.json",
-      "treeNodes": 38,
-      "routeSource": "projected-from-endgame-order",
-      "routeOrigin": "projected-from-endgame-order",
-      "overridePolicy": "replaceable-until-hand-tuned",
-      "handTuned": false,
-      "routeReview": {
-        "status": "待手调",
-        "reason": "38 点阶段已经接近转支援火力，但仍由终局路线投影生成，需要确认第一次升华后的实际输出循环。",
-        "useUntil": "适合用来观察支援火力、召唤物伤害和精魂方向；如果支援火力冷却或召唤物存活不稳定，应优先手调前置点。",
-        "manualChecks": [
-          "第一次升华后支援火力是否能稳定参与稀有怪和首领输出。",
-          "精魂是否足够保留主输出召唤物和必要功能召唤物。",
-          "召唤物死亡频率是否需要提前拿召唤生命或复活相关点。",
-          "是否仍需要保留武器技能，避免过早放弃过渡输出。"
-        ]
-      },
       "playbook": {
-        "title": "开始转支援火力",
+        "title": "Act 1 召唤替代方案",
         "steps": [
-          "升华点出释放地狱后，支援火力才真正进入构筑核心。",
-          "先保留一套能清图的过渡技能，等支援火力伤害和冷却手感稳定，再减少自打技能依赖。",
-          "装备开始找精魂、力量、召唤物伤害、召唤技能等级，但抗性缺口仍然优先补。",
-          "召唤物数量不要贪多，精魂不够时先保主输出召唤物和必要功能召唤物。"
+          "用骷髅狙击手、火墙、愤怒狂灵等召唤/法术组合过 Act 1。",
+          "天赋比弩方案更早靠近召唤物伤害和生存点。",
+          "这是 Act 1 的替代路线，不要和弩路线串着全点。"
         ],
         "checks": [
-          "支援火力能稳定参与稀有怪和首领输出。",
-          "至少有一组主输出召唤物可以常驻。",
-          "前排或功能召唤物不会一进战斗就全部倒下。",
-          "抗性缺口可控，没有为了召唤词缀把生存换空。"
+          "召唤物能稳定补伤和挡怪。",
+          "本体不因为追召唤伤害而缺抗性和属性。",
+          "进入 Act 2 后继续转向支援火力启动路线。"
         ],
         "mistakes": [
-          "刚拿到支援火力就删掉所有过渡技能，导致清图变慢。",
-          "精魂不够还硬塞多组召唤物，主输出反而没有辅助孔位。",
-          "看到召唤伤害词就买，忽略力量、抗性和生命。"
+          "弩路线和召唤路线都点，浪费大量早期点数。",
+          "召唤物伤害不足还删除过渡清图技能。"
         ]
       }
     },
     {
-      "id": "yellow-maps",
-      "title": "白黄图",
+      "id": "act2-supporting-fire-start",
+      "title": "Act 2 支援火力启动",
       "status": "ready",
-      "treeStage": "yellow-maps",
-      "summary": "进入号令技能、诅咒、召唤物协同的成型循环。",
-      "priorities": [
-        "补满抗性",
-        "提升精魂数量",
-        "寻找沟木棍或高精魂权杖",
-        "补珠宝插槽和防御"
-      ],
-      "treeData": "../tree/tactician-supporting-fire-yellow-maps.json",
-      "treeNodes": 68,
-      "routeSource": "projected-from-endgame-order",
-      "routeOrigin": "projected-from-endgame-order",
-      "overridePolicy": "replaceable-until-hand-tuned",
-      "handTuned": false,
+      "treeStage": "act2-supporting-fire-start",
+      "treeData": "../tree/tactician-supporting-fire-act2-supporting-fire-start.json",
+      "treeNodes": 39,
+      "routeSource": "mobalytics-kami-step",
+      "routeOrigin": "mobalytics-kami-step",
+      "overridePolicy": "manual-review-required",
+      "handTuned": true,
       "routeReview": {
-        "status": "待手调",
-        "reason": "68 点阶段已经进入白黄图循环，投影路线需要验证清图、防御、精魂三者是否平衡。",
-        "useUntil": "适合作为白黄图中期路线骨架；如果死亡多或精魂卡住，应先手调抗性/生命/精魂相关路径。",
+        "status": "来源阶段路线",
+        "reason": "来自 Mobalytics/Kami BUILD-1070 的分阶段 tree-viewer，不再使用终局路线前缀截断。",
+        "useUntil": "按该来源攻略执行；原作者或赛季天赋更新后重新抽取。",
         "manualChecks": [
-          "白黄图是否已经补满元素抗性，还是需要天赋临时补防御。",
-          "精魂是否限制召唤物组合，是否要调整保留效率节点顺序。",
-          "主输出召唤物清图慢时，当前路线是否优先支持主输出链。",
-          "珠宝孔是否有可用珠宝；没有珠宝时是否应延后插槽。"
+          "确认当前阶段和来源 step 名称一致。",
+          "确认 Act 1 弩开荒和 Act 1 召唤开荒是二选一方案。",
+          "确认 Act 2 转型后已经拿到释放地狱并开始支援火力循环。"
         ]
       },
+      "summary": "第一次升华拿释放地狱后，开始围绕支援火力、号令和召唤物转型。",
+      "priorities": [
+        "Unleash Hell!",
+        "At your Command",
+        "Beef",
+        "召唤物伤害",
+        "精魂和力量"
+      ],
       "playbook": {
-        "title": "补齐循环",
+        "title": "开始真正转型",
         "steps": [
-          "目标是让支援火力、诅咒、召唤物同时工作，而不是单独堆某一个数字。",
-          "先把元素抗性补满，再看生命池和护甲/闪避；死亡频繁时不要继续买纯输出珠宝。",
-          "开始寻找高精魂权杖、召唤技能等级、便宜双有效词珠宝。",
-          "清图慢时强化后排输出召唤物；经常被贴脸打死时先给前排召唤物补生存辅助。"
+          "升华拿释放地狱，支援火力才进入核心循环。",
+          "如果 Act 1 用弩开荒，这里按来源提示准备把被动重置到召唤树。",
+          "保留过渡技能，等支援火力和主输出召唤物稳定后再减少自打。"
         ],
         "checks": [
-          "支援火力、脆弱诅咒和主输出召唤物都有明确分工。",
-          "元素抗性已经补满或只剩很小缺口。",
-          "权杖、副手或主手至少有一项召唤/精魂收益。",
-          "珠宝只买便宜双有效词，不追毕业数值。"
+          "支援火力能参与稀有怪和首领输出。",
+          "至少一组主输出召唤物能常驻。",
+          "精魂、力量、抗性没有明显缺口。"
         ],
         "mistakes": [
-          "清图慢时只加召唤物数量，不先强化主输出链。",
-          "死亡多还继续买召唤伤害珠宝。",
-          "功能召唤物抢走主输出召唤物的高价值辅助。"
+          "刚拿支援火力就删掉过渡技能。",
+          "精魂不足还硬塞多组召唤物。"
         ]
       }
     },
     {
-      "id": "red-maps",
-      "title": "红图",
+      "id": "act3-maps",
+      "title": "Act 3 到进图",
       "status": "ready",
-      "treeStage": "red-maps",
-      "summary": "先保证生存和抗性，再追更高词缀装备和珠宝。",
-      "priorities": [
-        "生命池",
-        "抗性缺口",
-        "召唤技能等级",
-        "召唤物伤害珠宝"
-      ],
-      "treeData": "../tree/tactician-supporting-fire-red-maps.json",
-      "treeNodes": 96,
-      "routeSource": "projected-from-endgame-order",
-      "routeOrigin": "projected-from-endgame-order",
-      "overridePolicy": "replaceable-until-hand-tuned",
-      "handTuned": false,
+      "treeStage": "act3-maps",
+      "treeData": "../tree/tactician-supporting-fire-act3-maps.json",
+      "treeNodes": 81,
+      "routeSource": "mobalytics-kami-step",
+      "routeOrigin": "mobalytics-kami-step",
+      "overridePolicy": "manual-review-required",
+      "handTuned": true,
       "routeReview": {
-        "status": "待手调",
-        "reason": "96 点红图路线仍来自终局前缀，必须用红图压力验证生存点、召唤点和珠宝孔顺序。",
-        "useUntil": "适合红图前的终局过渡参考；如果红图死亡频繁，应先手调生命、防御底子和召唤物生存优先级。",
+        "status": "来源阶段路线",
+        "reason": "来自 Mobalytics/Kami BUILD-1070 的分阶段 tree-viewer，不再使用终局路线前缀截断。",
+        "useUntil": "按该来源攻略执行；原作者或赛季天赋更新后重新抽取。",
         "manualChecks": [
-          "进入红图后角色是否被词缀或元素伤害频繁秒杀。",
-          "召唤物是否能在高压战斗中持续输出，而不是反复等待复活。",
-          "珠宝孔是否已经有双有效词珠宝支撑，否则应延后。",
-          "暗金替换后属性和抗性是否需要天赋临时补位。"
+          "确认当前阶段和来源 step 名称一致。",
+          "确认 Act 1 弩开荒和 Act 1 召唤开荒是二选一方案。",
+          "确认 Act 2 转型后已经拿到释放地狱并开始支援火力循环。"
         ]
       },
+      "summary": "剧情后半到进图，补齐召唤物、号令、诅咒和基础防御循环。",
+      "priorities": [
+        "Growing Swarm",
+        "Deadly Swarm",
+        "Made to Last",
+        "Tempered Defences",
+        "Heavy Armour"
+      ],
       "playbook": {
-        "title": "先稳再贵",
+        "title": "剧情结束前成型",
         "steps": [
-          "进入红图后，先检查抗性、生命池、精魂数量和召唤物存活，再追暗金和高价珠宝。",
-          "暗金优先级看当前短板：缺属性找均衡之符，缺体系件再看沟木棍和乌勒尔之骨。",
-          "不要为了单件高伤害词缀破坏抗性平衡；这套号令循环死亡一次通常会丢掉整轮输出节奏。",
-          "珠宝最后追召唤物伤害、召唤暴击、属性补位和防御补位，先买便宜双有效词过渡。"
+          "固定支援火力、主输出召唤物和必要前排。",
+          "补防御与抗性，不要只堆召唤伤害。",
+          "进图前让技能孔位、精魂和本体生存都能跑起来。"
         ],
         "checks": [
-          "生命、防御底子和抗性可以支撑红图连续推进。",
-          "主输出召唤物链接完整，前排召唤物能稳住怪。",
-          "换暗金前已经规划好戒指、腰带、手套补抗性。",
-          "每次升级只换一到两件，换完重新核对精魂和属性。"
+          "剧情首领能稳定处理。",
+          "主输出链完整，前排召唤物能扛住。",
+          "元素抗性和生命没有明显缺口。"
         ],
         "mistakes": [
-          "按毕业清单一次性换暗金，导致抗性和属性崩掉。",
-          "把全部预算投入珠宝，忽略红图防御压力。",
-          "为了多一组召唤物牺牲主输出链完整度。"
+          "所有召唤物平均分辅助。",
+          "没有好珠宝也过早点珠宝孔。"
         ]
       }
     },
     {
       "id": "endgame",
-      "title": "毕业 122 点",
+      "title": "End Game 成型",
       "status": "ready",
       "treeStage": "endgame",
       "treeData": "../tree/tactician-supporting-fire-endgame.json",
-      "summary": "当前已接入通用天赋树查看器的终局路线。",
-      "priorities": [
-        "完成 122 点终局树",
-        "不败之人",
-        "乌勒尔之骨",
-        "均衡之符",
-        "高精魂响尾权杖"
-      ],
-      "treeNodes": 122,
-      "routeOrigin": "imported-from-pob-endgame",
+      "treeNodes": 102,
+      "routeSource": "mobalytics-kami-step",
+      "routeOrigin": "mobalytics-kami-step",
       "overridePolicy": "manual-review-required",
-      "handTuned": false,
+      "handTuned": true,
       "routeReview": {
-        "status": "需人工复核",
-        "reason": "122 点路线来自当前 PoB 终局导入，不是按本地实战重新排序的最终确认版。",
-        "useUntil": "用于展示毕业目标和忍者解析对比；装备、精魂、珠宝或版本改动后，需要重新复核终局节点价值。",
+        "status": "来源阶段路线",
+        "reason": "来自 Mobalytics/Kami BUILD-1070 的分阶段 tree-viewer，不再使用终局路线前缀截断。",
+        "useUntil": "按该来源攻略执行；原作者或赛季天赋更新后重新抽取。",
         "manualChecks": [
-          "毕业装备是否真的满足这条路线需要的精魂、属性和抗性。",
-          "珠宝孔是否都有足够强的珠宝，否则是否应换成稳定输出/生存点。",
-          "PoE2DB 天赋版本更新后，关键召唤、号令或保留节点属性是否变化。",
-          "忍者真实玩家样本是否显示同类战术家有更优路径。"
+          "确认当前阶段和来源 step 名称一致。",
+          "确认 Act 1 弩开荒和 Act 1 召唤开荒是二选一方案。",
+          "确认 Act 2 转型后已经拿到释放地狱并开始支援火力循环。"
         ]
       },
+      "summary": "进图后真正 BD 成型阶段，按来源 End Game 树补输出、防御、号令和核心装备。",
+      "priorities": [
+        "Polymathy",
+        "At your Command",
+        "Growing Swarm",
+        "Made to Last",
+        "Puppet Master chance"
+      ],
       "playbook": {
-        "title": "毕业微调",
+        "title": "成型后再追装备",
         "steps": [
-          "完成终局 122 点路线后，装备升级以补短板为主。",
-          "先保证抗性和生存，再追珠宝、暗金和高词缀饰品。",
-          "高价升级前先确认它不会破坏精魂、属性或抗性平衡。"
+          "先保证抗性、精魂、属性和召唤循环，再换核心暗金。",
+          "主输出召唤物优先吃完整辅助，前排负责活下来。",
+          "每次只换一到两件，换完重算精魂和属性。"
         ],
         "checks": [
-          "毕业核心件不会互相挤压属性、抗性和精魂。",
-          "珠宝替换能真实提高主输出召唤物，而不是只抬面板。",
-          "装备升级后召唤物数量、诅咒覆盖和支援火力循环没有变差。",
-          "保留一套可回退装备，防止高价替换后整体更脆。"
+          "地图能连续推进。",
+          "死亡主要来自危险词缀而不是普通怪压力。",
+          "换装后召唤数量和关键技能都还开得起来。"
         ],
         "mistakes": [
-          "只按单件价格判断强度，不看当前角色缺口。",
-          "忽略精魂变化，换装后少开关键召唤物。",
-          "为了追毕业词缀把便宜稳定的过渡组合拆散。"
+          "按毕业清单一次性换装导致抗性崩盘。",
+          "没有好珠宝还强行保留所有珠宝孔。"
+        ]
+      }
+    },
+    {
+      "id": "deep-late-game",
+      "title": "Deep Late Game 深后期",
+      "status": "ready",
+      "treeStage": "deep-late-game",
+      "treeData": "../tree/tactician-supporting-fire-deep-late-game.json",
+      "treeNodes": 123,
+      "routeSource": "mobalytics-kami-step",
+      "routeOrigin": "mobalytics-kami-step",
+      "overridePolicy": "manual-review-required",
+      "handTuned": true,
+      "routeReview": {
+        "status": "来源阶段路线",
+        "reason": "来自 Mobalytics/Kami BUILD-1070 的分阶段 tree-viewer，不再使用终局路线前缀截断。",
+        "useUntil": "按该来源攻略执行；原作者或赛季天赋更新后重新抽取。",
+        "manualChecks": [
+          "确认当前阶段和来源 step 名称一致。",
+          "确认 Act 1 弩开荒和 Act 1 召唤开荒是二选一方案。",
+          "确认 Act 2 转型后已经拿到释放地狱并开始支援火力循环。"
+        ]
+      },
+      "summary": "深后期路线点数更多，加入更完整的防御、血量、巨人之血和后期优化。",
+      "priorities": [
+        "Giant's Blood",
+        "Glancing Blows",
+        "Polymathy",
+        "Against the Elements",
+        "Thickened Arteries"
+      ],
+      "playbook": {
+        "title": "深后期微调",
+        "steps": [
+          "装备、属性和精魂都稳定后，再进入深后期大树。",
+          "珠宝孔、血量、防御和抗性按真实装备短板调整。",
+          "不要把 Deep Late Game 当剧情或刚进图路线。"
+        ],
+        "checks": [
+          "核心装备和属性门槛已满足。",
+          "珠宝质量足够支撑珠宝孔。",
+          "防御层和召唤循环都没有因为换装崩掉。"
+        ],
+        "mistakes": [
+          "刚进图就照深后期树点。",
+          "装备不够时硬点 Giant's Blood 相关后期路线。"
         ]
       }
     }
@@ -1843,7 +1891,7 @@
   },
   "skillAcquisition": [
     {
-      "stageId": "campaign-early",
+      "stageId": "act1-crossbow",
       "timing": "起号到第一次升华前",
       "take": [
         "任意当前伤害最高、手感最顺的佣兵弩技能",
@@ -1876,7 +1924,40 @@
       "sourceStatus": "manual-stage-plan-with-poe2db-detail"
     },
     {
-      "stageId": "first-ascendancy",
+      "stageId": "act1-minions",
+      "timing": "Act 1 Minions",
+      "take": [
+        "任意当前伤害最高、手感最顺的佣兵弩技能",
+        "榴弹、范围清怪或单体爆发技能作为剧情主力",
+        "路上拿到的召唤物只作为补伤和挡怪"
+      ],
+      "activeSkillIds": [
+        "skeletal-warrior",
+        "arsonist"
+      ],
+      "doNotForce": [
+        "不要因为后期 BD 会接入召唤物协同，就在精魂和辅助孔位不足时强行转召唤。",
+        "不要把早期货币投入低等级召唤装备，优先换武器和移速鞋。"
+      ],
+      "confirmBefore": [
+        "当前过渡技能能稳定清白怪和魔法怪。",
+        "生命、抗性和移动速度没有明显短板。",
+        "至少有一组召唤物可以补伤或挡怪，但不要求成为主输出。"
+      ],
+      "sourceUse": [
+        "用编年史详情确认召唤物技能的需求属性和技能类型。",
+        "不把 From 字段当成角色实际推荐等级。",
+        "优先记录拿到后怎么用，而不是强制在哪一章购买。"
+      ],
+      "fallback": [
+        "如果召唤物很脆，继续用佣兵弩技能推进剧情。",
+        "如果技能孔不足，只保留最顺手的清图技能和一组补伤召唤物。"
+      ],
+      "evidenceNote": "此阶段的拿取顺序是手工开荒计划；下方编年史 From/需求只用于确认技能来源和属性需求，不等同实际角色等级推荐。",
+      "sourceStatus": "manual-stage-plan-with-poe2db-detail"
+    },
+    {
+      "stageId": "act2-supporting-fire-start",
       "timing": "点出释放地狱后",
       "take": [
         "支援火力加入核心循环",
@@ -1911,7 +1992,7 @@
       "sourceStatus": "manual-stage-plan-with-poe2db-detail"
     },
     {
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "timing": "剧情后半到白黄图",
       "take": [
         "固定支援火力和脆弱诅咒",
@@ -1949,7 +2030,7 @@
       "sourceStatus": "manual-stage-plan-with-poe2db-detail"
     },
     {
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "timing": "红图到毕业",
       "take": [
         "按精魂上限决定最终召唤物数量",
@@ -2255,7 +2336,7 @@
   ],
   "gearStatThresholds": [
     {
-      "stageId": "campaign-early",
+      "stageId": "act1-crossbow",
       "title": "剧情早期最低可用线",
       "sourceStatus": "manual-guide-threshold",
       "note": "这阶段只看能否顺畅推进剧情；单件装备解决一个短板就能先穿，不做高成本加工。",
@@ -2291,7 +2372,43 @@
       ]
     },
     {
-      "stageId": "first-ascendancy",
+      "stageId": "act1-minions",
+      "title": "Act 1 召唤开荒装备门槛",
+      "sourceStatus": "manual-guide-threshold",
+      "note": "这阶段只看能否顺畅推进剧情；单件装备解决一个短板就能先穿，不做高成本加工。",
+      "thresholds": [
+        {
+          "stat": "移动速度",
+          "minimum": "鞋子 10%+",
+          "upgradeTarget": "15%+",
+          "priority": 1,
+          "reason": "跑图和躲技能收益最高。"
+        },
+        {
+          "stat": "武器伤害",
+          "minimum": "当前主清怪技能明显提升",
+          "upgradeTarget": "每 8-10 级更新一次底子",
+          "priority": 2,
+          "reason": "转召唤前仍靠武器技能推进。"
+        },
+        {
+          "stat": "生命",
+          "minimum": "单件 20+",
+          "upgradeTarget": "单件 40+",
+          "priority": 3,
+          "reason": "剧情期防止被稀有怪和首领技能秒杀。"
+        },
+        {
+          "stat": "缺口抗性",
+          "minimum": "关键单抗 15%+",
+          "upgradeTarget": "火/冰/电不要出现明显负值",
+          "priority": 4,
+          "reason": "先补当前地图和首领造成死亡的抗性。"
+        }
+      ]
+    },
+    {
+      "stageId": "act2-supporting-fire-start",
       "title": "第一次升华转型线",
       "sourceStatus": "manual-guide-threshold",
       "note": "支援火力开始参与输出，但不要牺牲抗性和精魂去硬穿召唤词装备。",
@@ -2327,7 +2444,7 @@
       ]
     },
     {
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "title": "白黄图稳定线",
       "sourceStatus": "manual-guide-threshold",
       "note": "开始按部位补两条以上有效词；这阶段买装目标是补抗、补精魂、补属性，而不是直接追毕业暗金。",
@@ -2363,7 +2480,7 @@
       ]
     },
     {
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "title": "红图压力线",
       "sourceStatus": "manual-guide-threshold",
       "note": "红图换装必须同时检查生命、抗性、精魂和召唤物存活；单件暗金不能让整套防御崩盘。",
@@ -2399,7 +2516,7 @@
       ]
     },
     {
-      "stageId": "endgame",
+      "stageId": "deep-late-game",
       "title": "毕业替换线",
       "sourceStatus": "manual-guide-threshold",
       "note": "毕业期每次只替换一到两件，替换后重算精魂、属性、抗性和召唤物数量。",
@@ -2438,7 +2555,7 @@
   "gearTroubleshooting": [
     {
       "id": "campaign-boss-low-damage",
-      "stageId": "campaign-early",
+      "stageId": "act1-crossbow",
       "problem": "剧情首领刮痧，召唤物也打不出节奏",
       "likelyCause": "过早按终局召唤方向绕路，当前武器技能和辅助没有跟上等级。",
       "checkOrder": [
@@ -2461,7 +2578,7 @@
     },
     {
       "id": "transition-spirit-squeeze",
-      "stageId": "first-ascendancy",
+      "stageId": "act2-supporting-fire-start",
       "problem": "第一次升华后想转支援火力，但精魂和孔位不够",
       "likelyCause": "同时塞太多召唤物和功能技能，主输出召唤物没有完整辅助。",
       "checkOrder": [
@@ -2484,7 +2601,7 @@
     },
     {
       "id": "maps-death-loop",
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "problem": "白黄图开始连续死亡，感觉输出还行但站不住",
       "likelyCause": "进图后抗性、生命和前排召唤物生存没有达标，却把预算先投到输出珠宝。",
       "checkOrder": [
@@ -2507,7 +2624,7 @@
     },
     {
       "id": "unique-swap-breaks-build",
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "problem": "换暗金后面板看着更强，实际更容易死或少召唤物",
       "likelyCause": "暗金挤掉稀有装备上的抗性、属性、生命或精魂，导致循环断档。",
       "checkOrder": [
@@ -2531,7 +2648,7 @@
   ],
   "gearStagePlan": [
     {
-      "stageId": "campaign-early",
+      "stageId": "act1-crossbow",
       "budgetTier": "低",
       "focus": "剧情速度",
       "mustHave": [
@@ -2543,7 +2660,19 @@
       "upgradeWhen": "首领明显刮痧、跑图速度慢、抗性出现大缺口时再换。"
     },
     {
-      "stageId": "first-ascendancy",
+      "stageId": "act1-minions",
+      "budgetTier": "低",
+      "focus": "召唤开荒仍先保生命、抗性、移速，伤害不足用便宜法杖或副手补。",
+      "mustHave": [
+        "当前等级最高秒伤武器",
+        "移动速度鞋",
+        "每个部位尽量带生命或抗性",
+        "属性够穿装备和技能"
+      ],
+      "upgradeWhen": "首领明显刮痧、跑图速度慢、抗性出现大缺口时再换。"
+    },
+    {
+      "stageId": "act2-supporting-fire-start",
       "budgetTier": "低到中",
       "focus": "支援火力转型",
       "mustHave": [
@@ -2555,7 +2684,7 @@
       "upgradeWhen": "支援火力冷却、精魂数量或召唤物存活成为短板时换。"
     },
     {
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "budgetTier": "中",
       "focus": "补齐抗性和精魂",
       "mustHave": [
@@ -2567,7 +2696,7 @@
       "upgradeWhen": "清图慢先看输出召唤链；死亡多先看抗性、生命和前排生存。"
     },
     {
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "budgetTier": "中到高",
       "focus": "稳住红图",
       "mustHave": [
@@ -2579,7 +2708,7 @@
       "upgradeWhen": "只有在不破坏抗性、属性、精魂的情况下才换高价暗金。"
     },
     {
-      "stageId": "endgame",
+      "stageId": "deep-late-game",
       "budgetTier": "高",
       "focus": "毕业微调",
       "mustHave": [
@@ -2595,7 +2724,7 @@
     {
       "id": "sceptre-spirit",
       "title": "高精魂权杖",
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "sourceStatus": "manual-guide-crafting",
       "goal": "提高可保留精魂，让主输出召唤物和功能召唤物同时在线。",
       "base": "响尾权杖（Rattling Sceptre）或同类高精魂底子。",
@@ -2631,7 +2760,7 @@
     {
       "id": "rare-defence",
       "title": "稀有防具",
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "sourceStatus": "manual-guide-crafting",
       "goal": "用低成本黄装把生命、抗性、力量和防御底子补齐。",
       "base": "头盔、手套、腰带、戒指优先选能补缺口的底子。",
@@ -2667,7 +2796,7 @@
     {
       "id": "sapphire-jewels",
       "title": "蓝宝石珠宝",
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "sourceStatus": "manual-guide-crafting",
       "goal": "把普通召唤物伤害珠宝逐步替换成召唤物伤害 + 召唤暴击相关词。",
       "base": "蓝宝石珠宝，优先便宜双有效词。",
@@ -2703,7 +2832,7 @@
     {
       "id": "unique-transition",
       "title": "暗金替换",
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "sourceStatus": "manual-guide-crafting",
       "goal": "把沟木棍、不败之人、乌勒尔之骨、均衡之符逐步换进体系。",
       "base": "先买解决当前最大短板的暗金，不按毕业清单一次性全换。",
@@ -2756,24 +2885,47 @@
   },
   "skillProgression": [
     {
-      "stageId": "campaign-early",
-      "stage": "剧情早期",
+      "stageId": "act1-crossbow",
+      "stage": "Act 1 弩开荒",
       "activeSkills": [
-        "最高伤佣兵弩技能",
-        "榴弹或任意顺手清怪技能"
+        "爆炸榴弹：多重投射 I + 火焰调和",
+        "传染：无显示辅助",
+        "霜爆：无显示辅助",
+        "闪光榴弹：多重投射 I",
+        "疾风之舞：常驻防御"
       ],
       "minions": [
-        "召唤物只作为补伤和承伤"
+        "弩方案 Act 1 不靠召唤物主输出"
       ],
       "supportPriority": [
-        "主清怪技能直接增伤",
-        "范围",
-        "频率"
+        "爆炸榴弹优先接多重投射 I",
+        "爆炸榴弹再接火焰调和",
+        "闪光榴弹接多重投射 I"
       ],
       "swapRule": "只要过渡技能清怪比召唤物快，就继续用过渡技能；不要为了最终形态牺牲剧情速度。"
     },
     {
-      "stageId": "first-ascendancy",
+      "stageId": "act1-minions",
+      "stage": "Act 1 召唤开荒",
+      "activeSkills": [
+        "爆炸榴弹：无显示辅助",
+        "传染：无显示辅助",
+        "霜爆：无显示辅助",
+        "火墙：点燃 I"
+      ],
+      "minions": [
+        "骷髅狙击手：多重投射 I + 火焰调和",
+        "愤怒狂灵：无显示辅助"
+      ],
+      "supportPriority": [
+        "骷髅狙击手先接多重投射 I",
+        "骷髅狙击手再接火焰调和",
+        "火墙接点燃 I"
+      ],
+      "swapRule": "Act 1 召唤开荒是弩开荒的替代方案，进入 Act 2 后同样转支援火力。"
+    },
+    {
+      "stageId": "act2-supporting-fire-start",
       "stage": "拿到释放地狱后",
       "activeSkills": [
         "支援火力",
@@ -2792,7 +2944,7 @@
       "swapRule": "支援火力能稳定打稀有怪和首领后，再逐步减少自打技能的投入。"
     },
     {
-      "stageId": "yellow-maps",
+      "stageId": "act3-maps",
       "stage": "剧情后半/刚进图",
       "activeSkills": [
         "支援火力",
@@ -2811,7 +2963,7 @@
       "swapRule": "精魂紧张时删功能召唤物，不删主输出召唤物；容易死时用生存辅助替换低收益输出辅助。"
     },
     {
-      "stageId": "red-maps",
+      "stageId": "endgame",
       "stage": "白黄图",
       "activeSkills": [
         "支援火力",
@@ -2831,7 +2983,7 @@
       "swapRule": "清图慢就强化后排输出；首领慢就补诅咒覆盖和终结；死亡多就先减少贪伤辅助。"
     },
     {
-      "stageId": "endgame",
+      "stageId": "deep-late-game",
       "stage": "红图/毕业",
       "activeSkills": [
         "支援火力",
@@ -2851,5 +3003,48 @@
       "swapRule": "每次换装备后重新检查精魂、属性和抗性；如果少一个召唤物反而更稳，就先少带。"
     }
   ],
-  "skillProgressionNote": "技能存在性、宝石阶级、From 文本和需求已接入本地 PoE2DB / 编年史快照；精确章节、商店来源和实际开荒等级仍按攻略策略标注边界。"
+  "skillProgressionNote": "技能存在性、宝石阶级、From 文本和需求已接入本地 PoE2DB / 编年史快照；精确章节、商店来源和实际开荒等级仍按攻略策略标注边界。",
+  "routeSummary": {
+    "title": "来源阶段天赋",
+    "intro": "阶段按 Mobalytics/Kami BUILD-1070 tree-viewer 拆分；Act 1 弩和 Act 1 召唤是替代方案，Act 2 开始支援火力，Act 3 到进图，之后进入 End Game 和 Deep Late Game。",
+    "stages": [
+      {
+        "stageId": "act1-crossbow",
+        "label": "Act 1 Crossbow",
+        "nodes": 32,
+        "sourceStatus": "source-step"
+      },
+      {
+        "stageId": "act1-minions",
+        "label": "Act 1 Minions",
+        "nodes": 30,
+        "sourceStatus": "source-step"
+      },
+      {
+        "stageId": "act2-supporting-fire-start",
+        "label": "Act 2 Supporting Fire Start",
+        "nodes": 39,
+        "sourceStatus": "source-step"
+      },
+      {
+        "stageId": "act3-maps",
+        "label": "Act 3 - Maps",
+        "nodes": 81,
+        "sourceStatus": "source-step"
+      },
+      {
+        "stageId": "endgame",
+        "label": "End Game",
+        "nodes": 102,
+        "sourceStatus": "source-step"
+      },
+      {
+        "stageId": "deep-late-game",
+        "label": "Deep Late Game",
+        "nodes": 123,
+        "sourceStatus": "source-step"
+      }
+    ],
+    "tree": "tools/passive-tree.html?build=tactician-supporting-fire&stage=act1-crossbow"
+  }
 }
