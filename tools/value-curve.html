@@ -135,6 +135,15 @@
     gap:8px;
     flex-wrap:wrap;
   }
+  .chart-meta {
+    display:grid;
+    gap:3px;
+    text-align:right;
+  }
+  .chart-meta small {
+    color:var(--muted);
+    font-size:12px;
+  }
   table {
     width:100%;
     min-width:1080px;
@@ -192,7 +201,7 @@
 
   <section class="grid" id="summaryGrid">
     <article class="card"><span class="muted">Divine / Exalted 汇率</span><strong id="divineRate">-</strong></article>
-    <article class="card"><span class="muted">最大 D/E 差值</span><strong id="bestDirection">-</strong></article>
+    <article class="card"><span class="muted">最大涨跌幅</span><strong id="bestDirection">-</strong></article>
     <article class="card"><span class="muted">更新时间</span><strong id="updatedAt">-</strong></article>
   </section>
 
@@ -259,54 +268,36 @@ function pctClass(value) {
   return number > 0 ? 'ok' : 'bad';
 }
 
-function pairById(details, id) {
-  return (details.pairs || []).find((pair) => pair.id === id) || null;
-}
-
-function valueAt(pair, timestamp) {
-  return (pair?.history || []).find((point) => point.timestamp === timestamp)?.rate ?? null;
-}
-
-function buildHistory(divinePair, exaltedPair, divineToExalted) {
-  const timestamps = [...new Set([
-    ...(divinePair?.history || []).map((point) => point.timestamp),
-    ...(exaltedPair?.history || []).map((point) => point.timestamp)
-  ])].sort();
-  return timestamps.map((timestamp) => {
-    const divine = Number(valueAt(divinePair, timestamp));
-    const exaltedFromPair = Number(valueAt(exaltedPair, timestamp));
-    const exalted = Number.isFinite(exaltedFromPair) ? exaltedFromPair : divine * divineToExalted;
-    const exaltedFromDivine = divine * divineToExalted;
-    const deSpreadPct = Number.isFinite(exaltedFromDivine) && Number.isFinite(exalted) && exalted > 0
-      ? (exaltedFromDivine - exalted) / exalted * 100
-      : null;
+function buildHistory(currency, divineToExalted) {
+  const currentDivine = Number(currency.divineRate);
+  const points = currency.sparklineData || [];
+  const totalChange = Number(currency.totalChange);
+  const baseDivine = Number.isFinite(totalChange) && totalChange !== -100
+    ? currentDivine / (1 + totalChange / 100)
+    : currentDivine;
+  return points.map((changePct, index) => {
+    const divine = baseDivine * (1 + Number(changePct) / 100);
     return {
-      timestamp,
+      timestamp: `poe.ninja-${index + 1}`,
       divine,
-      exalted,
-      deSpreadPct
+      exalted: divine * divineToExalted,
+      changePct: Number(changePct)
     };
   });
 }
 
-function enrichCurrency(currency, details, divineToExalted) {
-  const divinePair = pairById(details, 'divine');
-  const exaltedPair = pairById(details, 'exalted');
-  const divineRate = Number(divinePair?.rate);
-  const exaltedPairRate = Number(exaltedPair?.rate);
-  const exaltedRate = Number.isFinite(exaltedPairRate) ? exaltedPairRate : divineRate * divineToExalted;
-  const exaltedFromDivine = divineRate * divineToExalted;
-  const deSpreadPct = Number.isFinite(exaltedFromDivine) && Number.isFinite(exaltedRate) && exaltedRate > 0
-    ? (exaltedFromDivine - exaltedRate) / exaltedRate * 100
-    : null;
+function enrichCurrency(currency, divineToExalted) {
+  const divineRate = Number(currency.divineRate);
+  const exaltedRate = divineRate * divineToExalted;
+  const deSpreadPct = 0;
   return {
     id: currency.id,
-    name: currency.name || details.item?.name,
+    name: currency.name,
     divineRate,
     exaltedRate,
     deSpreadPct,
-    volume: Math.max(Number(divinePair?.volumePrimaryValue) || 0, Number(exaltedPair?.volumePrimaryValue) || 0),
-    history: buildHistory(divinePair, exaltedPair, divineToExalted)
+    volume: Number(currency.volumePrimaryValue || 0) * divineToExalted,
+    history: buildHistory(currency, divineToExalted)
   };
 }
 
@@ -342,30 +333,33 @@ function curveBlock(label, values, classValue) {
     <div class="mini-curve">
       <span>${escapeHtml(label)}</span>
       ${sparkline(values)}
-      <strong class="${pctClass(classValue)}">${label.includes('差') ? fmtPct(classValue) : fmt(values.at(-1), label.includes('D') ? 4 : 2)}</strong>
+      <strong class="${pctClass(classValue)}">${label.includes('幅') ? fmtPct(classValue) : fmt(values.at(-1), label.includes('D') ? 4 : 2)}</strong>
     </div>
   `;
 }
 
 function render() {
-  const sorted = [...rows].sort((a, b) => Math.abs(b.deSpreadPct || 0) - Math.abs(a.deSpreadPct || 0));
+  const sorted = [...rows].sort((a, b) => Math.abs(b.history.at(-1)?.changePct || 0) - Math.abs(a.history.at(-1)?.changePct || 0));
   const best = sorted[0];
-  document.getElementById('bestDirection').textContent = best ? `${localized(best.name)} / ${fmtPct(best.deSpreadPct)}` : '-';
+  document.getElementById('bestDirection').textContent = best ? `${localized(best.name)} / ${fmtPct(best.history.at(-1)?.changePct)}` : '-';
   document.getElementById('curveGrid').innerHTML = sorted.map((row) => {
     const divineSeries = row.history.map((point) => point.divine).filter((value) => Number.isFinite(Number(value)));
     const exaltedSeries = row.history.map((point) => point.exalted).filter((value) => Number.isFinite(Number(value)));
-    const spreadSeries = row.history.map((point) => point.deSpreadPct).filter((value) => Number.isFinite(Number(value)));
-    const latestSpread = spreadSeries.at(-1);
+    const changeSeries = row.history.map((point) => point.changePct).filter((value) => Number.isFinite(Number(value)));
+    const latestChange = changeSeries.at(-1);
     return `
       <article class="card">
         <div class="chart-head">
           <strong>${escapeHtml(localized(row.name))}</strong>
-          <span>${fmt(row.divineRate, 4)}D / ${fmt(row.exaltedRate, 2)}E</span>
+          <span class="chart-meta">
+            <span>${fmt(row.divineRate, 4)}D / ${fmt(row.exaltedRate, 2)}E</span>
+            <small>交易量 ${fmt(row.volume, 0)}</small>
+          </span>
         </div>
         <div class="mini-curves">
           ${curveBlock('D 价格', divineSeries, divineSeries.at(-1))}
           ${curveBlock('E 价格', exaltedSeries, exaltedSeries.at(-1))}
-          ${curveBlock('D/E 差值', spreadSeries, latestSpread)}
+          ${curveBlock('涨跌幅', changeSeries, latestChange)}
         </div>
       </article>
     `;
@@ -399,17 +393,19 @@ async function load() {
       const ninjaName = items.get(line.id)?.name || line.id;
       return {
         id: line.id,
-        name: itemNameMap.get(normalizeNameKey(ninjaName)) || itemNameMap.get(normalizeNameKey(line.id)) || { zhCN: ninjaName, zhTW: ninjaName, en: ninjaName }
+        name: itemNameMap.get(normalizeNameKey(ninjaName)) || itemNameMap.get(normalizeNameKey(line.id)) || { zhCN: ninjaName, zhTW: ninjaName, en: ninjaName },
+        divineRate: Number(line.primaryValue),
+        volumePrimaryValue: Number(line.volumePrimaryValue || 0),
+        totalChange: Number(line.sparkline?.totalChange),
+        sparklineData: Array.isArray(line.sparkline?.data)
+          ? line.sparkline.data.filter((point) => Number.isFinite(Number(point))).map(Number)
+          : []
       };
     })
     .filter((line) => line.id && line.id !== 'divine' && line.id !== 'exalted');
-  const settled = await Promise.allSettled(currencyRows.map(async (currency) => {
-    const details = await readJson(`../api/poe-ninja/currency-details?league=${encodeURIComponent(league)}&id=${encodeURIComponent(currency.id)}`);
-    return enrichCurrency(currency, details, divineToExalted);
-  }));
-  rows = settled
-    .filter((result) => result.status === 'fulfilled' && Number.isFinite(Number(result.value.divineRate)) && Number.isFinite(Number(result.value.exaltedRate)))
-    .map((result) => result.value);
+  rows = currencyRows
+    .filter((currency) => Number.isFinite(Number(currency.divineRate)) && currency.divineRate > 0)
+    .map((currency) => enrichCurrency(currency, divineToExalted));
   const fetchedAt = new Date().toISOString();
   document.getElementById('divineRate').textContent = `1D = ${fmt(divineToExalted)}E`;
   document.getElementById('updatedAt').textContent = new Date(fetchedAt).toLocaleString('zh-CN');
