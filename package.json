@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node scripts/serve.mjs --host 0.0.0.0",
+    "start": "node scripts/serve.mjs",
     "serve": "node scripts/serve.mjs",
     "validate": "node scripts/validate-all.mjs --season s05",
     "validate:pages": "node scripts/validate-pages.mjs --base-url http://127.0.0.1:8766",
