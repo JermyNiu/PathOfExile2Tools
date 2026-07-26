@@ -102,6 +102,7 @@
   "buildCandidates": "builds/candidates.json",
   "modules": {
     "leveling": "in-progress",
+    "gearCrafting": "poe2db-modifiers-calc-affix-catalog",
     "hideout": "basic-sample-ranking",
     "gemFlipping": "basic-sample-ranking",
     "ninjaImport": "basic-parser",
@@ -110,6 +111,11 @@
   "skills": {
     "catalog": "skills/snapshots/catalog-poe2db-4.5-complete.json",
     "schema": "skills/schema-v1.md"
+  },
+  "crafting": {
+    "affixes": "crafting/affixes-poe2db-4.5.json",
+    "sourceType": "poe2db-modifiers-calc",
+    "schema": "poe2-tools-crafting-affixes-v1"
   },
   "reference": {
     "source": "poe2db",

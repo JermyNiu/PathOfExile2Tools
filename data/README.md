@@ -59,6 +59,16 @@ data/
   `node scripts/validate-builds.mjs --season s05`. Candidate build files can be
   checked before manifest registration with
   `node scripts/validate-builds.mjs --season s05 --id <build-id> --file <file>`.
+- Gear crafting is BD-independent. `tools/gear-crafting.html` reads the selected
+  version's PoE2DB reference files from `manifest.reference.items.baseItems`,
+  `manifest.reference.stats.modifiers`, and
+  `manifest.reference.stats.extraModifiers`, then builds a base-item and affix
+  text workbench. Current snapshots support searching modifier text and rough
+  prefix/suffix display where the source exposes it, but they do not contain
+  complete weights, mod groups, or base-applicability rules. Add a future
+  `crafting affix catalog` before presenting probability-accurate simulation.
+  Build JSON `craftingPlan` data can later seed optional target templates, but
+  it should not drive the core crafting module.
 - Route JSON files registered in a season manifest must declare `origin`,
   `overridePolicy`, and `handTuned`. Validate them with
   `node scripts/validate-routes.mjs --season s05`. Candidate stage routes can

@@ -8,6 +8,7 @@ This folder is the starting point for a local Path of Exile 2 tool suite.
 - `builds/index.html`: version-aware league starter build list page with guide completeness filters and direct links to each build's Markdown guide report.
 - `builds/tactician-supporting-fire.html`: S05 Tactician Supporting Fire guide page with staged data hydration and a copy/download Markdown guide report.
 - `tools/passive-tree.html`: shared passive tree viewer; build pages link to it with build/stage query parameters.
+- `tools/gear-crafting.html`: version-aware gear crafting simulator for choosing a base item and desired result, then generating copyable in-game crafting steps.
 - `tools/data-update.html`: local data update status and command page; follows the shared selected version, falls back to `versions.current`, and summarizes current guide-writing, skill, market, ninja, route, gear, and crafting data quality.
 - `tools/route-review.html`: version-aware passive route review cockpit with page-level language switching for checking manifest routes, build-stage review notes, route JSON meta consistency, hand-tuned archive commands, and Markdown review reports.
 - `tools/market-review.html`: version-aware market snapshot review cockpit for active market snapshot quality, candidate queue status, archive commands, and Markdown review reports.
@@ -50,6 +51,7 @@ The current home page is the shell for the local POE2 tool suite. It links to
 the first implemented build page and records the planned modules:
 
 - league starter builds with staged passive trees, gear choices, and crafting
+- gear crafting simulator for choosing a base item and desired result before testing generated buy/craft steps in game
 - hideout gold arbitrage display and ranking
 - level 21 skill flipping ranking
 - poe.ninja/player export analysis
@@ -105,6 +107,18 @@ and execution stages. For minion builds, `skills.minionSelectionGuide` is the
 player-facing choice guide: `skillIds` must refer to active minion skills and
 `firstSupports` must refer to support gems, so the guide never mixes the two
 types in one list.
+
+`tools/gear-crafting.html` is intentionally independent from BD pages. It reads
+the selected version's PoE2DB base-item and modifier snapshots, then follows the
+human crafting flow: choose the base item, choose or describe the desired result,
+let the page recommend a method and generate experiment steps, then execute
+those steps manually in game. The generated route still checks local matching
+modifier text and asks the player to search trade for finished and half-finished
+items before spending currency.
+Current local data is not enough for Craft of Exile-level probability
+simulation: exact weights, mod groups, and full base applicability still need a
+future `crafting affix catalog`. BD data can later provide optional target
+templates, but it must not be the center of the crafting module.
 
 `builds/index.html` also surfaces whether a registered build can export a
 structured guide report. Cards show the report-ready badge and include an

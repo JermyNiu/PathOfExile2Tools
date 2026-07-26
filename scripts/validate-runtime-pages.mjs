@@ -122,6 +122,10 @@ function pageTextIncludes(token) {
   return (_dataset, pageText) => pageText.includes(token) ? null : `page text expected to include ${token}`;
 }
 
+function pageTextExcludes(token) {
+  return (_dataset, pageText) => pageText.includes(token) ? `page text expected to exclude ${token}` : null;
+}
+
 function runtimeChecks() {
   return [
     {
@@ -393,6 +397,103 @@ function runtimeChecks() {
         equals('buildListVisibleCount', '0'),
         equals('buildListFilterRoute', 'ready'),
         pageTextIncludes('没有符合筛选条件的 BD')
+      ]
+    },
+    {
+      id: 'gear-crafting',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingVersion', 's05-tree-4.5'),
+        equals('gearCraftingAffixSource', 'poe2db-modifiers-calc'),
+        atLeast('gearCraftingAffixCatalogCount', 3000),
+        atLeast('gearCraftingAffixCatalogFetchedClasses', 20),
+        atLeast('gearCraftingBaseCount', 2000),
+        atLeast('gearCraftingModPoolCount', 3000),
+        atLeast('gearCraftingVisibleModCount', 6),
+        equals('gearCraftingRarity', '白板'),
+        equals('gearCraftingCurrentAffixCount', '0'),
+        atLeast('gearCraftingRouteLineCount', 6),
+        pageTextIncludes('装备制作模拟器'),
+        pageTextIncludes('当前物品'),
+        pageTextIncludes('Mod Pool'),
+        pageTextIncludes('目标需求'),
+        pageTextIncludes('AI 实操路线'),
+        pageTextIncludes('生成制作步骤'),
+        pageTextExcludes('添加当前词条'),
+        pageTextExcludes('选择目标词条'),
+        pageTextExcludes('镶嵌/符文效果'),
+        pageTextIncludes('PoE2DB ModifiersCalc'),
+        pageTextIncludes('T1')
+      ]
+    },
+    {
+      id: 'gear-crafting-mod-actions',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      actions: [
+        { type: 'click', selector: '[data-select-mod-group]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'waitForDataset', key: 'gearCraftingCurrentAffixCount', value: '1' },
+        { type: 'click', selector: '[data-add-bucket="required"]' },
+        { type: 'waitForDataset', key: 'gearCraftingRequiredCount', value: '1' },
+        { type: 'click', selector: '[data-add-bucket="blocked"]' },
+        { type: 'waitForDataset', key: 'gearCraftingBlockedCount', value: '1' },
+        { type: 'click', selector: '#generateRouteBtn' },
+        { type: 'click', selector: '#copyRouteBtn' }
+      ],
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingCurrentAffixCount', '1'),
+        equals('gearCraftingRequiredCount', '1'),
+        equals('gearCraftingBlockedCount', '1'),
+        oneOf('gearCraftingRarity', ['魔法', '稀有']),
+        pageTextIncludes('缺失必须词'),
+        pageTextIncludes('当前已命中阻塞词')
+      ]
+    },
+    {
+      id: 'gear-crafting-selectors-and-slot-cap',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      actions: [
+        { type: 'selectOption', selector: '#modKindFilter', value: 'prefix' },
+        { type: 'selectOption', selector: '#craftableFilter', value: 'affix' },
+        { type: 'click', selector: '[data-select-mod-group]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'waitForDataset', key: 'gearCraftingCurrentPrefixCount', value: '3' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'waitForDataset', key: 'gearCraftingSlotWarning' },
+        { type: 'fill', selector: '#modSearchInput', value: '闪电 伤害' },
+        { type: 'click', selector: '[data-select-mod-group]' },
+        { type: 'click', selector: '[data-add-bucket="required"]' },
+        { type: 'waitForDataset', key: 'gearCraftingRequiredCount', value: '1' }
+      ],
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingCurrentPrefixCount', '3'),
+        equals('gearCraftingRequiredCount', '1'),
+        equals('gearCraftingRarity', '稀有'),
+        includes('gearCraftingSlotWarning', '已经满 3 条'),
+        pageTextIncludes('空间冲突')
+      ]
+    },
+    {
+      id: 'gear-crafting-single-mod-pool-entry',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingCurrentAffixCount', '0'),
+        equals('gearCraftingCurrentPrefixCount', '0'),
+        equals('gearCraftingCurrentSuffixCount', '0'),
+        equals('gearCraftingRarity', '白板'),
+        pageTextExcludes('添加当前词条'),
+        pageTextExcludes('选择目标词条'),
+        pageTextExcludes('没有匹配前/后缀词条')
       ]
     },
     {

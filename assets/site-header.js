@@ -8,6 +8,7 @@
   const navItems = [
     { id: 'home', text: '首页', href: 'index.html', i18n: 'home' },
     { id: 'builds', text: '开荒', href: 'builds/index.html', i18n: 'buildsNav' },
+    { id: 'gear', text: '装备制作', href: 'tools/gear-crafting.html', i18n: 'gearCraftingNav' },
     { id: 'hideout', text: '藏身处战神', href: 'tools/hideout-flip.html', i18n: 'hideoutNav' },
     { id: 'value', text: '价值曲线', href: 'tools/value-curve.html', i18n: 'valueCurveNav' },
     { id: 'gem', text: '技能倒卖', href: 'tools/gem-flip.html', i18n: 'gemFlipNav' },
