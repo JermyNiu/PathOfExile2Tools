@@ -9,6 +9,7 @@ This folder is the starting point for a local Path of Exile 2 tool suite.
 - `builds/tactician-supporting-fire.html`: S05 Tactician Supporting Fire guide page with staged data hydration and a copy/download Markdown guide report.
 - `tools/passive-tree.html`: shared passive tree viewer; build pages link to it with build/stage query parameters.
 - `tools/gear-crafting.html`: version-aware gear crafting simulator for choosing a base item and desired result, then generating copyable in-game crafting steps.
+- `tools/regex-search.html`: regex search page with category filters, per-entry Simplified/Traditional/English regex patterns, trending/recent/copy sorting, copy actions, and local upload/comment/key-management preview modals.
 - `tools/data-update.html`: local data update status and command page; follows the shared selected version, falls back to `versions.current`, and summarizes current guide-writing, skill, market, ninja, route, gear, and crafting data quality.
 - `tools/route-review.html`: version-aware passive route review cockpit with page-level language switching for checking manifest routes, build-stage review notes, route JSON meta consistency, hand-tuned archive commands, and Markdown review reports.
 - `tools/market-review.html`: version-aware market snapshot review cockpit for active market snapshot quality, candidate queue status, archive commands, and Markdown review reports.

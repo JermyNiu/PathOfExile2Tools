@@ -105,8 +105,15 @@
     "gearCrafting": "poe2db-modifiers-calc-affix-catalog",
     "hideout": "basic-sample-ranking",
     "gemFlipping": "basic-sample-ranking",
+    "regexSearch": "local-community-seed",
     "ninjaImport": "basic-parser",
     "skillCatalog": "poe2db-snapshot-v1-with-details"
+  },
+  "regexSearch": {
+    "presets": "regex/search-presets.json",
+    "affixes": "regex/affixes-poe2db-4.5.json",
+    "sourceType": "local-community-seed",
+    "schema": "poe2-tools-regex-search-v1"
   },
   "skills": {
     "catalog": "skills/snapshots/catalog-poe2db-4.5-complete.json",

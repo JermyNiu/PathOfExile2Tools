@@ -497,6 +497,115 @@ function runtimeChecks() {
       ]
     },
     {
+      id: 'regex-search',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      asserts: [
+        equals('regexSearchReady', 'true'),
+        equals('regexSearchSourceType', 'local-community-seed'),
+        equals('regexSearchEntryCount', '4'),
+        equals('regexSearchVisibleCount', '4'),
+        atLeast('regexSearchTotalCopies', 500),
+        equals('regexSearchCategoryFilter', 'all'),
+        equals('regexSearchSort', 'trending'),
+        equals('regexSearchLang', 'zhCN'),
+        equals('regexBuilderReady', 'true'),
+        includes('regexBuilderCatalogFile', 'affixes-poe2db-4.5.json'),
+        atLeast('regexBuilderCatalogGroupCount', 100),
+        atLeast('regexBuilderWaystoneGroupCount', 1),
+        atLeast('regexBuilderTabletGroupCount', 1),
+        equals('regexBuilderCategory', 'waystone'),
+        pageTextIncludes('正则搜索'),
+        pageTextIncludes('上传正则'),
+        pageTextIncludes('红图避开常见暴毙词'),
+        pageTextIncludes('复制最多'),
+        pageTextIncludes('本地样例')
+      ]
+    },
+    {
+      id: 'regex-search-filters-copy-language',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-category="tablet"]' },
+        { type: 'waitForDataset', key: 'regexSearchCategoryFilter', value: 'tablet' },
+        { type: 'click', selector: '[data-sort="copies"]' },
+        { type: 'waitForDataset', key: 'regexSearchSort', value: 'copies' },
+        { type: 'click', selector: '[data-copy-regex]' },
+        { type: 'waitForDataset', key: 'regexSearchCopyStatus' },
+        { type: 'click', selector: '[data-lang="en"]' },
+        { type: 'waitForDataset', key: 'regexSearchLang', value: 'en' }
+      ],
+      asserts: [
+        equals('regexSearchReady', 'true'),
+        equals('regexSearchCategoryFilter', 'tablet'),
+        equals('regexSearchVisibleCount', '2'),
+        equals('regexSearchSort', 'copies'),
+        oneOf('regexSearchCopyStatus', ['copied', 'failed']),
+        equals('regexSearchLang', 'en'),
+        equals('regexSearchUiLocalized', 'Regex Search'),
+        pageTextIncludes('Regex Search'),
+        pageTextIncludes('Upload regex'),
+        pageTextIncludes('Tablet search: Breach density')
+      ]
+    },
+    {
+      id: 'regex-search-language-keeps-entries',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-lang="en"]' },
+        { type: 'waitForDataset', key: 'regexSearchLang', value: 'en' }
+      ],
+      asserts: [
+        equals('regexSearchReady', 'true'),
+        equals('regexSearchVisibleCount', '4'),
+        pageTextIncludes('Regex Search'),
+        pageTextIncludes('Tablet search: Breach density'),
+        pageTextIncludes('Reflect|Recovery.*reduced|Critical.*extra|Monsters.*Speed'),
+        pageTextIncludes('Breach|Pack Size|Rare Monsters')
+      ]
+    },
+    {
+      id: 'regex-search-builder-waystone',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-regex-mode="builder"]' },
+        { type: 'click', selector: '[data-builder-option]' },
+        { type: 'waitForDataset', key: 'regexBuilderSelectedCount', value: '1' }
+      ],
+      asserts: [
+        equals('regexBuilderReady', 'true'),
+        equals('regexBuilderCategory', 'waystone'),
+        atLeast('regexBuilderCatalogGroupCount', 100),
+        atLeast('regexBuilderWaystoneGroupCount', 30),
+        atLeast('regexBuilderOutputLength', 1),
+        includes('regexBuilderOutputEn', '.*'),
+        pageTextIncludes('简体'),
+        pageTextIncludes('English')
+      ]
+    },
+    {
+      id: 'regex-search-builder-tablet',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-regex-mode="builder"]' },
+        { type: 'click', selector: '[data-builder-category="tablet"]' },
+        { type: 'waitForDataset', key: 'regexBuilderCategory', value: 'tablet' },
+        { type: 'click', selector: '[data-builder-option]' },
+        { type: 'waitForDataset', key: 'regexBuilderSelectedCount', value: '1' }
+      ],
+      asserts: [
+        equals('regexBuilderReady', 'true'),
+        equals('regexBuilderCategory', 'tablet'),
+        atLeast('regexBuilderTabletGroupCount', 70),
+        atLeast('regexBuilderOutputLength', 1),
+        includes('regexBuilderOutputEn', '.*')
+      ]
+    },
+    {
       id: 'tactician-guide-reader-default',
       path: '/builds/tactician-supporting-fire.html',
       waitFor: 'guideSummaryStages',
