@@ -295,7 +295,6 @@
         <span class="badge" id="regexStatus">读取中</span>
         <h2 data-i18n="pageTitle">正则搜索</h2>
       </div>
-      <button class="btn primary" id="uploadRegexBtn" type="button" data-i18n="uploadRegex">上传正则</button>
     </div>
     <p class="muted"><span data-i18n="pageDesc">按场景筛选玩家常用正则；每条正则都按当前页面语言显示对应写法，复制后进游戏搜索栏实际确认。当前是本地社区样例，不是实时同步广场。</span> <code>local-community-seed</code></p>
     <div class="status-grid" id="regexStats">
@@ -375,6 +374,7 @@
           <p class="muted" id="builderHint" data-i18n="builderHint">选择词条或填写数值后会生成当前页面语言对应的正则。</p>
           <div class="actions">
             <button class="btn primary" type="button" id="copyBuilderRegexBtn" data-i18n="copy">复制</button>
+            <button class="btn primary" type="button" id="uploadRegexBtn" data-i18n="uploadRegex">上传正则</button>
             <button class="btn" type="button" id="resetBuilderBtn" data-i18n="resetBuilder">重置</button>
           </div>
           <div class="form-group">
@@ -563,6 +563,17 @@ function localized(value) {
   return value?.[state.lang] || value?.zhCN || value?.en || '';
 }
 
+function looksEnglishOnly(value) {
+  const text = String(value || '');
+  return /[A-Za-z]{3,}/.test(text) && !/[\u4e00-\u9fff]/.test(text);
+}
+
+function patternForLocale(pattern, locale) {
+  const value = pattern?.[locale] || '';
+  if (locale === 'zhTW' && looksEnglishOnly(value)) return '';
+  return value;
+}
+
 function applyI18n() {
   document.documentElement.lang = state.lang === 'en' ? 'en' : state.lang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
   document.querySelectorAll('[data-i18n]').forEach((node) => { node.textContent = t(node.dataset.i18n); });
@@ -661,7 +672,7 @@ function builderPatternsByLocale() {
 
 function buildGeneratedRegexFor(locale) {
   const parts = builderPatternsByLocale()
-    .map((pattern) => pattern?.[locale] || pattern?.zhCN || pattern?.en || '')
+    .map((pattern) => patternForLocale(pattern, locale))
     .filter(Boolean);
   if (!parts.length) return '';
   if (state.builder.logic === 'and') return parts.map((part) => `(?=.*${part})`).join('');
@@ -699,7 +710,6 @@ function renderBuilderOptions() {
       <span>
         ${esc(localized(option.name) || localized(option.regex))}
         <span class="badge">${esc(localized(option.affix) || t(option.kind))}</span>
-        ${(option.riskTags || []).map((tag) => `<span class="badge warn">${esc(tag)}</span>`).join('')}
       </span>
       <input type="checkbox" data-builder-option="${esc(option.id)}"${state.builder.selected.has(option.id) ? ' checked' : ''}>
     </label>
@@ -795,6 +805,27 @@ function closeModals() {
   document.body.dataset.regexSearchOpenModal = '';
 }
 
+function syncBuilderToUploadForm() {
+  const outputs = builderOutputs();
+  const current = outputs[state.lang] || outputs.zhCN || outputs.en || outputs.zhTW || '';
+  if (!current) {
+    document.body.dataset.regexBuilderUploadStatus = 'empty';
+    return false;
+  }
+  document.getElementById('regexContent').value = outputs.zhCN || current;
+  document.getElementById('regexContentZhTW').value = outputs.zhTW || '';
+  document.getElementById('regexContentEn').value = outputs.en || '';
+  document.getElementById('regexCategory').value = state.builder.category;
+  document.getElementById('regexTitle').value = localized({
+    zhCN: `${t(state.builder.category)}自定义正则`,
+    zhTW: `${t(state.builder.category)}自訂正則`,
+    en: `Custom ${t(state.builder.category)} regex`
+  });
+  document.getElementById('regexCharCount').textContent = `${(outputs.zhCN || current).length} / 200`;
+  document.body.dataset.regexBuilderUploadStatus = 'prefilled';
+  return true;
+}
+
 async function copyText(text, datasetKey) {
   try {
     await navigator.clipboard.writeText(text);
@@ -887,7 +918,9 @@ function bindEvents() {
     }
     if (event.target.closest('[data-close-modal]')) closeModals();
   });
-  document.getElementById('uploadRegexBtn').addEventListener('click', () => openModal('uploadRegexModal'));
+  document.getElementById('uploadRegexBtn').addEventListener('click', () => {
+    if (syncBuilderToUploadForm()) openModal('uploadRegexModal');
+  });
   document.getElementById('clearFiltersBtn').addEventListener('click', () => {
     state.category = 'all';
     state.query = '';

@@ -89,7 +89,7 @@ function sectionHtml(html, id) {
 }
 
 function parseWaystoneRows(html) {
-  const section = sectionHtml(html, 'WaystonesMods') || sectionHtml(html, '引路石Mods');
+  const section = sectionHtml(html, 'WaystonesMods') || sectionHtml(html, '引路石Mods') || sectionHtml(html, '換界石Mods');
   const rows = [];
   let rowIndex = 0;
   for (const row of section.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)) {
@@ -178,20 +178,6 @@ function regexFromDescription(text) {
     .join('.*');
 }
 
-function riskTagsFor(text) {
-  const value = String(text || '').toLowerCase();
-  const tags = [];
-  if (/damage|伤害|傷害/.test(value)) tags.push('damage');
-  if (/critical|暴击|暴擊|暴伤|暴傷/.test(value)) tags.push('critical');
-  if (/resistance|抗性/.test(value)) tags.push('resistance');
-  if (/recovery|regeneration|回复|回復|再生|cooldown|冷却|冷卻/.test(value)) tags.push('recovery');
-  if (/speed|速度|速/.test(value)) tags.push('speed');
-  if (/projectile|投射物/.test(value)) tags.push('projectile');
-  if (/pack size|群规模|群規模/.test(value)) tags.push('pack-size');
-  if (/rarity|稀有度/.test(value)) tags.push('rarity');
-  return [...new Set(tags)];
-}
-
 function mergeLocalizedRows(kind, localizedRows, sourceRef) {
   const englishRows = localizedRows.en || [];
   return englishRows.map((english, index) => {
@@ -224,7 +210,6 @@ function mergeLocalizedRows(kind, localizedRows, sourceRef) {
         zhCN: regexFromDescription(zhCN.description || english.description),
         zhTW: regexFromDescription(zhTW.description || english.description)
       },
-      riskTags: riskTagsFor(`${english.description}\n${zhCN.description}\n${zhTW.description}`),
       sourceRef
     };
   }).filter((entry) => entry.regex.en && entry.regex.zhCN && entry.regex.zhTW);
@@ -242,14 +227,12 @@ function groupEntries(entries) {
         affix: entry.affix,
         name: entry.name,
         regex: entry.regex,
-        riskTags: entry.riskTags,
         rowIds: [],
         sourceRef: entry.sourceRef
       });
     }
     const group = byFamily.get(key);
     group.rowIds.push(entry.id);
-    group.riskTags = [...new Set([...group.riskTags, ...entry.riskTags])];
   }
   return [...byFamily.values()];
 }

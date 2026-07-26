@@ -516,7 +516,6 @@ function runtimeChecks() {
         atLeast('regexBuilderTabletGroupCount', 1),
         equals('regexBuilderCategory', 'waystone'),
         pageTextIncludes('正则搜索'),
-        pageTextIncludes('上传正则'),
         pageTextIncludes('红图避开常见暴毙词'),
         pageTextIncludes('复制最多'),
         pageTextIncludes('本地样例')
@@ -545,7 +544,6 @@ function runtimeChecks() {
         equals('regexSearchLang', 'en'),
         equals('regexSearchUiLocalized', 'Regex Search'),
         pageTextIncludes('Regex Search'),
-        pageTextIncludes('Upload regex'),
         pageTextIncludes('Tablet search: Breach density')
       ]
     },
@@ -583,7 +581,8 @@ function runtimeChecks() {
         atLeast('regexBuilderOutputLength', 1),
         includes('regexBuilderOutputEn', '.*'),
         pageTextIncludes('简体'),
-        pageTextIncludes('English')
+        pageTextIncludes('English'),
+        pageTextIncludes('上传正则')
       ]
     },
     {
