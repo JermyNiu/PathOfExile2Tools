@@ -218,6 +218,9 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
   .warn { color: var(--warn); }
+  .data-panel {
+    display: none;
+  }
   @media (max-width: 980px) {
     .grid, .stat-grid, .filter-grid { grid-template-columns: 1fr; }
   }
@@ -245,19 +248,15 @@
     <a class="btn" href="../tools/data-update.html">数据更新</a>
   </div>
 </header>
+<script src="../assets/site-header.js" data-root=".." data-active="builds" data-title="POE2 Tools"></script>
 
 <main class="shell">
   <section class="panel hero">
     <h2>开荒 BD 列表</h2>
-    <p>这里是开荒模块的列表页。首页负责模块入口，这里负责按当前版本列出 BD；点进具体 BD 后再看详细攻略、阶段天赋按钮、技能、装备和制作。</p>
-    <div class="cta-row">
-      <a class="btn primary" href="tactician-supporting-fire.html">查看战术家攻略</a>
-      <a class="btn" href="../tools/passive-tree.html">独立天赋树工具</a>
-      <a class="btn" href="../tools/version-history.html">查看版本历史</a>
-    </div>
+    <p>开荒页只放剧情通关前的路线：剧情期间怎么点天赋、技能怎么换、装备先找什么。点进 BD 后，剧情结束后的过渡和后期 BD 会单独分开看。</p>
   </section>
 
-  <section class="panel">
+  <section class="panel data-panel" aria-hidden="true">
     <h2>当前版本覆盖</h2>
     <div class="stat-grid" id="buildListStats">
       <div class="stat"><strong>--</strong><span>BD 数量</span></div>
@@ -269,7 +268,7 @@
     <p class="muted" id="buildListVersionText">读取当前版本中...</p>
   </section>
 
-  <section class="panel">
+  <section class="panel data-panel" aria-hidden="true">
     <h2>筛选</h2>
     <div class="filter-grid" id="buildListFilters">
       <label class="control">搜索
@@ -307,7 +306,7 @@
   </section>
 
   <section class="panel">
-    <h2>BD</h2>
+    <h2>正式 BD</h2>
     <div class="grid" id="buildList">
       <article class="build-card">
         <span class="status planned">读取中</span>
@@ -317,7 +316,7 @@
     </div>
   </section>
 
-  <section class="panel">
+  <section class="panel data-panel" aria-hidden="true">
     <h2>候选 BD 队列</h2>
     <p class="muted">这里展示还没有进入正式 <code>manifest.builds</code> 的开荒 BD 草稿。候选可以预览和校验，但不参与上方正式 BD 筛选。</p>
     <!-- smoke-current-candidate: infernalist-minions; runtime source remains manifest.buildCandidates -->
@@ -620,50 +619,33 @@
   }
 
   function renderBuildCard(version, manifest, entry, build) {
-    const routes = routeStatsForBuild(manifest, build);
-    const strategy = build.guideStrategy || {};
     const overview = build.overview || {};
     const nodes = bestTreeNodes(build);
-    const thresholds = gearThresholdStats(build);
-    const crafts = craftPlanStats(build);
-    const guide = guideWritingStats(build);
-    const reportReady = guideReportReady(entry, build);
     return `
       <article class="build-card">
         <span class="status ${statusClass(entry.status)}">${esc(statusLabel(entry.status))}</span>
         <h3>${esc(buildTitle(build))}</h3>
         <div class="meta-row">
           <span class="badge">${esc(classLabel(build) || '职业待补')}</span>
-          <span class="badge">${esc(nodes ? `${nodes} 天赋节点` : '天赋待补')}</span>
-          <span class="badge">${esc((build.stages || []).length)} 阶段</span>
-          <span class="badge">${esc(routes.routes.length)} 条路线</span>
-          <span class="badge">${esc(routes.pending)} 待手调</span>
+          <span class="badge">剧情开荒到通关</span>
+          <span class="badge">${esc((build.stages || []).length)} 个阶段</span>
+          <span class="badge">${esc(nodes ? `终局 ${nodes} 点` : '天赋待补')}</span>
           ${localizedText(overview.difficulty) ? `<span class="badge">难度：${esc(localizedText(overview.difficulty))}</span>` : ''}
         </div>
         <p>${esc(localizedText(overview.budget) || build.stages?.[0]?.summary || '该 BD 已登记到当前版本。')}</p>
         <div class="summary-block">
           ${renderSmallList('适合玩家', overview.bestFor, 2)}
           ${renderSmallList('核心强项', overview.strengths, 2)}
-          ${renderSmallList('当前缺口', overview.risks, 2)}
         </div>
         <div class="meta-row">
-          <span class="badge">决策 ${esc((strategy.decisionRules || []).length)} 组</span>
-          <span class="badge">诊断 ${esc((strategy.failureDiagnosis || []).length)} 条</span>
           <span class="badge">技能 ${esc((build.skills?.active || []).length)} 个</span>
           <span class="badge">装备槽 ${esc((build.gearPriorities || []).length)} 个</span>
-          <span class="badge">攻略正文 ${guide.complete ? '完整' : '有缺口'}</span>
-          <span class="badge">技能总览 ${esc(guide.skillOverviewCards)} 卡 / ${esc(guide.skillOverviewChecks)} 检查</span>
-          <span class="badge">召唤选择 ${esc(guide.minionSelectionGroups)} 组 / ${esc(guide.minionSelectionRules)} 规则</span>
-          <span class="badge">装备总览 ${esc(guide.gearOverviewCards)} 卡 / ${esc(guide.gearOverviewChecks)} 检查</span>
-          <span class="badge">阶段攻略 ${esc(guide.stagePlaybooks)} / 执行 ${esc(guide.executionStages)}</span>
-          <span class="badge">攻略报告 ${reportReady ? '可导出' : '待补'}</span>
-          <span class="badge">装备门槛 ${esc(thresholds.stages)} 阶段 / ${esc(thresholds.rows)} 条</span>
-          <span class="badge">制作方案 ${esc(crafts.plans)} 套 / ${esc(crafts.structured)} 结构化</span>
+          <span class="badge">剧情段 ${esc(Math.min(3, build.stages?.length || 0))}</span>
+          <span class="badge">剧情后过渡/后期</span>
         </div>
         <div class="cta-row">
-          <a class="btn primary" href="${esc(guideHref(entry, build))}">查看详细攻略</a>
-          <a class="btn" href="${esc(guideReportHref(entry, build))}">攻略报告</a>
-          <a class="btn" href="${esc(rootPath(`${version.dataRoot}/${entry.data}`))}">查看 BD 数据</a>
+          <a class="btn primary" href="${esc(guideHref(entry, build))}#campaign-roadmap">剧情开荒</a>
+          <a class="btn" href="${esc(guideHref(entry, build))}#post-campaign-build">剧情后 BD</a>
           <a class="btn" href="../tools/passive-tree.html?build=${encodeURIComponent(build.id)}&stage=endgame">终局天赋</a>
         </div>
       </article>

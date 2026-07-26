@@ -26,11 +26,14 @@
     color:var(--text);
   }
   header {
+    position:sticky;
+    top:0;
+    z-index:20;
     padding:14px 20px;
     border-bottom:1px solid var(--line);
     background:#0b1120;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     gap:12px;
     align-items:center;
     flex-wrap:wrap;
@@ -160,6 +163,11 @@
     gap:12px;
   }
   .grid.two { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .skill-config-grid {
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+  }
   .card {
     border:1px solid var(--line);
     border-radius:8px;
@@ -245,6 +253,9 @@
     padding:0;
     list-style:none;
   }
+  .skill-link-list {
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
   .link-list li {
     display:grid;
     gap:7px;
@@ -320,6 +331,65 @@
   .guide-article-card {
     align-content:start;
     border-left:3px solid var(--ok);
+  }
+  .roadmap-grid {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:12px;
+  }
+  .roadmap-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:14px;
+    display:grid;
+    gap:10px;
+    align-content:start;
+  }
+  .roadmap-card.campaign {
+    border-left:3px solid var(--ok);
+  }
+  .roadmap-card.post {
+    border-left:3px solid var(--accent);
+  }
+  .roadmap-range {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid rgba(56,189,248,.55);
+    border-radius:999px;
+    padding:3px 8px;
+    color:#bae6fd;
+    background:rgba(14,165,233,.12);
+    font-size:12px;
+  }
+  .roadmap-card .mini-block {
+    border-top:1px solid var(--line);
+    padding-top:8px;
+  }
+  .passive-chain {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
+    color:var(--muted);
+    font-size:13px;
+  }
+  .passive-chain strong {
+    color:var(--text);
+    font-size:14px;
+  }
+  .passive-chain .step {
+    border:1px solid rgba(56,189,248,.5);
+    border-radius:999px;
+    padding:3px 8px;
+    color:#bae6fd;
+    background:rgba(14,165,233,.12);
+  }
+  .skill-plan {
+    margin:0;
+    padding-left:18px;
+    display:grid;
+    gap:5px;
   }
   .mini-block {
     display:grid;
@@ -417,7 +487,7 @@
     display:none;
   }
   @media (max-width: 920px) {
-    .grid, .grid.two, .toc-grid, .guide-article-grid, .stat-grid { grid-template-columns:1fr; }
+    .grid, .grid.two, .skill-link-list, .toc-grid, .guide-article-grid, .roadmap-grid, .stat-grid { grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -426,9 +496,7 @@
   <h1>S05 战术家支援火力开荒攻略</h1>
   <nav class="nav" aria-label="页面导航">
     <a class="btn" href="../index.html">首页</a>
-    <a class="btn primary" href="#guide-article">阅读全文</a>
-    <a class="btn" href="#stage-tree">阶段天赋</a>
-    <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">终局天赋工具</a>
+    <a class="btn primary" href="index.html">开荒</a>
     <div class="segmented header-lang" id="guideLangSwitch" aria-label="页面语言选择">
       <button class="active" type="button" data-guide-lang="zh">简体</button>
       <button type="button" data-guide-lang="tw">繁体</button>
@@ -436,18 +504,22 @@
     </div>
   </nav>
 </header>
+<script src="../assets/site-header.js" data-root=".." data-active="builds" data-title="S05 战术家支援火力开荒攻略"></script>
 
 <main class="shell">
   <section class="panel hero">
+    <div class="button-row">
+      <a class="btn primary" href="index.html">返回开荒列表</a>
+    </div>
     <span class="status">已接入</span>
     <h2>佣兵 / 战术家 / 支援火力（Supporting Fire）</h2>
-    <p>这页专注攻略本身：怎么起号、什么时候转型、阶段装备要什么、毕业怎么做。天赋树作为独立工具打开，阶段按钮会传入对应节点路线。</p>
-    <div class="view-mode" aria-label="攻略显示模式">
+    <p>剧情阶段只看怎么通关：按等级段点天赋、换技能、找装备。剧情结束后再进入真正 BD，分过渡和后期处理装备、天赋、珠宝、技能。</p>
+    <div class="view-mode advanced-panel" aria-label="攻略显示模式">
       <button class="active" type="button" id="readGuideViewBtn" data-guide-view-mode="read">阅读版</button>
       <button type="button" id="fullGuideViewBtn" data-guide-view-mode="full">完整数据</button>
       <span class="pill" id="guideViewStatus">默认阅读版</span>
     </div>
-    <p class="compact-note" id="compactGuideNote">默认只展示开荒决策、阶段路线、技能替换和装备优先级；Markdown 报告、证据矩阵、技能来源、属性门槛、装备阶段检查、制作细节和诊断表放在“完整数据”里。</p>
+    <p class="compact-note advanced-panel" id="compactGuideNote">默认只展示开荒决策、阶段路线、技能替换和装备优先级；Markdown 报告、证据矩阵、技能来源、属性门槛、装备阶段检查、制作细节和诊断表放在“完整数据”里。</p>
     <div class="pill-row">
       <span class="pill">S05</span>
       <span class="pill">召唤 / 号令</span>
@@ -457,7 +529,7 @@
     </div>
   </section>
 
-  <section class="panel" id="guide-overview">
+  <section class="panel advanced-panel" id="guide-overview">
     <div class="section-head">
       <h2>攻略目录</h2>
       <span class="pill" id="guideDataVersion">数据读取中...</span>
@@ -473,7 +545,11 @@
       </a>
       <a class="toc-link" href="#leveling-stages">
         <strong>开荒路线</strong>
-        <span>每个阶段看技能玩法、天赋优先级和换装门槛。</span>
+        <span>剧情期间按等级段看天赋、技能和装备。</span>
+      </a>
+      <a class="toc-link" href="#post-campaign-build">
+        <strong>剧情后 BD</strong>
+        <span>通关后再看过渡、后期装备、天赋、珠宝和技能。</span>
       </a>
       <a class="toc-link" href="#guide-strategy">
         <strong>攻略决策</strong>
@@ -502,7 +578,25 @@
     </div>
   </section>
 
-  <section class="panel" id="guide-article">
+  <section class="panel" id="campaign-roadmap">
+    <div class="section-head">
+      <h2>剧情开荒到通关</h2>
+      <span class="pill">开荒 BD 只覆盖剧情</span>
+    </div>
+    <p class="guide-flow-intro">这一段只回答剧情怎么过：每个等级段点什么天赋、用什么技能、装备先找什么。剧情结束后不要再把它当毕业清单，后面进入真正 BD 的过渡和成型选择。</p>
+    <div class="roadmap-grid" id="campaignRoadmapGrid"></div>
+  </section>
+
+  <section class="panel" id="post-campaign-build">
+    <div class="section-head">
+      <h2>剧情结束后的真正 BD</h2>
+      <span class="pill">过渡 / 后期</span>
+    </div>
+    <p class="guide-flow-intro">剧情通关后才开始按 BD 目标处理装备、天赋、珠宝和技能。过渡阶段优先补短板，后期再追核心暗金、高精魂、召唤技能等级和高质量珠宝。</p>
+    <div class="roadmap-grid" id="postCampaignGrid"></div>
+  </section>
+
+  <section class="panel advanced-panel" id="guide-article">
     <div class="section-head">
       <h2>开荒正文速读</h2>
       <span class="pill" id="guideArticleStatus">等待攻略正文</span>
@@ -511,7 +605,7 @@
     <div class="guide-article-grid" id="guideArticleGrid">
       <article class="card guide-article-card">
         <h3>起什么职业</h3>
-        <p>起佣兵，升华走战术家。剧情早期先用最高伤害的佣兵弩、榴弹或范围技能推进。</p>
+        <p>起佣兵，升华走战术家。剧情早期按爆炸榴弹、传染、霜爆、闪光榴弹和疾风之舞过渡，第一次升华后接入支援火力。</p>
       </article>
       <article class="card guide-article-card">
         <h3>什么时候转型</h3>
@@ -542,7 +636,7 @@
     <p>这块把攻略内容按证据来源分层：已接入本地数据或 PoE2DB 的内容可以作为当前版本资料使用；手工阶段计划、终局投影路线和样例行情必须继续标记待复核。</p>
     <div class="stat-grid" id="evidenceSummaryStats">
       <div class="stat"><strong>--</strong><span>待复核项</span></div>
-      <div class="stat"><strong>--</strong><span>投影路线</span></div>
+      <div class="stat"><strong>--</strong><span>来源路线</span></div>
       <div class="stat"><strong>--</strong><span>已手调路线</span></div>
       <div class="stat"><strong>--</strong><span>技能详情</span></div>
       <div class="stat"><strong>--</strong><span>辅助证据</span></div>
@@ -551,7 +645,7 @@
     <div class="grid two" id="evidenceSummaryGrid">
       <article class="card">
         <h3>天赋路线</h3>
-        <p>前中期路线仍是终局顺序投影，适合查看方向，不等于已验证最快开荒路线。</p>
+        <p>阶段路线来自来源攻略 tree-viewer：Act 1 弩/召唤二选一，Act 2 转支援火力，Act 3 到进图。</p>
       </article>
       <article class="card">
         <h3>市场价格</h3>
@@ -560,19 +654,20 @@
     </div>
   </section>
 
-  <section class="panel" id="stage-tree">
+  <section class="panel advanced-panel" id="stage-tree">
     <h2>阶段天赋按钮</h2>
-    <p>阶段快照已经接入通用天赋树查看器。当前前中期路线先按终局 PoB 点法顺序投影生成，适合查看大致走向；后续会继续按实战开荒手感微调。</p>
+    <p>阶段快照已按来源攻略的 tree-viewer step 接入：Act 1 弩/召唤是二选一开荒方案，Act 2 开始支援火力，Act 3 到进图，后面再看 End Game 和 Deep Late Game。</p>
     <div class="button-row" id="stageTreeLinks">
-      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=campaign-early">剧情早期 21 点</a>
-      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=first-ascendancy">第一次升华 38 点</a>
-      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=yellow-maps">白黄图 68 点</a>
-      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=red-maps">红图 96 点</a>
-      <a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">毕业 122 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act1-crossbow">Act 1 弩 32 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act1-minions">Act 1 召唤 30 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act2-supporting-fire-start">Act 2 支援火力 39 点</a>
+      <a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act3-maps">Act 3 到进图 81 点</a>
+      <a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">End Game 102 点</a>
+      <a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=deep-late-game">Deep Late Game 123 点</a>
     </div>
   </section>
 
-  <section class="panel" id="build-positioning">
+  <section class="panel advanced-panel" id="build-positioning">
     <h2>BD 定位</h2>
     <div class="grid">
       <article class="card">
@@ -590,7 +685,7 @@
     </div>
   </section>
 
-  <section class="panel" id="guide-strategy">
+  <section class="panel advanced-panel" id="guide-strategy">
     <h2>攻略决策手册</h2>
     <p>这块用来回答“什么时候转、卡住先改哪、预算先花哪”。它不是天赋图，后续新增 BD 时也会作为攻略正文的必填模块。</p>
     <div class="grid two" id="guideStrategyGrid">
@@ -613,7 +708,7 @@
     </div>
   </section>
 
-  <section class="panel" id="execution-plan">
+  <section class="panel advanced-panel" id="execution-plan">
     <div class="section-head">
       <h2>新号照抄执行路线</h2>
       <span class="pill" id="executionPlanStatus">等待数据注水</span>
@@ -627,7 +722,7 @@
         <tbody id="executionPlanRows">
           <tr>
             <td>剧情早期</td>
-            <td>用当前最高伤害的佣兵弩、榴弹或顺手范围技能推剧情。</td>
+            <td>爆炸榴弹主清图，传染、霜爆、闪光榴弹补伤和控制，疾风之舞常驻防御。</td>
             <td>高秒伤过渡武器、移动速度鞋、生命抗性黄装。</td>
             <td>低等级装备有一到两条有效词就停。</td>
             <td>首领打不动先换武器和辅助，不先洗远端召唤路线。</td>
@@ -661,7 +756,7 @@
     </div>
   </section>
 
-  <section class="panel" id="leveling-stages">
+  <section class="panel advanced-panel" id="leveling-stages">
     <h2>开荒阶段路线</h2>
     <div class="table-wrap">
       <table>
@@ -670,42 +765,42 @@
         </thead>
         <tbody id="levelingStageRows">
           <tr>
-            <td>剧情早期</td>
-            <td>用佣兵弩、榴弹或任意高伤技能推进，不强行等支援火力。</td>
-            <td>近路伤害、生命、属性点；不要为了远端召唤大圈绕太远。</td>
-            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=campaign-early">打开 21 点</a></td>
+            <td>Act 1 弩开荒</td>
+            <td>爆炸榴弹、弩技能和高伤武器快速推 Act 1。</td>
+            <td>Singular Purpose、Overwhelm、Relentless；这是弩开荒方案，后面转召唤树。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act1-crossbow">打开 32 点</a></td>
             <td>高秒伤武器、移速鞋、生命和抗性。</td>
-            <td>输出卡首领时先换武器，不要深做低级黄装。</td>
+            <td>Act 2 转型前准备重置，不把弩树硬接到后期。</td>
           </tr>
           <tr>
-            <td>第一次升华后</td>
-            <td>点出释放地狱，开始围绕支援火力转型。</td>
-            <td>升华起点、支援火力、召唤物伤害小点；主树开始靠近召唤物伤害和号令冷却。</td>
-            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=first-ascendancy">打开 38 点</a></td>
-            <td>找精魂、召唤物伤害、力量、抗性；保留能清图的过渡技能。</td>
-            <td>支援火力手感稳定后再完全转召唤/号令体系。</td>
+            <td>Act 1 召唤开荒</td>
+            <td>骷髅狙击手、火墙、愤怒狂灵等召唤组合过 Act 1。</td>
+            <td>Relentless、Blade Catcher、Deadly Swarm；和弩路线二选一。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act1-minions">打开 30 点</a></td>
+            <td>生命抗性黄装，伤害不足再补便宜法杖或副手。</td>
+            <td>召唤物不稳时保留榴弹/法术补清图。</td>
           </tr>
           <tr>
-            <td>剧情后半</td>
-            <td>支援火力主输出，召唤物提供伤害和承伤。</td>
-            <td>恐惧之主（Lord of Horrors）、听你号令（At your Command）、人海战术（Growing Swarm）一类召唤/号令收益。</td>
-            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=yellow-maps">打开 68 点</a></td>
+            <td>Act 2 支援火力启动</td>
+            <td>释放地狱后接入支援火力，开始召唤/号令转型。</td>
+            <td>At your Command、Beef、召唤物伤害；弩开荒到这里需要重置/转型。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act2-supporting-fire-start">打开 39 点</a></td>
+            <td>精魂、召唤技能等级、力量和抗性。</td>
+            <td>支援火力不稳前保留过渡技能。</td>
+          </tr>
+          <tr>
+            <td>Act 3 到进图</td>
+            <td>支援火力、召唤物、火墙和霜爆补齐剧情后半循环。</td>
+            <td>Growing Swarm、Deadly Swarm、Made to Last、Tempered Defences、Heavy Armour。</td>
+            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=act3-maps">打开 81 点</a></td>
             <td>补满抗性，优先生命、力量、精魂、召唤技能等级。</td>
-            <td>如果死亡频繁，先补防御和抗性，不要继续堆伤害。</td>
+            <td>剧情首领稳定后再进图。</td>
           </tr>
           <tr>
-            <td>白黄图</td>
-            <td>进入成型循环：号令技能、诅咒、召唤物协同。</td>
-            <td>补珠宝插槽、博学、泰坦、久经沙场等属性和防御。</td>
-            <td><a class="btn" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=red-maps">打开 96 点</a></td>
-            <td>开始找暗金/稀有核心件：沟木棍（Trenchtimbre）、精魂权杖、均衡之符（Astramentis）。</td>
-            <td>抗性、生命池、精魂数量稳定后再冲红图。</td>
-          </tr>
-          <tr>
-            <td>红图/毕业</td>
+            <td>End Game / Deep Late Game</td>
             <td>按 PoB 终局：支援火力 + 多召唤物 + 脆弱诅咒。</td>
-            <td>完成当前 122 点终局树，珠宝孔放召唤物伤害/召唤暴击相关蓝宝石珠宝。</td>
-            <td><a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">打开 122 点</a></td>
+            <td>先 End Game 成型，再 Deep Late Game 微调；不要把深后期树当前期路线。</td>
+            <td><a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=endgame">打开 102 点</a> <a class="btn primary" href="../tools/passive-tree.html?build=tactician-supporting-fire&stage=deep-late-game">打开 123 点</a></td>
             <td>不败之人（Morior Invictus）、乌勒尔之骨（Bones of Ullr）、高精魂响尾权杖（Rattling Sceptre）、稀有抗性力量防具。</td>
             <td>毕业前先保证抗性和生存，再追珠宝和高词缀饰品。</td>
           </tr>
@@ -796,7 +891,7 @@
         <tbody id="skillProgressionRows">
           <tr>
             <td>剧情早期</td>
-            <td>先用当前最高伤的佣兵弩、榴弹或任意顺手清怪技能。</td>
+            <td>爆炸榴弹主清图；传染、霜爆、闪光榴弹补伤和控制；疾风之舞常驻。</td>
             <td>召唤物只当补伤和承伤，不强求数量。</td>
             <td>优先给主清怪技能接直接增伤、范围或频率辅助。</td>
             <td>只要过渡技能清怪比召唤物快，就继续用过渡技能；不要为了最终形态牺牲剧情速度。</td>
@@ -909,7 +1004,7 @@
         </article>
       </div>
     </div>
-    <div class="grid two" id="skillConfigGrid">
+    <div class="skill-config-grid" id="skillConfigGrid">
       <article class="card">
         <h3 data-i18n="activeSkillsTitle">技能本体</h3>
         <ul class="skill-list">
@@ -1978,7 +2073,7 @@
     const routes = (manifest?.tree?.routes || []).filter((route) => route.buildId === build.id);
     const projectedRoutes = routes.filter((route) => route.origin === 'projected-from-endgame-order').length;
     const handTunedRoutes = routes.filter((route) => route.handTuned).length;
-    const manualReviewRoutes = (build.stages || []).filter((stage) => stage.routeReview?.status && stage.routeReview.status !== '已手调').length;
+    const sourceRoutes = routes.filter((route) => route.origin === 'mobalytics-kami-step').length;
     const catalogEntries = catalog?.entries || [];
     const catalogDetailCount = catalogEntries.filter((entry) => entry.poe2db?.detail).length;
     const supportMatched = Number(document.body.dataset.guideSupportEvidenceMatched || 0);
@@ -1987,15 +2082,15 @@
     const marketStatus = 'sample-not-live';
     const values = [
       { value: pendingChecks, label: '待复核项' },
-      { value: projectedRoutes, label: '投影路线' },
-      { value: handTunedRoutes, label: '已手调路线' },
+      { value: sourceRoutes, label: '来源路线' },
+      { value: handTunedRoutes, label: '可打开路线' },
       { value: `${catalogDetailCount}/${catalogEntries.length}`, label: '技能详情' },
       { value: `${supportMatched}/${supportTotal}`, label: '辅助证据' },
       { value: marketStatus, label: '市场状态' }
     ];
 
     if (status) {
-      status.textContent = `路线待复核 ${manualReviewRoutes} / 技能详情 ${catalogDetailCount}/${catalogEntries.length}`;
+      status.textContent = `来源路线 ${sourceRoutes} / 技能详情 ${catalogDetailCount}/${catalogEntries.length}`;
     }
     stats.innerHTML = values.map((item) => `
       <div class="stat">
@@ -2019,7 +2114,7 @@
     document.body.dataset.guideEvidencePendingCount = String(pendingChecks);
     document.body.dataset.guideEvidenceProjectedRoutes = String(projectedRoutes);
     document.body.dataset.guideEvidenceHandTunedRoutes = String(handTunedRoutes);
-    document.body.dataset.guideEvidenceManualReviewRoutes = String(manualReviewRoutes);
+    document.body.dataset.guideEvidenceSourceRoutes = String(sourceRoutes);
     document.body.dataset.guideEvidenceCatalogDetailCount = String(catalogDetailCount);
     document.body.dataset.guideEvidenceCatalogEntryCount = String(catalogEntries.length);
     document.body.dataset.guideEvidenceMarketStatus = marketStatus;
@@ -2108,6 +2203,282 @@
     document.body.dataset.executionPlanStopLineCount = String(plan.stages.filter((item) => item.stopLine).length);
     document.body.dataset.executionPlanFallbackCount = String(plan.stages.filter((item) => item.fallback).length);
     document.body.dataset.executionPlanNextGateCount = String(plan.stages.filter((item) => item.nextGate).length);
+  }
+
+  function stageById(build, id) {
+    return (build.stages || []).find((stage) => stage.id === id) || null;
+  }
+
+  function executionByStage(build, id) {
+    return (build.executionPlan?.stages || []).find((stage) => stage.stageId === id) || null;
+  }
+
+  function gearByStage(build, id) {
+    return (build.gearStagePlan || []).find((stage) => stage.stageId === id) || null;
+  }
+
+  function routeMapForBuild(build, manifest) {
+    return new Map((manifest?.tree?.routes || [])
+      .filter((route) => route.buildId === build.id)
+      .map((route) => [route.stageId, route]));
+  }
+
+  function routeNodeCount(route, stage) {
+    return Number(route?.nodes || stage?.treeNodes || 0);
+  }
+
+  function passiveChainHtml(fromNodes, toNodes, route, stageId) {
+    const labels = {
+      zh: { transition: '天赋转型', progress: '天赋进度', act2: 'Act 2', openTree: `打开 ${toNodes} 点支援火力/召唤树`, respec: '如果 Act 1 用弩开荒，这里按来源攻略转到召唤树，可能需要花金币重置。', keep: `沿用 ${toNodes} 点`, noRespec: '不重新洗点，先检查装备和技能循环', from: `${fromNodes} 点`, to: `${toNodes} 点`, add: `本段新增 ${Math.max(0, toNodes - fromNodes)} 点` },
+      tw: { transition: '天賦轉型', progress: '天賦進度', act2: 'Act 2', openTree: `打開 ${toNodes} 點支援火力/召喚樹`, respec: '如果 Act 1 用弩拓荒，這裡按來源攻略轉到召喚樹，可能需要花金幣重置。', keep: `沿用 ${toNodes} 點`, noRespec: '不重新洗點，先檢查裝備和技能循環', from: `${fromNodes} 點`, to: `${toNodes} 點`, add: `本段新增 ${Math.max(0, toNodes - fromNodes)} 點` },
+      en: { transition: 'Passive transition', progress: 'Passive progress', act2: 'Act 2', openTree: `Open the ${toNodes}-point Supporting Fire/minion tree`, respec: 'If Act 1 used the crossbow route, switch into the source minion tree here; this may require a gold respec.', keep: `Keep ${toNodes} points`, noRespec: 'No respec here; check gear and skill loop first.', from: `${fromNodes} points`, to: `${toNodes} points`, add: `${Math.max(0, toNodes - fromNodes)} new points in this step` }
+    }[currentSkillLang] || {};
+    if (route?.stageId === 'act2-supporting-fire-start') {
+      return `
+        <div class="passive-chain" data-passive-from="${esc(fromNodes)}" data-passive-to="${esc(toNodes)}" data-passive-add="respec">
+          <strong>${esc(labels.transition)}</strong>
+          <span class="step">${esc(labels.act2)}</span>
+          <span>${esc(labels.openTree)}</span>
+          <span>${esc(labels.respec)}</span>
+        </div>
+      `;
+    }
+    const addNodes = Math.max(0, toNodes - fromNodes);
+    if (addNodes === 0 && fromNodes === toNodes) {
+      return `
+        <div class="passive-chain" data-passive-from="${esc(fromNodes)}" data-passive-to="${esc(toNodes)}" data-passive-add="0">
+          <strong>${esc(labels.progress)}</strong>
+          <span class="step">${esc(labels.keep)}</span>
+          <span>${esc(labels.noRespec)}</span>
+        </div>
+      `;
+    }
+    return `
+      <div class="passive-chain" data-passive-from="${esc(fromNodes)}" data-passive-to="${esc(toNodes)}" data-passive-add="${esc(addNodes)}">
+        <strong>${esc(labels.progress)}</strong>
+        <span class="step">${esc(labels.from)}</span>
+        <span>-></span>
+        <span class="step">${esc(labels.to)}</span>
+        <span>${esc(labels.add)}</span>
+      </div>
+    `;
+  }
+
+  function routeButtonForStage(build, manifest, stage, fromNodes = 0) {
+    if (!stage) return '';
+    const routes = routeMapForBuild(build, manifest);
+    const route = routes.get(stage.treeStage);
+    if (!stage.treeStage || !route) return '';
+    const href = `../tools/passive-tree.html?build=${encodeURIComponent(build.id)}&stage=${encodeURIComponent(stage.treeStage)}`;
+    const primary = ['endgame', 'deep-late-game'].includes(stage.treeStage) ? ' primary' : '';
+    const toNodes = routeNodeCount(route, stage);
+    const openLabel = currentSkillLang === 'en' ? `Open ${toNodes}-point tree` : currentSkillLang === 'tw' ? `打開 ${toNodes} 點天賦` : `打开 ${toNodes} 点天赋`;
+    const continueLabel = currentSkillLang === 'en' ? `Continue to ${toNodes} points` : currentSkillLang === 'tw' ? `繼續點到 ${toNodes} 點天賦` : `继续点到 ${toNodes} 点天赋`;
+    const transitionLabel = currentSkillLang === 'en' ? `Open ${toNodes}-point transition tree` : currentSkillLang === 'tw' ? `打開 ${toNodes} 點轉型樹` : `打开 ${toNodes} 点转型树`;
+    const referenceLabel = currentSkillLang === 'en' ? `View ${toNodes}-point tree reference` : currentSkillLang === 'tw' ? `查看 ${toNodes} 點階段樹參考` : `查看 ${toNodes} 点阶段树参考`;
+    const label = stage.treeStage === 'act2-supporting-fire-start'
+      ? transitionLabel
+      : route.handTuned
+      ? (fromNodes > 0 && toNodes > fromNodes ? continueLabel : openLabel)
+      : referenceLabel;
+    const note = route.handTuned
+      ? (currentSkillLang === 'en' ? 'Source guide step' : currentSkillLang === 'tw' ? '來源階段路線' : '来源阶段路线')
+      : (currentSkillLang === 'en' ? 'Not hand tuned: projected from endgame order.' : currentSkillLang === 'tw' ? '未手調：從終局 PoB 順序截取。' : '未手调：从终局 PoB 顺序截取，可能不适合剧情实战，也可能看起来不连贯。');
+    return `<div class="route-cell"><a class="btn${primary}" href="${href}" data-stage-route="${esc(stage.treeStage)}" data-stage-route-nodes="${esc(toNodes)}" data-stage-route-from="${esc(fromNodes)}">${esc(label)}</a><span class="route-note">${esc(note)}</span></div>`;
+  }
+
+  function skillPlanHtml(config, fallback) {
+    if (Array.isArray(config.skillLines) && config.skillLines.length) {
+      return `<ul class="skill-plan">${config.skillLines.map((item) => `<li>${esc(localizedValue(item, currentSkillLang))}</li>`).join('')}</ul>`;
+    }
+    return `<p>${esc(localizedValue(config.skill || fallback || '', currentSkillLang))}</p>`;
+  }
+
+  function renderRoadmapCard(build, manifest, config, kind) {
+    const stage = stageById(build, config.stageId);
+    const execution = executionByStage(build, config.stageId);
+    const gear = gearByStage(build, config.stageId);
+    const route = stage?.treeStage ? routeMapForBuild(build, manifest).get(stage.treeStage) : null;
+    const toNodes = routeNodeCount(route, stage);
+    const fromNodes = Number(config.fromNodes || 0);
+    const treeText = localizedValue(config.tree || (stage?.priorities || []).join('、'), currentSkillLang);
+    const skillText = execution?.mainAction || stage?.summary || '';
+    const gearText = localizedValue(config.gear || (gear?.mustHave || execution?.buyFirst || []).join('、'), currentSkillLang);
+    const checkText = localizedValue(config.check || execution?.nextGate || gear?.upgradeWhen || '', currentSkillLang);
+    const blockLabels = {
+      zh: { tree: '天赋怎么点', skill: '技能搭配', gear: '装备先找什么' },
+      tw: { tree: '天賦怎麼點', skill: '技能搭配', gear: '裝備先找什麼' },
+      en: { tree: 'Passive path', skill: 'Skill links', gear: 'Gear to look for' }
+    }[currentSkillLang] || { tree: '天赋怎么点', skill: '技能搭配', gear: '装备先找什么' };
+    return `
+      <article class="roadmap-card ${esc(kind)}" data-roadmap-stage="${esc(config.stageId)}">
+        <span class="roadmap-range">${esc(localizedValue(config.range, currentSkillLang))}</span>
+        <h3>${esc(localizedValue(config.title || stage?.title || config.stageId, currentSkillLang))}</h3>
+        ${toNodes ? passiveChainHtml(fromNodes, toNodes, route, stage?.treeStage) : ''}
+        <div class="mini-block"><strong>${esc(blockLabels.tree)}</strong><p>${esc(treeText)}</p>${routeButtonForStage(build, manifest, stage, fromNodes)}</div>
+        <div class="mini-block"><strong>${esc(blockLabels.skill)}</strong>${skillPlanHtml(config, skillText)}</div>
+        <div class="mini-block"><strong>${esc(blockLabels.gear)}</strong><p>${esc(gearText)}</p></div>
+        <div class="mini-block"><strong>${esc(localizedValue(config.checkTitle || { zhCN: '进入下一段前检查', zhTW: '進入下一段前檢查', en: 'Before moving on' }, currentSkillLang))}</strong><p>${esc(checkText)}</p></div>
+      </article>
+    `;
+  }
+
+  function renderBuildRoadmaps(build, manifest) {
+    const campaign = document.getElementById('campaignRoadmapGrid');
+    const post = document.getElementById('postCampaignGrid');
+    const campaignConfigs = [
+      {
+        range: { zhCN: 'Act 1 方案 A', zhTW: 'Act 1 方案 A', en: 'Act 1 Option A' },
+        stageId: 'act1-crossbow',
+        fromNodes: 0,
+        title: { zhCN: '弩开荒：最快推 Act 1', zhTW: '弩拓荒：最快推 Act 1', en: 'Crossbow Leveling: fastest Act 1' },
+        tree: {
+          zhCN: '来源树先从佣兵起点走弩/榴弹效率点，核心可见节点是 Singular Purpose、Overwhelm、Relentless。它是 Act 1 快速方案，不是后期召唤树前缀。',
+          zhTW: '來源樹先從傭兵起點走弩/榴彈效率點，核心可見節點是 Singular Purpose、Overwhelm、Relentless。它是 Act 1 快速方案，不是後期召喚樹前綴。',
+          en: 'The source tree paths from the Mercenary start into crossbow/grenade efficiency. Key visible nodes are Singular Purpose, Overwhelm, and Relentless. This is an Act 1 speed route, not the prefix of the late-game minion tree.'
+        },
+        skillLines: [
+          {
+            zhCN: '爆炸榴弹：多重投射 I + 火焰调和。',
+            zhTW: '爆炸榴彈：多重投射 I + 火焰調和。',
+            en: 'Explosive Grenade: Multishot I + Fire Attunement.'
+          },
+          {
+            zhCN: '传染：来源没有显示辅助，作为补伤/扩散手段使用。',
+            zhTW: '傳染：來源沒有顯示輔助，作為補傷/擴散手段使用。',
+            en: 'Contagion: no support shown in the source; use it for supplemental damage and spread.'
+          },
+          {
+            zhCN: '霜爆：来源没有显示辅助，用来补伤和压制回复/抗性窗口。',
+            zhTW: '霜爆：來源沒有顯示輔助，用來補傷和壓制回復/抗性窗口。',
+            en: 'Frost Bomb: no support shown in the source; use it for supplemental damage and recovery/resistance windows.'
+          },
+          {
+            zhCN: '闪光榴弹：多重投射 I，扩大控制和覆盖。',
+            zhTW: '閃光榴彈：多重投射 I，擴大控制和覆蓋。',
+            en: 'Flash Grenade: Multishot I for wider control and coverage.'
+          },
+          {
+            zhCN: '疾风之舞：常驻防御，不接输出辅助。',
+            zhTW: '疾風之舞：常駐防禦，不接輸出輔助。',
+            en: 'Wind Dancer: defensive reservation, no damage support.'
+          },
+          {
+            zhCN: '目标：先用佣兵弩和榴弹体系过 Act 1；后面转召唤/支援火力时准备重置。',
+            zhTW: '目標：先用傭兵弩和榴彈體系過 Act 1；後面轉召喚/支援火力時準備重置。',
+            en: 'Goal: clear Act 1 with crossbow and grenades first; prepare to respec when switching into minions/Supporting Fire later.'
+          }
+        ],
+        gear: { zhCN: '高秒伤过渡武器、移动速度鞋、带生命/抗性/属性的便宜黄装。', zhTW: '高秒傷過渡武器、移動速度鞋、帶生命/抗性/屬性的便宜黃裝。', en: 'High-DPS transitional weapon, movement-speed boots, and cheap rares with life, resistances, or attributes.' },
+        check: { zhCN: '爆炸榴弹清怪顺、跑图舒服、生命抗性没有明显短板，再推进 Act 2。', zhTW: '爆炸榴彈清怪順、跑圖舒服、生命抗性沒有明顯短板，再推進 Act 2。', en: 'Move into Act 2 once Explosive Grenade clears smoothly, movement feels good, and life/resistances have no obvious gap.' }
+      },
+      {
+        range: { zhCN: 'Act 1 方案 B', zhTW: 'Act 1 方案 B', en: 'Act 1 Option B' },
+        stageId: 'act1-minions',
+        fromNodes: 0,
+        title: { zhCN: '召唤开荒：Act 1 替代路线', zhTW: '召喚拓荒：Act 1 替代路線', en: 'Minion Leveling: Act 1 alternative' },
+        tree: {
+          zhCN: '来源树更早接召唤和本体防御，核心可见节点是 Relentless、Blade Catcher、Deadly Swarm。它和弩路线二选一，不要串起来都点。',
+          zhTW: '來源樹更早接召喚和本體防禦，核心可見節點是 Relentless、Blade Catcher、Deadly Swarm。它和弩路線二選一，不要串起來都點。',
+          en: 'The source tree moves into minion and character defense earlier. Key visible nodes are Relentless, Blade Catcher, and Deadly Swarm. Pick this or the crossbow route; do not allocate both routes in sequence.'
+        },
+        skillLines: [
+          {
+            zhCN: '爆炸榴弹、传染、霜爆：来源没有显示辅助，保留作清图和补伤。',
+            zhTW: '爆炸榴彈、傳染、霜爆：來源沒有顯示輔助，保留作清圖和補傷。',
+            en: 'Explosive Grenade, Contagion, Frost Bomb: no support shown in the source; keep them for clearing and supplemental damage.'
+          },
+          {
+            zhCN: '骷髅狙击手：多重投射 I + 火焰调和。',
+            zhTW: '骷髏狙擊手：多重投射 I + 火焰調和。',
+            en: 'Skeletal Sniper: Multishot I + Fire Attunement.'
+          },
+          {
+            zhCN: '火墙：点燃 I。',
+            zhTW: '火牆：點燃 I。',
+            en: 'Flame Wall: Ignite I.'
+          },
+          {
+            zhCN: '愤怒狂灵：常驻/触发召唤，来源没有显示辅助。',
+            zhTW: '憤怒狂靈：常駐/觸發召喚，來源沒有顯示輔助。',
+            en: 'Raging Spirits: persistent/triggered summon; no support shown in the source.'
+          },
+          {
+            zhCN: '目标：想更早熟悉召唤体系就走这条；伤害不稳时仍保留过渡技能。',
+            zhTW: '目標：想更早熟悉召喚體系就走這條；傷害不穩時仍保留過渡技能。',
+            en: 'Goal: choose this if you want to learn the minion setup earlier; keep transitional skills if damage feels unstable.'
+          }
+        ],
+        gear: { zhCN: '生命/抗性/属性黄装优先，伤害不足再找便宜法杖、副手或高伤过渡武器。', zhTW: '生命/抗性/屬性黃裝優先，傷害不足再找便宜法杖、副手或高傷過渡武器。', en: 'Prioritize rares with life, resistances, and attributes. If damage is low, look for a cheap wand, offhand, or high-damage transitional weapon.' },
+        check: { zhCN: '召唤物能稳定补伤和挡怪，本体不因为追召唤点缺抗性，再推进 Act 2。', zhTW: '召喚物能穩定補傷和擋怪，本體不因為追召喚點缺抗性，再推進 Act 2。', en: 'Move into Act 2 once minions reliably add damage and bodies, and your character has not lost resistances by chasing minion nodes.' }
+      },
+      {
+        range: 'Act 2',
+        stageId: 'act2-supporting-fire-start',
+        fromNodes: 30,
+        title: '支援火力启动',
+        tree: '第一次升华拿释放地狱后接入支援火力；主树开始走 At your Command、Beef、召唤物伤害和号令相关点。弩开荒到这里不是继续点，是转型/重置到召唤树。',
+        skillLines: [
+          '核心：支援火力。',
+          '召唤组合：骷髅狙击手、骷髅战士、骷髅冰霜法师。',
+          '位移/功能：Leap、火墙、霜爆。',
+          '保留过渡清图：支援火力伤害不足时继续用爆炸榴弹。'
+        ],
+        gear: '找精魂、召唤技能等级、力量和抗性；先保一组主输出召唤物。',
+        check: '支援火力有存在感，至少一组主输出召唤物能常驻，抗性没有被召唤词缀换空。'
+      },
+      {
+        range: 'Act 3 - Maps',
+        stageId: 'act3-maps',
+        fromNodes: 39,
+        title: '剧情后半到进图',
+        tree: '来源树补 Growing Swarm、Deadly Swarm、Made to Last、Tempered Defences、Heavy Armour 等召唤和防御点，目标是剧情结束能进图。',
+        skillLines: [
+          '主按钮：支援火力。',
+          '召唤组合：骷髅狙击手、骷髅战士、骷髅纵火者、骷髅冰霜法师、骷髅掠夺者。',
+          '位移/功能：Leap、火墙、霜爆。',
+          '如果支援火力成型慢，保留榴弹过渡到剧情结束。'
+        ],
+        gear: '补满抗性，优先生命、力量、精魂、召唤技能等级；只买便宜双有效词珠宝。',
+        check: '剧情首领能稳定处理，本体不暴毙，精魂和孔位够维持主输出链。'
+      }
+    ];
+    const postConfigs = [
+      {
+        range: 'End Game',
+        stageId: 'endgame',
+        fromNodes: 81,
+        title: '进图后成型',
+        checkTitle: '什么时候进后期',
+        tree: '来源 End Game 树是成型阶段，不是剧情阶段。先补核心号令、召唤、防御和属性，再按装备短板微调。',
+        skillLines: [
+          '固定：支援火力 + 脆弱诅咒。',
+          '固定一组主输出召唤物，优先把这组辅助补齐。',
+          '前排召唤物保生存，功能召唤物最后补。'
+        ],
+        gear: '先补满元素抗性、生命池和精魂来源，再找便宜双有效词召唤珠宝。',
+        check: '白黄图能连续推进，主输出链完整，死亡主要来自词缀而不是普通怪压力。'
+      },
+      {
+        range: 'Deep Late Game',
+        stageId: 'deep-late-game',
+        fromNodes: 102,
+        title: '深后期微调',
+        checkTitle: '毕业前检查',
+        tree: 'Deep Late Game 是装备、属性、精魂和珠宝质量都稳定后的深后期树，会加入更多防御、血量、巨人之血等后期路线。',
+        skillLines: [
+          '支援火力 + 号令辅助作为核心输出。',
+          '脆弱诅咒处理稀有怪和首领。',
+          '多召唤物分工：主输出、前排、功能位分开配辅助，不平均分。'
+        ],
+        gear: '沟木棍或等价召唤技能等级核心、不败之人、乌勒尔之骨、均衡之符、高精魂权杖、高质量召唤珠宝。',
+        check: '每次只换一到两件，换完重算精魂、属性、抗性和召唤物数量。'
+      }
+    ];
+    if (campaign) campaign.innerHTML = campaignConfigs.map((item) => renderRoadmapCard(build, manifest, item, 'campaign')).join('');
+    if (post) post.innerHTML = postConfigs.map((item) => renderRoadmapCard(build, manifest, item, 'post')).join('');
+    document.body.dataset.campaignRoadmapCount = String(campaignConfigs.length);
+    document.body.dataset.postCampaignRoadmapCount = String(postConfigs.length);
   }
 
   function renderSkillOverview(build, lang) {
@@ -2228,45 +2599,26 @@
       }
       return { name: id };
     }).filter((item) => item.name));
+    const compactSkillTags = (items) => renderNameTags(items.map((skill) => {
+      const entry = catalogById.get(skill.id);
+      return {
+        name: displayNameFromCatalog(entry, skill.name, lang),
+        alias: aliasFromFallback(entry, skill.name, lang),
+        aliasLabel: aliasLabel(lang)
+      };
+    }).filter((item) => item.name));
 
     container.innerHTML = `
-      <article class="card">
-        <h3>${esc(dict.activeSkillsTitle)}</h3>
-        <p class="link-note">${esc(catalogStatusLabel(catalog, lang))} <a href="../tools/skill-catalog.html">${esc(dict.openSkillCatalog)}</a></p>
-        <ul class="skill-list">
-          ${nonMinions.map((skill) => `
-            <li>
-              <div class="link-head">
-                <strong>${esc(displayNameFromCatalog(catalogById.get(skill.id), skill.name, lang))}</strong>
-                ${verificationBadge(catalogById.get(skill.id), lang)}
-              </div>
-              ${renderAlias(catalogById.get(skill.id), skill.name, lang)}
-              <span>${esc(roleLabels[lang]?.[skill.role] || skill.role)}</span>
-              ${detailSummary(catalogById.get(skill.id), lang) ? `<span class="source-detail">${esc(detailSummary(catalogById.get(skill.id), lang))}</span>` : ''}
-              ${sourceRef(catalogById.get(skill.id)) ? `<a class="source-link" href="${esc(sourceRef(catalogById.get(skill.id)))}">${esc(sourceLabel(lang))}</a>` : ''}
-            </li>
-          `).join('')}
-          <li>
-            <div class="link-head">
-              <strong>${esc(dict.minionSkillsTitle)}</strong>
-              <span class="verify-badge${catalogNeedsReview === 0 ? ' ok' : ''}">${esc(verificationRatioText(catalogEntries.length || 0, catalogNeedsReview, lang))}</span>
-            </div>
-            <span>${esc(dict.minionSkillRole)}</span>
-            ${renderNameTags(minions.map((skill) => {
-              const entry = catalogById.get(skill.id);
-              return {
-                name: displayNameFromCatalog(entry, skill.name, lang),
-                alias: aliasFromFallback(entry, skill.name, lang),
-                aliasLabel: aliasLabel(lang)
-              };
-            }))}
-          </li>
-          <li>${esc(dict.activeSkillNote)}</li>
-        </ul>
-      </article>
-      <article class="card">
+      <article class="card wide skill-link-card">
         <h3>${esc(dict.supportGemsTitle)}</h3>
-        <ul class="link-list">
+        <p class="link-note">${esc(dict.activeSkillNote)}</p>
+        <div class="mini-block-card">
+          <strong>${esc(dict.activeSkillsTitle)}</strong>
+          ${compactSkillTags(nonMinions)}
+          <strong>${esc(dict.minionSkillsTitle)}</strong>
+          ${compactSkillTags(minions)}
+        </div>
+        <ul class="link-list skill-link-list">
           ${links.map((link) => {
             const skillNames = link.skill
               ? [{
@@ -2291,8 +2643,6 @@
                 aliasLabel: aliasLabel(lang)
               };
             });
-            const supportNeedsReview = (link.supports || []).filter((supportId) => catalogById.get(supportId)?.verificationStatus !== 'verified').length;
-            const evidence = supportEvidence(link, catalogById);
             const title = link.skill ? skillNames[0]?.name : slotTypeLabels[lang]?.[link.slotType] || link.slotType;
             return `
               <li>
@@ -2302,8 +2652,6 @@
                 </div>
                 ${link.skill && skillNames[0]?.alias ? `<span class="guide-alias">${esc(skillNames[0].aliasLabel)}：${esc(skillNames[0].alias)}</span>` : ''}
                 ${link.chooseFrom ? renderNameTags(skillNames.filter((item) => item.name)) : ''}
-                <span class="verify-badge${supportNeedsReview === 0 ? ' ok' : ''}">${esc(verificationRatioText((link.supports || []).length, supportNeedsReview, lang))}</span>
-                <span class="verify-badge${linkEvidenceClass(evidence)}">${esc(linkEvidenceText(evidence, lang))}</span>
                 ${renderNameTags(supportNames.filter((item) => item.name))}
                 <span class="link-note">${esc(localizedName(link.note, lang))}</span>
                 ${localizedList(link.rules, lang).length ? renderRuleItems(localizedList(link.rules, lang)) : ''}
@@ -2522,9 +2870,10 @@
 
   function routeSourceLabel(route) {
     if (!route) return '未登记路线';
-    if (route.handTuned) return '已手调';
+    if (route.origin === 'mobalytics-kami-step') return '来源攻略阶段';
     if (route.origin === 'imported-from-pob-endgame') return 'PoB 终局导入';
     if (route.origin === 'projected-from-endgame-order') return '终局顺序投影';
+    if (route.handTuned) return '已手调';
     return route.origin || '来源未标注';
   }
 
@@ -2533,16 +2882,13 @@
       return '<span class="route-note">该阶段暂未接入天赋路线</span>';
     }
     const href = `../tools/passive-tree.html?build=${encodeURIComponent(build.id)}&stage=${encodeURIComponent(stage.treeStage)}`;
-    const primary = stage.treeStage === 'endgame' ? ' primary' : '';
-    const tuned = route.handTuned ? '已手调' : '待手调';
+    const primary = ['endgame', 'deep-late-game'].includes(stage.treeStage) ? ' primary' : '';
     const review = stage.routeReview || {};
-    const checks = (review.manualChecks || []).slice(0, 2);
     return `
       <div class="route-cell">
         <a class="btn${primary}" href="${href}" data-stage-route="${esc(stage.treeStage)}" data-stage-route-nodes="${route.nodes}" data-stage-route-origin="${esc(route.origin || '')}">打开 ${esc(route.nodes)} 点</a>
-        <span class="route-note">${esc(routeSourceLabel(route))} / ${esc(tuned)}</span>
+        <span class="route-note">${esc(routeSourceLabel(route))}</span>
         ${review.reason ? `<span class="route-note" data-route-review="${esc(stage.treeStage)}">${esc(review.reason)}</span>` : ''}
-        ${checks.length ? `<span class="route-note">手调检查：${esc(checks.join('；'))}</span>` : ''}
       </div>
     `;
   }
@@ -2696,7 +3042,12 @@
     const routes = new Map((manifest.tree?.routes || [])
       .filter((route) => route.buildId === build.id)
       .map((route) => [route.stageId, route]));
-    const stagesWithRoutes = build.stages.filter((stage) => stage.treeStage && routes.has(stage.treeStage));
+    const stagesWithRoutes = build.stages.filter((stage) => {
+      const route = stage.treeStage ? routes.get(stage.treeStage) : null;
+      if (!route) return false;
+      if (!route.handTuned && ['campaign-early', 'first-ascendancy', 'yellow-maps'].includes(stage.treeStage)) return false;
+      return true;
+    });
     if (!stagesWithRoutes.length) return;
 
     container.innerHTML = stagesWithRoutes.map((stage) => {
@@ -2711,16 +3062,110 @@
     document.body.dataset.stageTreeStages = stagesWithRoutes.map((stage) => stage.treeStage).join(',');
   }
 
+  const skillProgressionTranslations = {
+    'Act 1 弩开荒': {
+      zhTW: 'Act 1 弩拓荒',
+      en: 'Act 1 Crossbow'
+    },
+    '爆炸榴弹：多重投射 I + 火焰调和': {
+      zhTW: '爆炸榴彈：多重投射 I + 火焰調和',
+      en: 'Explosive Grenade: Multishot I + Fire Attunement'
+    },
+    '传染：无显示辅助': {
+      zhTW: '傳染：無顯示輔助',
+      en: 'Contagion: no support shown'
+    },
+    '霜爆：无显示辅助': {
+      zhTW: '霜爆：無顯示輔助',
+      en: 'Frost Bomb: no support shown'
+    },
+    '闪光榴弹：多重投射 I': {
+      zhTW: '閃光榴彈：多重投射 I',
+      en: 'Flash Grenade: Multishot I'
+    },
+    '疾风之舞：常驻防御': {
+      zhTW: '疾風之舞：常駐防禦',
+      en: 'Wind Dancer: defensive reservation'
+    },
+    '弩方案 Act 1 不靠召唤物主输出': {
+      zhTW: '弩方案 Act 1 不靠召喚物主輸出',
+      en: 'The crossbow Act 1 route does not use minions as main damage.'
+    },
+    '爆炸榴弹优先接多重投射 I': {
+      zhTW: '爆炸榴彈優先接多重投射 I',
+      en: 'Link Multishot I to Explosive Grenade first'
+    },
+    '爆炸榴弹再接火焰调和': {
+      zhTW: '爆炸榴彈再接火焰調和',
+      en: 'Then add Fire Attunement to Explosive Grenade'
+    },
+    '闪光榴弹接多重投射 I': {
+      zhTW: '閃光榴彈接多重投射 I',
+      en: 'Link Multishot I to Flash Grenade'
+    },
+    '只要过渡技能清怪比召唤物快，就继续用过渡技能；不要为了最终形态牺牲剧情速度。': {
+      zhTW: '只要過渡技能清怪比召喚物快，就繼續用過渡技能；不要為了最終型態犧牲劇情速度。',
+      en: 'Keep using transitional skills as long as they clear faster than minions; do not sacrifice campaign speed for the final form.'
+    },
+    'Act 1 召唤开荒': {
+      zhTW: 'Act 1 召喚拓荒',
+      en: 'Act 1 Minions'
+    },
+    '爆炸榴弹：无显示辅助': {
+      zhTW: '爆炸榴彈：無顯示輔助',
+      en: 'Explosive Grenade: no support shown'
+    },
+    '火墙：点燃 I': {
+      zhTW: '火牆：點燃 I',
+      en: 'Flame Wall: Ignite I'
+    },
+    '骷髅狙击手：多重投射 I + 火焰调和': {
+      zhTW: '骷髏狙擊手：多重投射 I + 火焰調和',
+      en: 'Skeletal Sniper: Multishot I + Fire Attunement'
+    },
+    '愤怒狂灵：无显示辅助': {
+      zhTW: '憤怒狂靈：無顯示輔助',
+      en: 'Raging Spirits: no support shown'
+    },
+    '骷髅狙击手先接多重投射 I': {
+      zhTW: '骷髏狙擊手先接多重投射 I',
+      en: 'Link Multishot I to Skeletal Sniper first'
+    },
+    '骷髅狙击手再接火焰调和': {
+      zhTW: '骷髏狙擊手再接火焰調和',
+      en: 'Then add Fire Attunement to Skeletal Sniper'
+    },
+    '火墙接点燃 I': {
+      zhTW: '火牆接點燃 I',
+      en: 'Link Ignite I to Flame Wall'
+    },
+    'Act 1 召唤开荒是弩开荒的替代方案，进入 Act 2 后同样转支援火力。': {
+      zhTW: 'Act 1 召喚拓荒是弩拓荒的替代方案，進入 Act 2 後同樣轉支援火力。',
+      en: 'Act 1 Minions is an alternative to crossbow leveling; it still transitions into Supporting Fire in Act 2.'
+    }
+  };
+
+  function progressionText(value, lang) {
+    if (lang === 'zh') return value;
+    const locale = lang === 'tw' ? 'zhTW' : 'en';
+    return skillProgressionTranslations[value]?.[locale] || value;
+  }
+
+  function progressionList(values, lang) {
+    const separator = lang === 'en' ? ', ' : '、';
+    return (values || []).map((item) => progressionText(item, lang)).join(separator);
+  }
+
   function renderSkillProgression(build) {
     const rows = document.getElementById('skillProgressionRows');
     if (!rows || !Array.isArray(build.skillProgression)) return;
     rows.innerHTML = build.skillProgression.map((item) => `
       <tr>
-        <td>${esc(item.stage)}</td>
-        <td>${esc((item.activeSkills || []).join('、'))}</td>
-        <td>${esc((item.minions || []).join('、'))}</td>
-        <td>${esc((item.supportPriority || []).join('、'))}</td>
-        <td>${esc(item.swapRule)}</td>
+        <td>${esc(progressionText(item.stage, currentSkillLang))}</td>
+        <td>${esc(progressionList(item.activeSkills, currentSkillLang))}</td>
+        <td>${esc(progressionList(item.minions, currentSkillLang))}</td>
+        <td>${esc(progressionList(item.supportPriority, currentSkillLang))}</td>
+        <td>${esc(progressionText(item.swapRule, currentSkillLang))}</td>
       </tr>
     `).join('');
     document.body.dataset.skillProgressionCount = String(build.skillProgression.length);
@@ -3206,6 +3651,7 @@
       renderGuideArticle(build, currentSkillLang);
       renderGuideStrategy(build);
       renderExecutionPlan(build);
+      renderBuildRoadmaps(build, manifest);
       renderStageTreeLinks(build, manifest);
       renderBuildStages(build, manifest);
       renderBuildGear(build);
@@ -3245,7 +3691,7 @@
       matrixFirstSupports: '优先辅助',
       matrixAddLater: '后补辅助',
       matrixCutWhen: '什么时候删/换',
-      matrixReviewNote: '复核备注',
+      matrixReviewNote: '使用注意',
       openSkillCatalog: '查看技能资料',
       pendingVerificationShort: '待复核',
       supportingFire: '支援火力（Supporting Fire）',
@@ -3442,8 +3888,10 @@
     const dict = skillText[lang] || skillText.zh;
     if (hydratedBuild) {
       renderGuideArticle(hydratedBuild, lang);
+      renderBuildRoadmaps(hydratedBuild, hydratedManifest);
       renderBuildSkills(hydratedBuild, lang);
       renderSkillSourceMatrix(hydratedBuild, lang);
+      renderSkillProgression(hydratedBuild);
       renderSkillAcquisition(hydratedBuild);
       renderEvidenceSummary(hydratedBuild, hydratedManifest, hydratedSkillCatalog);
       updateGuideMarkdownReport();

@@ -152,6 +152,52 @@
     color:var(--muted);
     font-size:12px;
   }
+  .material-head {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .material-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+    gap:10px;
+  }
+  .material-row {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:8px;
+  }
+  .material-row label {
+    display:grid;
+    gap:5px;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .material-row input {
+    width:100%;
+  }
+  .material-name {
+    min-height:36px;
+    display:flex;
+    align-items:center;
+    font-weight:650;
+    line-height:1.25;
+  }
+  .material-price-line {
+    color:var(--muted);
+    font-size:12px;
+  }
+  .refresh-line {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
   .segmented {
     display:inline-flex;
     gap:4px;
@@ -181,7 +227,7 @@
     border-radius:8px;
   }
   table {
-    min-width:1320px;
+    min-width:980px;
     width:100%;
     border-collapse:collapse;
     font-size:14px;
@@ -202,6 +248,9 @@
     color:var(--accent);
     font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
+  .hidden-control, .support-data {
+    display:none !important;
+  }
   .pill {
     display:inline-flex;
     width:fit-content;
@@ -211,6 +260,14 @@
     color:var(--muted);
     background:#0b1120;
     font-size:12px;
+  }
+  .subtle {
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.35;
+    max-width:260px;
   }
   ul { margin:0; padding-left:20px; display:grid; gap:5px; }
   @media (max-width: 920px) {
@@ -244,6 +301,7 @@
     </div>
   </div>
 </header>
+<script src="../assets/site-header.js" data-root=".." data-active="gem" data-title="POE2 Tools"></script>
 
 <main class="shell">
   <section class="panel">
@@ -252,7 +310,11 @@
       <h2 data-i18n="subHeading">21 级技能与辅助宝石价差排序</h2>
     </div>
     <p class="muted" id="sourceNote" data-i18n="sourceNote">当前页面先验证倒卖排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。</p>
-    <div class="filters">
+    <div class="refresh-line">
+      <button class="btn primary" id="refreshLivePriceBtn" type="button" data-i18n="refreshLivePrices">刷新行情</button>
+      <span class="pill" id="lastPriceRefresh">上次刷新：-</span>
+    </div>
+    <div class="filters hidden-control">
       <label><span data-i18n="categoryFilter">类型</span>
         <select id="categoryFilter">
           <option value="all" data-i18n-option="all">全部</option>
@@ -299,7 +361,18 @@
     </div>
   </section>
 
-  <section class="meta-grid" id="snapshotMeta" aria-label="市场数据快照" data-i18n-aria="snapshotMeta">
+  <section class="panel" id="materialPanel">
+    <div class="material-head">
+      <div>
+        <h2 data-i18n="materialPricesTitle">材料价格</h2>
+        <p class="muted" id="materialRefreshStatus" data-i18n="materialPricesNote">按拉取价计算；手填后会立即重算收益。</p>
+      </div>
+      <button class="btn primary" id="refreshMaterialPricesBtn" type="button" data-i18n="refreshMaterialPrices">刷新行情并使用拉取价</button>
+    </div>
+    <div class="material-grid" id="materialPriceRows"></div>
+  </section>
+
+  <section class="meta-grid support-data" id="snapshotMeta" aria-label="市场数据快照" data-i18n-aria="snapshotMeta">
     <article class="meta-card">
       <span data-i18n="metaSourceType">数据类型</span>
       <strong id="metaSourceType">-</strong>
@@ -326,7 +399,7 @@
     </article>
   </section>
 
-  <section class="grid" id="marketQuality">
+  <section class="grid support-data" id="marketQuality">
     <article class="card">
       <h3 data-i18n="dataQuality">数据质量</h3>
       <p id="dataQualityStatus">读取中...</p>
@@ -345,7 +418,7 @@
     </article>
   </section>
 
-  <section class="grid" id="marketCandidateQueue">
+  <section class="grid support-data" id="marketCandidateQueue">
     <article class="card">
       <h3 data-i18n="candidateQueue">候选快照队列</h3>
       <p id="candidateQueueStatus">读取中...</p>
@@ -364,7 +437,7 @@
     </article>
   </section>
 
-  <section class="grid">
+  <section class="grid support-data">
     <article class="card">
       <h3 data-i18n="summaryCount">样本数量</h3>
       <p id="summaryCount">-</p>
@@ -383,7 +456,7 @@
     </article>
   </section>
 
-  <section class="grid" id="marketDecision">
+  <section class="grid support-data" id="marketDecision">
     <article class="card">
       <h3 data-i18n="decisionTop">当前第一名</h3>
       <p id="decisionTop">-</p>
@@ -402,7 +475,7 @@
     </article>
   </section>
 
-  <section class="grid" id="budgetPlan">
+  <section class="grid support-data" id="budgetPlan">
     <article class="card">
       <h3 data-i18n="budgetPlanTitle">预算执行计划</h3>
       <p id="budgetPlanTop">-</p>
@@ -429,7 +502,7 @@
     </article>
   </section>
 
-  <section class="grid" id="marketRankChange">
+  <section class="grid support-data" id="marketRankChange">
     <article class="card">
       <h3 data-i18n="rankChangeMode">当前口径</h3>
       <p id="rankChangeMode">-</p>
@@ -456,29 +529,22 @@
           <tr>
             <th data-i18n="rankCol">排名</th>
             <th data-i18n="skillCol">技能</th>
-            <th data-i18n="typeCol">类型</th>
             <th data-i18n="levelQualityCol">等级/品质</th>
             <th data-i18n="buyCol">买入</th>
             <th data-i18n="sellCol">卖出</th>
-            <th data-i18n="feeCol">费用</th>
-            <th data-i18n="breakEvenCol">保本卖价</th>
-            <th data-i18n="safetyMarginCol">安全边际</th>
-            <th data-i18n="netProfitCol">净利润</th>
+            <th data-i18n="currentQuantityCol">当前交易数量</th>
             <th data-i18n="roiCol">收益率</th>
-            <th data-i18n="liquidityCol">流动性</th>
-            <th data-i18n="riskCol">风险</th>
-            <th data-i18n="marketEvidenceCol">市场证据</th>
-            <th data-i18n="notesCol">备注</th>
+            <th data-i18n="netProfitCol">净利润</th>
           </tr>
         </thead>
         <tbody id="resultRows">
-          <tr><td colspan="15" data-i18n="loading">读取中...</td></tr>
+          <tr><td colspan="8" data-i18n="loading">读取中...</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section class="panel">
+  <section class="panel support-data">
     <h2 data-i18n="scoreRulesTitle">评分规则</h2>
     <ul id="scoreRules">
       <li>读取中...</li>
@@ -492,6 +558,8 @@
 let snapshot = null;
 let candidateQueue = null;
 let currentLang = 'zhCN';
+let latestSkillCatalog = null;
+const materialPriceOverrides = new Map();
 
 const ui = {
   zhCN: {
@@ -505,8 +573,19 @@ const ui = {
     ninjaImportNav: '忍者网配置解析',
     dataUpdate: '数据更新',
     marketReview: '市场复核',
-    subHeading: '21 级技能与辅助宝石价差排序',
-    sourceNote: '当前页面先验证倒卖排序流程；真实使用前必须接入市场快照，不能把样例价当成当前行情。',
+    subHeading: '技能倒卖收益排行',
+    sourceNote: '实时拉取 poe2lens 的 21级 / 20品质 / 5孔 成品价和材料价，按收益率排序；利润口径为成品价减制作成本。',
+    refreshLivePrices: '刷新行情',
+    lastPriceRefresh: '上次刷新',
+    materialPricesTitle: '材料价格',
+    materialPricesNote: '按拉取价计算；手填后会立即重算收益。',
+    refreshMaterialPrices: '刷新行情并使用拉取价',
+    fetchedPriceLabel: '拉取价',
+    customPriceLabel: '手填价',
+    customPricePlaceholder: '留空用拉取价',
+    materialRefreshDone: '已刷新行情，并切回拉取价。',
+    liveRefreshDone: '已刷新行情。',
+    materialRefreshFailed: '刷新失败',
     categoryFilter: '类型',
     sortFilter: '排序',
     profitFilter: '利润',
@@ -559,9 +638,10 @@ const ui = {
     rankCol: '排名',
     skillCol: '技能',
     typeCol: '类型',
-    levelQualityCol: '等级/品质',
-    buyCol: '买入',
+    levelQualityCol: '成品目标',
+    buyCol: '成本',
     sellCol: '卖出',
+    currentQuantityCol: '当前交易数量',
     feeCol: '费用',
     breakEvenCol: '保本卖价',
     safetyMarginCol: '安全边际',
@@ -589,12 +669,12 @@ const ui = {
     scoreFee: '费用按卖出价的',
     scoreFeeSuffix: '估算',
     scoreBreakEven: '保本卖价公式：',
-    scoreBreakEvenFormula: '买入价 / (1 - 手续费率)',
+    scoreBreakEvenFormula: '制作成本 / (1 - 手续费率)',
     scoreSafety: '安全边际公式：',
     scoreSafetyFormula: '卖出价 - 保本卖价',
     decisionNoResult: '当前过滤条件下没有可分析条目。',
     decisionTopReason: '排第一因为当前排序评分最高',
-    decisionCapitalText: '买入成本',
+    decisionCapitalText: '制作成本',
     decisionExpectedNet: '预估净利润',
     decisionRiskText: '风险',
     decisionLiquidityText: '流动性',
@@ -607,7 +687,7 @@ const ui = {
     budgetAction: '执行边界',
     budgetNoResult: '当前过滤条件下没有可规划条目。',
     budgetCapitalText: '计划本金',
-    budgetUnitCount: '可买数量',
+    budgetUnitCount: '可做批次',
     budgetSpend: '预计占用',
     budgetRemain: '剩余',
     budgetNet: '预计净利润',
@@ -632,8 +712,19 @@ const ui = {
     ninjaImportNav: '忍者網配置解析',
     dataUpdate: '資料更新',
     marketReview: '市場複核',
-    subHeading: '21 級技能與輔助寶石價差排序',
-    sourceNote: '目前頁面先驗證倒賣排序流程；真實使用前必須接入市場快照，不能把樣例價當成目前行情。',
+    subHeading: '技能倒賣收益排行',
+    sourceNote: '即時拉取 poe2lens 的 21級 / 20品質 / 5孔 成品價和材料價，按收益率排序；利潤口徑為成品價減製作成本。',
+    refreshLivePrices: '刷新行情',
+    lastPriceRefresh: '上次刷新',
+    materialPricesTitle: '材料價格',
+    materialPricesNote: '按拉取價計算；手填後會立即重算收益。',
+    refreshMaterialPrices: '刷新行情並使用拉取價',
+    fetchedPriceLabel: '拉取價',
+    customPriceLabel: '手填價',
+    customPricePlaceholder: '留空用拉取價',
+    materialRefreshDone: '已刷新行情，並切回拉取價。',
+    liveRefreshDone: '已刷新行情。',
+    materialRefreshFailed: '刷新失敗',
     categoryFilter: '類型',
     sortFilter: '排序',
     profitFilter: '利潤',
@@ -686,9 +777,10 @@ const ui = {
     rankCol: '排名',
     skillCol: '技能',
     typeCol: '類型',
-    levelQualityCol: '等級/品質',
-    buyCol: '買入',
+    levelQualityCol: '成品目標',
+    buyCol: '成本',
     sellCol: '賣出',
+    currentQuantityCol: '目前交易數量',
     feeCol: '費用',
     breakEvenCol: '保本賣價',
     safetyMarginCol: '安全邊際',
@@ -716,12 +808,12 @@ const ui = {
     scoreFee: '費用按賣出價的',
     scoreFeeSuffix: '估算',
     scoreBreakEven: '保本賣價公式：',
-    scoreBreakEvenFormula: '買入價 / (1 - 手續費率)',
+    scoreBreakEvenFormula: '製作成本 / (1 - 手續費率)',
     scoreSafety: '安全邊際公式：',
     scoreSafetyFormula: '賣出價 - 保本賣價',
     decisionNoResult: '目前過濾條件下沒有可分析條目。',
     decisionTopReason: '排第一因為目前排序評分最高',
-    decisionCapitalText: '買入成本',
+    decisionCapitalText: '製作成本',
     decisionExpectedNet: '預估淨利潤',
     decisionRiskText: '風險',
     decisionLiquidityText: '流動性',
@@ -734,7 +826,7 @@ const ui = {
     budgetAction: '執行邊界',
     budgetNoResult: '目前過濾條件下沒有可規劃條目。',
     budgetCapitalText: '計畫本金',
-    budgetUnitCount: '可買數量',
+    budgetUnitCount: '可做批次',
     budgetSpend: '預計占用',
     budgetRemain: '剩餘',
     budgetNet: '預計淨利潤',
@@ -759,8 +851,19 @@ const ui = {
     ninjaImportNav: 'Ninja Config Parser',
     dataUpdate: 'Data Update',
     marketReview: 'Market Review',
-    subHeading: 'Level 21 Skill and Support Gem Spread Ranking',
-    sourceNote: 'This page validates the flipping flow first. Connect a market snapshot before using any sample price as market advice.',
+    subHeading: 'Gem Flip Profit Ranking',
+    sourceNote: 'Fetches poe2lens live 21/20/5 finished gem and material prices, then ranks by ROI. Profit is finished price minus crafting cost.',
+    refreshLivePrices: 'Refresh Prices',
+    lastPriceRefresh: 'Last refresh',
+    materialPricesTitle: 'Material Prices',
+    materialPricesNote: 'Uses fetched prices by default; manual edits recalculate profit immediately.',
+    refreshMaterialPrices: 'Refresh Prices and Use Fetched',
+    fetchedPriceLabel: 'Fetched',
+    customPriceLabel: 'Manual',
+    customPricePlaceholder: 'blank = fetched',
+    materialRefreshDone: 'Prices refreshed and reset to fetched values.',
+    liveRefreshDone: 'Prices refreshed.',
+    materialRefreshFailed: 'Refresh failed',
     categoryFilter: 'Type',
     sortFilter: 'Sort',
     profitFilter: 'Profit',
@@ -813,9 +916,10 @@ const ui = {
     rankCol: 'Rank',
     skillCol: 'Skill',
     typeCol: 'Type',
-    levelQualityCol: 'Level/Quality',
-    buyCol: 'Buy',
+    levelQualityCol: 'Target',
+    buyCol: 'Cost',
     sellCol: 'Sell',
+    currentQuantityCol: 'Current Volume',
     feeCol: 'Fee',
     breakEvenCol: 'Break-even Sell',
     safetyMarginCol: 'Safety Margin',
@@ -843,12 +947,12 @@ const ui = {
     scoreFee: 'Fee is estimated from',
     scoreFeeSuffix: 'of sell price',
     scoreBreakEven: 'Break-even formula: ',
-    scoreBreakEvenFormula: 'buy price / (1 - fee rate)',
+    scoreBreakEvenFormula: 'crafting cost / (1 - fee rate)',
     scoreSafety: 'Safety margin formula: ',
     scoreSafetyFormula: 'sell price - break-even sell price',
     decisionNoResult: 'No analyzable entry under the current filters.',
     decisionTopReason: 'Ranks first because it has the highest current sort score',
-    decisionCapitalText: 'Buy cost',
+    decisionCapitalText: 'Craft cost',
     decisionExpectedNet: 'Estimated net profit',
     decisionRiskText: 'Risk',
     decisionLiquidityText: 'Liquidity',
@@ -861,7 +965,7 @@ const ui = {
     budgetAction: 'Execution Boundary',
     budgetNoResult: 'No plannable entry under the current filters.',
     budgetCapitalText: 'Planned capital',
-    budgetUnitCount: 'Units',
+    budgetUnitCount: 'Batches',
     budgetSpend: 'Expected spend',
     budgetRemain: 'Remaining',
     budgetNet: 'Expected net profit',
@@ -907,7 +1011,113 @@ function localized(value) {
 }
 
 function formatCurrency(value) {
-  return `${Number(value).toFixed(1)} ex`;
+  const amount = Number(value) || 0;
+  const divineRate = Number(snapshot?.divineRate) || 0;
+  if (divineRate > 0) return `${(amount / divineRate).toFixed(1)} D`;
+  return `${amount.toFixed(1)} ex`;
+}
+
+function formatExaltedPrice(value) {
+  const amount = Number(value) || 0;
+  const divineRate = Number(snapshot?.divineRate) || 0;
+  const divineText = divineRate > 0 ? ` / ${(amount / divineRate).toFixed(2)} D` : '';
+  return `${amount.toFixed(1)} E${divineText}`;
+}
+
+function materialKey(material) {
+  return material.key || material.name?.en || material.name || '';
+}
+
+function materialUnitPrice(material) {
+  const key = materialKey(material);
+  if (key && materialPriceOverrides.has(key)) return materialPriceOverrides.get(key);
+  return Number(material.unit_price ?? material.unitPrice) || 0;
+}
+
+function recipeMaterials(entry) {
+  if (Array.isArray(entry.materials) && entry.materials.length) {
+    return entry.materials.map((material) => ({
+      key: material.key || material.name,
+      name: material.localizedName || { zhCN: material.name, zhTW: material.name, en: material.name },
+      quantity: Number(material.quantity) || 0,
+      unitPrice: materialUnitPrice(material),
+      total: (Number(material.quantity) || 0) * materialUnitPrice(material)
+    }));
+  }
+  const template = snapshot?.recipeTemplate || {};
+  const defaultPrices = template.defaultMaterialPrices || {};
+  const entryPrices = entry.materialPrices || {};
+  const materials = Array.isArray(entry.recipe?.materials) ? entry.recipe.materials : (template.materials || []);
+  return materials.map((material) => {
+    const quantity = Number(material.quantity) || 0;
+    const unitPrice = Number(entryPrices[material.key] ?? defaultPrices[material.key] ?? material.unitPrice ?? 0);
+    const total = quantity * unitPrice;
+    return { ...material, quantity, unitPrice, total };
+  });
+}
+
+function craftCost(entry) {
+  return recipeMaterials(entry).reduce((sum, material) => sum + material.total, 0);
+}
+
+function materialPriceRows() {
+  const rows = new Map();
+  for (const entry of snapshot?.entries || []) {
+    for (const material of entry.materials || []) {
+      const key = materialKey(material);
+      if (!key || rows.has(key)) continue;
+      rows.set(key, {
+        key,
+        name: material.localizedName || { zhCN: material.name, zhTW: material.name, en: material.name },
+        fetchedPrice: Number(material.unit_price ?? material.unitPrice) || 0
+      });
+    }
+  }
+  return [...rows.values()].sort((a, b) => localized(a.name).localeCompare(localized(b.name), currentLang === 'en' ? 'en' : 'zh-CN'));
+}
+
+function renderMaterialPrices() {
+  const container = document.getElementById('materialPriceRows');
+  if (!container) return;
+  const rows = materialPriceRows();
+  container.innerHTML = rows.map((row) => {
+    const override = materialPriceOverrides.get(row.key);
+    return `
+      <article class="material-row">
+        <div class="material-name">${escapeHtml(localized(row.name))}</div>
+        <div class="material-price-line">${escapeHtml(t('fetchedPriceLabel'))}: ${escapeHtml(formatExaltedPrice(row.fetchedPrice))}</div>
+        <label>
+          <span>${escapeHtml(t('customPriceLabel'))}</span>
+          <input class="material-price-input" type="number" min="0" step="0.1" data-material-key="${escapeHtml(row.key)}" placeholder="${escapeHtml(t('customPricePlaceholder'))}" value="${override === undefined ? '' : String(override)}">
+        </label>
+      </article>
+    `;
+  }).join('');
+  document.body.dataset.marketMaterialPriceCount = String(rows.length);
+  document.body.dataset.marketMaterialOverrideCount = String(materialPriceOverrides.size);
+}
+
+function targetLabel(entry) {
+  const sockets = entry.targetSockets ?? snapshot?.recipeTemplate?.targetSockets ?? 0;
+  return `${entry.targetLevel} / ${entry.quality}% / ${sockets}孔`;
+}
+
+function materialSummary(entry) {
+  const materials = recipeMaterials(entry);
+  const findBy = (...patterns) => materials.find((material) => patterns.some((pattern) => String(material.key || material.name?.en || '').includes(pattern)));
+  const mainGem = findBy('Level 18', 'level18Gem');
+  const gcp = findBy("Gemcutter", 'gemcuttersPrism');
+  const jeweller = findBy('Perfect Jeweller', 'perfectJewellersOrb');
+  const vaal = findBy('Vaal Orb', 'vaalOrb');
+  const uncut = findBy('Level 20', 'uncutLevel20Gem');
+  const parts = [
+    mainGem ? `18级x${mainGem.quantity}` : '',
+    gcp ? `GCPx${gcp.quantity}` : '',
+    jeweller ? `完美工匠x${jeweller.quantity}` : '',
+    vaal ? `瓦尔x${vaal.quantity}` : '',
+    uncut ? `20未切x${uncut.quantity}` : ''
+  ].filter(Boolean);
+  return parts.join(' / ');
 }
 
 function snapshotTypeLabel(type) {
@@ -996,6 +1206,7 @@ function readMarketFilters() {
 }
 
 function passesMarketFilters(entry, filters) {
+  if (entry.netProfit <= 0 || entry.roi <= 0) return false;
   if (filters.profitOnly && entry.netProfit <= 0) return false;
   if (entry.liquidity < filters.minLiquidity) return false;
   if (entry.risk > filters.maxRisk) return false;
@@ -1098,11 +1309,13 @@ function renderDataQuality() {
 
 function renderSnapshotMeta(entries) {
   const sourceType = snapshot?.source?.type || 'unknown';
+  const refreshedAt = snapshot?.source?.fetchedAt || snapshot?.updatedAt;
   document.getElementById('snapshotStatus').textContent = snapshotTypeLabel(sourceType);
   document.getElementById('sourceNote').textContent =
     sourceType === 'sample-manual-seed'
       ? t('sampleSourceSuffix')
       : (snapshot.source.note || t('sourceNote'));
+  document.getElementById('lastPriceRefresh').textContent = `${t('lastPriceRefresh')}：${formatDateTime(refreshedAt)}`;
   document.getElementById('metaSourceType').textContent = snapshotTypeLabel(sourceType);
   document.getElementById('metaUpdatedAt').textContent = formatDateTime(snapshot.updatedAt);
   document.getElementById('metaSourceId').textContent = sourceType;
@@ -1115,10 +1328,13 @@ function renderSnapshotMeta(entries) {
 
 function enrich(entry) {
   const feeRate = snapshot?.feeRate ?? 0;
+  const buyPrice = Array.isArray(entry.materials) && entry.materials.length
+    ? craftCost(entry)
+    : Number(entry.buyPrice ?? entry.craftCost ?? craftCost(entry));
   const fee = entry.sellPrice * feeRate;
-  const netProfit = entry.sellPrice - entry.buyPrice - fee;
-  const roi = entry.buyPrice > 0 ? netProfit / entry.buyPrice : 0;
-  const breakEvenSellPrice = feeRate < 1 ? entry.buyPrice / (1 - feeRate) : Infinity;
+  const netProfit = entry.sellPrice - buyPrice - fee;
+  const roi = buyPrice > 0 ? netProfit / buyPrice : 0;
+  const breakEvenSellPrice = feeRate < 1 ? buyPrice / (1 - feeRate) : Infinity;
   const safetyMargin = entry.sellPrice - breakEvenSellPrice;
   const weights = snapshot?.scoreWeights || {};
   const score =
@@ -1126,16 +1342,23 @@ function enrich(entry) {
     (roi * 100 * (weights.roi ?? 0.25)) +
     (entry.liquidity * (weights.liquidity ?? 0.2)) +
     (entry.risk * (weights.risk ?? -0.2));
-  return { ...entry, fee, netProfit, roi, breakEvenSellPrice, safetyMargin, score };
+  return { ...entry, buyPrice, craftCost: buyPrice, fee, netProfit, roi, breakEvenSellPrice, safetyMargin, score };
 }
 
 function sortEntries(entries, mode) {
   const sorted = [...entries];
   sorted.sort((a, b) => {
     if (mode === 'risk') return a.risk - b.risk;
-    return b[mode] - a[mode];
+    return (Number(b[mode]) || 0) - (Number(a[mode]) || 0);
   });
   return sorted;
+}
+
+function tradeQuantity(entry) {
+  if (Number.isFinite(Number(entry.currentQuantity))) return Number(entry.currentQuantity);
+  const evidence = entry.marketEvidence;
+  if (!evidence) return 0;
+  return Math.min(Number(evidence.buyListingCount) || 0, Number(evidence.sellListingCount) || 0);
 }
 
 function categoryLabel(category) {
@@ -1366,10 +1589,167 @@ async function copyBudgetUrl() {
   }
 }
 
+function localizeGemName(name, mapping, skillNameMap) {
+  const local = skillNameMap?.get(name);
+  if (local) return local;
+  const row = mapping?.[name] || {};
+  return {
+    zhCN: row.name_tw || name,
+    zhTW: row.name_tw || name,
+    en: row.name_us || name
+  };
+}
+
+function localizeMaterialName(name, materials) {
+  const row = (materials || []).find((item) => item.name === name) || {};
+  const zhCN = {
+    'Uncut Skill Gem (Level 18)': '18级未切割技能宝石',
+    'Uncut Skill Gem (Level 20)': '20级未切割技能宝石',
+    'Uncut Spirit Gem (Level 18)': '18级未切割精神宝石',
+    'Uncut Spirit Gem (Level 20)': '20级未切割精神宝石',
+    "Gemcutter's Prism": '宝石匠的棱镜',
+    "Perfect Jeweller's Orb": '完美工匠石',
+    'Vaal Orb': '瓦尔宝珠'
+  };
+  return {
+    zhCN: zhCN[name] || row.name_tw || name,
+    zhTW: row.name_tw || name,
+    en: name
+  };
+}
+
+function buildSkillNameMap(skillCatalog) {
+  const map = new Map();
+  for (const entry of (skillCatalog?.entries || [])) {
+    if (entry?.name?.en) map.set(entry.name.en, entry.name);
+  }
+  return map;
+}
+
+function transformPoe2LensSnapshot(payload, skillCatalog) {
+  const fetchedAt = new Date().toISOString();
+  const gems = payload?.gems || {};
+  const skillGems = Array.isArray(gems.skill_gems) ? gems.skill_gems : [];
+  const spiritGems = Array.isArray(gems.spirit_gems) ? gems.spirit_gems : [];
+  const materialRows = Array.isArray(payload.materials) ? payload.materials : [];
+  const nameMapping = payload.skill_name_mapping || {};
+  const skillNameMap = buildSkillNameMap(skillCatalog);
+  const usage = payload.skill_usage || {};
+  const entries = [...skillGems, ...spiritGems].map((gem) => {
+    const usageRate = Number(usage[gem.gem_name]) || 0;
+    return {
+      id: `${String(gem.gem_name || 'gem').toLowerCase().replace(/[^a-z0-9]+/g, '-')}-21-20-5`,
+      category: gem.is_spirit ? 'support' : 'active',
+      name: localizeGemName(gem.gem_name, nameMapping, skillNameMap),
+      targetLevel: 21,
+      quality: 20,
+      targetSockets: 5,
+      craftCost: Number(gem.cost) || 0,
+      sellPrice: Number(gem.price) || 0,
+      price23: Number(gem.price_23) || 0,
+      currentQuantity: null,
+      usageRate,
+      liquidity: Math.max(0, Math.min(100, usageRate)),
+      risk: usageRate > 0 ? Math.max(20, 70 - usageRate) : 75,
+      materials: (gem.materials || []).map((material) => ({
+        ...material,
+        localizedName: localizeMaterialName(material.name, materialRows)
+      })),
+      marketEvidence: {
+        observedAt: fetchedAt,
+        buyListingCount: 0,
+        sellListingCount: 0,
+        priceConfidence: usageRate > 0 ? Math.min(90, 55 + usageRate) : 50,
+        depthNote: 'poe2lens bootstrap does not expose listing depth; table leaves current quantity blank.'
+      },
+      notes: {
+        zhCN: `poe2lens 实时数据；技能占有率 ${usageRate}%，未提供挂单数量。`,
+        zhTW: `poe2lens 即時資料；技能占有率 ${usageRate}%，未提供掛單數量。`,
+        en: `poe2lens live data; usage ${usageRate}%, listing depth unavailable.`
+      }
+    };
+  });
+  return {
+    snapshotSchemaVersion: 1,
+    id: `s05-gem-flips-poe2lens-${fetchedAt}`,
+    season: 'S05',
+    versionId: 's05-tree-4.5',
+    updatedAt: fetchedAt,
+    divineRate: Number(payload.divine_rate) || 0,
+    currency: 'exalted',
+    feeRate: 0,
+    source: {
+      type: 'real-snapshot-v1',
+      provider: 'poe2lens',
+      league: payload.league || 'Runes of Aldur',
+      fetchedAt,
+      note: `poe2lens ${payload.league || 'Runes of Aldur'} live 21/20/5 gem prices; costs are in exalted and displayed as Divine using ${Number(payload.divine_rate) || 0}E/D.`,
+      filters: {
+        minListingDepth: 0,
+        abnormalPriceRules: ['poe2lens upstream normalized prices']
+      }
+    },
+    scoreWeights: {
+      netProfit: 0.5,
+      roi: 0.25,
+      liquidity: 0.2,
+      risk: -0.2
+    },
+    entries
+  };
+}
+
+async function loadLiveGemSnapshot(skillCatalog) {
+  const response = await fetch('/api/poe2lens/gem-bootstrap?league=Runes%20of%20Aldur', { cache: 'no-store' });
+  const result = await response.json().catch(() => null);
+  if (!response.ok || !result?.success || !result.data) {
+    throw new Error(result?.error || result?.message || `poe2lens 拉取失败：HTTP ${response.status}`);
+  }
+  return transformPoe2LensSnapshot(result.data, skillCatalog);
+}
+
+function handleMaterialPriceInput(event) {
+  const input = event.target.closest('.material-price-input');
+  if (!input) return;
+  const key = input.dataset.materialKey;
+  const value = Number(input.value);
+  if (!key) return;
+  if (input.value === '' || !Number.isFinite(value) || value <= 0) {
+    materialPriceOverrides.delete(key);
+  } else {
+    materialPriceOverrides.set(key, value);
+  }
+  document.body.dataset.marketMaterialOverrideCount = String(materialPriceOverrides.size);
+  render();
+}
+
+function setPriceRefreshDisabled(disabled) {
+  document.getElementById('refreshLivePriceBtn').disabled = disabled;
+  document.getElementById('refreshMaterialPricesBtn').disabled = disabled;
+}
+
+async function refreshLivePrices({ resetOverrides = true } = {}) {
+  const status = document.getElementById('materialRefreshStatus');
+  setPriceRefreshDisabled(true);
+  if (status) status.textContent = t('loading');
+  try {
+    const nextSnapshot = await loadLiveGemSnapshot(latestSkillCatalog || { entries: [] });
+    snapshot = nextSnapshot;
+    if (resetOverrides) materialPriceOverrides.clear();
+    renderMaterialPrices();
+    render();
+    if (status) status.textContent = t(resetOverrides ? 'materialRefreshDone' : 'liveRefreshDone');
+  } catch (error) {
+    if (status) status.textContent = `${t('materialRefreshFailed')}: ${error.message}`;
+  } finally {
+    setPriceRefreshDisabled(false);
+  }
+}
+
 function render() {
   if (!snapshot) return;
   const category = document.getElementById('categoryFilter').value;
-  const mode = document.getElementById('sortMode').value;
+  const mode = 'roi';
   const filters = readMarketFilters();
   const allEntries = snapshot.entries.map(enrich);
   const baseEntries = snapshot.entries
@@ -1396,26 +1776,19 @@ function render() {
   const tbody = document.getElementById('resultRows');
   tbody.innerHTML = '';
   if (!sorted.length) {
-    tbody.innerHTML = `<tr><td colspan="15">${escapeHtml(t('noResults'))}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8">${escapeHtml(t('noResults'))}</td></tr>`;
   }
   sorted.forEach((entry, index) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${index + 1}</td>
       <td><strong>${escapeHtml(localized(entry.name))}</strong><br><code>${escapeHtml(entry.id)}</code></td>
-      <td>${categoryLabel(entry.category)}</td>
-      <td>${entry.targetLevel} / ${entry.quality}%</td>
-      <td>${formatCurrency(entry.buyPrice)}</td>
+      <td>${escapeHtml(targetLabel(entry))}</td>
+      <td>${formatCurrency(entry.craftCost)}<span class="subtle">${escapeHtml(materialSummary(entry))}</span></td>
       <td>${formatCurrency(entry.sellPrice)}</td>
-      <td>${formatCurrency(entry.fee)}</td>
-      <td>${formatCurrency(entry.breakEvenSellPrice)}</td>
-      <td class="${entry.safetyMargin >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.safetyMargin)}</td>
-      <td class="${entry.netProfit >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.netProfit)}</td>
+      <td>${tradeQuantity(entry) || '-'}</td>
       <td>${(entry.roi * 100).toFixed(1)}%</td>
-      <td>${entry.liquidity}</td>
-      <td>${entry.risk}</td>
-      <td>${escapeHtml(marketEvidenceLabel(entry))}</td>
-      <td>${escapeHtml(localized(entry.notes))}</td>
+      <td class="${entry.netProfit >= 0 ? 'ok' : 'bad'}">${formatCurrency(entry.netProfit)}</td>
     `;
     tbody.appendChild(tr);
   });
@@ -1440,15 +1813,16 @@ async function main() {
   applyBudgetQuery();
   const versions = await window.POE2Versions.readJson('../data/versions.json');
   const version = window.POE2Versions.selectedVersion(versions);
-  const manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
-  const file = manifest.market?.gemFlips;
-  if (!file) throw new Error(`gemFlips missing in ${version.dataRoot}/manifest.json`);
-  const [snapshotData, candidateIndex] = await Promise.all([
-    window.POE2Versions.readJson(`../${version.dataRoot}/${file}`),
+  const skillCatalogPromise = window.POE2Versions.readJson(`../${version.dataRoot}/skills/snapshots/catalog-poe2db-4.5-complete.json`).catch(() => ({ entries: [] }));
+  const [skillCatalog, candidateIndex] = await Promise.all([
+    skillCatalogPromise,
     window.POE2Versions.readJson(`../${version.dataRoot}/market/candidates/index.json`).catch(() => ({ schemaVersion: 0, updatedAt: '', candidates: [] }))
   ]);
+  latestSkillCatalog = skillCatalog;
+  const snapshotData = await loadLiveGemSnapshot(skillCatalog);
   snapshot = snapshotData;
   candidateQueue = candidateIndex;
+  renderMaterialPrices();
   render();
 }
 
@@ -1460,6 +1834,9 @@ document.getElementById('riskFilter').addEventListener('change', render);
 document.getElementById('evidenceFilter').addEventListener('change', render);
 document.getElementById('budgetCapitalInput').addEventListener('input', render);
 document.getElementById('copyBudgetUrlBtn').addEventListener('click', copyBudgetUrl);
+document.getElementById('materialPriceRows').addEventListener('input', handleMaterialPriceInput);
+document.getElementById('refreshLivePriceBtn').addEventListener('click', () => refreshLivePrices({ resetOverrides: false }));
+document.getElementById('refreshMaterialPricesBtn').addEventListener('click', () => refreshLivePrices({ resetOverrides: true }));
 document.querySelectorAll('[data-lang]').forEach((button) => {
   button.addEventListener('click', () => {
     currentLang = button.dataset.lang;
@@ -1467,6 +1844,7 @@ document.querySelectorAll('[data-lang]').forEach((button) => {
       item.classList.toggle('active', item === button);
     });
     applyLanguage();
+    renderMaterialPrices();
     render();
   });
 });
@@ -1475,7 +1853,7 @@ applyLanguage();
 main().catch((error) => {
   document.body.dataset.marketSourceType = 'load-error';
   document.getElementById('snapshotStatus').textContent = t('loadFailed');
-  document.getElementById('resultRows').innerHTML = `<tr><td colspan="15" class="bad">${escapeHtml(error.message)}</td></tr>`;
+  document.getElementById('resultRows').innerHTML = `<tr><td colspan="8" class="bad">${escapeHtml(error.message)}</td></tr>`;
 });
 </script>
 </body>
