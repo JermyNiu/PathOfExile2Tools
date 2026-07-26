@@ -163,6 +163,15 @@ function normalizeFamilyText(text) {
     .trim();
 }
 
+function looksInternalName(text) {
+  const value = String(text || '').trim();
+  return /^[A-Za-z][A-Za-z0-9_]*$/.test(value) && !/\s/.test(value);
+}
+
+function displayName(row) {
+  return row?.name && !looksInternalName(row.name) ? row.name : normalizeFamilyText(row?.description);
+}
+
 function regexFromDescription(text) {
   const firstLine = String(text || '').split('\n')[0] || '';
   return firstLine
@@ -196,9 +205,9 @@ function mergeLocalizedRows(kind, localizedRows, sourceRef) {
         zhTW: zhTW.affix || english.affix
       },
       name: {
-        en: english.name || normalizeFamilyText(english.description),
-        zhCN: zhCN.name || normalizeFamilyText(zhCN.description),
-        zhTW: zhTW.name || normalizeFamilyText(zhTW.description)
+        en: displayName(english),
+        zhCN: displayName(zhCN),
+        zhTW: displayName(zhTW)
       },
       description: {
         en: english.description,

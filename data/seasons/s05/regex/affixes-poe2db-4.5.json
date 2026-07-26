@@ -2,7 +2,7 @@
   "schema": "poe2-tools-regex-affixes-v1",
   "season": "S05",
   "versionId": "s05-tree-4.5",
-  "generatedAt": "2026-07-26T10:01:13.666Z",
+  "generatedAt": "2026-07-26T10:09:49.672Z",
   "source": {
     "type": "poe2db-waystone-tablet-modifiers",
     "version": "4.5",
@@ -3502,7 +3502,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -3535,7 +3535,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -3568,7 +3568,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -3601,7 +3601,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -3634,7 +3634,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -3667,7 +3667,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -3931,7 +3931,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -4063,7 +4063,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -4591,7 +4591,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -4624,7 +4624,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -4657,7 +4657,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -4690,7 +4690,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -4723,7 +4723,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -4756,7 +4756,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -5020,7 +5020,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -5152,7 +5152,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -5614,7 +5614,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -5647,7 +5647,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -5680,7 +5680,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -5713,7 +5713,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -5746,7 +5746,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -5779,7 +5779,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -6043,7 +6043,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -6175,7 +6175,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -6703,7 +6703,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -6736,7 +6736,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -6769,7 +6769,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -6802,7 +6802,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -6835,7 +6835,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -6868,7 +6868,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -7132,7 +7132,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -7264,7 +7264,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -7759,7 +7759,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -7792,7 +7792,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -7825,7 +7825,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -7858,7 +7858,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -7891,7 +7891,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -7924,7 +7924,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -8188,7 +8188,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -8320,7 +8320,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -8551,7 +8551,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -8584,7 +8584,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -8617,7 +8617,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -8650,7 +8650,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -8683,7 +8683,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -8716,7 +8716,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -8980,7 +8980,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -9112,7 +9112,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -9607,7 +9607,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -9640,7 +9640,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -9673,7 +9673,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -9706,7 +9706,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -9739,7 +9739,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -9772,7 +9772,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -10036,7 +10036,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -10168,7 +10168,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -10696,7 +10696,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -10729,7 +10729,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -10762,7 +10762,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -10795,7 +10795,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -10828,7 +10828,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -10861,7 +10861,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -11125,7 +11125,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -11257,7 +11257,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Exiled",
+        "en": "% increased Quantity of Waystones found in Map",
         "zhCN": "流放的",
         "zhTW": "流亡的"
       },
@@ -11422,9 +11422,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionPackSize",
-        "zhCN": "TowerIncursionPackSize",
-        "zhTW": "TowerIncursionPackSize"
+        "en": "#% increased Pack Size for Monsters around Vaal Beacons in Map",
+        "zhCN": "地图中的瓦尔灯塔附近的怪物群落规模提高 #%",
+        "zhTW": "增加#%地圖內瓦爾烽塔周遭的怪物群大小"
       },
       "description": {
         "en": "(10-30)% increased Pack Size for Monsters around Vaal Beacons in Map",
@@ -11455,9 +11455,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionExtraPacks",
-        "zhCN": "TowerIncursionExtraPacks",
-        "zhTW": "TowerIncursionExtraPacks"
+        "en": "# extra packs of Monsters around Vaal Beacons in Map",
+        "zhCN": "地图中的瓦尔灯塔附近出现 # 个额外怪物群落",
+        "zhTW": "地圖內的瓦爾烽塔周遭擁有額外#群怪物"
       },
       "description": {
         "en": "1 extra packs of Monsters around Vaal Beacons in Map",
@@ -11488,9 +11488,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionExtraPacksChance",
-        "zhCN": "TowerIncursionExtraPacksChance",
-        "zhTW": "TowerIncursionExtraPacksChance"
+        "en": "#% chance for an extra packs of Monsters around Vaal Beacons in Map",
+        "zhCN": "地图中的瓦尔灯塔附近有 #% 的几率出现一个额外怪物群落",
+        "zhTW": "有#%機率擁有一群額外怪物在地圖內的瓦爾烽塔周遭"
       },
       "description": {
         "en": "(30-60)% chance for an extra packs of Monsters around Vaal Beacons in Map",
@@ -11521,9 +11521,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionSecondaryEncounters",
-        "zhCN": "TowerIncursionSecondaryEncounters",
-        "zhTW": "TowerIncursionSecondaryEncounters"
+        "en": "#% increased chance Vaal Beacons summon additional Monsters in Map",
+        "zhCN": "地图中的瓦尔灯塔召唤额外怪物的几率提高 #%",
+        "zhTW": "增加#%地圖內的瓦爾烽塔召喚額外怪物的機率"
       },
       "description": {
         "en": "(25-50)% increased chance Vaal Beacons summon additional Monsters in Map",
@@ -11554,9 +11554,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionTokenChance",
-        "zhCN": "TowerIncursionTokenChance",
-        "zhTW": "TowerIncursionTokenChance"
+        "en": "#% chance to gain an additional Crystal from Vaal Beacons in Map",
+        "zhCN": "有 #% 的几率从地图中的瓦尔灯塔获得一个额外的水晶",
+        "zhTW": "有#%機率從地圖內的瓦爾烽塔獲得額外一個額外水晶"
       },
       "description": {
         "en": "(5-10)% chance to gain an additional Crystal from Vaal Beacons in Map",
@@ -11587,9 +11587,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionBossChance",
-        "zhCN": "TowerIncursionBossChance",
-        "zhTW": "TowerIncursionBossChance"
+        "en": "#% chance to add a Vaal Beacon Unique Monster to the Map",
+        "zhCN": "有 #% 的几率为地图增加一个瓦尔灯塔传奇怪物",
+        "zhTW": "有#%機率為地圖新增一名瓦爾烽塔傳奇怪物"
       },
       "description": {
         "en": "(10-25)% chance to add a Vaal Beacon Unique Monster to the Map",
@@ -11620,9 +11620,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionRareChestChance",
-        "zhCN": "TowerIncursionRareChestChance",
-        "zhTW": "TowerIncursionRareChestChance"
+        "en": "#% increased chance Vaal Beacon Chests are Rare in Map",
+        "zhCN": "地图中的瓦尔灯塔宝箱为稀有的几率提高 #%",
+        "zhTW": "增加#%地圖內瓦爾烽塔的寶箱為稀有的機率"
       },
       "description": {
         "en": "(30-60)% increased chance Vaal Beacon Chests are Rare in Map",
@@ -12774,7 +12774,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Breeding",
+        "en": "#% increased Pack Size in Map",
         "zhCN": "多产的",
         "zhTW": "多產的"
       },
@@ -12809,7 +12809,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Teeming",
+        "en": "Map has #% increased Magic Monsters",
         "zhCN": "浇灌的",
         "zhTW": "擁擠的"
       },
@@ -12844,7 +12844,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Brimming",
+        "en": "Map has #% increased number of Rare Monsters",
         "zhCN": "盈满的",
         "zhTW": "充滿的"
       },
@@ -12879,7 +12879,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Abounding",
+        "en": "Map has #% increased Monster Rarity",
         "zhCN": "充满的",
         "zhTW": "充盈的"
       },
@@ -12914,7 +12914,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Bountiful",
+        "en": "#% increased Gold found in Map",
         "zhCN": "丰厚的",
         "zhTW": "慷慨的"
       },
@@ -12949,7 +12949,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Elevated",
+        "en": "#% increased Experience gain in Map",
         "zhCN": "睿智的",
         "zhTW": "昇華的"
       },
@@ -13202,7 +13202,7 @@
         "zhTW": "前綴"
       },
       "name": {
-        "en": "Crystallised",
+        "en": "Map contains # additional Essences",
         "zhCN": "结晶的",
         "zhTW": "晶化的"
       },
@@ -14890,9 +14890,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionPackSize",
-        "zhCN": "TowerIncursionPackSize",
-        "zhTW": "TowerIncursionPackSize"
+        "en": "#% increased Pack Size for Monsters around Vaal Beacons in Map",
+        "zhCN": "地图中的瓦尔灯塔附近的怪物群落规模提高 #%",
+        "zhTW": "增加#%地圖內瓦爾烽塔周遭的怪物群大小"
       },
       "regex": {
         "en": "increased.*Pack.*Size.*for",
@@ -14918,9 +14918,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionExtraPacks",
-        "zhCN": "TowerIncursionExtraPacks",
-        "zhTW": "TowerIncursionExtraPacks"
+        "en": "# extra packs of Monsters around Vaal Beacons in Map",
+        "zhCN": "地图中的瓦尔灯塔附近出现 # 个额外怪物群落",
+        "zhTW": "地圖內的瓦爾烽塔周遭擁有額外#群怪物"
       },
       "regex": {
         "en": "extra.*packs.*of.*Monsters",
@@ -14946,9 +14946,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionExtraPacksChance",
-        "zhCN": "TowerIncursionExtraPacksChance",
-        "zhTW": "TowerIncursionExtraPacksChance"
+        "en": "#% chance for an extra packs of Monsters around Vaal Beacons in Map",
+        "zhCN": "地图中的瓦尔灯塔附近有 #% 的几率出现一个额外怪物群落",
+        "zhTW": "有#%機率擁有一群額外怪物在地圖內的瓦爾烽塔周遭"
       },
       "regex": {
         "en": "chance.*for.*an.*extra",
@@ -14974,9 +14974,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionSecondaryEncounters",
-        "zhCN": "TowerIncursionSecondaryEncounters",
-        "zhTW": "TowerIncursionSecondaryEncounters"
+        "en": "#% increased chance Vaal Beacons summon additional Monsters in Map",
+        "zhCN": "地图中的瓦尔灯塔召唤额外怪物的几率提高 #%",
+        "zhTW": "增加#%地圖內的瓦爾烽塔召喚額外怪物的機率"
       },
       "regex": {
         "en": "increased.*chance.*Vaal.*Beacons",
@@ -15002,9 +15002,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionTokenChance",
-        "zhCN": "TowerIncursionTokenChance",
-        "zhTW": "TowerIncursionTokenChance"
+        "en": "#% chance to gain an additional Crystal from Vaal Beacons in Map",
+        "zhCN": "有 #% 的几率从地图中的瓦尔灯塔获得一个额外的水晶",
+        "zhTW": "有#%機率從地圖內的瓦爾烽塔獲得額外一個額外水晶"
       },
       "regex": {
         "en": "chance.*to.*gain.*an",
@@ -15030,9 +15030,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionBossChance",
-        "zhCN": "TowerIncursionBossChance",
-        "zhTW": "TowerIncursionBossChance"
+        "en": "#% chance to add a Vaal Beacon Unique Monster to the Map",
+        "zhCN": "有 #% 的几率为地图增加一个瓦尔灯塔传奇怪物",
+        "zhTW": "有#%機率為地圖新增一名瓦爾烽塔傳奇怪物"
       },
       "regex": {
         "en": "chance.*to.*add.*Vaal",
@@ -15058,9 +15058,9 @@
         "zhTW": "後綴"
       },
       "name": {
-        "en": "TowerIncursionRareChestChance",
-        "zhCN": "TowerIncursionRareChestChance",
-        "zhTW": "TowerIncursionRareChestChance"
+        "en": "#% increased chance Vaal Beacon Chests are Rare in Map",
+        "zhCN": "地图中的瓦尔灯塔宝箱为稀有的几率提高 #%",
+        "zhTW": "增加#%地圖內瓦爾烽塔的寶箱為稀有的機率"
       },
       "regex": {
         "en": "increased.*chance.*Vaal.*Beacon",

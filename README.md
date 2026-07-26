@@ -296,7 +296,7 @@ http://127.0.0.1:8766/tools/data-update.html
 Dry-run the local update script before writing files:
 
 ```sh
-node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.4
+node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.5
 ```
 
 Create a draft folder for a future tree/data version without changing
@@ -310,11 +310,26 @@ node scripts/create-version.mjs --id s05-tree-4.6 --season S05 --poe2db-version 
 Write downloaded source files only after checking the dry-run output:
 
 ```sh
-node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.4 --write
+node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.5 --write
 node scripts/update-data.mjs --data-root data/seasons/s05-tree-4.6 --season S05 --poe2db-version 4.6 --pobb-svg-version 4.6 --write
 ```
 
 Existing source files are not overwritten unless `--force` is passed.
+
+`update-data.mjs` only updates passive-tree raw data and the tree SVG. Run the
+module-specific PoE2DB fetchers when reference, crafting, regex, or skill data
+needs a full refresh:
+
+```sh
+node scripts/fetch-poe2db-reference.mjs --season s05 --write --force
+node scripts/fetch-poe2db-extra-modifiers.mjs --season s05 --write --force
+node scripts/fetch-poe2db-item-details.mjs --season s05 --write --force
+node scripts/fetch-poe2db-crafting-affixes.mjs --season s05 --write --force
+node scripts/fetch-poe2db-regex-affixes.mjs --season s05 --write --force
+node scripts/validate-reference.mjs --season s05
+node scripts/validate-crafting-affixes.mjs --season s05
+node scripts/validate-regex-affixes.mjs --season s05
+```
 
 Compare passive tree raw data before deciding which routes need review:
 

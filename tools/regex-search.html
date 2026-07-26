@@ -548,7 +548,6 @@ const state = {
 
 const categoryOrder = ['all', 'waystone', 'tablet'];
 const builderCategories = ['waystone', 'tablet'];
-const fallbackRegexAffixPath = 'regex/affixes-poe2db-4.5.json';
 
 function t(key) {
   return i18n[state.lang][key] || i18n.zhCN[key] || key;
@@ -1012,7 +1011,8 @@ async function init() {
     const selected = window.POE2Versions.selectedVersion(versions);
     const manifest = await window.POE2Versions.readJson(`../${selected.dataRoot}/manifest.json`);
     const dataPath = manifest.regexSearch?.presets || 'regex/search-presets.json';
-    const affixPath = manifest.regexSearch?.affixes || fallbackRegexAffixPath;
+    const affixPath = manifest.regexSearch?.affixes;
+    if (!affixPath) throw new Error('manifest.regexSearch.affixes missing');
     state.data = await window.POE2Versions.readJson(`../${selected.dataRoot}/${dataPath}`);
     if (affixPath) state.affixCatalog = await window.POE2Versions.readJson(`../${selected.dataRoot}/${affixPath}`);
     state.entries = (state.data.entries || []).map((entry) => ({

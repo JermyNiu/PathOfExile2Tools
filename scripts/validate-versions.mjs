@@ -141,6 +141,14 @@ async function validateHistoryEntry(version, index) {
   await assertManifestFile(dataRoot, manifest.tree?.assets?.baseSvg, `${label} manifest.tree.assets.baseSvg`, failures);
   await assertManifestFile(dataRoot, manifest.tree?.assets?.highlightSvg, `${label} manifest.tree.assets.highlightSvg`, failures);
   await assertManifestFile(dataRoot, manifest.skills?.catalog, `${label} manifest.skills.catalog`, failures);
+  await assertManifestFile(dataRoot, manifest.crafting?.affixes, `${label} manifest.crafting.affixes`, failures);
+  await assertManifestFile(dataRoot, manifest.regexSearch?.presets, `${label} manifest.regexSearch.presets`, failures);
+  await assertManifestFile(dataRoot, manifest.regexSearch?.affixes, `${label} manifest.regexSearch.affixes`, failures);
+  await assertManifestFile(dataRoot, manifest.reference?.items?.uniques, `${label} manifest.reference.items.uniques`, failures);
+  await assertManifestFile(dataRoot, manifest.reference?.items?.baseItems, `${label} manifest.reference.items.baseItems`, failures);
+  await assertManifestFile(dataRoot, manifest.reference?.items?.details, `${label} manifest.reference.items.details`, failures);
+  await assertManifestFile(dataRoot, manifest.reference?.stats?.modifiers, `${label} manifest.reference.stats.modifiers`, failures);
+  await assertManifestFile(dataRoot, manifest.reference?.stats?.extraModifiers, `${label} manifest.reference.stats.extraModifiers`, failures);
   await assertManifestFile(dataRoot, manifest.market?.gemFlips, `${label} manifest.market.gemFlips`, failures);
   await assertManifestFile(dataRoot, manifest.market?.hideoutFlips, `${label} manifest.market.hideoutFlips`, failures);
   await assertManifestFile(dataRoot, manifest.ninja?.sampleImport, `${label} manifest.ninja.sampleImport`, failures);
