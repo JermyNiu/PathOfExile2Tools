@@ -8,6 +8,8 @@
   const navItems = [
     { id: 'home', text: '首页', href: 'index.html', i18n: 'home' },
     { id: 'builds', text: '开荒', href: 'builds/index.html', i18n: 'buildsNav' },
+    { id: 'gear', text: '装备制作', href: 'tools/gear-crafting.html', i18n: 'gearCraftingNav' },
+    { id: 'regex', text: '正则搜索', href: 'tools/regex-search.html', i18n: 'regexNav' },
     { id: 'hideout', text: '藏身处战神', href: 'tools/hideout-flip.html', i18n: 'hideoutNav' },
     { id: 'value', text: '价值曲线', href: 'tools/value-curve.html', i18n: 'valueCurveNav' },
     { id: 'gem', text: '技能倒卖', href: 'tools/gem-flip.html', i18n: 'gemFlipNav' },
@@ -102,7 +104,7 @@
         <h1>${title}</h1>
         <nav class="site-header-nav" aria-label="工具导航">
           ${navItems.map((item) => `
-            <a class="nav-link${item.id === active ? ' active' : ''}" href="${href(item.href)}" data-i18n="${item.i18n}">${item.text}</a>
+            <a class="nav-link${item.id === active ? ' active' : ''}" href="${href(item.href)}"${item.i18n === 'regexNav' ? '' : ` data-i18n="${item.i18n}"`}>${item.text}</a>
           `).join('')}
         </nav>
       </div>

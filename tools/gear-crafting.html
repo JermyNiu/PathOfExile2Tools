@@ -1,0 +1,2489 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 装备制作</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --ink:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+  }
+  header {
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    padding:14px 20px;
+    background:#0b1120;
+    border-bottom:1px solid var(--line);
+  }
+  h1,h2,h3,p { margin:0; }
+  h1 { font-size:20px; }
+  h2 { font-size:18px; }
+  h3 { font-size:15px; }
+  a { color:inherit; text-decoration:none; }
+  .brand-nav,.main-nav,.top-controls,.row,.actions,.filters {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .brand-nav { gap:18px; }
+  .nav-link,.btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:34px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:6px 10px;
+    background:#0b1120;
+    color:var(--ink);
+    font:inherit;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .nav-link.active,.btn.primary { border-color:#0ea5e9; background:#075985; }
+  .btn.danger { border-color:#7f1d1d; color:#fecdd3; }
+  .shell {
+    width:min(1500px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:14px;
+  }
+  .panel,.card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:14px;
+    display:grid;
+    gap:12px;
+  }
+  .card { background:var(--panel2); }
+  .workbench {
+    display:grid;
+    grid-template-columns:360px minmax(420px,1fr) 390px;
+    gap:14px;
+    align-items:start;
+  }
+  .stat-grid {
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:8px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px;
+    background:#0b1120;
+    min-width:0;
+  }
+  .stat strong { display:block; color:var(--accent); font-size:18px; overflow-wrap:anywhere; }
+  .stat span { color:var(--muted); font-size:12px; }
+  label.control { display:grid; gap:4px; color:var(--muted); font-size:12px; }
+  select,input,textarea {
+    min-height:34px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    color:var(--ink);
+    padding:6px 8px;
+    font:inherit;
+  }
+  textarea { min-height:74px; resize:vertical; }
+  input[type="search"] { min-width:220px; }
+  .muted { color:var(--muted); line-height:1.5; }
+  .ok { color:var(--ok); }
+  .warn { color:var(--warn); }
+  .bad { color:var(--bad); }
+  .pill {
+    display:inline-flex;
+    align-items:center;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:2px 7px;
+    background:#0b1120;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .slot-board,.req-board {
+    display:grid;
+    gap:8px;
+  }
+  .lane {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:8px;
+  }
+  .lane-title {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .slot {
+    min-height:46px;
+    display:grid;
+    grid-template-columns:72px minmax(0,1fr) auto;
+    gap:8px;
+    align-items:center;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:8px;
+  }
+  .slot.empty { border-style:dashed; color:var(--muted); }
+  .mod-title { overflow-wrap:anywhere; line-height:1.35; }
+  .mod-meta { color:var(--muted); font-size:12px; line-height:1.4; }
+  .icon-btn { width:32px; min-width:32px; padding:0; }
+  .mod-list {
+    display:grid;
+    gap:8px;
+    max-height:640px;
+    overflow:auto;
+    padding-right:4px;
+  }
+  .mod-pool-grid {
+    display:grid;
+    grid-template-columns:minmax(260px,0.9fr) minmax(300px,1.1fr);
+    gap:10px;
+    align-items:start;
+  }
+  .mod-column {
+    display:grid;
+    gap:8px;
+    min-width:0;
+  }
+  .mod-column h3 {
+    margin:0;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .mod-row {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:8px;
+  }
+  .mod-row[data-kind="prefix"] { border-left:3px solid #38bdf8; }
+  .mod-row[data-kind="suffix"] { border-left:3px solid #34d399; }
+  .mod-row[data-kind="socket"] { border-left:3px solid #facc15; }
+  .mod-row[data-kind="unknown"] { border-left:3px solid #64748b; }
+  .mod-row[data-family="desecrated"] { outline:1px solid #a855f7; }
+  .mod-row-head {
+    display:flex;
+    gap:6px;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+  .req-group {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:8px;
+  }
+  .picker {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:8px;
+    align-items:end;
+  }
+  .picker select { width:100%; min-width:0; }
+  .quick-search {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .quick-search .btn {
+    min-height:28px;
+    padding:4px 8px;
+    font-size:12px;
+  }
+  .warning-box {
+    display:none;
+    border:1px solid #854d0e;
+    border-radius:8px;
+    background:#1f1808;
+    color:#fde68a;
+    padding:8px;
+    line-height:1.5;
+  }
+  .warning-box.active { display:block; }
+  .rule-panel {
+    display:none;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    gap:10px;
+  }
+  .rule-panel.active { display:grid; }
+  .rule-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .rule-card {
+    border:1px solid #1f2937;
+    border-radius:6px;
+    background:#111827;
+    padding:10px;
+    display:grid;
+    gap:6px;
+  }
+  .rule-card h3 {
+    color:var(--ink);
+    font-size:14px;
+  }
+  .rule-card p { color:var(--muted); line-height:1.45; }
+  .rule-card strong { color:var(--ink); }
+  .history-list {
+    display:grid;
+    gap:8px;
+  }
+  .history-item {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:8px;
+    align-items:center;
+  }
+  .history-title { overflow-wrap:anywhere; }
+  ol { margin:0; padding-left:22px; display:grid; gap:6px; }
+  .route-list {
+    list-style:none;
+    padding-left:0;
+    display:grid;
+    gap:10px;
+  }
+  .route-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    display:grid;
+    gap:10px;
+  }
+  .route-card.stop { border-color:#7f1d1d; }
+  .route-card.info { border-color:#475569; }
+  .route-head {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .route-title { font-weight:700; line-height:1.35; overflow-wrap:anywhere; }
+  .route-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .route-cell {
+    border:1px solid #1f2937;
+    border-radius:6px;
+    padding:8px;
+    min-width:0;
+    background:#111827;
+  }
+  .route-label {
+    display:block;
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:4px;
+  }
+  .route-value { line-height:1.45; overflow-wrap:anywhere; }
+  .currency-token,
+  .omen-token {
+    display:inline-flex;
+    align-items:center;
+    border-radius:999px;
+    padding:1px 7px;
+    margin:0 2px 2px 0;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .currency-token {
+    border:1px solid #f59e0b;
+    background:#422006;
+    color:#fde68a;
+  }
+  .omen-token {
+    border:1px solid #a855f7;
+    background:#2e1065;
+    color:#e9d5ff;
+  }
+  .route-card .note { color:var(--muted); line-height:1.5; }
+  .craft-equipment-preview {
+    border:1px solid #b45309;
+    border-radius:8px;
+    background:#080c13;
+    box-shadow:0 12px 28px rgba(0,0,0,.34);
+    padding:12px 14px;
+    display:grid;
+    gap:7px;
+  }
+  .equipment-tooltip-title {
+    color:#c26b28;
+    font-size:17px;
+    font-weight:700;
+    text-align:center;
+    line-height:1.25;
+  }
+  .equipment-tooltip-type,
+  .equipment-tooltip-property {
+    color:#94a3b8;
+    text-align:center;
+    line-height:1.35;
+  }
+  .equipment-tooltip-sep {
+    height:1px;
+    width:70%;
+    margin:2px auto;
+    background:linear-gradient(90deg, transparent, #5b3418, transparent);
+  }
+  .equipment-tooltip-section {
+    display:grid;
+    gap:4px;
+  }
+  .equipment-tooltip-heading {
+    color:#64748b;
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .equipment-tooltip .mod-list,
+  .craft-equipment-preview .mod-list {
+    padding:0;
+    margin:0;
+    display:grid;
+    gap:3px;
+    list-style:none;
+  }
+  .equipment-tooltip .mod-list li,
+  .craft-equipment-preview .mod-list li {
+    color:#9b96ff;
+    text-align:center;
+    line-height:1.35;
+  }
+  .equipment-tooltip .mod-list li.mod-added,
+  .craft-equipment-preview .mod-list li.mod-added {
+    color:#67e8f9;
+    text-shadow:0 0 12px rgba(34,211,238,.24);
+  }
+  .equipment-tooltip .mod-list li.mod-failed,
+  .craft-equipment-preview .mod-list li.mod-failed {
+    color:#fb7185;
+    text-shadow:0 0 12px rgba(251,113,133,.22);
+  }
+  .mod-stage-tag {
+    display:inline-flex;
+    margin-left:4px;
+    border-radius:999px;
+    padding:0 6px;
+    border:1px solid currentColor;
+    font-size:11px;
+    opacity:.9;
+  }
+  .craft-equipment-preview .missing-mod {
+    color:#64748b;
+    font-style:italic;
+  }
+  .route-preview-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  @media (max-width: 1180px) {
+    .workbench { grid-template-columns:1fr; }
+    .mod-pool-grid { grid-template-columns:1fr; }
+    .stat-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .route-grid { grid-template-columns:1fr; }
+    .route-preview-grid { grid-template-columns:1fr; }
+    .rule-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html">首页</a>
+      <a class="nav-link" href="../builds/index.html">开荒</a>
+      <a class="nav-link active" href="gear-crafting.html">装备制作</a>
+      <a class="nav-link" href="hideout-flip.html">藏身处战神</a>
+      <a class="nav-link" href="value-curve.html">价值曲线</a>
+      <a class="nav-link" href="gem-flip.html">技能倒卖</a>
+      <a class="nav-link" href="ninja-import.html">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
+    <span class="pill" id="gearCraftingStatus">读取中</span>
+    <a class="btn" href="data-update.html">数据更新</a>
+  </div>
+</header>
+<script src="../assets/site-header.js" data-root=".." data-active="gear" data-title="POE2 Tools"></script>
+
+<main class="shell">
+  <section class="panel">
+    <div class="row">
+      <h2>装备制作模拟器</h2>
+      <button class="btn" type="button" id="toggleCurrencyRulesBtn">查看通货规则</button>
+    </div>
+    <p class="muted">模型按做装模拟器的思路组织：先定义当前物品，再从词缀池选择目标/阻塞词，最后生成可进游戏执行的路线。词条优先读取 PoE2DB 词缀计算数据，能显示前后缀、T、物等、权重和词条组；当前仍有部分护甲类聚合页缺类级数据，页面会按覆盖状态提示。</p>
+    <div class="rule-panel" id="currencyRulesPanel"></div>
+  </section>
+
+  <section class="stat-grid" id="craftingStats"></section>
+
+  <section class="workbench">
+    <aside class="card">
+      <h2>当前物品</h2>
+      <div class="filters">
+        <label class="control">版本
+          <select id="versionSelect"><option>读取中...</option></select>
+        </label>
+        <label class="control">物品分类
+          <select id="itemClassSelect"><option value="all">全部分类</option></select>
+        </label>
+        <label class="control">底材基础
+          <select id="baseSelect"><option value="">读取中...</option></select>
+        </label>
+        <label class="control">物品等级
+          <input id="itemLevelInput" type="number" min="1" max="100" value="65">
+        </label>
+        <label class="control">当前稀有度
+          <select id="currentRaritySelect">
+            <option value="auto">按词条数建议</option>
+            <option value="white">白板</option>
+            <option value="magic">魔法</option>
+            <option value="rare">稀有</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <span class="pill" id="itemRarityPill">白板</span>
+        <span class="pill" id="prefixSpacePill">前缀 0/3</span>
+        <span class="pill" id="suffixSpacePill">后缀 0/3</span>
+      </div>
+      <p class="warning-box" id="currentItemWarning"></p>
+      <div class="slot-board" id="currentSlots"></div>
+      <div class="actions">
+        <button class="btn danger" type="button" id="clearCurrentBtn">清空当前词条</button>
+      </div>
+    </aside>
+
+    <section class="card">
+      <h2>词缀池</h2>
+      <div class="filters">
+        <label class="control">搜索
+          <input id="modSearchInput" type="search" value="" placeholder="火焰 伤害 / 冰霜 伤害 / 移动速度 / 生命">
+        </label>
+        <label class="control">类型
+          <select id="modKindFilter">
+            <option value="all">全部</option>
+            <option value="prefix">前缀</option>
+            <option value="suffix">后缀</option>
+          </select>
+        </label>
+        <label class="control">只看可用作词条
+          <select id="craftableFilter">
+            <option value="all">全部证据</option>
+            <option value="affix">只看前/后缀</option>
+          </select>
+        </label>
+        <label class="control">来源
+          <select id="sourceFamilyFilter">
+            <option value="all">全部来源</option>
+            <option value="affix">装备词缀</option>
+            <option value="desecrated">亵渎词</option>
+          </select>
+        </label>
+      </div>
+      <div class="quick-search">
+        <button class="btn" type="button" data-quick-search="火焰 伤害">火焰伤害</button>
+        <button class="btn" type="button" data-quick-search="冰霜 伤害">冰霜伤害</button>
+        <button class="btn" type="button" data-quick-search="闪电 伤害">闪电伤害</button>
+        <button class="btn" type="button" data-quick-search="生命">生命</button>
+        <button class="btn" type="button" data-quick-search="移动速度">移动速度</button>
+      </div>
+      <p class="muted" id="modPoolHint">读取中...</p>
+      <div class="mod-list" id="modPoolRows"></div>
+    </section>
+
+    <aside class="card">
+      <h2>目标需求</h2>
+      <div class="filters">
+        <label class="control">成品样式
+          <select id="resultStyleSelect">
+            <option value="usable">能用就停</option>
+            <option value="strict">严格命中</option>
+            <option value="premium">高投入追好词</option>
+          </select>
+        </label>
+        <label class="control">制作策略
+          <select id="methodSelect">
+            <option value="auto">AI 推荐</option>
+            <option value="magic-regal">魔法起步富豪</option>
+            <option value="chaos-reroll">混沌重洗筛选</option>
+            <option value="essence-like">定向通货/精华思路</option>
+            <option value="basic-rare">普通稀有补词</option>
+          </select>
+        </label>
+      </div>
+      <div class="filters">
+        <label class="control">开放前缀
+          <input id="openPrefixInput" type="number" min="0" max="3" value="0">
+        </label>
+        <label class="control">开放后缀
+          <input id="openSuffixInput" type="number" min="0" max="3" value="0">
+        </label>
+      </div>
+      <p class="warning-box" id="requirementWarning"></p>
+      <div class="req-board">
+        <div class="req-group">
+          <h3>必须命中</h3>
+          <div id="requiredList"></div>
+        </div>
+        <div class="req-group">
+          <h3>可选命中</h3>
+          <div id="optionalList"></div>
+        </div>
+        <div class="req-group">
+          <h3>阻塞/不想要</h3>
+          <div id="blockedList"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn danger" type="button" id="clearRequirementsBtn">清空需求</button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <h2>制作历史</h2>
+      <button class="btn primary" type="button" id="saveHistoryBtn">保存当前方案</button>
+      <button class="btn danger" type="button" id="clearHistoryBtn">清空历史</button>
+      <span class="muted" id="historyStatus"></span>
+    </div>
+    <div class="history-list" id="craftHistoryList"></div>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <h2>AI 实操路线</h2>
+      <button class="btn primary" type="button" id="generateRouteBtn">生成制作步骤</button>
+      <button class="btn" type="button" id="copyRouteBtn">复制路线</button>
+      <span class="muted" id="routeStatus"></span>
+      <span class="muted" id="copyRouteStatus"></span>
+    </div>
+    <ol class="route-list" id="routeSteps"><li>读取中...</li></ol>
+  </section>
+</main>
+
+<script src="../assets/version-context.js?v=20260726-crafting-emulator"></script>
+<script>
+const state = {
+  versions:null,
+  version:null,
+  manifest:null,
+  bases:[],
+  rawMods:[],
+  affixCatalog:null,
+  modPool:[],
+  currentMods:[],
+  requiredMods:[],
+  optionalMods:[],
+  blockedMods:[],
+  selectedModGroupKey:'',
+  warning:'',
+  restoring:false
+};
+
+const draftStorageKey = 'poe2-tools.gear-crafting.draft.v1';
+const historyStorageKey = 'poe2-tools.gear-crafting.history.v1';
+const maxHistoryEntries = 12;
+
+const classLabels = {
+  Amulets:'项链', Belts:'腰带', 'Body Armours':'胸甲', Boots:'鞋子', Bows:'弓',
+  Bucklers:'小盾', Claws:'爪', Crossbows:'弩', Daggers:'匕首', Flails:'连枷',
+  Foci:'法器', Gloves:'手套', Helmets:'头盔', 'One Hand Axes':'单手斧',
+  'One Hand Maces':'单手锤', 'One Hand Swords':'单手剑', Quarterstaves:'长杖',
+  Quivers:'箭袋', Rings:'戒指', Sceptres:'权杖', Shields:'盾牌', Spears:'长矛',
+  Staves:'法杖', 'Two Hand Axes':'双手斧', 'Two Hand Maces':'双手锤',
+  'Two Hand Swords':'双手剑', Wands:'魔杖'
+};
+
+const equipmentClasses = new Set(Object.keys(classLabels));
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[char]));
+}
+
+function text(value) {
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) return value.map(text).filter(Boolean).join(' / ');
+  if (value && typeof value === 'object') return value.zhCN || value.en || value.zhTW || '';
+  return '';
+}
+
+function normalized(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/冰冷/g, '冰霜')
+    .replace(/寒冰/g, '冰霜');
+}
+
+function readStorage(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (_) {
+    return fallback;
+  }
+}
+
+function writeStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function baseClassKey(item) {
+  return (item.sourcePaths?.[0] || String(item.itemClass || '').replace(/^whiteitem\s+/, '') || 'Other').replace(/_/g, ' ');
+}
+
+function isEquipmentBase(item) {
+  return equipmentClasses.has(baseClassKey(item));
+}
+
+function baseClassLabel(itemOrKey) {
+  const key = typeof itemOrKey === 'string' ? itemOrKey : baseClassKey(itemOrKey);
+  return classLabels[key] || key;
+}
+
+function baseLabel(item) {
+  return text(item?.name) || item?.id || '';
+}
+
+function modIds(mods) {
+  return mods.map((mod) => mod.id).filter(Boolean);
+}
+
+function restoreMods(ids, bucket) {
+  return (ids || [])
+    .map((id) => state.modPool.find((mod) => mod.id === id))
+    .filter(Boolean)
+    .map((mod) => cloneForUse(mod, bucket));
+}
+
+function selectedText(id) {
+  const element = document.getElementById(id);
+  return element ? element.value : '';
+}
+
+function selectedRarityKey() {
+  const value = selectedText('currentRaritySelect');
+  if (value && value !== 'auto') return value;
+  const count = state.currentMods.filter((mod) => mod.kind === 'prefix' || mod.kind === 'suffix').length;
+  if (!count) return 'white';
+  if (count <= 2) return 'magic';
+  return 'rare';
+}
+
+function rarityLabel(key) {
+  return { white:'白板', magic:'魔法', rare:'稀有' }[key] || key;
+}
+
+function setSelectIfOption(id, value) {
+  const select = document.getElementById(id);
+  if (!select || value === undefined || value === null) return false;
+  if (![...select.options].some((option) => option.value === value)) return false;
+  select.value = value;
+  return true;
+}
+
+function serializeCraftConfig() {
+  const base = selectedBase();
+  const current = affixCounts(state.currentMods);
+  const titleParts = [
+    base ? baseLabel(base) : '未选底材',
+    `${rarity()} ${current.prefix}/${current.suffix}`,
+    state.requiredMods.length ? `必须 ${state.requiredMods.length}` : '无必须词'
+  ];
+  return {
+    schema:'gear-crafting-config-v1',
+    savedAt:new Date().toISOString(),
+    title:titleParts.join(' · '),
+    versionId:state.version?.id || selectedText('versionSelect'),
+    itemClass:selectedText('itemClassSelect'),
+    baseId:selectedText('baseSelect'),
+    itemLevel:selectedText('itemLevelInput'),
+    currentRarity:selectedText('currentRaritySelect'),
+    modSearch:selectedText('modSearchInput'),
+    modKind:selectedText('modKindFilter'),
+    craftable:selectedText('craftableFilter'),
+    sourceFamily:selectedText('sourceFamilyFilter'),
+    resultStyle:selectedText('resultStyleSelect'),
+    method:selectedText('methodSelect'),
+    openPrefix:selectedText('openPrefixInput'),
+    openSuffix:selectedText('openSuffixInput'),
+    currentModIds:modIds(state.currentMods),
+    requiredModIds:modIds(state.requiredMods),
+    optionalModIds:modIds(state.optionalMods),
+    blockedModIds:modIds(state.blockedMods)
+  };
+}
+
+function applyCraftConfig(config, { shouldRender = true } = {}) {
+  if (!config || config.versionId !== state.version?.id) return false;
+  state.restoring = true;
+  setSelectIfOption('itemClassSelect', config.itemClass);
+  updateBaseSelect();
+  setSelectIfOption('baseSelect', config.baseId);
+  [
+    ['itemLevelInput', config.itemLevel],
+    ['currentRaritySelect', config.currentRarity],
+    ['modSearchInput', config.modSearch],
+    ['modKindFilter', config.modKind],
+    ['craftableFilter', config.craftable],
+    ['sourceFamilyFilter', config.sourceFamily],
+    ['resultStyleSelect', config.resultStyle],
+    ['methodSelect', config.method],
+    ['openPrefixInput', config.openPrefix],
+    ['openSuffixInput', config.openSuffix]
+  ].forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (element && value !== undefined && value !== null) element.value = value;
+  });
+  state.currentMods = restoreMods(config.currentModIds, 'current');
+  state.requiredMods = restoreMods(config.requiredModIds, 'required');
+  state.optionalMods = restoreMods(config.optionalModIds, 'optional');
+  state.blockedMods = restoreMods(config.blockedModIds, 'blocked');
+  state.selectedModGroupKey = '';
+  state.warning = '';
+  state.restoring = false;
+  if (shouldRender) render();
+  return true;
+}
+
+function saveDraft() {
+  if (state.restoring || !state.version) return;
+  writeStorage(draftStorageKey, serializeCraftConfig());
+}
+
+function loadDraft() {
+  return readStorage(draftStorageKey, null);
+}
+
+function readHistory() {
+  return readStorage(historyStorageKey, []);
+}
+
+function writeHistory(entries) {
+  writeStorage(historyStorageKey, entries.slice(0, maxHistoryEntries));
+}
+
+function saveHistoryEntry() {
+  const entry = { ...serializeCraftConfig(), id:`history-${Date.now()}` };
+  const entries = readHistory().filter((item) => item.id !== entry.id);
+  entries.unshift(entry);
+  writeHistory(entries);
+  document.getElementById('historyStatus').textContent = '已保存当前方案';
+  renderHistory();
+}
+
+function renderHistory() {
+  const target = document.getElementById('craftHistoryList');
+  if (!target) return;
+  const entries = readHistory().filter((entry) => entry.versionId === state.version?.id);
+  if (!entries.length) {
+    target.innerHTML = '<p class="muted">还没有保存过方案。刷新页面会自动恢复最近草稿；需要保留多个方案时点“保存当前方案”。</p>';
+    return;
+  }
+  target.innerHTML = entries.map((entry) => {
+    const date = entry.savedAt ? new Date(entry.savedAt).toLocaleString('zh-CN', { hour12:false }) : '';
+    const counts = [
+      `当前 ${entry.currentModIds?.length || 0}`,
+      `必须 ${entry.requiredModIds?.length || 0}`,
+      `可选 ${entry.optionalModIds?.length || 0}`
+    ].join(' / ');
+    return `
+      <div class="history-item">
+        <div>
+          <div class="history-title">${esc(entry.title || '未命名方案')}</div>
+          <div class="mod-meta">${esc(date)} / 物等 ${esc(entry.itemLevel || '')} / ${esc(counts)}</div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" type="button" data-load-history="${esc(entry.id)}">载入</button>
+          <button class="btn danger" type="button" data-delete-history="${esc(entry.id)}">删除</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function rawAffixType(mod) {
+  const affix = normalized(text(mod.affix));
+  if (affix.includes('prefix') || text(mod.affix).includes('前缀')) return 'prefix';
+  if (affix.includes('suffix') || text(mod.affix).includes('后缀')) return 'suffix';
+  return 'unknown';
+}
+
+function modCategory(mod) {
+  return normalized(`${text(mod.category)} ${mod.page || ''}`);
+}
+
+function modDescription(mod) {
+  return text(mod.description);
+}
+
+function modSearchText(mod) {
+  return normalized([mod.label, mod.enLabel, mod.source, mod.kind, mod.family, mod.tier, mod.level, mod.itemClass, mod.modGroup, ...(mod.tags || [])].join(' '));
+}
+
+function groupSearchText(group) {
+  return normalized([group.label, group.kind, group.itemClass, group.modGroup, ...group.mods.map(modSearchText)].join(' '));
+}
+
+function requiredLevel(mod) {
+  const direct = Number(mod.level);
+  if (Number.isFinite(direct) && direct > 0) return direct;
+  const match = `${text(mod.description)} ${text(mod.description?.en)}`.match(/(?:等级|Level)\s*[:：]?\s*(\d+)/i);
+  return match ? Number(match[1]) : 0;
+}
+
+function numericScore(label) {
+  const nums = [...String(label).matchAll(/-?\d+(?:\.\d+)?/g)].map((m) => Number(m[0])).filter(Number.isFinite);
+  return nums.length ? Math.max(...nums) : 0;
+}
+
+function normalizeTierKey(label) {
+  return String(label)
+    .replace(/需求[:：]?\s*等级\s*\d+/g, '需求 等级 #')
+    .replace(/Requires:\s*Level\s*\d+/gi, 'Requires: Level #')
+    .replace(/\(\s*\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?\s*\)/g, '(#-#)')
+    .replace(/-?\d+(?:\.\d+)?/g, '#')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function inferKind(mod) {
+  const explicit = rawAffixType(mod);
+  if (explicit !== 'unknown') return explicit;
+  const category = modCategory(mod);
+  const desc = modDescription(mod);
+  if (category.includes('runes') || category.includes('符文') || /武器:|护甲:|手套 :|盾牌:|节杖 :|长杖 :|Martial Weapon|Armour:|Wand or Staff/i.test(desc)) {
+    return 'socket';
+  }
+  return 'unknown';
+}
+
+function shouldUseMod(mod) {
+  const kind = inferKind(mod);
+  const category = modCategory(mod);
+  const desc = modDescription(mod);
+  if (!desc) return false;
+  if (category.includes('monster') || category.includes('怪物')) return false;
+  if (category.includes('map mods') || category.includes('地图 词缀')) return false;
+  if (category.includes('passive') || category.includes('传奇')) return false;
+  return ['prefix', 'suffix', 'socket'].includes(kind);
+}
+
+function inferFamily(mod) {
+  const category = modCategory(mod);
+  const page = normalized(mod.page || '');
+  if (category.includes('desecrated') || page.includes('desecrated')) return 'desecrated';
+  if (inferKind(mod) === 'socket') return 'socket';
+  return 'affix';
+}
+
+function familyLabel(family) {
+  return { affix:'装备词缀', socket:'镶嵌/符文', desecrated:'亵渎词' }[family] || family;
+}
+
+function sourceLabel(source) {
+  return String(source || '')
+    .replace(/\bnormal\b/gi, '普通词缀')
+    .replace(/\bdesecrated\b/gi, '亵渎词')
+    .replace(/\bprefix\b/gi, '前缀')
+    .replace(/\bsuffix\b/gi, '后缀')
+    .replace(/\bRings\b/g, '戒指')
+    .replace(/\bAmulets\b/g, '项链')
+    .replace(/\bBelts\b/g, '腰带')
+    .replace(/\bClaws\b/g, '爪')
+    .replace(/\bSceptres\b/g, '权杖')
+    .replace(/\bWands\b/g, '魔杖')
+    .replace(/\bBows\b/g, '弓')
+    .replace(/\bCrossbows\b/g, '弩')
+    .replace(/\bBoots\b/g, '鞋子')
+    .replace(/\bGloves\b/g, '手套')
+    .replace(/\bHelmets\b/g, '头盔')
+    .replace(/\bBody Armours\b/g, '胸甲')
+    .replace(/\bShields\b/g, '盾牌');
+}
+
+function buildModPool(rawMods) {
+  const seen = new Set();
+  const candidates = rawMods.filter(shouldUseMod).map((mod) => {
+    const label = modDescription(mod).split('\n').slice(0, 4).join(' / ');
+    const enLabel = text(mod.description?.en);
+    return {
+      id: mod.id,
+      kind: inferKind(mod),
+      family: inferFamily(mod),
+      label,
+      enLabel,
+      source: mod.page || text(mod.category) || 'modifier',
+      level: requiredLevel(mod),
+      score: numericScore(label),
+      tierKey: `${inferKind(mod)}|${mod.page || text(mod.category)}|${normalizeTierKey(enLabel || label)}`
+    };
+  }).filter((mod) => {
+    const key = `${mod.kind}|${mod.source}|${mod.label}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const groups = new Map();
+  candidates.forEach((mod) => {
+    if (!groups.has(mod.tierKey)) groups.set(mod.tierKey, []);
+    groups.get(mod.tierKey).push(mod);
+  });
+  groups.forEach((group) => {
+    const scores = [...new Set(group.map((mod) => mod.score || mod.level))].sort((a, b) => b - a);
+    group.forEach((mod) => {
+      const index = scores.indexOf(mod.score || mod.level);
+      mod.tier = scores.length > 1 && index >= 0 ? `T${index + 1}` : 'T?';
+    });
+  });
+  return candidates.sort((a, b) => {
+    const order = { prefix:0, suffix:1, socket:2, unknown:3 };
+    return order[a.kind] - order[b.kind] || a.label.localeCompare(b.label);
+  });
+}
+
+function buildModPoolFromCatalog(catalog) {
+  return (catalog.entries || [])
+    .filter((entry) => entry.kind === 'prefix' || entry.kind === 'suffix')
+    .map((entry) => ({
+      id: entry.id,
+      kind: entry.kind,
+      family: 'affix',
+      label: entry.description,
+      enLabel: entry.description,
+      source: `${entry.itemClass} / ${entry.sourceBucket || 'normal'}`,
+      level: entry.requiredLevel || 0,
+      score: entry.requiredLevel || 0,
+      tier: entry.tier || 'T?',
+      tierRank: entry.tierRank || null,
+      tierKey: `${entry.itemClass}|${entry.kind}|${entry.modGroup || entry.description}`,
+      itemClass: entry.itemClass,
+      itemClassHref: entry.itemClassHref,
+      modGroup: entry.modGroup,
+      modFamilies: entry.modFamilies || [],
+      tags: entry.tags || [],
+      weight: entry.weight,
+      weightSource: entry.weightSource,
+      sourceRef: entry.sourceRef,
+      sourceCode: entry.sourceCode,
+      sourceType: 'poe2db-modifiers-calc'
+    }))
+    .sort((a, b) => {
+      const order = { prefix:0, suffix:1, socket:2, unknown:3 };
+      return (a.itemClass || '').localeCompare(b.itemClass || '')
+        || order[a.kind] - order[b.kind]
+        || (a.modGroup || '').localeCompare(b.modGroup || '')
+        || (a.tierRank || 99) - (b.tierRank || 99)
+        || (b.level || 0) - (a.level || 0)
+        || a.label.localeCompare(b.label);
+    });
+}
+
+function kindLabel(kind) {
+  return { prefix:'前缀', suffix:'后缀', socket:'镶嵌/符文', unknown:'未知' }[kind] || kind;
+}
+
+function itemClassForMods() {
+  const base = selectedBase();
+  if (base) return baseClassKey(base);
+  return document.getElementById('itemClassSelect').value;
+}
+
+function selectedBase() {
+  const id = document.getElementById('baseSelect').value;
+  return state.bases.find((item) => item.id === id) || state.bases[0] || null;
+}
+
+function affixCounts(mods) {
+  return {
+    prefix: mods.filter((mod) => mod.kind === 'prefix').length,
+    suffix: mods.filter((mod) => mod.kind === 'suffix').length,
+    socket: mods.filter((mod) => mod.kind === 'socket').length
+  };
+}
+
+function rarity() {
+  return rarityLabel(selectedRarityKey());
+}
+
+function cloneForUse(mod, bucket) {
+  return { ...mod, uid:`${bucket}-${mod.id}-${Date.now()}-${Math.random().toString(16).slice(2)}` };
+}
+
+function hasSameModGroup(mods, mod) {
+  return Boolean(mod.modGroup) && mods.some((item) => item.kind === mod.kind && item.modGroup === mod.modGroup);
+}
+
+function requirementModsForCapacity(bucket) {
+  if (bucket === 'required') return [...state.requiredMods, ...state.optionalMods];
+  if (bucket === 'optional') return [...state.requiredMods, ...state.optionalMods];
+  return [];
+}
+
+function validateAddMod(bucket, mod) {
+  if (!['prefix', 'suffix'].includes(mod.kind)) return null;
+  const baseClass = itemClassForMods();
+  if (mod.itemClass && baseClass !== 'all' && mod.itemClass !== baseClass) return `当前底材是 ${baseClassLabel(baseClass)}，不能加入 ${baseClassLabel(mod.itemClass)} 的词条。`;
+  if (bucket === 'current') {
+    const counts = affixCounts(state.currentMods);
+    if (counts[mod.kind] >= 3) return `${kindLabel(mod.kind)}已经满 3 条，不能再加入当前物品。请先删除一条，或把这件当作失败/换底。`;
+      if (hasSameModGroup(state.currentMods, mod)) return `当前物品已经有同组 ${kindLabel(mod.kind)}（词缀组 ${mod.modGroup}），不能再加入同组词。`;
+  }
+  if (bucket === 'required' || bucket === 'optional') {
+    const selected = requirementModsForCapacity(bucket);
+    const counts = affixCounts(selected);
+    if (counts[mod.kind] >= 3) return `目标需求的${kindLabel(mod.kind)}已经有 3 条，成品不可能再塞第 4 条。请先删掉一个目标词。`;
+    if (hasSameModGroup(selected, mod)) return `目标需求已经包含同组 ${kindLabel(mod.kind)}（词缀组 ${mod.modGroup}），只能选择一个阶级。`;
+  }
+  return null;
+}
+
+function addMod(bucket, id) {
+  const mod = state.modPool.find((item) => item.id === id);
+  if (!mod) return;
+  state.warning = '';
+  const validation = validateAddMod(bucket, mod);
+  if (validation) {
+    state.warning = validation;
+    render();
+    return;
+  }
+  if (bucket === 'current') {
+    state.currentMods.push(cloneForUse(mod, bucket));
+  }
+  if (bucket === 'required') state.requiredMods.push(cloneForUse(mod, bucket));
+  if (bucket === 'optional') state.optionalMods.push(cloneForUse(mod, bucket));
+  if (bucket === 'blocked') state.blockedMods.push(cloneForUse(mod, bucket));
+  render();
+}
+
+function removeMod(bucket, uid) {
+  const key = `${bucket}Mods`;
+  state[key] = state[key].filter((mod) => mod.uid !== uid);
+  state.warning = '';
+  render();
+}
+
+function renderSlotList(targetId, mods, bucket, emptyText) {
+  const target = document.getElementById(targetId);
+  if (!mods.length) {
+    target.innerHTML = `<div class="slot empty"><span>--</span><span>${esc(emptyText)}</span><span></span></div>`;
+    return;
+  }
+  target.innerHTML = mods.map((mod) => `
+    <div class="slot">
+      <span class="pill">${esc(kindLabel(mod.kind))}</span>
+      <span>
+        <span class="mod-title">${esc(mod.label)}</span>
+        <span class="mod-meta">${esc(mod.tier)}${mod.level ? ` / 需求等级 ${esc(mod.level)}` : ''} / ${esc(sourceLabel(mod.source))}</span>
+      </span>
+      <button class="btn icon-btn" type="button" data-remove-bucket="${esc(bucket)}" data-uid="${esc(mod.uid)}">×</button>
+    </div>
+  `).join('');
+}
+
+function renderCurrentLane(kind, title, mods, maxSlots) {
+  const used = mods.filter((mod) => mod.kind === kind);
+  const slots = [...used];
+  while (slots.length < maxSlots) slots.push(null);
+  return `
+    <div class="lane" data-current-lane="${esc(kind)}">
+      <div class="lane-title">
+        <strong>${esc(title)}</strong>
+        <span>${esc(used.length)} / ${esc(maxSlots)}</span>
+      </div>
+      ${slots.map((mod, index) => mod ? `
+        <div class="slot">
+          <span class="pill">${esc(kindLabel(mod.kind))}</span>
+          <span>
+            <span class="mod-title">${esc(mod.label)}</span>
+            <span class="mod-meta">${esc(mod.tier)}${mod.level ? ` / 需求等级 ${esc(mod.level)}` : ''} / ${esc(sourceLabel(mod.source))}</span>
+          </span>
+          <button class="btn icon-btn" type="button" data-remove-bucket="current" data-uid="${esc(mod.uid)}">×</button>
+        </div>
+      ` : `
+        <div class="slot empty">
+          <span>${esc(index + 1)}</span>
+          <span>空${esc(title)}</span>
+          <span></span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function visibleMods() {
+  const query = normalized(document.getElementById('modSearchInput').value);
+  const queryTokens = query.split(/\s+/).filter(Boolean);
+  const kind = document.getElementById('modKindFilter').value;
+  const craftable = document.getElementById('craftableFilter').value;
+  const family = document.getElementById('sourceFamilyFilter').value;
+  const baseClass = itemClassForMods();
+  return state.modPool.filter((mod) => {
+    const searchText = modSearchText(mod);
+    if (state.affixCatalog && baseClass !== 'all' && mod.itemClass && mod.itemClass !== baseClass) return false;
+    if (kind !== 'all' && mod.kind !== kind) return false;
+    if (craftable === 'affix' && !['prefix', 'suffix'].includes(mod.kind)) return false;
+    if (family !== 'all' && mod.family !== family) return false;
+    if (queryTokens.length && !queryTokens.every((token) => searchText.includes(token))) return false;
+    return true;
+  }).slice(0, 180);
+}
+
+function tierSort(a, b) {
+  const itemLevel = Number(document.getElementById('itemLevelInput')?.value) || 1;
+  const aAvailable = !a.level || a.level <= itemLevel;
+  const bAvailable = !b.level || b.level <= itemLevel;
+  return Number(bAvailable) - Number(aAvailable)
+    || (a.tierRank || 99) - (b.tierRank || 99)
+    || (b.level || 0) - (a.level || 0)
+    || a.label.localeCompare(b.label);
+}
+
+function modGroupLabel(mods) {
+  const best = [...mods].sort(tierSort)[0] || mods[0];
+  return best ? best.label.replace(/\(\s*[-\d.]+\s*-\s*[-\d.]+\s*\)/g, '(数值)').replace(/\s+/g, ' ') : '未知词条';
+}
+
+function visibleModGroups() {
+  const groups = new Map();
+  visibleMods().forEach((mod) => {
+    const key = `${mod.itemClass || 'all'}|${mod.kind}|${mod.modGroup || mod.tierKey || canonicalModLabel(mod.label)}`;
+    if (!groups.has(key)) {
+      groups.set(key, {
+        key,
+        kind: mod.kind,
+        family: mod.family,
+        itemClass: mod.itemClass,
+        modGroup: mod.modGroup,
+        mods:[]
+      });
+    }
+    groups.get(key).mods.push(mod);
+  });
+  return [...groups.values()].map((group) => {
+    const mods = group.mods.sort(tierSort);
+    return {
+      ...group,
+      mods,
+      best: mods[0],
+      label: modGroupLabel(mods),
+      minLevel: Math.min(...mods.map((mod) => mod.level || 0).filter(Boolean)),
+      maxLevel: Math.max(...mods.map((mod) => mod.level || 0).filter(Boolean)),
+      totalWeight: mods.reduce((sum, mod) => sum + (Number(mod.weight) || 0), 0)
+    };
+  }).filter((group) => groupSearchText(group)).sort((a, b) => {
+    const order = { prefix:0, suffix:1, socket:2, unknown:3 };
+    return order[a.kind] - order[b.kind]
+      || (a.modGroup || '').localeCompare(b.modGroup || '')
+      || a.label.localeCompare(b.label);
+  }).slice(0, 80);
+}
+
+function renderModPool() {
+  const rows = visibleMods();
+  const groups = visibleModGroups();
+  if (state.selectedModGroupKey && !groups.some((group) => group.key === state.selectedModGroupKey)) {
+    state.selectedModGroupKey = '';
+  }
+  const selectedGroup = groups.find((group) => group.key === state.selectedModGroupKey) || null;
+  const sourceCounts = rows.reduce((acc, mod) => {
+    acc[mod.family] = (acc[mod.family] || 0) + 1;
+    return acc;
+  }, {});
+  const catalogNote = state.affixCatalog
+    ? `来源 PoE2DB 词缀计算；目录 ${state.affixCatalog.coverage?.affixCount || state.modPool.length} 条，已覆盖 ${state.affixCatalog.coverage?.fetchedClassCount || 0} 个分类，跳过 ${state.affixCatalog.coverage?.skippedClassCount || 0} 个无类级数据的分类。`
+    : '来源旧词缀快照；T? 表示本地数据不足以推导完整阶级。';
+  document.getElementById('modPoolHint').textContent = `当前底材只显示 ${esc(baseClassLabel(itemClassForMods()))} 可用词条：${groups.length} 组 / ${rows.length} 个阶级。当前来源：装备词缀 ${sourceCounts.affix || 0}、亵渎词 ${sourceCounts.desecrated || 0}。${catalogNote}`;
+  const selectedHtml = selectedGroup ? `
+    <div class="req-group">
+      <h3>选择阶级：${esc(selectedGroup.label)}</h3>
+      <div class="mod-list">
+        ${selectedGroup.mods.map((mod) => `
+          <div class="mod-row" data-kind="${esc(mod.kind)}" data-family="${esc(mod.family)}">
+            <div>
+              <div class="mod-title">${esc(mod.tier)}${mod.level ? ` / 需求等级 ${esc(mod.level)}` : ''}${mod.level && mod.level > (Number(document.getElementById('itemLevelInput').value) || 1) ? ' / 物等不足' : ''} ${esc(mod.label)}</div>
+              <div class="mod-meta">${esc(kindLabel(mod.kind))}${mod.modGroup ? ` / 词缀组 ${esc(mod.modGroup)}` : ''}${mod.weight ? ` / 权重 ${esc(mod.weight)}` : ''} / ${esc(sourceLabel(mod.source))}</div>
+            </div>
+            <div class="actions">
+              <button class="btn" type="button" data-add-bucket="current" data-mod-id="${esc(mod.id)}">加到当前</button>
+              <button class="btn" type="button" data-add-bucket="required" data-mod-id="${esc(mod.id)}">必须</button>
+              <button class="btn" type="button" data-add-bucket="optional" data-mod-id="${esc(mod.id)}">可选</button>
+              <button class="btn" type="button" data-add-bucket="blocked" data-mod-id="${esc(mod.id)}">阻塞</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  ` : '<p class="muted">先在下面选择一个词条组，再选择 T 几加入当前或目标。</p>';
+  const groupHtml = groups.map((group) => `
+    <div class="mod-row" data-kind="${esc(group.kind)}" data-family="${esc(group.family)}" data-selected="${group.key === state.selectedModGroupKey ? 'true' : 'false'}">
+      <div class="mod-row-head">
+        <div>
+          <div class="mod-title">${esc(group.label)}</div>
+          <div class="mod-meta">${esc(kindLabel(group.kind))} / ${esc(group.mods.length)} 个阶级 / ${esc(group.best?.tier || 'T?')} - ${esc(group.mods.at(-1)?.tier || 'T?')}${group.minLevel ? ` / 需求等级 ${esc(group.minLevel)}-${esc(group.maxLevel)}` : ''}${group.modGroup ? ` / 词缀组 ${esc(group.modGroup)}` : ''}${group.totalWeight ? ` / 权重 ${esc(group.totalWeight)}` : ''} / ${esc(baseClassLabel(group.itemClass || ''))}</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" type="button" data-select-mod-group="${esc(group.key)}">选择阶级</button>
+      </div>
+    </div>
+  `).join('') || '<p class="muted">没有匹配词条。</p>';
+  document.getElementById('modPoolRows').innerHTML = `
+    <div class="mod-pool-grid">
+      <div class="mod-column">
+        <h3>词条组</h3>
+        <div class="mod-list">${groupHtml}</div>
+      </div>
+      <div class="mod-column">
+        <h3>阶级 / 操作</h3>
+        ${selectedHtml}
+      </div>
+    </div>
+  `;
+}
+
+function overlaps(a, b) {
+  const left = canonicalModLabel(a.label);
+  const right = canonicalModLabel(b.label);
+  if (!left || !right) return false;
+  if (left === right) return true;
+  return left.length > 10 && right.length > 10 && (left.includes(right) || right.includes(left));
+}
+
+function canonicalModLabel(label) {
+  return normalized(label)
+    .replace(/需求[:：]?\s*等级\s*\d+/g, '')
+    .replace(/requires:\s*level\s*\d+/gi, '')
+    .replace(/\(\s*\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?\s*\)/g, '(#)')
+    .replace(/-?\d+(?:\.\d+)?/g, '#')
+    .replace(/[\\s/%:：，、。,.()[\]-]+/g, '')
+    .trim();
+}
+
+function weightOf(mod) {
+  const value = Number(mod.weight);
+  return Number.isFinite(value) && value > 0 ? value : 1;
+}
+
+function modBlocksExisting(candidate, existingMods) {
+  return existingMods.some((mod) => candidate.kind === mod.kind && candidate.modGroup && mod.modGroup && candidate.modGroup === mod.modGroup);
+}
+
+function eligibleAffixes({ kind = 'any', existingMods = state.currentMods } = {}) {
+  const itemLevel = Number(document.getElementById('itemLevelInput').value) || 1;
+  const baseClass = itemClassForMods();
+  const counts = affixCounts(existingMods);
+  return state.modPool.filter((mod) => {
+    if (!['prefix', 'suffix'].includes(mod.kind)) return false;
+    if (kind !== 'any' && mod.kind !== kind) return false;
+    if (baseClass !== 'all' && mod.itemClass && mod.itemClass !== baseClass) return false;
+    if (mod.level && mod.level > itemLevel) return false;
+    if (counts[mod.kind] >= 3) return false;
+    if (modBlocksExisting(mod, existingMods)) return false;
+    return true;
+  });
+}
+
+function chanceText(value) {
+  if (!Number.isFinite(value) || value <= 0) return '0%';
+  if (value >= 0.995) return '≈100%';
+  return `${(value * 100).toFixed(value < 0.01 ? 2 : 1)}%`;
+}
+
+function expectedText(value) {
+  if (!Number.isFinite(value) || value <= 0) return '不可命中';
+  return `期望 ${(1 / value).toFixed(value < 0.1 ? 1 : 0)} 次`;
+}
+
+function hitChance(targets, { kind = 'any', existingMods = state.currentMods } = {}) {
+  const eligible = eligibleAffixes({ kind, existingMods });
+  const totalWeight = eligible.reduce((sum, mod) => sum + weightOf(mod), 0);
+  const hitMods = eligible.filter((mod) => targets.some((target) => isTargetHit(mod, target)));
+  const hitWeight = hitMods.reduce((sum, mod) => sum + weightOf(mod), 0);
+  const chance = totalWeight > 0 ? hitWeight / totalWeight : 0;
+  return { chance, hitWeight, totalWeight, hitCount: hitMods.length, poolCount: eligible.length };
+}
+
+function isTargetHit(mod, target, mode = 'direction') {
+  if (mode === 'exact') return mod.id === target.id || canonicalModLabel(mod.label) === canonicalModLabel(target.label);
+  if (mod.kind !== target.kind) return false;
+  if (mod.modGroup && target.modGroup) return mod.modGroup === target.modGroup;
+  return canonicalModLabel(mod.label) === canonicalModLabel(target.label);
+}
+
+function chanceSummary(label, targets, options = {}) {
+  const result = hitChance(targets, options);
+  return `${label}：${chanceText(result.chance)}（方向权重 ${result.hitWeight} / 词池权重 ${result.totalWeight}，候选 ${result.hitCount}/${result.poolCount}，${expectedText(result.chance)}）。`;
+}
+
+function modShort(mod) {
+  return `${mod.tier || 'T?'} ${kindLabel(mod.kind)} ${mod.label}`;
+}
+
+function modDirectionName(mod) {
+  return String(mod.label || mod.modGroup || '')
+    .replace(/\(\s*[-\d.]+\s*-\s*[-\d.]+\s*\)/g, '')
+    .replace(/\+\s*\(?[-\d.]+\s*-\s*[-\d.]+\)?\s*%?/g, '')
+    .replace(/[-\d.]+%?/g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/[()（）]/g, '')
+    .trim() || mod.modGroup || mod.label;
+}
+
+function modDirectionText(mod) {
+  return `${kindLabel(mod.kind)} ${modDirectionName(mod)}（理想 ${mod.tier || 'T?'}，可接受同组 T2/T3）`;
+}
+
+function modListText(mods, emptyText = '无') {
+  return mods.length ? mods.map(modShort).join('；') : emptyText;
+}
+
+function modDirectionListText(mods, emptyText = '无') {
+  return mods.length ? mods.map(modDirectionText).join('；') : emptyText;
+}
+
+function incompatibleMods() {
+  const baseClass = itemClassForMods();
+  if (baseClass === 'all') return [];
+  return [...state.currentMods, ...state.requiredMods, ...state.optionalMods, ...state.blockedMods]
+    .filter((mod) => mod.itemClass && mod.itemClass !== baseClass);
+}
+
+function matchedRequiredDirections() {
+  return state.requiredMods.filter((req) => state.currentMods.some((cur) => isTargetHit(cur, req)));
+}
+
+function routeInfo(title, text, tone = 'info') {
+  return { kind:'info', tone, title, note:text };
+}
+
+function routeStop(title, text) {
+  return { kind:'stop', tone:'stop', title, note:text };
+}
+
+function craftStep(step, { title, before, use, operation, aim, success, fail, next, probability, note, beforeMods, afterMods, failureMods, beforeRarity, afterRarity, failureRarity, afterLabel, failureLabel }) {
+  return { kind:'step', step, title, before, use, operation, aim, success, fail, next, probability, note, beforeMods, afterMods, failureMods, beforeRarity, afterRarity, failureRarity, afterLabel, failureLabel };
+}
+
+function routeStepText(step) {
+  if (typeof step === 'string') return step;
+  if (step.kind === 'stop') return `${step.title}：${step.note}`;
+  if (step.kind === 'info') return `${step.title}：${step.note}`;
+  return [
+    `第 ${step.step} 步：${step.title}`,
+    step.use ? `使用：${step.use}` : '',
+    step.success ? `成功：${step.success}` : '',
+    step.fail ? `失败：${step.fail}` : '',
+    step.next ? `下一步：${step.next}` : '',
+    step.afterMods ? `成功后装备：${craftItemText(step.afterMods)}` : '',
+    step.failureMods ? `失败分支：${craftItemText(step.failureMods)}` : ''
+  ].filter(Boolean).join('；');
+}
+
+function simulatedRarity(mods) {
+  const count = mods.filter((mod) => mod.kind === 'prefix' || mod.kind === 'suffix').length;
+  if (!count) return '白板';
+  if (count <= 2) return '魔法';
+  return '稀有';
+}
+
+function craftItemText(mods) {
+  const counts = affixCounts(mods);
+  return `${simulatedRarity(mods)}，前缀 ${counts.prefix}/3，后缀 ${counts.suffix}/3，词条：${modListText(mods, '无')}`;
+}
+
+function craftPreviewModLine(mod) {
+  const tier = mod.tier || 'T?';
+  const stage = mod.simulated ? '模拟新增' : '当前';
+  return `${tier} ${mod.label}${mod.level ? ` / 需求等级 ${mod.level}` : ''}（${stage}）`;
+}
+
+function craftPreviewModClass(mod) {
+  if (!mod.simulated) return '';
+  return mod.tier === '失败' ? 'mod-failed' : 'mod-added';
+}
+
+function craftPreviewStageTag(mod) {
+  if (!mod.simulated) return '';
+  return mod.tier === '失败'
+    ? '<span class="mod-stage-tag">失败新增</span>'
+    : '<span class="mod-stage-tag">新增</span>';
+}
+
+function renderEquipmentModSection(label, mods) {
+  if (!mods.length) return '';
+  return `
+    <div class="equipment-tooltip-section">
+      <div class="equipment-tooltip-heading">${esc(label)}</div>
+      <ul class="mod-list">${mods.map((mod) => `<li class="${esc(craftPreviewModClass(mod))}">${esc(craftPreviewModLine(mod))}${craftPreviewStageTag(mod)}</li>`).join('')}</ul>
+    </div>
+  `;
+}
+
+function renderCraftEquipmentPreview(mods, label = '装备状态', rarityOverride = '') {
+  const base = selectedBase();
+  const itemLevel = Number(document.getElementById('itemLevelInput').value) || 1;
+  const prefixMods = mods.filter((mod) => mod.kind === 'prefix');
+  const suffixMods = mods.filter((mod) => mod.kind === 'suffix');
+  const sections = [
+    renderEquipmentModSection('前缀', prefixMods),
+    renderEquipmentModSection('后缀', suffixMods)
+  ].filter(Boolean).join('<div class="equipment-tooltip-sep"></div>');
+  const empty = '<div class="equipment-tooltip-property missing-mod">还没有词缀</div>';
+  return `
+    <div class="craft-equipment-preview equipment-tooltip" data-preview-label="${esc(label)}">
+      <div class="equipment-tooltip-heading">${esc(label)}</div>
+      <div class="equipment-tooltip-title">${esc(rarityOverride || simulatedRarity(mods))}<br>${esc(baseLabel(base))}</div>
+      <div class="equipment-tooltip-sep"></div>
+      <div class="equipment-tooltip-type">${esc(baseClassLabel(base))} / 物等 ${esc(itemLevel)}</div>
+      <div class="equipment-tooltip-property">前缀 ${esc(prefixMods.length)}/3 / 后缀 ${esc(suffixMods.length)}/3</div>
+      <div class="equipment-tooltip-sep"></div>
+      ${sections || empty}
+    </div>
+  `;
+}
+
+function nextMissingTargetForMods(mods, targets) {
+  return targets.find((target) => !mods.some((mod) => isTargetHit(mod, target))) || null;
+}
+
+function appendSimulatedTarget(mods, targets) {
+  const next = nextMissingTargetForMods(mods, targets);
+  if (!next) return mods.slice();
+  const counts = affixCounts(mods);
+  if (counts[next.kind] >= 3) return mods.slice();
+  return [...mods, { ...next, uid:`sim-${next.id}-${mods.length}`, simulated:true }];
+}
+
+function appendSimulatedBadMod(mods, preferredKind = 'suffix') {
+  const counts = affixCounts(mods);
+  const kind = counts[preferredKind] < 3 ? preferredKind : (counts.prefix < 3 ? 'prefix' : counts.suffix < 3 ? 'suffix' : preferredKind);
+  if (counts[kind] >= 3) return mods.slice();
+  return [...mods, {
+    id:`sim-bad-${kind}-${mods.length}`,
+    uid:`sim-bad-${kind}-${mods.length}`,
+    kind,
+    label: kind === 'prefix' ? '非目标前缀' : '非目标后缀',
+    tier:'失败',
+    level:0,
+    simulated:true
+  }];
+}
+
+function settleSimulatedMods(mods) {
+  return mods.map((mod) => ({ ...mod, simulated:false }));
+}
+
+const essenceRules = [
+  { classes:['Rings','Amulets','Belts'], needles:['混沌抗性'], name:'强效摧灭精华', kind:'suffix', label:'混沌抗性 +(16-19)%', tier:'精华', level:0 },
+  { classes:['Rings','Amulets','Belts'], needles:['闪电抗性'], name:'强效接地精华', kind:'suffix', label:'闪电抗性 +(31-35)%', tier:'精华', level:0 },
+  { classes:['Rings','Amulets','Belts'], needles:['火焰抗性'], name:'强效绝缘精华', kind:'suffix', label:'火焰抗性 +(31-35)%', tier:'精华', level:0 },
+  { classes:['Rings','Amulets','Belts'], needles:['冰霜抗性','冰冷抗性'], name:'强效解冻精华', kind:'suffix', label:'冰霜抗性 +(31-35)%', tier:'精华', level:0 },
+  { classes:['Rings','Amulets','Belts'], needles:['所有属性'], name:'强效无尽精华', kind:'suffix', label:'所有属性 +(13-15)', tier:'精华', level:0 },
+  { classes:['Rings','Amulets','Belts'], needles:['物品稀有度'], name:'强效丰裕精华', kind:'suffix', label:'物品稀有度提高 (20-25)%', tier:'精华', level:0 }
+];
+
+const essenceFamilies = [
+  { family:'身躯', tiers:['次级身躯精华','身躯精华','强效身躯精华','完美身躯精华'] },
+  { family:'心灵', tiers:['次级心灵精华','心灵精华','强效心灵精华','完美心灵精华'] },
+  { family:'强化', tiers:['次级强化精华','强化精华','强效增强精华','完美强化精华'] },
+  { family:'磨蚀', tiers:['次级磨蚀精华','磨蚀精华','强效磨蚀精华','完美磨蚀精华'] },
+  { family:'烈焰', tiers:['次级烈焰精华','烈焰精华','强效火焰精华','完美烈焰精华'] },
+  { family:'冰霜', tiers:['次级冰霜精华','冰霜精华','强效冰霜精华','完美冰霜精华'] },
+  { family:'电光', tiers:['次级电光精华','电光精华','强效电光精华','完美电光精华'] },
+  { family:'摧灭', tiers:['次级摧灭精华','摧灭精华','强效摧灭精华','完美摧灭精华'] },
+  { family:'激战', tiers:['次级激战精华','激战精华','强效激战精华','完美激战精华'] },
+  { family:'魔法', tiers:['次级魔法精华','魔法精华','强效魔法精华','完美魔法精华'] },
+  { family:'急速', tiers:['次级急速精华','急速精华','强效急速精华','完美急速精华'] },
+  { family:'永恒', tiers:['次级永恒精华','永恒精华','强效永恒精华','完美永恒精华'] },
+  { family:'寻觅', tiers:['次级寻觅精华','寻觅精华','强效寻觅精华','完美寻觅精华'] },
+  { family:'绝缘', tiers:['次级绝缘精华','绝缘精华','强效绝缘精华','完美绝缘精华'] },
+  { family:'熔解', tiers:['次级熔解精华','熔解精华','强效熔解精华','完美熔解精华'] },
+  { family:'接地', tiers:['次级接地精华','接地精华','强效接地精华','完美接地精华'] },
+  { family:'迅捷', tiers:['次级迅捷精华','迅捷精华','强效迅捷精华','完美迅捷精华'] },
+  { family:'丰裕', tiers:['次级丰裕精华','丰裕精华','强效丰裕精华','完美丰裕精华'] },
+  { family:'命令', tiers:['次级命令精华','命令精华','强效命令精华','完美命令精华'] },
+  { family:'腐化', tiers:['浮夸精华','谵妄精华','极恐精华','错乱精华','深渊精华','裂隙精华'] }
+];
+
+const tieredCurrencyGroups = [
+  { key:'transmutation', base:'蜕变石', greater:'高级蜕变石', perfect:'完美蜕变石', greaterLevel:44, perfectLevel:70, from:'白板', to:'魔法', effect:'升级为魔法并随机添加 1 条词缀' },
+  { key:'augmentation', base:'增幅石', greater:'高级增幅石', perfect:'完美增幅石', greaterLevel:44, perfectLevel:70, from:'魔法', to:'魔法', effect:'给未满词的魔法物品随机添加 1 条词缀' },
+  { key:'regal', base:'富豪石', greater:'高级富豪石', perfect:'完美富豪石', greaterLevel:35, perfectLevel:50, from:'魔法', to:'稀有', effect:'升级为稀有并随机添加 1 条词缀' },
+  { key:'exalted', base:'崇高石', greater:'高级崇高石', perfect:'完美崇高石', greaterLevel:35, perfectLevel:50, from:'稀有', to:'稀有', effect:'给未满词的稀有物品随机添加 1 条词缀' },
+  { key:'chaos', base:'混沌石', greater:'高级混沌石', perfect:'完美混沌石', greaterLevel:35, perfectLevel:50, from:'稀有', to:'稀有', effect:'随机移除 1 条词缀，再随机添加 1 条词缀' }
+];
+
+const craftingOmenRules = [
+  { name:'左旋加冕预兆', action:'下一个富豪石只添加前缀', use:'魔法升稀有时想补前缀' },
+  { name:'右旋加冕预兆', action:'下一个富豪石只添加后缀', use:'魔法升稀有时想补后缀' },
+  { name:'同质化加冕预兆', action:'下一个富豪石添加与当前已有词同类型的词缀', use:'魔法件只有一侧核心词，想继续补同侧' },
+  { name:'强效崇高预兆', action:'下一个崇高石添加 2 条随机词缀', use:'空位多且能接受风险时才用' },
+  { name:'左旋崇高预兆', action:'下一个崇高石只添加前缀', use:'只剩前缀缺口' },
+  { name:'右旋崇高预兆', action:'下一个崇高石只添加后缀', use:'只剩后缀缺口' },
+  { name:'同质化崇高预兆', action:'下一个崇高石添加与当前已有词同类型的词缀', use:'想补同侧词' },
+  { name:'催化崇高预兆', action:'下一个崇高石消耗催化剂品质，提高对应类型词缀几率', use:'饰品已上催化剂并追对应标签' },
+  { name:'强效剥离预兆', action:'下一个剥离石移除 2 条词缀', use:'清理坏词，风险很高' },
+  { name:'左旋剥离预兆', action:'下一个剥离石只移除前缀', use:'只想删前缀' },
+  { name:'右旋剥离预兆', action:'下一个剥离石只移除后缀', use:'只想删后缀' },
+  { name:'消减预兆', action:'下一个混沌石移除最低等级词缀', use:'最低等级词是坏词时' },
+  { name:'左旋消抹预兆', action:'下一个混沌石只移除前缀', use:'只想动前缀' },
+  { name:'右旋消抹预兆', action:'下一个混沌石只移除后缀', use:'只想动后缀' },
+  { name:'左旋结晶预兆', action:'下一个完美或腐化精华只移除前缀', use:'精华修稀有时只愿意牺牲前缀' },
+  { name:'右旋结晶预兆', action:'下一个完美或腐化精华只移除后缀', use:'精华修稀有时只愿意牺牲后缀' },
+  { name:'深渊回响预兆', action:'下一次显现亵渎词时可以重掷一次', use:'深渊/亵渎收尾' },
+  { name:'左旋死灵预兆', action:'下一次亵渎只给前缀', use:'深渊收尾只要前缀' },
+  { name:'右旋死灵预兆', action:'下一次亵渎只给后缀', use:'深渊收尾只要后缀' },
+  { name:'腐烂预兆', action:'下一次亵渎替换所有词缀，最多 6 条亵渎词并腐化', use:'极高风险重做，不用于普通收尾' },
+  { name:'光明预兆', action:'下一个剥离石只移除亵渎词', use:'修深渊/亵渎坏词' }
+];
+
+const catalystRules = [
+  { name:'血肉催化剂', tag:'生命', needles:['生命'] },
+  { name:'神经催化剂', tag:'魔力', needles:['魔力','魔法值'] },
+  { name:'甲壳催化剂', tag:'防御', needles:['护甲','闪避','能量护盾'] },
+  { name:'乌尔尼多催化剂', tag:'物理', needles:['物理'] },
+  { name:'索伏催化剂', tag:'火焰', needles:['火焰'] },
+  { name:'托沃催化剂', tag:'冰霜', needles:['冰霜','冰冷'] },
+  { name:'艾许催化剂', tag:'闪电', needles:['闪电'] },
+  { name:'夏乌拉催化剂', tag:'混沌', needles:['混沌'] },
+  { name:'袭击催化剂', tag:'攻击', needles:['攻击'] },
+  { name:'嘶语催化剂', tag:'施法', needles:['施法','法术'] },
+  { name:'飞掠催化剂', tag:'速度', needles:['速度'] },
+  { name:'应变催化剂', tag:'属性', needles:['属性','力量','敏捷','智慧'] },
+  { name:'腐化催化剂', tag:'召唤生物', needles:['召唤生物'] }
+];
+
+const craftingCurrencyRules = {
+  transmutation: {
+    name:'蜕变石',
+    deterministic:false,
+    from:['白板'],
+    to:'魔法',
+    effect:'把白板变成魔法，并随机添加 1 条词缀',
+    risk:'随机词可能不是目标词'
+  },
+  augmentation: {
+    name:'增幅石',
+    deterministic:false,
+    from:['魔法'],
+    to:'魔法',
+    effect:'给未满词的魔法物品随机添加 1 条词缀',
+    risk:'随机词可能占掉目标槽位'
+  },
+  regal: {
+    name:'富豪石',
+    deterministic:false,
+    from:['魔法'],
+    to:'稀有',
+    effect:'把魔法变成稀有，并随机添加 1 条词缀',
+    risk:'新增词可能不是目标词'
+  },
+  exalted: {
+    name:'崇高石',
+    deterministic:false,
+    from:['稀有'],
+    to:'稀有',
+    effect:'给未满词的稀有物品随机添加 1 条词缀',
+    risk:'新增词可能不是目标词'
+  },
+  annulment: {
+    name:'剥离石',
+    deterministic:false,
+    from:['魔法','稀有'],
+    to:'原稀有度',
+    effect:'随机移除 1 条词缀',
+    risk:'可能删掉核心词'
+  },
+  chaos: {
+    name:'混沌石',
+    deterministic:false,
+    from:['稀有'],
+    to:'稀有',
+    effect:'随机移除 1 条词缀，再随机添加 1 条词缀',
+    risk:'可能动到核心词'
+  },
+  greaterEssence: {
+    name:'强效精华',
+    deterministic:true,
+    from:['魔法'],
+    to:'稀有',
+    effect:'把魔法变成稀有，并添加对应精华词',
+    risk:'没有随机失败；只需要点前确认精华词是否接受'
+  },
+  perfectEssence: {
+    name:'完美精华',
+    deterministic:false,
+    from:['稀有'],
+    to:'稀有',
+    effect:'在稀有物品上移除词缀并添加对应精华词',
+    risk:'会动词，需配合预兆保护核心侧'
+  },
+  omen: {
+    name:'预兆',
+    deterministic:true,
+    from:['通货动作前'],
+    to:'限制下一次通货',
+    effect:'限制下一次添加/移除影响前缀或后缀',
+    risk:'本身不是做词，只是保护条件'
+  },
+  desecration: {
+    name:'亵渎收尾',
+    deterministic:false,
+    from:['成品主体'],
+    to:'附加亵渎词',
+    effect:'在灵魂之井中选择亵渎词作为收尾',
+    risk:'满 6 词时可能移除普通词'
+  }
+};
+
+function currencyRule(key) {
+  return craftingCurrencyRules[key] || null;
+}
+
+function tieredCurrencyRule(key) {
+  return tieredCurrencyGroups.find((group) => group.key === key) || null;
+}
+
+function highestTargetLevel(targets) {
+  return Math.max(0, ...targets.map((mod) => Number(mod.level || mod.requiredLevel || 0)));
+}
+
+function preferredTieredCurrency(key, targets = state.requiredMods) {
+  const group = tieredCurrencyRule(key);
+  if (!group) return { name:currencyRule(key)?.name || key, reason:'' };
+  const level = highestTargetLevel(targets);
+  if (group.perfectLevel && level >= group.perfectLevel) {
+    return { name:group.perfect, reason:`目标方向最高需求等级 ${level}，用完美档保证新增词最低等级 ${group.perfectLevel}` };
+  }
+  if (group.greaterLevel && level >= group.greaterLevel) {
+    return { name:group.greater, reason:`目标方向最高需求等级 ${level}，用高级档保证新增词最低等级 ${group.greaterLevel}` };
+  }
+  return { name:group.base, reason:'目标方向等级不需要高级/完美档；普通档更省' };
+}
+
+function currencyUseText(key, targets = state.requiredMods) {
+  const preferred = preferredTieredCurrency(key, targets);
+  return preferred.reason ? `${preferred.name}（${preferred.reason}）` : preferred.name;
+}
+
+function catalystRuleForTarget(target) {
+  if (!target) return null;
+  const baseClass = itemClassForMods();
+  if (!['Rings', 'Amulets'].includes(baseClass)) return null;
+  const haystack = normalized(`${target.label || ''} ${target.modGroup || ''} ${modDirectionName(target)}`);
+  return catalystRules.find((rule) => rule.needles.some((needle) => haystack.includes(normalized(needle)))) || null;
+}
+
+function catalysingHint(targets) {
+  const rule = catalystRuleForTarget(targets[0]);
+  if (!rule) return '';
+  return `可选类型加权：先上${rule.name}品质，再用催化崇高预兆提高${rule.tag}类词缀几率，不保证命中`;
+}
+
+function sideOmen(prefixName, suffixName, missingMods, fallback = '') {
+  const counts = affixCounts(missingMods);
+  if (counts.prefix && !counts.suffix) return prefixName;
+  if (counts.suffix && !counts.prefix) return suffixName;
+  return fallback;
+}
+
+function addOmenFor(key, missingMods) {
+  if (key === 'regal') return sideOmen('左旋加冕预兆', '右旋加冕预兆', missingMods, '本步补前缀配左旋加冕预兆；补后缀配右旋加冕预兆');
+  if (key === 'exalted') return sideOmen('左旋崇高预兆', '右旋崇高预兆', missingMods, '本步补前缀配左旋崇高预兆；补后缀配右旋崇高预兆');
+  return '';
+}
+
+function preferredAddTargets(missingMods) {
+  const prefixTarget = missingMods.find((mod) => mod.kind === 'prefix');
+  const suffixTarget = missingMods.find((mod) => mod.kind === 'suffix');
+  const target = prefixTarget || suffixTarget || missingMods[0];
+  return target ? [target] : missingMods;
+}
+
+function preferredCraftableAddTargets(mods, missingMods) {
+  const counts = affixCounts(mods);
+  const craftable = missingMods.filter((mod) => (mod.kind !== 'prefix' && mod.kind !== 'suffix') || counts[mod.kind] < 3);
+  return preferredAddTargets(craftable.length ? craftable : missingMods);
+}
+
+function exaltUseText(targets) {
+  return [
+    currencyUseText('exalted', targets),
+    addOmenFor('exalted', targets),
+    catalysingHint(targets)
+  ].filter(Boolean).join('；');
+}
+
+function removeOmenFor(key, badMods) {
+  if (key === 'annulment') return sideOmen('左旋剥离预兆', '右旋剥离预兆', badMods, '');
+  if (key === 'chaos') return sideOmen('左旋消抹预兆', '右旋消抹预兆', badMods, '消减预兆（当最低等级词就是坏词）');
+  if (key === 'essence') return sideOmen('左旋结晶预兆', '右旋结晶预兆', badMods, '');
+  return '';
+}
+
+function renderCurrencyRules() {
+  const panel = document.getElementById('currencyRulesPanel');
+  if (!panel) return;
+  const currencyCards = Object.values(craftingCurrencyRules).map((rule) => `
+    <article class="rule-card">
+      <h3>${esc(rule.name)}</h3>
+      <p><strong>适用：</strong>${esc(rule.from.join(' / '))} -> ${esc(rule.to)}</p>
+      <p><strong>动作：</strong>${esc(rule.effect)}</p>
+      <p><strong>随机：</strong>${rule.deterministic ? '否' : '是'}</p>
+      <p><strong>限制：</strong>${esc(rule.risk)}</p>
+    </article>
+  `).join('');
+  const tierCards = tieredCurrencyGroups.map((group) => `
+    <article class="rule-card">
+      <h3>${esc(group.base)} / ${esc(group.greater)} / ${esc(group.perfect)}</h3>
+      <p><strong>适用：</strong>${esc(group.from)} -> ${esc(group.to)}</p>
+      <p><strong>动作：</strong>${esc(group.effect)}</p>
+      <p><strong>高级：</strong>新增词最低等级 ${esc(group.greaterLevel)}</p>
+      <p><strong>完美：</strong>新增词最低等级 ${esc(group.perfectLevel)}</p>
+      <p><strong>注意：</strong>提高等级下限，不保证目标词或 T1。</p>
+    </article>
+  `).join('');
+  const omenCards = craftingOmenRules.map((rule) => `
+    <article class="rule-card">
+      <h3>${esc(rule.name)}</h3>
+      <p><strong>规则：</strong>${esc(rule.action)}</p>
+      <p><strong>用法：</strong>${esc(rule.use)}</p>
+    </article>
+  `).join('');
+  const catalystCards = catalystRules.map((rule) => `
+    <article class="rule-card">
+      <h3>${esc(rule.name)}</h3>
+      <p><strong>强化：</strong>${esc(rule.tag)}类词缀</p>
+      <p><strong>路线：</strong>戒指/项链先上对应催化剂品质，再用催化崇高预兆提高对应类型词缀几率。</p>
+      <p><strong>限制：</strong>提高权重，不保证命中具体词。</p>
+    </article>
+  `).join('');
+  const familyCards = essenceFamilies.map((family) => `
+    <article class="rule-card">
+      <h3>${esc(family.family)}精华</h3>
+      <p>${esc(family.tiers.join(' / '))}</p>
+      <p><strong>自动路线：</strong>${family.tiers.some((name) => essenceRules.some((rule) => rule.name === name)) ? '已有部分固定词映射' : '已登记，暂不用于推荐'}</p>
+    </article>
+  `).join('');
+  const essenceCards = essenceRules.map((rule) => `
+    <article class="rule-card">
+      <h3>${esc(rule.name)}</h3>
+      <p><strong>适用：</strong>${esc(rule.classes.map(baseClassLabel).join(' / '))}</p>
+      <p><strong>匹配目标：</strong>${esc(rule.needles.join(' / '))}</p>
+      <p><strong>添加：</strong>${esc(kindLabel(rule.kind))} ${esc(rule.label)}</p>
+      <p><strong>限制：</strong>这是精华固定词，不等于目标 T1。</p>
+    </article>
+  `).join('');
+  panel.innerHTML = `
+    <h3>基础通货</h3>
+    <div class="rule-grid">${currencyCards}</div>
+    <h3>三档通货</h3>
+    <div class="rule-grid">${tierCards}</div>
+    <h3>预兆</h3>
+    <div class="rule-grid">${omenCards}</div>
+    <h3>催化剂类型加权</h3>
+    <div class="rule-grid">${catalystCards}</div>
+    <h3>精华目录</h3>
+    <div class="rule-grid">${familyCards}</div>
+    <h3>当前已登记精华规则</h3>
+    <div class="rule-grid">${essenceCards}</div>
+  `;
+}
+
+function essenceRuleForTargets(targets) {
+  const baseClass = itemClassForMods();
+  return essenceRules.find((rule) => rule.classes.includes(baseClass) && targets.some((target) => {
+    const label = normalized(`${target.label} ${modDirectionName(target)}`);
+    return rule.needles.some((needle) => label.includes(normalized(needle)));
+  })) || null;
+}
+
+function appendEssenceResult(mods, rule) {
+  if (!rule) return mods.slice();
+  if (mods.some((mod) => mod.kind === rule.kind && canonicalModLabel(mod.label) === canonicalModLabel(rule.label))) return mods.slice();
+  const counts = affixCounts(mods);
+  if (counts[rule.kind] >= 3) return mods.slice();
+  return [...mods, {
+    id:`essence-${rule.name}-${rule.label}`,
+    uid:`sim-essence-${mods.length}`,
+    kind:rule.kind,
+    label:rule.label,
+    tier:rule.tier,
+    level:rule.level,
+    simulated:true,
+    source:rule.name
+  }];
+}
+
+function highlightUseText(text) {
+  const names = [
+    ...tieredCurrencyGroups.flatMap((group) => [group.perfect, group.greater, group.base]),
+    ...Object.values(craftingCurrencyRules).map((rule) => rule.name),
+    ...essenceRules.map((rule) => rule.name),
+    ...craftingOmenRules.map((rule) => rule.name),
+    ...catalystRules.map((rule) => rule.name)
+  ].filter(Boolean).sort((a, b) => b.length - a.length);
+  const escapedText = esc(text || '');
+  const escapedNames = names.map((name) => esc(name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  if (!escapedNames.length) return escapedText;
+  return escapedText.replace(new RegExp(escapedNames.join('|'), 'g'), (name) => {
+    const cls = name.includes('预兆') ? 'omen-token' : 'currency-token';
+    return `<span class="${cls}">${name}</span>`;
+  });
+}
+
+function renderRouteStep(step) {
+  if (typeof step === 'string') return `<li>${esc(step)}</li>`;
+  if (step.kind === 'stop' || step.kind === 'info') {
+    return `<li class="route-card ${esc(step.tone || step.kind)}"><div class="route-title">${esc(step.title)}</div><div class="note">${esc(step.note)}</div></li>`;
+  }
+  const cells = [
+    ['使用', step.use],
+    ['成功', step.success],
+    ['失败', step.fail],
+    ['下一步', step.next]
+  ].filter(([, value]) => value).map(([label, value]) => `
+    <div class="route-cell">
+      <span class="route-label">${esc(label)}</span>
+      <div class="route-value">${label === '使用' ? highlightUseText(value) : esc(value)}</div>
+    </div>
+  `).join('');
+  const previews = (step.beforeMods || step.afterMods || step.failureMods) ? `
+    <div class="route-preview-grid">
+      ${step.beforeMods ? renderCraftEquipmentPreview(step.beforeMods, '操作前装备', step.beforeRarity) : ''}
+      ${step.afterMods ? renderCraftEquipmentPreview(step.afterMods, step.afterLabel || '成功后装备', step.afterRarity) : ''}
+      ${step.failureMods ? renderCraftEquipmentPreview(step.failureMods, step.failureLabel || '失败后装备', step.failureRarity) : ''}
+    </div>
+  ` : '';
+  return `
+    <li class="route-card">
+      <div class="route-head">
+        <div class="route-title">第 ${esc(step.step)} 步：${esc(step.title)}</div>
+        <span class="pill">${esc(step.operation || '操作')}</span>
+      </div>
+      ${previews}
+      <div class="route-grid">${cells}</div>
+      ${step.note ? `<div class="note">${esc(step.note)}</div>` : ''}
+    </li>
+  `;
+}
+
+function operationLine(step, { stateText, use, success, fail, next }) {
+  return craftStep(step, {
+    title:stateText,
+    before:stateText,
+    use,
+    operation:'添加/升级',
+    success,
+    fail,
+    next
+  });
+}
+
+function recoveryText({ previousStep = '上一步', goodMods = '核心目标词', worthAnnul = true } = {}) {
+  if (!worthAnnul) return '没有保留价值，直接判定制作失败，换底或重新从第 1 步开始';
+  return `如果只多了 1 条坏词且 ${goodMods} 仍在，可用剥离石尝试救；坏词在前缀用左旋剥离预兆，坏词在后缀用右旋剥离预兆。剥掉坏词就回到${previousStep}；剥掉 ${goodMods} 就制作失败，重新开始`;
+}
+
+function targetDifficulty() {
+  const requiredCount = state.requiredMods.length;
+  const t1Count = state.requiredMods.filter((mod) => mod.tierRank === 1 || mod.tier === 'T1').length;
+  const prefixCount = state.requiredMods.filter((mod) => mod.kind === 'prefix').length;
+  const suffixCount = state.requiredMods.filter((mod) => mod.kind === 'suffix').length;
+  const strictSlots = prefixCount >= 2 && suffixCount >= 2;
+  return {
+    requiredCount,
+    t1Count,
+    prefixCount,
+    suffixCount,
+    strictSlots,
+    high: requiredCount >= 4 || t1Count >= 3 || (requiredCount >= 3 && strictSlots)
+  };
+}
+
+function essenceHintFor(mods) {
+  const rule = essenceRuleForTargets(mods);
+  return rule ? rule.name : '无匹配精华';
+}
+
+function targetSideText(mods) {
+  const counts = affixCounts(mods);
+  if (counts.prefix && counts.suffix) return `前缀 ${counts.prefix} 条、后缀 ${counts.suffix} 条`;
+  if (counts.prefix) return `前缀 ${counts.prefix} 条`;
+  if (counts.suffix) return `后缀 ${counts.suffix} 条`;
+  return '未选择';
+}
+
+function essenceStartAction(mods) {
+  return essenceHintFor(mods);
+}
+
+function protectionOmenText(missingMods) {
+  const essenceOmen = removeOmenFor('essence', missingMods);
+  if (essenceOmen) return `${essenceOmen}（限制完美/腐化精华只移除目标侧）`;
+  return '前后缀都要动：不要盲配结晶预兆，先决定愿意牺牲哪一侧';
+}
+
+function stageAcceptText(mods) {
+  return `${modDirectionListText(mods)}。T1 是理想值，T2/T3 同组先保留。`;
+}
+
+function highDifficultyRoute({ steps, current, requiredMissing, blockedHit, primaryKind, matchedDirections }) {
+  const difficulty = targetDifficulty();
+  const essenceRule = essenceRuleForTargets(requiredMissing.length ? requiredMissing : state.requiredMods);
+  const hasUsableBase = matchedDirections.length > 0 || (current.prefix + current.suffix) > 0;
+  const affixCount = current.prefix + current.suffix;
+  const currentRarity = rarity();
+  const currentRarityKey = selectedRarityKey();
+  let stepNo = 1;
+  let simMods = state.currentMods.slice();
+  const targetsForSimulation = state.requiredMods;
+  steps.push(routeInfo('路线', `先做出能保留的核心方向；每一步必须让装备状态变好，否则回退或停。`));
+  if (!hasUsableBase) {
+    const beforeMods = simMods.slice();
+    const afterMods = appendSimulatedTarget(simMods, targetsForSimulation);
+    simMods = settleSimulatedMods(afterMods);
+    steps.push(craftStep(stepNo++, {
+      title:'先做出魔法核心词',
+      before:`白板/低价值底材，目标方向为 ${targetSideText(state.requiredMods)}`,
+      use:currencyUseText('transmutation', requiredMissing),
+      operation:'随机起步',
+      aim:`先做出至少 1 条目标词`,
+      success:'出现目标方向就继续。',
+      fail:'没出目标方向就重来；槽位被占满就停止。',
+      next:`核心方向达标后进入第 ${stepNo} 步`,
+      probability:'',
+      beforeMods,
+      afterMods,
+      failureMods:beforeMods,
+      failureLabel:'失败后：回到起点',
+      note:''
+    }));
+  } else if (currentRarityKey === 'magic') {
+    const beforeMods = simMods.slice();
+    const afterMods = essenceRule ? appendEssenceResult(simMods, essenceRule) : simMods.slice();
+    simMods = settleSimulatedMods(afterMods);
+    steps.push(craftStep(stepNo++, {
+      title:essenceRule ? `用${essenceRule.name}升稀有` : '没有匹配精华，不要用精华',
+      before:`当前 ${rarity()} ${affixCount} 词，已保留方向：${modDirectionListText(matchedDirections, '无')}`,
+      use:essenceRule ? essenceRule.name : '不使用精华',
+      operation:essenceRule ? currencyRule('greaterEssence').effect : '停止/换方案',
+      aim:essenceRule ? `添加 ${essenceRule.label}` : '当前缺失词没有精华可保证',
+      success:essenceRule ? `新增 ${essenceRule.label}；注意这不是目标 T1。` : '换成随机补词或停止。',
+      fail:essenceRule ? '' : '不要用无关精华硬点。',
+      next:`变成稀有且核心方向增加后进入第 ${stepNo} 步`,
+      probability:'',
+      beforeMods,
+      beforeRarity:currentRarity,
+      afterMods,
+      afterRarity:essenceRule ? '稀有' : rarity(),
+      failureMods:essenceRule ? null : beforeMods,
+      failureRarity:currentRarity,
+      failureLabel:essenceRule ? '' : '失败后：保持原魔法件',
+      note:''
+    }));
+  } else {
+    const beforeMods = simMods.slice();
+    const afterMods = essenceRule ? appendEssenceResult(simMods, essenceRule) : simMods.slice();
+    simMods = settleSimulatedMods(afterMods);
+    steps.push(craftStep(stepNo++, {
+      title:essenceRule ? `用${essenceRule.name}修词` : '没有匹配精华，不要用精华',
+      before:`当前稀有 ${affixCount} 词，已命中方向：${modDirectionListText(matchedDirections, '无')}`,
+      use:essenceRule ? `完美${essenceRule.name.replace(/^强效/, '')} + ${protectionOmenText(requiredMissing)}` : '不使用精华',
+      operation:essenceRule ? currencyRule('perfectEssence').effect : '停止/换方案',
+      aim:essenceRule ? `添加 ${essenceRule.label}` : '当前缺失词没有精华可保证',
+      success:essenceRule ? `核心词没掉，并新增 ${essenceRule.label} 就继续。` : '改用崇高补词或停止。',
+      fail:essenceRule ? '没有保护预兆就不要点。' : '不要用无关精华硬点。',
+      next:`核心方向增加后进入第 ${stepNo} 步`,
+      beforeMods,
+      afterMods,
+      failureMods:beforeMods,
+      failureLabel:'失败后：回到保护前'
+    }));
+  }
+
+  let remainingAfterSetup = state.requiredMods.filter((req) => !simMods.some((mod) => isTargetHit(mod, req)));
+  let fillGuard = 0;
+  while (remainingAfterSetup.length && fillGuard < 6) {
+    fillGuard += 1;
+    const beforeMods = simMods.slice();
+    const stepTargets = preferredCraftableAddTargets(simMods, remainingAfterSetup);
+    const stepTarget = stepTargets[0];
+    if (!stepTarget) break;
+    const beforeCounts = affixCounts(simMods);
+    if ((stepTarget.kind === 'prefix' || stepTarget.kind === 'suffix') && beforeCounts[stepTarget.kind] >= 3) {
+      steps.push(routeStop('停止', `还缺 ${modDirectionListText(remainingAfterSetup)}，但 ${kindLabel(stepTarget.kind)} 已满，不能继续用崇高补这个目标。`));
+      break;
+    }
+    const afterMods = appendSimulatedTarget(simMods, stepTargets);
+    const failedMods = appendSimulatedBadMod(simMods, stepTarget?.kind || 'suffix');
+    simMods = settleSimulatedMods(afterMods);
+    const remainingAfterSuccess = state.requiredMods.filter((req) => !simMods.some((mod) => isTargetHit(mod, req)));
+    steps.push(craftStep(stepNo++, {
+      title:'补剩余目标方向',
+      before:`稀有半成品，仍缺 ${modDirectionListText(remainingAfterSetup)}`,
+      use:exaltUseText(stepTargets),
+      operation:'添加',
+      aim:`本步先补 ${modDirectionListText(stepTargets)}`,
+      success:'新增词命中本步目标方向就保留；T2/T3 同组先保留，目标全齐就停。',
+      fail:'新增的是非目标词。没堵死目标槽位可继续；堵死槽位就用剥离石救，剥掉坏词回到本步前，剥掉核心词则失败。',
+      next:remainingAfterSuccess.length ? `继续补 ${modDirectionListText(remainingAfterSuccess)}` : '目标方向齐了就停止普通制作',
+      probability:'',
+      beforeMods,
+      afterMods,
+      failureMods:failedMods,
+      failureLabel:'失败后：新增非目标词'
+    }));
+    remainingAfterSetup = remainingAfterSuccess;
+  }
+  if (remainingAfterSetup.length) {
+    steps.push(routeStop('普通主体未完成', `仍缺 ${modDirectionListText(remainingAfterSetup)}。不要进入深渊/亵渎收尾，回到上一条补词步骤继续或判定失败。`));
+  }
+  steps.push(...abyssFinishSteps({ step:stepNo++, current:affixCounts(simMods), requiredMissing:remainingAfterSetup, blockedHit }));
+  steps.push(routeInfo('停损比价', '你已经有底材时不把交易当第一步。进游戏前只做成本对照：当前底材价值、已经做出的半成品价值、目标成品价格；如果继续投入明显超过成品价，就停。'));
+  return steps;
+}
+
+function routeSteps() {
+  const base = selectedBase();
+  const current = affixCounts(state.currentMods);
+  const matchedDirections = matchedRequiredDirections();
+  const requiredMissing = state.requiredMods.filter((req) => !state.currentMods.some((cur) => isTargetHit(cur, req)));
+  const blockedHit = state.blockedMods.filter((blk) => state.currentMods.some((cur) => overlaps(cur, blk)));
+  const blockedSpace = requiredMissing.filter((mod) => (mod.kind === 'prefix' || mod.kind === 'suffix') && current[mod.kind] >= 3);
+  const method = document.getElementById('methodSelect').value;
+  const affixCount = current.prefix + current.suffix;
+  const currentRarityKey = selectedRarityKey();
+  const resolved = method !== 'auto'
+    ? method
+    : blockedHit.length || blockedSpace.length
+      ? 'basic-rare'
+      : currentRarityKey === 'white'
+        ? 'magic-regal'
+        : requiredMissing.length > 2 && currentRarityKey === 'rare'
+          ? 'chaos-reroll'
+          : 'basic-rare';
+  const openPrefix = Number(document.getElementById('openPrefixInput').value) || 0;
+  const openSuffix = Number(document.getElementById('openSuffixInput').value) || 0;
+  const freePrefix = Math.max(0, 3 - current.prefix);
+  const freeSuffix = Math.max(0, 3 - current.suffix);
+  const resultStyle = document.getElementById('resultStyleSelect').value;
+  const itemLevel = Number(document.getElementById('itemLevelInput').value) || 1;
+  const impossibleTargets = state.requiredMods.filter((mod) => mod.level && mod.level > itemLevel);
+  const wrongClassMods = incompatibleMods();
+  const targetKinds = [...new Set(requiredMissing.map((mod) => mod.kind).filter((kind) => ['prefix', 'suffix'].includes(kind)))];
+  const primaryKind = targetKinds.length === 1 ? targetKinds[0] : 'any';
+  const steps = [
+    routeInfo('准备', `底材 ${baseLabel(base)}（${baseClassLabel(base)}），物等 ${itemLevel}；当前 ${rarity()}，前缀 ${current.prefix}/3，后缀 ${current.suffix}/3。`),
+    routeInfo('目标方向', `必须 ${modDirectionListText(state.requiredMods, '未选择')}；可选 ${modDirectionListText(state.optionalMods)}；阻塞 ${modListText(state.blockedMods)}。`)
+  ];
+  if (wrongClassMods.length) {
+    steps.push(routeStop('停止', `存在不属于 ${baseClassLabel(itemClassForMods())} 的已选词条：${wrongClassMods.map((mod) => `${baseClassLabel(mod.itemClass)} ${modShort(mod)}`).join('；')}。先删除这些词条，否则路线无效。`));
+    return steps;
+  }
+  if (blockedHit.length) {
+    steps.push(routeStop('停止', `当前已经有阻塞词 ${modListText(blockedHit)}。不要继续投入，换底材或重新洗。`));
+    return steps;
+  }
+  if (blockedSpace.length) {
+    steps.push(routeStop('停止', `目标所在槽位已满，缺失必须词 ${modListText(blockedSpace)} 已经没有对应前/后缀空间。不要再点崇高石，换底或降低目标。`));
+    return steps;
+  }
+  if (impossibleTargets.length) {
+    steps.push(routeStop('停止', `物等不足。${impossibleTargets.map((mod) => `${mod.tier} 需要等级 ${mod.level} ${mod.label}`).join('；')}，当前物等 ${itemLevel} 不能自然出现。先换更高物等底材。`));
+    return steps;
+  }
+  if (freePrefix < openPrefix || freeSuffix < openSuffix) {
+    steps.push(routeStop('停止', `空位不满足。要求留空前缀 ${openPrefix}、空后缀 ${openSuffix}，当前只有 ${freePrefix}/${freeSuffix}。这件不适合继续做目标成品。`));
+    return steps;
+  }
+  if (!requiredMissing.length) {
+    steps.push(routeInfo(
+      '当前必须方向已齐',
+      `当前 ${rarity()} 已满足「${resultStyleLabel(resultStyle)}」的主体需求；停止点普通通货，避免把好词洗坏。`
+    ));
+    steps.push(...abyssFinishSteps({ step:1, current, requiredMissing, blockedHit }));
+    steps.push(routeInfo('停损比价', '当前主体已经成立，交易只用于判断是否值得继续追高，不作为制作步骤。'));
+    return steps;
+  }
+  steps.push(routeInfo('缺失方向', `${stageAcceptText(requiredMissing)} ${chanceSummary('下一次新增 1 词命中目标方向估算', requiredMissing, { kind: primaryKind })}`));
+  if (targetDifficulty().high || resolved === 'essence-like') {
+    return highDifficultyRoute({ steps, current, requiredMissing, blockedHit, primaryKind, matchedDirections });
+  }
+  let step = 1;
+  if (currentRarityKey === 'white' || resolved === 'magic-regal') {
+    steps.push(operationLine(step++, {
+      stateText:'白板底材',
+      use:currencyUseText('transmutation', requiredMissing),
+      success:`变成魔法，并出现至少 1 条目标方向词：${modDirectionListText(requiredMissing)}`,
+      fail:'没有目标方向词就不要增幅，直接丢弃这个结果，换白板回到第 1 步',
+      next:'有 1 条好词后进入第 2 步'
+    }));
+  }
+  if (currentRarityKey === 'magic' && affixCount <= 1 && current.prefix + current.suffix < 2) {
+    steps.push(operationLine(step++, {
+      stateText:'魔法 1 词，且这 1 词是要保留的好词',
+      use:currencyUseText('augmentation', requiredMissing),
+      success:'新增词是目标方向词、可选方向词，或至少不阻塞目标槽位；T2/T3 先保留，后续再决定是否追高',
+      fail:`新增词是阻塞词或占满目标槽位时，${recoveryText({ previousStep:'本步前的 1 词魔法状态', goodMods:'原来的好词' })}`,
+      next:'魔法 2 词可接受后进入富豪'
+    }));
+  }
+  if (currentRarityKey === 'magic' && affixCount <= 2) {
+    const regalTargets = preferredAddTargets(requiredMissing);
+    steps.push(operationLine(step++, {
+      stateText:'魔法 2 词，至少 1 条必须词且没有阻塞词',
+      use:`${currencyUseText('regal', regalTargets)}；${addOmenFor('regal', regalTargets)}`,
+      success:'变成稀有，并且新增词是目标方向/可选方向，或仍保留目标空位',
+      fail:`新增词是阻塞词，或把缺失必须词的前/后缀槽位占满时，${recoveryText({ previousStep:'可继续的稀有状态', goodMods:'已有必须词' })}`,
+      next:'稀有仍缺词时进入崇高补词'
+    }));
+  }
+  const exaltTargets = preferredAddTargets(requiredMissing);
+  steps.push(operationLine(step++, {
+    stateText:`稀有半成品，仍缺 ${modDirectionListText(requiredMissing)}`,
+    use:exaltUseText(exaltTargets),
+    success:`本步新增词命中 ${modDirectionListText(exaltTargets)} 就保留；若目标方向全齐且没有阻塞词，普通制作完成`,
+    fail:'新增词可接受且仍有空位就继续重复本步；新增阻塞词或目标槽位被填满时，用剥离石尝试救，剥掉坏词继续本步，剥掉好词则制作失败',
+    next:'直到必须词全齐、没空位、或救不回来'
+  }));
+  if (resolved === 'chaos-reroll') {
+    steps.push(operationLine(step++, {
+      stateText:'当前半成品价值低，且缺失必须词太多',
+      use:`${currencyUseText('chaos', requiredMissing)}；最低等级坏词明确时配消减预兆，只想移除前/后缀时配左旋/右旋消抹预兆`,
+      success:'一次重洗后同时命中主要必须词、没有阻塞词、并保留目标空位',
+      fail:'不满足就继续混沌；如果底材或通货成本高于买半成品，直接制作失败，去买半成品',
+      next:'混沌出可用半成品后再用崇高石补最后缺口'
+    }));
+  }
+  steps.push(routeInfo('收工判断', '必须方向全中、阻塞词为 0、前后缀空位满足要求 -> 停；否则按最后一步的失败处理执行，不要盲目继续点。'));
+  steps.push(...abyssFinishSteps({ step:step++, current, requiredMissing, blockedHit }));
+  steps.push(routeInfo('停损比价', '已有底材时交易只做成本对照：当前件继续投入成本 vs 直接买成品/半成品成本。不是第一步，也不是强制建议。'));
+  return steps;
+}
+
+function resultStyleLabel(style) {
+  return { usable:'能用就停', strict:'严格命中', premium:'高投入追好词' }[style] || style;
+}
+
+function methodLabel(method) {
+  return {
+    'magic-regal':'魔法起步富豪',
+    'basic-rare':'普通稀有补词',
+    'chaos-reroll':'混沌重洗筛选',
+    'essence-like':'定向通货/精华思路'
+  }[method] || method;
+}
+
+function abyssBoneLabel(itemClass) {
+  if (['Claws','Bows','Crossbows','Daggers','Flails','One Hand Axes','One Hand Maces','One Hand Swords','Quarterstaves','Sceptres','Spears','Staves','Two Hand Axes','Two Hand Maces','Two Hand Swords','Wands','Quivers'].includes(itemClass)) return '颚骨（武器/箭袋）';
+  if (['Body Armours','Boots','Gloves','Helmets','Shields','Bucklers','Foci'].includes(itemClass)) return '肋骨（防具/盾/法器）';
+  if (['Amulets','Belts','Rings'].includes(itemClass)) return '锁骨（饰品）';
+  return '对应类型的深渊骨';
+}
+
+function abyssFinishSteps({ step, current, requiredMissing, blockedHit }) {
+  const baseClass = itemClassForMods();
+  const bone = abyssBoneLabel(baseClass);
+  const fullRare = current.prefix + current.suffix >= 6;
+  if (requiredMissing.length || blockedHit.length) {
+    return [
+      routeInfo('深渊/亵渎收尾', '先不做。主体还没满足必须方向或存在阻塞词，深渊/渎灵应放在最后，不要用它补主体词。')
+    ];
+  }
+  return [
+    craftStep(step, {
+      title:'深渊/亵渎加词（收尾）',
+      before:'主体已经合格',
+      use:`${bone} / 灵魂之井`,
+      operation:'收尾添加',
+      aim:'从 3 个亵渎选项里选 1 个真正提升成品的词',
+      success:'选项有可用收益且不会破坏主体价值',
+      fail:'选项没有可用词就不把它当主体制作继续投资；能重掷选项就重掷一次，否则保留原成品',
+      next:'完成',
+      note: fullRare
+        ? '当前已满 6 词，添加亵渎词前可能移除普通词；只有普通词都能接受被删、且深渊收益足够高时才做。'
+        : '未满 6 词时更适合做收尾；主体没好之前不要提前碰。'
+    })
+  ];
+}
+
+function renderStats() {
+  const current = affixCounts(state.currentMods);
+  const visible = visibleMods();
+  document.getElementById('craftingStats').innerHTML = `
+    <div class="stat"><strong>${esc(state.bases.length)}</strong><span>底材</span></div>
+    <div class="stat"><strong>${esc(state.modPool.length)}</strong><span>词缀池</span></div>
+    <div class="stat"><strong>${esc(visible.length)}</strong><span>当前筛选</span></div>
+    <div class="stat"><strong>${esc(rarity())}</strong><span>当前物品状态</span></div>
+    <div class="stat"><strong>${esc(current.prefix)} / ${esc(current.suffix)}</strong><span>当前前缀 / 后缀</span></div>
+    <div class="stat"><strong>${esc(state.requiredMods.length)} / ${esc(state.optionalMods.length)}</strong><span>必须 / 可选</span></div>
+  `;
+  document.body.dataset.gearCraftingReady = 'true';
+  document.body.dataset.gearCraftingVersion = state.version?.id || '';
+  document.body.dataset.gearCraftingAffixSource = state.affixCatalog?.source?.type || 'legacy-modifier-snapshot';
+  document.body.dataset.gearCraftingAffixCatalogCount = String(state.affixCatalog?.coverage?.affixCount || 0);
+  document.body.dataset.gearCraftingAffixCatalogFetchedClasses = String(state.affixCatalog?.coverage?.fetchedClassCount || 0);
+  document.body.dataset.gearCraftingAffixCatalogSkippedClasses = String(state.affixCatalog?.coverage?.skippedClassCount || 0);
+  document.body.dataset.gearCraftingBaseCount = String(state.bases.length);
+  document.body.dataset.gearCraftingModPoolCount = String(state.modPool.length);
+  document.body.dataset.gearCraftingVisibleModCount = String(visible.length);
+  document.body.dataset.gearCraftingCurrentAffixCount = String(state.currentMods.length);
+  document.body.dataset.gearCraftingCurrentPrefixCount = String(current.prefix);
+  document.body.dataset.gearCraftingCurrentSuffixCount = String(current.suffix);
+  document.body.dataset.gearCraftingRequiredCount = String(state.requiredMods.length);
+  document.body.dataset.gearCraftingOptionalCount = String(state.optionalMods.length);
+  document.body.dataset.gearCraftingBlockedCount = String(state.blockedMods.length);
+  document.body.dataset.gearCraftingRarity = rarity();
+  document.body.dataset.gearCraftingSlotWarning = state.warning || '';
+  document.body.dataset.gearCraftingRouteLineCount = String(routeSteps().length);
+}
+
+function renderCurrentItem() {
+  const current = affixCounts(state.currentMods);
+  document.getElementById('itemRarityPill').textContent = rarity();
+  document.getElementById('prefixSpacePill').textContent = `前缀 ${current.prefix}/3`;
+  document.getElementById('suffixSpacePill').textContent = `后缀 ${current.suffix}/3`;
+  const warning = document.getElementById('currentItemWarning');
+  warning.textContent = state.warning;
+  warning.classList.toggle('active', Boolean(state.warning));
+  document.getElementById('currentSlots').innerHTML = [
+    renderCurrentLane('prefix', '前缀', state.currentMods, 3),
+    renderCurrentLane('suffix', '后缀', state.currentMods, 3)
+  ].join('');
+}
+
+function renderRequirements() {
+  const warning = document.getElementById('requirementWarning');
+  warning.textContent = state.warning;
+  warning.classList.toggle('active', Boolean(state.warning));
+  renderSlotList('requiredList', state.requiredMods, 'required', '还没有必须词。');
+  renderSlotList('optionalList', state.optionalMods, 'optional', '还没有可选词。');
+  renderSlotList('blockedList', state.blockedMods, 'blocked', '还没有阻塞词。');
+}
+
+function renderRoute() {
+  const steps = routeSteps();
+  document.getElementById('routeSteps').innerHTML = steps.map(renderRouteStep).join('');
+  document.body.dataset.gearCraftingRouteText = steps.map(routeStepText).join('\n');
+  document.getElementById('routeStatus').textContent = `已根据当前选择生成 ${steps.length} 步`;
+}
+
+function render() {
+  renderModPool();
+  renderCurrentItem();
+  renderRequirements();
+  renderRoute();
+  renderStats();
+  renderHistory();
+  renderCurrencyRules();
+  saveDraft();
+  document.getElementById('gearCraftingStatus').textContent = 'ready';
+}
+
+function updateClassSelect() {
+  const select = document.getElementById('itemClassSelect');
+  const current = select.value;
+  const classes = [...new Set(state.bases.map(baseClassKey))].sort((a, b) => baseClassLabel(a).localeCompare(baseClassLabel(b)));
+  select.innerHTML = '<option value="all">全部分类</option>' + classes.map((key) => `<option value="${esc(key)}">${esc(baseClassLabel(key))}</option>`).join('');
+  select.value = current && (current === 'all' || classes.includes(current)) ? current : 'all';
+}
+
+function updateBaseSelect() {
+  const classValue = document.getElementById('itemClassSelect').value;
+  const select = document.getElementById('baseSelect');
+  const current = select.value;
+  const rows = state.bases.filter((item) => classValue === 'all' || baseClassKey(item) === classValue).slice(0, 420);
+  select.innerHTML = rows.map((item) => `<option value="${esc(item.id)}">${esc(baseLabel(item))}</option>`).join('');
+  select.value = rows.some((item) => item.id === current) ? current : (rows[0]?.id || '');
+}
+
+async function loadVersion(version) {
+  state.version = version;
+  state.manifest = await window.POE2Versions.readJson(`../${version.dataRoot}/manifest.json`);
+  const reference = state.manifest.reference;
+  const [baseItems, modifiers, extraModifiers, affixCatalog] = await Promise.all([
+    window.POE2Versions.readJson(`../${version.dataRoot}/${reference.items.baseItems}`),
+    window.POE2Versions.readJson(`../${version.dataRoot}/${reference.stats.modifiers}`),
+    window.POE2Versions.readJson(`../${version.dataRoot}/${reference.stats.extraModifiers}`),
+    state.manifest.crafting?.affixes
+      ? window.POE2Versions.readJson(`../${version.dataRoot}/${state.manifest.crafting.affixes}`).catch(() => null)
+      : Promise.resolve(null)
+  ]);
+  state.bases = (baseItems.entries || []).filter((item) => String(item.itemClass || '').includes('whiteitem') && isEquipmentBase(item));
+  state.rawMods = [...(modifiers.entries || []), ...(extraModifiers.entries || [])];
+  state.affixCatalog = affixCatalog;
+  state.modPool = state.affixCatalog ? buildModPoolFromCatalog(state.affixCatalog) : buildModPool(state.rawMods);
+  updateClassSelect();
+  const preferred = state.bases.find((item) => /claws/i.test(`${item.itemClass} ${(item.sourcePaths || []).join(' ')}`)) || state.bases[0];
+  document.getElementById('itemClassSelect').value = preferred ? baseClassKey(preferred) : 'all';
+  updateBaseSelect();
+  if (preferred) document.getElementById('baseSelect').value = preferred.id;
+  applyCraftConfig(loadDraft(), { shouldRender:false });
+  render();
+}
+
+async function init() {
+  state.versions = await window.POE2Versions.readJson('../data/versions.json');
+  const version = window.POE2Versions.fillSelect(document.getElementById('versionSelect'), state.versions);
+  await loadVersion(version);
+}
+
+document.getElementById('versionSelect').addEventListener('change', async () => {
+  window.POE2Versions.saveVersionId(document.getElementById('versionSelect').value);
+  const next = window.POE2Versions.findVersion(state.versions, document.getElementById('versionSelect').value) || window.POE2Versions.selectedVersion(state.versions);
+  state.currentMods = [];
+  state.requiredMods = [];
+  state.optionalMods = [];
+  state.blockedMods = [];
+  state.selectedModGroupKey = '';
+  await loadVersion(next);
+});
+document.getElementById('itemClassSelect').addEventListener('change', () => { state.selectedModGroupKey = ''; updateBaseSelect(); render(); });
+document.getElementById('baseSelect').addEventListener('change', () => { state.selectedModGroupKey = ''; render(); });
+['itemLevelInput','currentRaritySelect','modSearchInput','modKindFilter','craftableFilter','sourceFamilyFilter','resultStyleSelect','methodSelect','openPrefixInput','openSuffixInput'].forEach((id) => {
+  document.getElementById(id).addEventListener(id === 'modSearchInput' ? 'input' : 'change', () => {
+    if (['modSearchInput','modKindFilter','craftableFilter','sourceFamilyFilter'].includes(id)) state.selectedModGroupKey = '';
+    render();
+  });
+});
+document.addEventListener('click', (event) => {
+  const selectGroup = event.target.closest('[data-select-mod-group]');
+  if (selectGroup) {
+    state.selectedModGroupKey = selectGroup.dataset.selectModGroup;
+    render();
+  }
+  const add = event.target.closest('[data-add-bucket]');
+  if (add) addMod(add.dataset.addBucket, add.dataset.modId);
+  const remove = event.target.closest('[data-remove-bucket]');
+  if (remove) removeMod(remove.dataset.removeBucket, remove.dataset.uid);
+  const quick = event.target.closest('[data-quick-search]');
+  if (quick) {
+    document.getElementById('modSearchInput').value = quick.dataset.quickSearch;
+    document.getElementById('modKindFilter').value = 'all';
+    document.getElementById('craftableFilter').value = 'all';
+    document.getElementById('sourceFamilyFilter').value = 'all';
+    render();
+  }
+  const loadHistory = event.target.closest('[data-load-history]');
+  if (loadHistory) {
+    const entry = readHistory().find((item) => item.id === loadHistory.dataset.loadHistory);
+    if (applyCraftConfig(entry)) {
+      document.getElementById('historyStatus').textContent = '已载入历史方案';
+    }
+  }
+  const deleteHistory = event.target.closest('[data-delete-history]');
+  if (deleteHistory) {
+    writeHistory(readHistory().filter((item) => item.id !== deleteHistory.dataset.deleteHistory));
+    document.getElementById('historyStatus').textContent = '已删除历史方案';
+    renderHistory();
+  }
+});
+document.getElementById('clearCurrentBtn').addEventListener('click', () => { state.currentMods = []; state.warning = ''; render(); });
+document.getElementById('clearRequirementsBtn').addEventListener('click', () => {
+  state.requiredMods = [];
+  state.optionalMods = [];
+  state.blockedMods = [];
+  render();
+});
+document.getElementById('toggleCurrencyRulesBtn').addEventListener('click', () => {
+  const panel = document.getElementById('currencyRulesPanel');
+  const active = !panel.classList.contains('active');
+  panel.classList.toggle('active', active);
+  document.getElementById('toggleCurrencyRulesBtn').textContent = active ? '隐藏通货规则' : '查看通货规则';
+});
+document.getElementById('saveHistoryBtn').addEventListener('click', saveHistoryEntry);
+document.getElementById('clearHistoryBtn').addEventListener('click', () => {
+  writeHistory(readHistory().filter((entry) => entry.versionId !== state.version?.id));
+  document.getElementById('historyStatus').textContent = '已清空当前版本历史';
+  renderHistory();
+});
+document.getElementById('generateRouteBtn').addEventListener('click', () => {
+  renderRoute();
+  document.getElementById('routeStatus').textContent = '已刷新制作步骤';
+  document.getElementById('routeSteps').scrollIntoView({ block:'nearest' });
+});
+document.getElementById('copyRouteBtn').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(document.body.dataset.gearCraftingRouteText || '');
+    document.getElementById('copyRouteStatus').textContent = '已复制';
+  } catch (_) {
+    document.getElementById('copyRouteStatus').textContent = '复制失败';
+  }
+});
+
+init().catch((error) => {
+  document.getElementById('gearCraftingStatus').textContent = 'failed';
+  document.getElementById('modPoolRows').innerHTML = `<p class="bad">读取失败：${esc(error.message)}</p>`;
+  document.body.dataset.gearCraftingReady = 'false';
+  console.error(error);
+});
+</script>
+</body>
+</html>

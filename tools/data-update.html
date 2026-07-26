@@ -173,6 +173,8 @@
     <nav class="main-nav" aria-label="工具导航">
       <a class="nav-link" href="../index.html">首页</a>
       <a class="nav-link" href="../builds/index.html">开荒</a>
+      <a class="nav-link" href="gear-crafting.html">装备制作</a>
+      <a class="nav-link" href="regex-search.html">正则搜索</a>
       <a class="nav-link" href="hideout-flip.html">藏身处战神</a>
       <a class="nav-link" href="value-curve.html">价值曲线</a>
       <a class="nav-link" href="gem-flip.html">技能倒卖</a>
@@ -241,8 +243,15 @@ node scripts/generate-version-log.mjs --from-version s05-tree-4.5 --to-version s
 node scripts/generate-version-log.mjs --from-version s05-tree-4.5 --to-version s05-tree-4.6 --season s05 --write
 node scripts/switch-current.mjs --id s05-tree-4.6
 node scripts/switch-current.mjs --id s05-tree-4.6 --write
-node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.4
-node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.4 --write
+node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.5
+node scripts/update-data.mjs --season S05 --poe2db-version 4.5 --pobb-svg-version 4.5 --write
+node scripts/fetch-poe2db-reference.mjs --season s05
+node scripts/fetch-poe2db-reference.mjs --season s05 --write --force
+node scripts/fetch-poe2db-extra-modifiers.mjs --season s05
+node scripts/fetch-poe2db-extra-modifiers.mjs --season s05 --write --force
+node scripts/fetch-poe2db-item-details.mjs --season s05
+node scripts/fetch-poe2db-item-details.mjs --season s05 --write --force
+node scripts/validate-reference.mjs --season s05
 node scripts/validate-versions.mjs --id s05-tree-4.5
 node scripts/validate-build-candidates.mjs --season s05
 node scripts/validate-build-candidate-routes.mjs --season s05
@@ -270,6 +279,12 @@ node scripts/fetch-poe2db-skill-details.mjs --season s05 --out /tmp/poe2db-skill
 node scripts/validate-skills.mjs --season s05 --file /tmp/poe2db-skill-catalog-details.json
 node scripts/archive-skill-catalog.mjs --season s05 --file /tmp/poe2db-skill-catalog.json --key 2026-07-22-poe2db
 node scripts/archive-skill-catalog.mjs --season s05 --file /tmp/poe2db-skill-catalog.json --key 2026-07-22-poe2db --write
+node scripts/fetch-poe2db-crafting-affixes.mjs --season s05
+node scripts/fetch-poe2db-crafting-affixes.mjs --season s05 --write --force
+node scripts/validate-crafting-affixes.mjs --season s05
+node scripts/fetch-poe2db-regex-affixes.mjs --season s05
+node scripts/fetch-poe2db-regex-affixes.mjs --season s05 --write --force
+node scripts/validate-regex-affixes.mjs --season s05
 node scripts/validate-market.mjs --season s05 --kind gemFlips --file market/examples/real-gem-flips-v1.example.json
 node scripts/validate-market.mjs --season s05 --kind hideoutFlips --file market/examples/real-hideout-flips-v1.example.json
 node scripts/normalize-market-snapshot.mjs --season s05 --kind gemFlips --file /tmp/raw-gems.json --key 2026-07-22-gems --provider manual-capture --league S05

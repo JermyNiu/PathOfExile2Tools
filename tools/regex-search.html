@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>POE2 Tools - 正则搜索</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#172033;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --ok:#34d399;
+    --warn:#facc15;
+    --bad:#fb7185;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    padding:14px 20px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  button, input, select, textarea { font:inherit; }
+  .brand-nav, .main-nav, .top-controls, .nav, .filters, .filter-tabs, .tabs, .actions, .meta-row {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .brand-nav { gap:18px; }
+  .btn, .nav-link, .filter-btn, .tab-btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn.primary, .nav-link.active, .filter-btn.active, .tab-btn.active {
+    border-color:#0ea5e9;
+    background:#075985;
+  }
+  .btn.ghost { background:transparent; }
+  .shell {
+    width:min(1180px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel, .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:12px;
+  }
+  .card { background:var(--panel2); }
+  .status-grid {
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0, 1fr));
+    gap:10px;
+  }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:4px;
+  }
+  .stat span, .muted, .filter-label { color:var(--muted); line-height:1.5; }
+  .stat strong { color:var(--accent); font-size:18px; overflow-wrap:anywhere; }
+  .filter-bar {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:10px;
+    display:grid;
+    gap:8px;
+  }
+  .search-row {
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    gap:8px;
+  }
+  .mode-tabs {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .mode-panel { display:none; }
+  .mode-panel.active { display:grid; gap:16px; }
+  .generator-grid {
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) minmax(320px, .72fr);
+    gap:16px;
+    align-items:start;
+  }
+  .generator-section {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    display:grid;
+    gap:10px;
+  }
+  .option-grid {
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:8px;
+  }
+  .check-row {
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) auto;
+    gap:10px;
+    align-items:center;
+    min-height:34px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:8px 10px;
+    background:var(--panel);
+    color:var(--text);
+  }
+  .check-row input[type="checkbox"] {
+    width:18px;
+    height:18px;
+    min-height:0;
+    margin:0;
+    padding:0;
+    accent-color:#93c5fd;
+    justify-self:end;
+  }
+  .check-row > span {
+    min-width:0;
+    line-height:1.45;
+  }
+  .number-grid {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:8px;
+  }
+  input, select, textarea {
+    width:100%;
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#0b1120;
+    color:var(--text);
+    padding:8px 10px;
+  }
+  textarea { min-height:92px; resize:vertical; }
+  .share-list { display:grid; gap:12px; }
+  .regex-card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:14px;
+    display:grid;
+    gap:11px;
+  }
+  .regex-head {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .regex-title { display:grid; gap:6px; min-width:0; }
+  .regex-title h3 { overflow-wrap:anywhere; }
+  .regex-code {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+    padding:12px;
+    color:#bae6fd;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+  }
+  .generated-list { display:grid; gap:8px; }
+  .generated-row { display:grid; gap:6px; }
+  .generated-row span { color:var(--muted); font-size:13px; }
+  .badge {
+    display:inline-flex;
+    width:fit-content;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:3px 8px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:12px;
+  }
+  .warn { color:var(--warn); }
+  .ok { color:var(--ok); }
+  .bad { color:var(--bad); }
+  .modal {
+    position:fixed;
+    inset:0;
+    z-index:50;
+    display:none;
+    place-items:center;
+    padding:20px;
+    background:rgba(2,6,23,.72);
+  }
+  .modal.open { display:grid; }
+  .modal-content {
+    width:min(720px, 100%);
+    max-height:calc(100vh - 40px);
+    overflow:auto;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:14px;
+  }
+  .modal-small { width:min(460px, 100%); }
+  .modal-head {
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    align-items:center;
+  }
+  .form-grid {
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:10px;
+  }
+  .form-group { display:grid; gap:6px; }
+  .form-group label { color:var(--muted); font-size:13px; }
+  .pagination { justify-content:center; }
+  @media (max-width: 820px) {
+    .status-grid, .form-grid, .generator-grid, .option-grid, .number-grid { grid-template-columns:1fr; }
+    .search-row { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand-nav">
+    <h1>POE2 Tools</h1>
+    <nav class="main-nav" aria-label="工具导航">
+      <a class="nav-link" href="../index.html" data-i18n="home">首页</a>
+      <a class="nav-link" href="../builds/index.html" data-i18n="buildsNav">开荒</a>
+      <a class="nav-link" href="gear-crafting.html" data-i18n="gearCraftingNav">装备制作</a>
+      <a class="nav-link active" href="regex-search.html" data-i18n="regexNav">正则搜索</a>
+      <a class="nav-link" href="hideout-flip.html" data-i18n="hideoutNav">藏身处战神</a>
+      <a class="nav-link" href="gem-flip.html" data-i18n="gemFlipNav">技能倒卖</a>
+      <a class="nav-link" href="ninja-import.html" data-i18n="ninjaImportNav">忍者网配置解析</a>
+    </nav>
+  </div>
+  <div class="top-controls">
+    <div class="filter-tabs" aria-label="语言选择" data-i18n-aria="languageSelect">
+      <button class="filter-btn active" type="button" data-lang="zhCN">简体</button>
+      <button class="filter-btn" type="button" data-lang="zhTW">繁體</button>
+      <button class="filter-btn" type="button" data-lang="en">English</button>
+    </div>
+    <a class="btn" href="data-update.html" data-i18n="dataUpdate">数据更新</a>
+  </div>
+</header>
+<script src="../assets/site-header.js" data-root=".." data-active="regex" data-title="POE2 Tools"></script>
+
+<main class="shell">
+  <section class="panel">
+    <div class="regex-head">
+      <div class="nav">
+        <span class="badge" id="regexStatus">读取中</span>
+        <h2 data-i18n="pageTitle">正则搜索</h2>
+      </div>
+    </div>
+    <p class="muted"><span data-i18n="pageDesc">按场景筛选玩家常用正则；每条正则都按当前页面语言显示对应写法，复制后进游戏搜索栏实际确认。当前是本地社区样例，不是实时同步广场。</span> <code>local-community-seed</code></p>
+    <div class="status-grid" id="regexStats">
+      <div class="stat"><span data-i18n="entryCount">正则数量</span><strong>读取中...</strong></div>
+      <div class="stat"><span data-i18n="visibleCount">当前显示</span><strong>读取中...</strong></div>
+      <div class="stat"><span data-i18n="copyCount">总复制</span><strong>读取中...</strong></div>
+      <div class="stat"><span data-i18n="topCategory">热门场景</span><strong>读取中...</strong></div>
+      <div class="stat"><span data-i18n="boundary">数据边界</span><strong>读取中...</strong></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="mode-tabs" id="regexModeTabs">
+      <button class="tab-btn active" type="button" data-regex-mode="library" data-i18n="libraryMode">正则库</button>
+      <button class="tab-btn" type="button" data-regex-mode="builder" data-i18n="builderMode">自定义生成</button>
+    </div>
+
+    <div class="mode-panel active" id="libraryPanel">
+      <section class="filter-bar">
+        <div class="search-row">
+          <input id="regexSearchInput" data-i18n-placeholder="searchPlaceholder" placeholder="搜索标题、正则、标签">
+          <button class="btn" id="clearFiltersBtn" type="button" data-i18n="clearFilters">清空筛选</button>
+        </div>
+        <div class="filters">
+          <span class="filter-label" data-i18n="category">场景：</span>
+          <div class="filter-tabs" id="categoryFilter"></div>
+        </div>
+        <div class="tabs" id="sortTabs">
+          <button class="tab-btn active" data-sort="trending" type="button" data-i18n="trending">热门</button>
+          <button class="tab-btn" data-sort="recent" type="button" data-i18n="recent">最新</button>
+          <button class="tab-btn" data-sort="copies" type="button" data-i18n="mostCopied">复制最多</button>
+        </div>
+      </section>
+
+      <section class="share-list" id="regexList">
+        <div class="card muted" data-i18n="loading">加载中...</div>
+      </section>
+      <div class="actions pagination" id="regexPagination"></div>
+    </div>
+
+    <div class="mode-panel" id="builderPanel">
+      <div class="generator-grid">
+        <div class="generator-section">
+          <div class="filters">
+            <span class="filter-label" data-i18n="builderCategory">生成类型：</span>
+            <div class="filter-tabs" id="builderCategoryTabs"></div>
+          </div>
+          <div class="filters">
+            <span class="filter-label" data-i18n="builderLogic">逻辑：</span>
+            <button class="filter-btn active" type="button" data-builder-logic="or" data-i18n="logicOr">或</button>
+            <button class="filter-btn" type="button" data-builder-logic="and" data-i18n="logicAnd">和</button>
+          </div>
+          <div class="filters">
+            <span class="filter-label" data-i18n="builderModeLabel">显示：</span>
+            <button class="filter-btn active" type="button" data-builder-display="highlight" data-i18n="highlightMode">高亮</button>
+            <button class="filter-btn" type="button" data-builder-display="exclude" data-i18n="excludeMode">排除</button>
+          </div>
+          <div class="number-grid">
+            <label class="form-group"><span data-i18n="minTier">地图阶级最低</span><input id="builderMinTier" type="number" min="0" max="16"></label>
+            <label class="form-group"><span data-i18n="maxTier">地图阶级最高</span><input id="builderMaxTier" type="number" min="0" max="16"></label>
+            <label class="form-group"><span data-i18n="priceLimit">价格上限</span><input id="builderPriceMax" type="number" min="0"></label>
+          </div>
+          <div class="number-grid">
+            <label class="form-group"><span data-i18n="packSize">怪物群规模 >=</span><input id="builderPackSize" type="number" min="0"></label>
+            <label class="form-group"><span data-i18n="rarity">物品稀有度 >=</span><input id="builderRarity" type="number" min="0"></label>
+            <label class="form-group"><span data-i18n="waystoneDrop">引路石掉落 >=</span><input id="builderWaystoneDrop" type="number" min="0"></label>
+          </div>
+        </div>
+
+        <div class="generator-section">
+          <h3 data-i18n="generatedRegex">生成结果</h3>
+          <div class="generated-list" id="builderRegexOutput">
+            <div class="generated-row"><span>简体</span><code class="regex-code" id="builderRegexZhCN">-</code></div>
+            <div class="generated-row"><span>繁體</span><code class="regex-code" id="builderRegexZhTW">-</code></div>
+            <div class="generated-row"><span>English</span><code class="regex-code" id="builderRegexEn">-</code></div>
+          </div>
+          <p class="muted" id="builderHint" data-i18n="builderHint">选择词条或填写数值后会生成当前页面语言对应的正则。</p>
+          <div class="actions">
+            <button class="btn primary" type="button" id="copyBuilderRegexBtn" data-i18n="copy">复制</button>
+            <button class="btn primary" type="button" id="uploadRegexBtn" data-i18n="uploadRegex">上传正则</button>
+            <button class="btn" type="button" id="resetBuilderBtn" data-i18n="resetBuilder">重置</button>
+          </div>
+          <div class="form-group">
+            <label for="builderMemo" data-i18n="builderMemo">备忘录</label>
+            <textarea id="builderMemo" data-i18n-placeholder="builderMemoPlaceholder" placeholder="本地记录常用组合；后续可接 localStorage 保存。"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="generator-section">
+        <div class="regex-head">
+          <h3 data-i18n="dangerMods">危险/目标词条</h3>
+          <button class="btn" type="button" id="toggleBuilderAllBtn" data-i18n="toggleAll">全选/取消</button>
+        </div>
+        <div class="option-grid" id="builderOptionGrid"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="uploadRegexModal" role="dialog" aria-modal="true">
+  <div class="modal-content">
+    <div class="modal-head">
+      <h2 data-i18n="uploadTitle">上传正则表达式</h2>
+      <button class="btn ghost" type="button" data-close-modal data-i18n="close">关闭</button>
+    </div>
+    <form id="uploadRegexForm" class="form-group">
+      <div class="form-group">
+        <label for="regexContent" data-i18n="regexContent">简体正则 *</label>
+        <textarea id="regexContent" maxlength="200" required placeholder="输入正则表达式..."></textarea>
+        <span class="muted" id="regexCharCount">0 / 200</span>
+      </div>
+      <div class="form-group">
+        <label for="regexContentZhTW" data-i18n="regexContentZhTW">繁体正则</label>
+        <textarea id="regexContentZhTW" maxlength="200" placeholder="不填则沿用简体写法"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="regexContentEn" data-i18n="regexContentEn">英文正则</label>
+        <textarea id="regexContentEn" maxlength="200" placeholder="不填则沿用简体写法"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="regexTitle" data-i18n="regexDescription">描述 *</label>
+        <input id="regexTitle" maxlength="100" required placeholder="简要描述正则的用途">
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="regexCategory" data-i18n="categoryRequired">适用场景 *</label>
+          <select id="regexCategory"></select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" data-close-modal data-i18n="cancel">取消</button>
+        <button class="btn primary" type="submit" data-i18n="submitUpload">上传</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="commentModal" role="dialog" aria-modal="true">
+  <div class="modal-content">
+    <div class="modal-head">
+      <h2 data-i18n="comments">评论</h2>
+      <button class="btn ghost" type="button" data-close-modal data-i18n="close">关闭</button>
+    </div>
+    <div class="form-group">
+      <textarea id="commentInput" data-i18n-placeholder="commentPlaceholder" placeholder="发表你的看法..."></textarea>
+      <button class="btn primary" id="submitCommentBtn" type="button" data-i18n="send">发送</button>
+    </div>
+    <div class="share-list" id="commentsList"></div>
+  </div>
+</div>
+
+<div class="modal" id="keyModal" role="dialog" aria-modal="true">
+  <div class="modal-content modal-small">
+    <div class="modal-head">
+      <h2 data-i18n="uploadSuccess">上传成功</h2>
+      <button class="btn ghost" type="button" data-close-modal data-i18n="close">关闭</button>
+    </div>
+    <p class="warn" data-i18n="keyWarning">请保存管理密钥；之后编辑或删除这条正则会用到它。</p>
+    <code class="regex-code" id="secretKey">-</code>
+    <button class="btn" id="copyKeyBtn" type="button" data-i18n="copyKey">复制密钥</button>
+  </div>
+</div>
+
+<div class="modal" id="verifyModal" role="dialog" aria-modal="true">
+  <div class="modal-content modal-small">
+    <div class="modal-head">
+      <h2 data-i18n="verifyTitle">验证密钥</h2>
+      <button class="btn ghost" type="button" data-close-modal data-i18n="close">关闭</button>
+    </div>
+    <div class="form-group">
+      <label for="editSecretKey" data-i18n="secretKey">管理密钥</label>
+      <input id="editSecretKey" data-i18n-placeholder="secretKeyPlaceholder" placeholder="请输入上传时获得的密钥">
+    </div>
+    <button class="btn primary" id="verifyEditBtn" type="button" data-i18n="verifyAndEdit">验证并编辑</button>
+  </div>
+</div>
+
+<script src="../assets/version-context.js?v=20260722-skill-catalog"></script>
+<script>
+const i18n = {
+  zhCN: {
+    home:'首页', buildsNav:'开荒', gearCraftingNav:'装备制作', regexNav:'正则搜索', hideoutNav:'藏身处战神', gemFlipNav:'技能倒卖', ninjaImportNav:'忍者网配置解析', dataUpdate:'数据更新',
+    pageTitle:'正则搜索', pageDesc:'按场景筛选玩家常用正则；也可以在自定义生成里组合词条和数值条件。每条正则都按当前页面语言显示对应写法，复制后进游戏搜索栏实际确认。',
+    entryCount:'正则数量', visibleCount:'当前显示', copyCount:'总复制', topCategory:'热门场景', boundary:'数据边界', category:'场景：',
+    searchPlaceholder:'搜索标题、正则、标签', clearFilters:'清空筛选', trending:'热门', recent:'最新', mostCopied:'复制最多', uploadRegex:'上传正则', loading:'加载中...',
+    auto:'自动', all:'全部', waystone:'引路石', map:'引路石', tablet:'石板', other:'其他', cn:'简中', global:'国际服', us:'US', jp:'JP', kr:'KR', ru:'RU',
+    localSeed:'本地样例', copy:'复制', copied:'已复制', comment:'评论', edit:'编辑', noResults:'没有符合筛选的正则。', uploadTitle:'上传正则表达式',
+    regexContent:'简体正则 *', regexContentZhTW:'繁体正则', regexContentEn:'英文正则', regexDescription:'描述 *', categoryRequired:'适用场景 *', versionRequired:'适配版本 *',
+    cancel:'取消', submitUpload:'上传', close:'关闭', comments:'评论', commentPlaceholder:'发表你的看法...', send:'发送', uploadSuccess:'上传成功',
+    keyWarning:'请保存管理密钥；之后编辑或删除这条正则会用到它。', copyKey:'复制密钥', verifyTitle:'验证密钥', secretKey:'管理密钥',
+    secretKeyPlaceholder:'请输入上传时获得的密钥', verifyAndEdit:'验证并编辑', languageSelect:'语言选择', charWarn:'超过 50 字符，游戏内可能无法完整输入',
+    commentSeed:'当前是本地评论预览；正式社区评论需要后端。', verifyDemo:'本地预览不做真实密钥校验。',
+    libraryMode:'正则库', builderMode:'自定义生成', builderCategory:'生成类型：', builderLogic:'逻辑：', logicOr:'或', logicAnd:'和', builderModeLabel:'显示：', highlightMode:'高亮', excludeMode:'排除',
+    minTier:'地图阶级最低', maxTier:'地图阶级最高', priceLimit:'价格上限', packSize:'怪物群规模 >=', rarity:'物品稀有度 >=', waystoneDrop:'引路石掉落 >=',
+    generatedRegex:'生成结果', builderHint:'选择词条或填写数值后会同时生成简体、繁体、英文三份正则；复制按钮按当前页面语言复制。', resetBuilder:'重置', builderMemo:'备忘录', builderMemoPlaceholder:'本地记录常用组合；后续可接 localStorage 保存。', dangerMods:'危险/目标词条', toggleAll:'全选/取消', catalogLoading:'词缀库读取中...', catalogEmpty:'当前类型没有可生成词条。'
+  },
+  zhTW: {
+    home:'首頁', buildsNav:'開荒', gearCraftingNav:'裝備製作', regexNav:'正則搜尋', hideoutNav:'藏身處戰神', gemFlipNav:'技能倒賣', ninjaImportNav:'忍者網配置解析', dataUpdate:'資料更新',
+    pageTitle:'正則搜尋', pageDesc:'按場景篩選玩家常用正則；也可以在自訂生成裡組合詞條和數值條件。每條正則都按目前頁面語言顯示對應寫法，複製後進遊戲搜尋欄實際確認。',
+    entryCount:'正則數量', visibleCount:'目前顯示', copyCount:'總複製', topCategory:'熱門場景', boundary:'資料邊界', category:'場景：',
+    searchPlaceholder:'搜尋標題、正則、標籤', clearFilters:'清空篩選', trending:'熱門', recent:'最新', mostCopied:'複製最多', uploadRegex:'上傳正則', loading:'載入中...',
+    auto:'自動', all:'全部', waystone:'引路石', map:'引路石', tablet:'石板', other:'其他', cn:'簡中', global:'國際服', us:'US', jp:'JP', kr:'KR', ru:'RU',
+    localSeed:'本地樣例', copy:'複製', copied:'已複製', comment:'評論', edit:'編輯', noResults:'沒有符合篩選的正則。', uploadTitle:'上傳正則表達式',
+    regexContent:'簡體正則 *', regexContentZhTW:'繁體正則', regexContentEn:'英文正則', regexDescription:'描述 *', categoryRequired:'適用場景 *', versionRequired:'適配版本 *',
+    cancel:'取消', submitUpload:'上傳', close:'關閉', comments:'評論', commentPlaceholder:'發表你的看法...', send:'送出', uploadSuccess:'上傳成功',
+    keyWarning:'請保存管理密鑰；之後編輯或刪除這條正則會用到它。', copyKey:'複製密鑰', verifyTitle:'驗證密鑰', secretKey:'管理密鑰',
+    secretKeyPlaceholder:'請輸入上傳時獲得的密鑰', verifyAndEdit:'驗證並編輯', languageSelect:'語言選擇', charWarn:'超過 50 字元，遊戲內可能無法完整輸入',
+    commentSeed:'目前是本地評論預覽；正式社群評論需要後端。', verifyDemo:'本地預覽不做真實密鑰驗證。',
+    libraryMode:'正則庫', builderMode:'自訂生成', builderCategory:'生成類型：', builderLogic:'邏輯：', logicOr:'或', logicAnd:'和', builderModeLabel:'顯示：', highlightMode:'高亮', excludeMode:'排除',
+    minTier:'地圖階級最低', maxTier:'地圖階級最高', priceLimit:'價格上限', packSize:'怪物群規模 >=', rarity:'物品稀有度 >=', waystoneDrop:'引路石掉落 >=',
+    generatedRegex:'生成結果', builderHint:'選擇詞條或填寫數值後會同時生成簡體、繁體、英文三份正則；複製按鈕按目前頁面語言複製。', resetBuilder:'重置', builderMemo:'備忘錄', builderMemoPlaceholder:'本地記錄常用組合；後續可接 localStorage 保存。', dangerMods:'危險/目標詞條', toggleAll:'全選/取消', catalogLoading:'詞綴庫讀取中...', catalogEmpty:'目前類型沒有可生成詞條。'
+  },
+  en: {
+    home:'Home', buildsNav:'Leveling', gearCraftingNav:'Gear Crafting', regexNav:'Regex Search', hideoutNav:'Hideout Warrior', gemFlipNav:'Gem Flipping', ninjaImportNav:'Ninja Import', dataUpdate:'Data Update',
+    pageTitle:'Regex Search', pageDesc:'Filter saved regex snippets by use case, or build a custom regex from mods and numeric conditions. Each entry shows the pattern for the current page language before copying.',
+    entryCount:'Regex entries', visibleCount:'Visible', copyCount:'Total copies', topCategory:'Top category', boundary:'Boundary', category:'Category:',
+    searchPlaceholder:'Search title, regex, or tags', clearFilters:'Clear filters', trending:'Trending', recent:'Recent', mostCopied:'Most copied', uploadRegex:'Upload regex', loading:'Loading...',
+    auto:'Auto', all:'All', waystone:'Waystone', map:'Waystone', tablet:'Tablet', other:'Other', cn:'Simplified CN', global:'Global', us:'US', jp:'JP', kr:'KR', ru:'RU',
+    localSeed:'Local seed', copy:'Copy', copied:'Copied', comment:'Comments', edit:'Edit', noResults:'No regex entries match the filters.', uploadTitle:'Upload Regex',
+    regexContent:'Simplified Chinese regex *', regexContentZhTW:'Traditional Chinese regex', regexContentEn:'English regex', regexDescription:'Description *', categoryRequired:'Use case *', versionRequired:'Version *',
+    cancel:'Cancel', submitUpload:'Upload', close:'Close', comments:'Comments', commentPlaceholder:'Share your feedback...', send:'Send', uploadSuccess:'Upload success',
+    keyWarning:'Save this management key. Editing or deleting this regex will require it later.', copyKey:'Copy key', verifyTitle:'Verify key', secretKey:'Management key',
+    secretKeyPlaceholder:'Enter the key from upload', verifyAndEdit:'Verify and edit', languageSelect:'Language selector', charWarn:'Over 50 characters; the in-game field may not accept the full text',
+    commentSeed:'Local comment preview only; real community comments need a backend.', verifyDemo:'Local preview does not perform real key verification.',
+    libraryMode:'Regex Library', builderMode:'Custom Builder', builderCategory:'Builder type:', builderLogic:'Logic:', logicOr:'OR', logicAnd:'AND', builderModeLabel:'Mode:', highlightMode:'Highlight', excludeMode:'Exclude',
+    minTier:'Min map tier', maxTier:'Max map tier', priceLimit:'Max price', packSize:'Pack size >=', rarity:'Item rarity >=', waystoneDrop:'Waystone drops >=',
+    generatedRegex:'Generated regex', builderHint:'Select mods or fill numeric conditions to generate Simplified, Traditional, and English patterns. Copy uses the current page language.', resetBuilder:'Reset', builderMemo:'Memo', builderMemoPlaceholder:'Keep frequent combinations locally here; localStorage saving can come later.', dangerMods:'Danger/target mods', toggleAll:'Select/Clear all', catalogLoading:'Loading affix catalog...', catalogEmpty:'No builder mods for this type.'
+  }
+};
+
+const state = {
+  lang: 'zhCN',
+  mode: 'library',
+  category: 'all',
+  sort: 'trending',
+  query: '',
+  page: 1,
+  pageSize: 6,
+  data: null,
+  entries: [],
+  affixCatalog: null,
+  selectedCommentId: null,
+  builder: {
+    category: 'waystone',
+    logic: 'or',
+    display: 'highlight',
+    selected: new Set()
+  }
+};
+
+const categoryOrder = ['all', 'waystone', 'tablet'];
+const builderCategories = ['waystone', 'tablet'];
+
+function t(key) {
+  return i18n[state.lang][key] || i18n.zhCN[key] || key;
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+}
+
+function localized(value) {
+  if (typeof value === 'string') return value;
+  return value?.[state.lang] || value?.zhCN || value?.en || '';
+}
+
+function looksEnglishOnly(value) {
+  const text = String(value || '');
+  return /[A-Za-z]{3,}/.test(text) && !/[\u4e00-\u9fff]/.test(text);
+}
+
+function patternForLocale(pattern, locale) {
+  const value = pattern?.[locale] || '';
+  if (locale === 'zhTW' && looksEnglishOnly(value)) return '';
+  return value;
+}
+
+function applyI18n() {
+  document.documentElement.lang = state.lang === 'en' ? 'en' : state.lang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.querySelectorAll('[data-i18n]').forEach((node) => { node.textContent = t(node.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((node) => { node.placeholder = t(node.dataset.i18nPlaceholder); });
+  document.querySelectorAll('[data-i18n-aria]').forEach((node) => { node.setAttribute('aria-label', t(node.dataset.i18nAria)); });
+  document.querySelectorAll('[data-lang]').forEach((button) => button.classList.toggle('active', button.dataset.lang === state.lang));
+  document.querySelectorAll('.nav-link[href$="regex-search.html"]').forEach((node) => { node.textContent = t('regexNav'); });
+}
+
+function button(value, label, active, dataName) {
+  return `<button class="filter-btn${active ? ' active' : ''}" type="button" data-${dataName}="${esc(value)}">${esc(label)}</button>`;
+}
+
+function renderFilters() {
+  document.getElementById('categoryFilter').innerHTML = categoryOrder.map((value) => button(value, t(value), value === state.category, 'category')).join('');
+  document.getElementById('regexCategory').innerHTML = categoryOrder.filter((value) => value !== 'all').map((value) => `<option value="${esc(value)}">${esc(t(value))}</option>`).join('');
+}
+
+function score(entry) {
+  return (entry.likes || 0) * 2 + (entry.copies || 0) + (entry.comments || 0) * 5;
+}
+
+function filteredEntries() {
+  const query = state.query.trim().toLowerCase();
+  return state.entries.filter((entry) => {
+    if (state.category !== 'all' && entry.category !== state.category) return false;
+    if (!query) return true;
+    const haystack = [localized(entry.title), localized(entry.notes), localizedRegex(entry), ...(entry.tags || [])].join(' ').toLowerCase();
+    return haystack.includes(query);
+  }).sort((a, b) => {
+    if (state.sort === 'recent') return String(b.updatedAt).localeCompare(String(a.updatedAt));
+    if (state.sort === 'copies') return (b.copies || 0) - (a.copies || 0);
+    return score(b) - score(a);
+  });
+}
+
+function renderStats(visible) {
+  const totalCopies = state.entries.reduce((sum, entry) => sum + (entry.copies || 0), 0);
+  const categoryCounts = state.entries.reduce((acc, entry) => {
+    acc[entry.category] = (acc[entry.category] || 0) + 1;
+    return acc;
+  }, {});
+  const top = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'other';
+  document.getElementById('regexStats').innerHTML = `
+    <div class="stat"><span>${esc(t('entryCount'))}</span><strong>${esc(state.entries.length)}</strong></div>
+    <div class="stat"><span>${esc(t('visibleCount'))}</span><strong>${esc(visible.length)}</strong></div>
+    <div class="stat"><span>${esc(t('copyCount'))}</span><strong>${esc(totalCopies)}</strong></div>
+    <div class="stat"><span>${esc(t('topCategory'))}</span><strong>${esc(t(top))}</strong></div>
+    <div class="stat"><span>${esc(t('boundary'))}</span><strong>${esc(t('localSeed'))}</strong></div>
+  `;
+  document.body.dataset.regexSearchReady = 'true';
+  document.body.dataset.regexSearchSourceType = state.data?.sourceType || '';
+  document.body.dataset.regexSearchEntryCount = String(state.entries.length);
+  document.body.dataset.regexSearchVisibleCount = String(visible.length);
+  document.body.dataset.regexSearchTotalCopies = String(totalCopies);
+  document.body.dataset.regexSearchCategoryFilter = state.category;
+  document.body.dataset.regexSearchSort = state.sort;
+  document.body.dataset.regexSearchLang = state.lang;
+  document.body.dataset.regexSearchUiLocalized = state.lang === 'en' ? 'Regex Search' : t('pageTitle');
+}
+
+function localizedRegex(entry) {
+  return localized(entry.regex);
+}
+
+function numericBuilderParts() {
+  const fields = [
+    { id: 'builderMinTier', label: { zhCN: '阶级', zhTW: '階級', en: 'Tier' }, op: '>=' },
+    { id: 'builderMaxTier', label: { zhCN: '阶级', zhTW: '階級', en: 'Tier' }, op: '<=' },
+    { id: 'builderPriceMax', label: { zhCN: '价格', zhTW: '價格', en: 'Price' }, op: '<=' },
+    { id: 'builderPackSize', label: { zhCN: '怪物群规模', zhTW: '怪物群規模', en: 'Pack Size' }, op: '>=' },
+    { id: 'builderRarity', label: { zhCN: '物品稀有度', zhTW: '物品稀有度', en: 'Item Rarity' }, op: '>=' },
+    { id: 'builderWaystoneDrop', label: { zhCN: '引路石掉落', zhTW: '引路石掉落', en: 'Waystone Drop' }, op: '>=' }
+  ];
+  return fields.flatMap((field) => {
+    const value = document.getElementById(field.id)?.value;
+    if (!value) return [];
+    return [{ zhCN: `${field.label.zhCN}.*${value}`, zhTW: `${field.label.zhTW}.*${value}`, en: `${field.label.en}.*${value}` }];
+  });
+}
+
+function builderGroups() {
+  return (state.affixCatalog?.groups || [])
+    .filter((group) => group.kind === state.builder.category)
+    .sort((a, b) => localized(a.name).localeCompare(localized(b.name), document.documentElement.lang));
+}
+
+function builderPatternsByLocale() {
+  const groupsById = new Map(builderGroups().map((group) => [group.id, group]));
+  const selected = Array.from(state.builder.selected)
+    .map((id) => groupsById.get(id))
+    .filter(Boolean)
+    .map((group) => group.regex || group.name);
+  return [...selected, ...numericBuilderParts()].filter(Boolean);
+}
+
+function buildGeneratedRegexFor(locale) {
+  const parts = builderPatternsByLocale()
+    .map((pattern) => patternForLocale(pattern, locale))
+    .filter(Boolean);
+  if (!parts.length) return '';
+  if (state.builder.logic === 'and') return parts.map((part) => `(?=.*${part})`).join('');
+  return parts.join('|');
+}
+
+function builderOutputs() {
+  return {
+    zhCN: buildGeneratedRegexFor('zhCN'),
+    zhTW: buildGeneratedRegexFor('zhTW'),
+    en: buildGeneratedRegexFor('en')
+  };
+}
+
+function renderBuilderCategories() {
+  const container = document.getElementById('builderCategoryTabs');
+  if (!container) return;
+  container.innerHTML = builderCategories.map((value) => button(value, t(value), value === state.builder.category, 'builder-category')).join('');
+}
+
+function renderBuilderOptions() {
+  const container = document.getElementById('builderOptionGrid');
+  if (!container) return;
+  if (!state.affixCatalog) {
+    container.innerHTML = `<div class="card muted">${esc(t('catalogLoading'))}</div>`;
+    return;
+  }
+  const options = builderGroups();
+  if (!options.length) {
+    container.innerHTML = `<div class="card muted">${esc(t('catalogEmpty'))}</div>`;
+    return;
+  }
+  container.innerHTML = options.map((option) => `
+    <label class="check-row">
+      <span>
+        ${esc(localized(option.name) || localized(option.regex))}
+        <span class="badge">${esc(localized(option.affix) || t(option.kind))}</span>
+      </span>
+      <input type="checkbox" data-builder-option="${esc(option.id)}"${state.builder.selected.has(option.id) ? ' checked' : ''}>
+    </label>
+  `).join('');
+}
+
+function renderBuilder() {
+  renderBuilderCategories();
+  renderBuilderOptions();
+  document.querySelectorAll('[data-builder-logic]').forEach((node) => node.classList.toggle('active', node.dataset.builderLogic === state.builder.logic));
+  document.querySelectorAll('[data-builder-display]').forEach((node) => node.classList.toggle('active', node.dataset.builderDisplay === state.builder.display));
+  const outputs = builderOutputs();
+  document.getElementById('builderRegexZhCN').textContent = outputs.zhCN || '-';
+  document.getElementById('builderRegexZhTW').textContent = outputs.zhTW || '-';
+  document.getElementById('builderRegexEn').textContent = outputs.en || '-';
+  const counts = builderCategories.reduce((acc, kind) => {
+    acc[kind] = (state.affixCatalog?.groups || []).filter((group) => group.kind === kind).length;
+    return acc;
+  }, {});
+  document.body.dataset.regexBuilderReady = 'true';
+  document.body.dataset.regexBuilderCatalogSource = state.affixCatalog?.source?.type || 'poe2db-waystone-tablet-modifiers';
+  document.body.dataset.regexBuilderCatalogGroupCount = String(state.affixCatalog?.groups?.length || 0);
+  document.body.dataset.regexBuilderWaystoneGroupCount = String(counts.waystone || 0);
+  document.body.dataset.regexBuilderTabletGroupCount = String(counts.tablet || 0);
+  document.body.dataset.regexBuilderCategory = state.builder.category;
+  document.body.dataset.regexBuilderLogic = state.builder.logic;
+  document.body.dataset.regexBuilderDisplay = state.builder.display;
+  document.body.dataset.regexBuilderSelectedCount = String(state.builder.selected.size);
+  document.body.dataset.regexBuilderOutputZhCN = outputs.zhCN;
+  document.body.dataset.regexBuilderOutputZhTW = outputs.zhTW;
+  document.body.dataset.regexBuilderOutputEn = outputs.en;
+  document.body.dataset.regexBuilderOutput = outputs[state.lang] || '';
+  document.body.dataset.regexBuilderOutputLength = String((outputs[state.lang] || '').length);
+}
+
+function renderList() {
+  const visible = filteredEntries();
+  renderStats(visible);
+  const pages = Math.max(1, Math.ceil(visible.length / state.pageSize));
+  state.page = Math.min(state.page, pages);
+  const start = (state.page - 1) * state.pageSize;
+  const pageEntries = visible.slice(start, start + state.pageSize);
+  const list = document.getElementById('regexList');
+  if (!pageEntries.length) {
+    list.innerHTML = `<div class="card muted">${esc(t('noResults'))}</div>`;
+  } else {
+    list.innerHTML = pageEntries.map((entry) => `
+      <article class="regex-card" data-regex-card="${esc(entry.id)}">
+        <div class="regex-head">
+          <div class="regex-title">
+            <h3>${esc(localized(entry.title))}</h3>
+            <div class="meta-row">
+              <span class="badge">${esc(t(entry.category))}</span>
+              <span class="badge">${esc(entry.author)}</span>
+            </div>
+          </div>
+          <div class="meta-row">
+            <span class="badge">${esc(entry.likes || 0)} like</span>
+            <span class="badge">${esc(entry.copies || 0)} copy</span>
+            <span class="badge">${esc(entry.comments || 0)} comment</span>
+          </div>
+        </div>
+        <code class="regex-code">${esc(localizedRegex(entry))}</code>
+        <p class="muted">${esc(localized(entry.notes))}</p>
+        <div class="meta-row">${(entry.tags || []).map((tag) => `<span class="badge">${esc(tag)}</span>`).join('')}</div>
+        <div class="actions">
+          <button class="btn primary" type="button" data-copy-regex="${esc(entry.id)}">${esc(t('copy'))}</button>
+          <button class="btn" type="button" data-comment-regex="${esc(entry.id)}">${esc(t('comment'))}</button>
+          <button class="btn" type="button" data-edit-regex="${esc(entry.id)}">${esc(t('edit'))}</button>
+        </div>
+      </article>
+    `).join('');
+  }
+  document.getElementById('regexPagination').innerHTML = pages > 1
+    ? Array.from({ length: pages }, (_, index) => button(String(index + 1), String(index + 1), index + 1 === state.page, 'page')).join('')
+    : '';
+}
+
+function rerender() {
+  applyI18n();
+  renderFilters();
+  renderList();
+  renderBuilder();
+}
+
+function openModal(id) {
+  document.getElementById(id)?.classList.add('open');
+  document.body.dataset.regexSearchOpenModal = id;
+}
+
+function closeModals() {
+  document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('open'));
+  document.body.dataset.regexSearchOpenModal = '';
+}
+
+function syncBuilderToUploadForm() {
+  const outputs = builderOutputs();
+  const current = outputs[state.lang] || outputs.zhCN || outputs.en || outputs.zhTW || '';
+  if (!current) {
+    document.body.dataset.regexBuilderUploadStatus = 'empty';
+    return false;
+  }
+  document.getElementById('regexContent').value = outputs.zhCN || current;
+  document.getElementById('regexContentZhTW').value = outputs.zhTW || '';
+  document.getElementById('regexContentEn').value = outputs.en || '';
+  document.getElementById('regexCategory').value = state.builder.category;
+  document.getElementById('regexTitle').value = localized({
+    zhCN: `${t(state.builder.category)}自定义正则`,
+    zhTW: `${t(state.builder.category)}自訂正則`,
+    en: `Custom ${t(state.builder.category)} regex`
+  });
+  document.getElementById('regexCharCount').textContent = `${(outputs.zhCN || current).length} / 200`;
+  document.body.dataset.regexBuilderUploadStatus = 'prefilled';
+  return true;
+}
+
+async function copyText(text, datasetKey) {
+  try {
+    await navigator.clipboard.writeText(text);
+    document.body.dataset[datasetKey] = 'copied';
+  } catch (_) {
+    document.body.dataset[datasetKey] = 'failed';
+  }
+}
+
+function bindEvents() {
+  document.addEventListener('click', (event) => {
+    const langButton = event.target.closest('[data-lang]');
+    if (langButton) {
+      state.lang = langButton.dataset.lang;
+      rerender();
+      return;
+    }
+    const modeButton = event.target.closest('[data-regex-mode]');
+    if (modeButton) {
+      state.mode = modeButton.dataset.regexMode;
+      document.querySelectorAll('[data-regex-mode]').forEach((node) => node.classList.toggle('active', node === modeButton));
+      document.getElementById('libraryPanel').classList.toggle('active', state.mode === 'library');
+      document.getElementById('builderPanel').classList.toggle('active', state.mode === 'builder');
+      document.body.dataset.regexSearchMode = state.mode;
+      rerender();
+      return;
+    }
+    const categoryButton = event.target.closest('[data-category]');
+    if (categoryButton) {
+      state.category = categoryButton.dataset.category;
+      state.page = 1;
+      rerender();
+      return;
+    }
+    const builderCategoryButton = event.target.closest('[data-builder-category]');
+    if (builderCategoryButton) {
+      state.builder.category = builderCategoryButton.dataset.builderCategory;
+      state.builder.selected.clear();
+      renderBuilder();
+      return;
+    }
+    const builderLogicButton = event.target.closest('[data-builder-logic]');
+    if (builderLogicButton) {
+      state.builder.logic = builderLogicButton.dataset.builderLogic;
+      renderBuilder();
+      return;
+    }
+    const builderDisplayButton = event.target.closest('[data-builder-display]');
+    if (builderDisplayButton) {
+      state.builder.display = builderDisplayButton.dataset.builderDisplay;
+      renderBuilder();
+      return;
+    }
+    const sortButton = event.target.closest('[data-sort]');
+    if (sortButton) {
+      state.sort = sortButton.dataset.sort;
+      document.querySelectorAll('[data-sort]').forEach((node) => node.classList.toggle('active', node === sortButton));
+      state.page = 1;
+      renderList();
+      return;
+    }
+    const pageButton = event.target.closest('[data-page]');
+    if (pageButton) {
+      state.page = Number(pageButton.dataset.page);
+      renderList();
+      return;
+    }
+    const copyButton = event.target.closest('[data-copy-regex]');
+    if (copyButton) {
+      const entry = state.entries.find((item) => item.id === copyButton.dataset.copyRegex);
+      if (entry) {
+        entry.copies = (entry.copies || 0) + 1;
+        copyButton.textContent = t('copied');
+        copyText(localizedRegex(entry), 'regexSearchCopyStatus');
+        renderStats(filteredEntries());
+      }
+      return;
+    }
+    const commentButton = event.target.closest('[data-comment-regex]');
+    if (commentButton) {
+      state.selectedCommentId = commentButton.dataset.commentRegex;
+      document.getElementById('commentsList').innerHTML = `<div class="card muted">${esc(t('commentSeed'))}</div>`;
+      openModal('commentModal');
+      return;
+    }
+    const editButton = event.target.closest('[data-edit-regex]');
+    if (editButton) {
+      openModal('verifyModal');
+      return;
+    }
+    if (event.target.closest('[data-close-modal]')) closeModals();
+  });
+  document.getElementById('uploadRegexBtn').addEventListener('click', () => {
+    if (syncBuilderToUploadForm()) openModal('uploadRegexModal');
+  });
+  document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+    state.category = 'all';
+    state.query = '';
+    state.page = 1;
+    document.getElementById('regexSearchInput').value = '';
+    rerender();
+  });
+  document.getElementById('regexSearchInput').addEventListener('input', (event) => {
+    state.query = event.target.value;
+    state.page = 1;
+    renderList();
+  });
+  document.getElementById('builderOptionGrid').addEventListener('change', (event) => {
+    const input = event.target.closest('[data-builder-option]');
+    if (!input) return;
+    if (input.checked) state.builder.selected.add(input.dataset.builderOption);
+    else state.builder.selected.delete(input.dataset.builderOption);
+    renderBuilder();
+  });
+  ['builderMinTier', 'builderMaxTier', 'builderPriceMax', 'builderPackSize', 'builderRarity', 'builderWaystoneDrop'].forEach((id) => {
+    document.getElementById(id).addEventListener('input', renderBuilder);
+  });
+  document.getElementById('toggleBuilderAllBtn').addEventListener('click', () => {
+    const current = builderGroups();
+    const allSelected = current.every((option) => state.builder.selected.has(option.id));
+    current.forEach((option) => {
+      if (allSelected) state.builder.selected.delete(option.id);
+      else state.builder.selected.add(option.id);
+    });
+    renderBuilder();
+  });
+  document.getElementById('resetBuilderBtn').addEventListener('click', () => {
+    state.builder.selected.clear();
+    ['builderMinTier', 'builderMaxTier', 'builderPriceMax', 'builderPackSize', 'builderRarity', 'builderWaystoneDrop'].forEach((id) => { document.getElementById(id).value = ''; });
+    renderBuilder();
+  });
+  document.getElementById('copyBuilderRegexBtn').addEventListener('click', () => {
+    const outputs = builderOutputs();
+    copyText(outputs[state.lang] || '', 'regexBuilderCopyStatus');
+  });
+  document.getElementById('regexContent').addEventListener('input', (event) => {
+    const length = event.target.value.length;
+    document.getElementById('regexCharCount').textContent = length > 50 ? `${length} / 200 - ${t('charWarn')}` : `${length} / 200`;
+  });
+  document.getElementById('uploadRegexForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const now = new Date().toISOString().slice(0, 10);
+    const entry = {
+      id: `local-${Date.now()}`,
+      category: document.getElementById('regexCategory').value,
+      title: { zhCN: document.getElementById('regexTitle').value, zhTW: document.getElementById('regexTitle').value, en: document.getElementById('regexTitle').value },
+      regex: {
+        zhCN: document.getElementById('regexContent').value,
+        zhTW: document.getElementById('regexContentZhTW').value || document.getElementById('regexContent').value,
+        en: document.getElementById('regexContentEn').value || document.getElementById('regexContent').value
+      },
+      author: 'local-preview',
+      likes: 0,
+      copies: 0,
+      comments: 0,
+      createdAt: now,
+      updatedAt: now,
+      tags: ['local-preview'],
+      notes: { zhCN: '本地预览条目，刷新页面后不会保留。', zhTW: '本地預覽條目，重新整理頁面後不會保留。', en: 'Local preview entry; it will not persist after refresh.' }
+    };
+    state.entries.unshift(entry);
+    document.getElementById('secretKey').textContent = `local-${Math.random().toString(36).slice(2, 10)}`;
+    event.target.reset();
+    document.getElementById('regexCharCount').textContent = '0 / 200';
+    closeModals();
+    openModal('keyModal');
+    rerender();
+  });
+  document.getElementById('copyKeyBtn').addEventListener('click', () => copyText(document.getElementById('secretKey').textContent, 'regexSearchKeyCopyStatus'));
+  document.getElementById('submitCommentBtn').addEventListener('click', () => {
+    document.getElementById('commentsList').innerHTML = `<div class="card ok">${esc(t('commentSeed'))}</div>`;
+    document.body.dataset.regexSearchCommentStatus = 'preview';
+  });
+  document.getElementById('verifyEditBtn').addEventListener('click', () => {
+    document.body.dataset.regexSearchVerifyStatus = 'preview';
+    document.getElementById('editSecretKey').value = t('verifyDemo');
+  });
+}
+
+async function init() {
+  bindEvents();
+  try {
+    const versions = await window.POE2Versions.readJson('../data/versions.json');
+    const selected = window.POE2Versions.selectedVersion(versions);
+    const manifest = await window.POE2Versions.readJson(`../${selected.dataRoot}/manifest.json`);
+    const dataPath = manifest.regexSearch?.presets || 'regex/search-presets.json';
+    const affixPath = manifest.regexSearch?.affixes;
+    if (!affixPath) throw new Error('manifest.regexSearch.affixes missing');
+    state.data = await window.POE2Versions.readJson(`../${selected.dataRoot}/${dataPath}`);
+    if (affixPath) state.affixCatalog = await window.POE2Versions.readJson(`../${selected.dataRoot}/${affixPath}`);
+    state.entries = (state.data.entries || []).map((entry) => ({
+      ...entry,
+      category: entry.category === 'map' ? 'waystone' : entry.category
+    }));
+    document.getElementById('regexStatus').textContent = t('localSeed');
+    document.body.dataset.regexSearchDataRoot = selected.dataRoot;
+    document.body.dataset.regexSearchDataFile = dataPath;
+    document.body.dataset.regexBuilderCatalogFile = affixPath;
+    rerender();
+  } catch (error) {
+    document.getElementById('regexStatus').textContent = error.message;
+    document.getElementById('regexList').innerHTML = `<div class="card bad">${esc(error.message)}</div>`;
+    document.body.dataset.regexSearchReady = 'false';
+  }
+}
+
+init();
+</script>
+</body>
+</html>

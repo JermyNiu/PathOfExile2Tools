@@ -86,6 +86,18 @@ async function validateManifestFiles(seasonRoot, manifest) {
   for (const [key, file] of Object.entries(manifest.skills || {})) {
     if (file && key !== 'schema') checks.push({ label: `skills:${key}`, file });
   }
+  for (const [key, file] of Object.entries(manifest.crafting || {})) {
+    if (file && key !== 'schema' && key !== 'sourceType') checks.push({ label: `crafting:${key}`, file });
+  }
+  for (const [key, file] of Object.entries(manifest.regexSearch || {})) {
+    if (file && !['schema', 'sourceType'].includes(key)) checks.push({ label: `regexSearch:${key}`, file });
+  }
+  for (const [key, file] of Object.entries(manifest.reference?.items || {})) {
+    if (typeof file === 'string' && file.includes('/')) checks.push({ label: `reference:items:${key}`, file });
+  }
+  for (const [key, file] of Object.entries(manifest.reference?.stats || {})) {
+    if (typeof file === 'string' && file.includes('/')) checks.push({ label: `reference:stats:${key}`, file });
+  }
   for (const [key, file] of Object.entries(manifest.ninja || {})) {
     if (file) checks.push({ label: `ninja:${key}`, file });
   }
@@ -189,6 +201,10 @@ async function main() {
     ...(manifest.builds || []).map((build) => path.join('data', 'seasons', args.season, build.data)),
     ...(manifest.tree?.routes || []).map((route) => path.join('data', 'seasons', args.season, route.data)),
     ...Object.entries(manifest.skills || {}).filter(([key, file]) => key !== 'schema' && Boolean(file)).map(([, file]) => path.join('data', 'seasons', args.season, file)),
+    ...Object.entries(manifest.crafting || {}).filter(([key, file]) => key !== 'schema' && key !== 'sourceType' && Boolean(file)).map(([, file]) => path.join('data', 'seasons', args.season, file)),
+    ...Object.entries(manifest.regexSearch || {}).filter(([key, file]) => !['schema', 'sourceType'].includes(key) && Boolean(file)).map(([, file]) => path.join('data', 'seasons', args.season, file)),
+    ...Object.values(manifest.reference?.items || {}).filter((file) => typeof file === 'string' && file.includes('/')).map((file) => path.join('data', 'seasons', args.season, file)),
+    ...Object.values(manifest.reference?.stats || {}).filter((file) => typeof file === 'string' && file.includes('/')).map((file) => path.join('data', 'seasons', args.season, file)),
     ...Object.values(manifest.market || {}).filter(Boolean).map((file) => path.join('data', 'seasons', args.season, file)),
     path.join('data', 'seasons', args.season, 'market/candidates/index.json'),
     ...Object.values(manifest.ninja || {}).filter(Boolean).map((file) => path.join('data', 'seasons', args.season, file))
@@ -280,10 +296,14 @@ async function main() {
     '--stage',
     routeArchiveSmoke.route.stageId,
     '--file',
-    routeArchiveSmoke.absolute
+    routeArchiveSmoke.absolute,
+    '--force'
   ]);
   await unlink(routeArchiveSmoke.absolute).catch(() => {});
+  const referenceResult = await runNodeScript('scripts/validate-reference.mjs', ['--season', args.season]);
   const skillResult = await runNodeScript('scripts/validate-skills.mjs', ['--season', args.season]);
+  const craftingAffixResult = await runNodeScript('scripts/validate-crafting-affixes.mjs', ['--season', args.season]);
+  const regexAffixResult = await runNodeScript('scripts/validate-regex-affixes.mjs', ['--season', args.season]);
   const marketResult = await runNodeScript('scripts/validate-market.mjs', ['--season', args.season]);
   const marketNormalizeSmokeKey = 'validate-all-market-smoke';
   const marketNormalizeSmokeFile = path.join(seasonRoot, 'market', 'candidates', `gemFlips-${marketNormalizeSmokeKey}.json`);
@@ -318,7 +338,7 @@ async function main() {
 
   const failedJson = jsonResults.filter((result) => result.status !== 'ok');
   const failedManifest = manifestResults.filter((result) => result.status !== 'ok');
-  const failedScripts = [versionResult, buildCandidateResult, buildCandidateRouteResult, buildCandidateReadinessResult, buildResult, buildGuideResult, buildScaffoldResult, buildRegisterResult, routeResult, routeScaffoldResult, routeCandidateScaffoldResult, routeCandidateResult, routeArchiveResult, skillResult, marketResult, marketNormalizeResult, ninjaResult].filter((result) => result.code !== 0);
+  const failedScripts = [versionResult, buildCandidateResult, buildCandidateRouteResult, buildCandidateReadinessResult, buildResult, buildGuideResult, buildScaffoldResult, buildRegisterResult, routeResult, routeScaffoldResult, routeCandidateScaffoldResult, routeCandidateResult, routeArchiveResult, referenceResult, skillResult, craftingAffixResult, regexAffixResult, marketResult, marketNormalizeResult, ninjaResult].filter((result) => result.code !== 0);
   const scaffoldSmokeOk =
     buildScaffoldResult.code === 0 &&
     buildScaffoldResult.stdout.includes('"status": "dry-run"') &&
@@ -427,8 +447,20 @@ async function main() {
         expected: 'dry-run archive hand-tuned route without writing route files'
       },
       {
+        script: referenceResult.script,
+        status: referenceResult.code === 0 ? 'ok' : 'failed'
+      },
+      {
         script: skillResult.script,
         status: skillResult.code === 0 ? 'ok' : 'failed'
+      },
+      {
+        script: craftingAffixResult.script,
+        status: craftingAffixResult.code === 0 ? 'ok' : 'failed'
+      },
+      {
+        script: regexAffixResult.script,
+        status: regexAffixResult.code === 0 ? 'ok' : 'failed'
       },
       {
         script: marketResult.script,

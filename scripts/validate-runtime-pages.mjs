@@ -122,6 +122,10 @@ function pageTextIncludes(token) {
   return (_dataset, pageText) => pageText.includes(token) ? null : `page text expected to include ${token}`;
 }
 
+function pageTextExcludes(token) {
+  return (_dataset, pageText) => pageText.includes(token) ? `page text expected to exclude ${token}` : null;
+}
+
 function runtimeChecks() {
   return [
     {
@@ -393,6 +397,211 @@ function runtimeChecks() {
         equals('buildListVisibleCount', '0'),
         equals('buildListFilterRoute', 'ready'),
         pageTextIncludes('没有符合筛选条件的 BD')
+      ]
+    },
+    {
+      id: 'gear-crafting',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingVersion', 's05-tree-4.5'),
+        equals('gearCraftingAffixSource', 'poe2db-modifiers-calc'),
+        atLeast('gearCraftingAffixCatalogCount', 3000),
+        atLeast('gearCraftingAffixCatalogFetchedClasses', 20),
+        atLeast('gearCraftingBaseCount', 2000),
+        atLeast('gearCraftingModPoolCount', 3000),
+        atLeast('gearCraftingVisibleModCount', 6),
+        equals('gearCraftingRarity', '白板'),
+        equals('gearCraftingCurrentAffixCount', '0'),
+        atLeast('gearCraftingRouteLineCount', 6),
+        pageTextIncludes('装备制作模拟器'),
+        pageTextIncludes('当前物品'),
+        pageTextIncludes('Mod Pool'),
+        pageTextIncludes('目标需求'),
+        pageTextIncludes('AI 实操路线'),
+        pageTextIncludes('生成制作步骤'),
+        pageTextExcludes('添加当前词条'),
+        pageTextExcludes('选择目标词条'),
+        pageTextExcludes('镶嵌/符文效果'),
+        pageTextIncludes('PoE2DB ModifiersCalc'),
+        pageTextIncludes('T1')
+      ]
+    },
+    {
+      id: 'gear-crafting-mod-actions',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      actions: [
+        { type: 'click', selector: '[data-select-mod-group]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'waitForDataset', key: 'gearCraftingCurrentAffixCount', value: '1' },
+        { type: 'click', selector: '[data-add-bucket="required"]' },
+        { type: 'waitForDataset', key: 'gearCraftingRequiredCount', value: '1' },
+        { type: 'click', selector: '[data-add-bucket="blocked"]' },
+        { type: 'waitForDataset', key: 'gearCraftingBlockedCount', value: '1' },
+        { type: 'click', selector: '#generateRouteBtn' },
+        { type: 'click', selector: '#copyRouteBtn' }
+      ],
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingCurrentAffixCount', '1'),
+        equals('gearCraftingRequiredCount', '1'),
+        equals('gearCraftingBlockedCount', '1'),
+        oneOf('gearCraftingRarity', ['魔法', '稀有']),
+        pageTextIncludes('缺失必须词'),
+        pageTextIncludes('当前已命中阻塞词')
+      ]
+    },
+    {
+      id: 'gear-crafting-selectors-and-slot-cap',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      actions: [
+        { type: 'selectOption', selector: '#modKindFilter', value: 'prefix' },
+        { type: 'selectOption', selector: '#craftableFilter', value: 'affix' },
+        { type: 'click', selector: '[data-select-mod-group]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'waitForDataset', key: 'gearCraftingCurrentPrefixCount', value: '3' },
+        { type: 'click', selector: '[data-add-bucket="current"]' },
+        { type: 'waitForDataset', key: 'gearCraftingSlotWarning' },
+        { type: 'fill', selector: '#modSearchInput', value: '闪电 伤害' },
+        { type: 'click', selector: '[data-select-mod-group]' },
+        { type: 'click', selector: '[data-add-bucket="required"]' },
+        { type: 'waitForDataset', key: 'gearCraftingRequiredCount', value: '1' }
+      ],
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingCurrentPrefixCount', '3'),
+        equals('gearCraftingRequiredCount', '1'),
+        equals('gearCraftingRarity', '稀有'),
+        includes('gearCraftingSlotWarning', '已经满 3 条'),
+        pageTextIncludes('空间冲突')
+      ]
+    },
+    {
+      id: 'gear-crafting-single-mod-pool-entry',
+      path: '/tools/gear-crafting.html',
+      waitFor: 'gearCraftingReady',
+      asserts: [
+        equals('gearCraftingReady', 'true'),
+        equals('gearCraftingCurrentAffixCount', '0'),
+        equals('gearCraftingCurrentPrefixCount', '0'),
+        equals('gearCraftingCurrentSuffixCount', '0'),
+        equals('gearCraftingRarity', '白板'),
+        pageTextExcludes('添加当前词条'),
+        pageTextExcludes('选择目标词条'),
+        pageTextExcludes('没有匹配前/后缀词条')
+      ]
+    },
+    {
+      id: 'regex-search',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      asserts: [
+        equals('regexSearchReady', 'true'),
+        equals('regexSearchSourceType', 'local-community-seed'),
+        equals('regexSearchEntryCount', '4'),
+        equals('regexSearchVisibleCount', '4'),
+        atLeast('regexSearchTotalCopies', 500),
+        equals('regexSearchCategoryFilter', 'all'),
+        equals('regexSearchSort', 'trending'),
+        equals('regexSearchLang', 'zhCN'),
+        equals('regexBuilderReady', 'true'),
+        includes('regexBuilderCatalogFile', 'affixes-poe2db-4.5.json'),
+        atLeast('regexBuilderCatalogGroupCount', 100),
+        atLeast('regexBuilderWaystoneGroupCount', 1),
+        atLeast('regexBuilderTabletGroupCount', 1),
+        equals('regexBuilderCategory', 'waystone'),
+        pageTextIncludes('正则搜索'),
+        pageTextIncludes('红图避开常见暴毙词'),
+        pageTextIncludes('复制最多'),
+        pageTextIncludes('本地样例')
+      ]
+    },
+    {
+      id: 'regex-search-filters-copy-language',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-category="tablet"]' },
+        { type: 'waitForDataset', key: 'regexSearchCategoryFilter', value: 'tablet' },
+        { type: 'click', selector: '[data-sort="copies"]' },
+        { type: 'waitForDataset', key: 'regexSearchSort', value: 'copies' },
+        { type: 'click', selector: '[data-copy-regex]' },
+        { type: 'waitForDataset', key: 'regexSearchCopyStatus' },
+        { type: 'click', selector: '[data-lang="en"]' },
+        { type: 'waitForDataset', key: 'regexSearchLang', value: 'en' }
+      ],
+      asserts: [
+        equals('regexSearchReady', 'true'),
+        equals('regexSearchCategoryFilter', 'tablet'),
+        equals('regexSearchVisibleCount', '2'),
+        equals('regexSearchSort', 'copies'),
+        oneOf('regexSearchCopyStatus', ['copied', 'failed']),
+        equals('regexSearchLang', 'en'),
+        equals('regexSearchUiLocalized', 'Regex Search'),
+        pageTextIncludes('Regex Search'),
+        pageTextIncludes('Tablet search: Breach density')
+      ]
+    },
+    {
+      id: 'regex-search-language-keeps-entries',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-lang="en"]' },
+        { type: 'waitForDataset', key: 'regexSearchLang', value: 'en' }
+      ],
+      asserts: [
+        equals('regexSearchReady', 'true'),
+        equals('regexSearchVisibleCount', '4'),
+        pageTextIncludes('Regex Search'),
+        pageTextIncludes('Tablet search: Breach density'),
+        pageTextIncludes('Reflect|Recovery.*reduced|Critical.*extra|Monsters.*Speed'),
+        pageTextIncludes('Breach|Pack Size|Rare Monsters')
+      ]
+    },
+    {
+      id: 'regex-search-builder-waystone',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-regex-mode="builder"]' },
+        { type: 'click', selector: '[data-builder-option]' },
+        { type: 'waitForDataset', key: 'regexBuilderSelectedCount', value: '1' }
+      ],
+      asserts: [
+        equals('regexBuilderReady', 'true'),
+        equals('regexBuilderCategory', 'waystone'),
+        atLeast('regexBuilderCatalogGroupCount', 100),
+        atLeast('regexBuilderWaystoneGroupCount', 30),
+        atLeast('regexBuilderOutputLength', 1),
+        includes('regexBuilderOutputEn', '.*'),
+        pageTextIncludes('简体'),
+        pageTextIncludes('English'),
+        pageTextIncludes('上传正则')
+      ]
+    },
+    {
+      id: 'regex-search-builder-tablet',
+      path: '/tools/regex-search.html',
+      waitFor: 'regexSearchReady',
+      actions: [
+        { type: 'click', selector: '[data-regex-mode="builder"]' },
+        { type: 'click', selector: '[data-builder-category="tablet"]' },
+        { type: 'waitForDataset', key: 'regexBuilderCategory', value: 'tablet' },
+        { type: 'click', selector: '[data-builder-option]' },
+        { type: 'waitForDataset', key: 'regexBuilderSelectedCount', value: '1' }
+      ],
+      asserts: [
+        equals('regexBuilderReady', 'true'),
+        equals('regexBuilderCategory', 'tablet'),
+        atLeast('regexBuilderTabletGroupCount', 70),
+        atLeast('regexBuilderOutputLength', 1),
+        includes('regexBuilderOutputEn', '.*')
       ]
     },
     {

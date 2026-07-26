@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "sourceType": "local-community-seed",
+  "updatedAt": "2026-07-26",
+  "versionLabels": ["0.1", "0.2", "0.3", "0.4"],
+  "categories": ["waystone", "tablet"],
+  "locales": ["zhCN", "zhTW", "en"],
+  "entries": [
+    {
+      "id": "map-no-rippy-basic-cn",
+      "version": "0.4",
+      "category": "waystone",
+      "title": {
+        "zhCN": "红图避开常见暴毙词",
+        "zhTW": "紅圖避開常見暴斃詞",
+        "en": "Red maps: avoid common lethal mods"
+      },
+      "regex": {
+        "zhCN": "反射|回复.*降低|暴击.*额外|怪物.*速度",
+        "zhTW": "反射|回復.*降低|暴擊.*額外|怪物.*速度",
+        "en": "Reflect|Recovery.*reduced|Critical.*extra|Monsters.*Speed"
+      },
+      "author": "local-seed",
+      "likes": 46,
+      "copies": 238,
+      "comments": 5,
+      "createdAt": "2026-07-22",
+      "updatedAt": "2026-07-24",
+      "tags": ["red-map", "safe-roll", "cn"],
+      "notes": {
+        "zhCN": "用于先筛掉反射、回复压制和高爆发组合；进图前仍要看地图稀有度和个人抗性。",
+        "zhTW": "用於先篩掉反射、回復壓制和高爆發組合；進圖前仍要看地圖稀有度和個人抗性。",
+        "en": "Filters reflection, recovery pressure, and bursty map lines. Still review rarity and your defenses in game."
+      }
+    },
+    {
+      "id": "tablet-breach-density-global",
+      "version": "0.4",
+      "category": "tablet",
+      "title": {
+        "zhCN": "碑牌找裂隙密度",
+        "zhTW": "碑牌找裂隙密度",
+        "en": "Tablet search: Breach density"
+      },
+      "regex": {
+        "zhCN": "裂隙|怪群规模|稀有怪物",
+        "zhTW": "裂隙|怪群規模|稀有怪物",
+        "en": "Breach|Pack Size|Rare Monsters"
+      },
+      "author": "local-seed",
+      "likes": 39,
+      "copies": 181,
+      "comments": 3,
+      "createdAt": "2026-07-23",
+      "updatedAt": "2026-07-25",
+      "tags": ["tablet", "breach", "global"],
+      "notes": {
+        "zhCN": "国际服词条搜索示例，优先找裂隙和怪群规模。",
+        "zhTW": "國際服詞條搜尋範例，優先找裂隙和怪群規模。",
+        "en": "Example for global text search, prioritizing Breach and pack-size style tablet lines."
+      }
+    },
+    {
+      "id": "map-avoid-recovery-us",
+      "version": "0.3",
+      "category": "waystone",
+      "title": {
+        "zhCN": "英文地图避开回复压制",
+        "zhTW": "英文地圖避開回復壓制",
+        "en": "English maps: avoid recovery suppression"
+      },
+      "regex": {
+        "zhCN": "回复|再生|偷取",
+        "zhTW": "回復|再生|偷取",
+        "en": "Recovery|Regeneration|Leech"
+      },
+      "author": "local-seed",
+      "likes": 21,
+      "copies": 98,
+      "comments": 1,
+      "createdAt": "2026-07-20",
+      "updatedAt": "2026-07-20",
+      "tags": ["map", "us", "defense"],
+      "notes": {
+        "zhCN": "适合依赖回复、偷取或再生的构筑先做负面词筛查。",
+        "zhTW": "適合依賴回復、偷取或再生的構築先做負面詞篩查。",
+        "en": "Useful for builds that rely on recovery, leech, or regeneration."
+      }
+    },
+    {
+      "id": "tablet-expedition-danger",
+      "version": "0.2",
+      "category": "tablet",
+      "title": {
+        "zhCN": "韩服探险危险词提醒",
+        "zhTW": "韓服探險危險詞提醒",
+        "en": "Korean expedition danger-line reminder"
+      },
+      "regex": {
+        "zhCN": "免疫|反射|回复",
+        "zhTW": "免疫|反射|回復",
+        "en": "Immune|Reflect|Recovery"
+      },
+      "author": "local-seed",
+      "likes": 13,
+      "copies": 42,
+      "comments": 0,
+      "createdAt": "2026-07-18",
+      "updatedAt": "2026-07-19",
+      "tags": ["tablet", "expedition"],
+      "notes": {
+        "zhCN": "本地样例，不保证韩文客户端词条完整覆盖。",
+        "zhTW": "本地樣例，不保證韓文客戶端詞條完整覆蓋。",
+        "en": "Local sample only; does not guarantee full Korean client wording coverage."
+      }
+    }
+  ]
+}
