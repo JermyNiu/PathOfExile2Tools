@@ -5,6 +5,7 @@ import { stat } from 'node:fs/promises';
 import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import zlib from 'node:zlib';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const poeNinjaCache = new Map();
@@ -73,6 +74,16 @@ function contentType(filePath) {
     '.md': 'text/markdown; charset=utf-8',
     '.svg': 'image/svg+xml; charset=utf-8'
   }[ext] || 'application/octet-stream';
+}
+
+function acceptsGzip(request) {
+  return /\bgzip\b/i.test(request.headers['accept-encoding'] || '');
+}
+
+function cacheControl(filePath) {
+  const relativePath = path.relative(repoRoot, filePath);
+  if (/^(assets|data)\//.test(relativePath)) return 'public, max-age=3600';
+  return 'no-store';
 }
 
 async function handlePoeNinjaCurrencyProxy(request, response) {
@@ -202,9 +213,15 @@ function createServer() {
       }
       response.writeHead(200, {
         'content-type': contentType(resolvedFile),
-        'cache-control': 'no-store'
+        'cache-control': cacheControl(resolvedFile),
+        ...(acceptsGzip(request) && /\.(css|html|js|json|md|svg)$/i.test(resolvedFile) ? { 'content-encoding': 'gzip' } : {})
       });
-      createReadStream(resolvedFile).pipe(response);
+      const stream = createReadStream(resolvedFile);
+      if (acceptsGzip(request) && /\.(css|html|js|json|md|svg)$/i.test(resolvedFile)) {
+        stream.pipe(zlib.createGzip()).pipe(response);
+      } else {
+        stream.pipe(response);
+      }
     } catch (error) {
       response.writeHead(500, { 'content-type': 'text/plain; charset=utf-8' });
       response.end(error.message);
