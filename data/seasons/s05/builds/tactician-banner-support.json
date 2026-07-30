@@ -1,0 +1,2119 @@
+{
+  "id": "tactician-banner-support",
+  "season": "S05",
+  "versionId": "s05-tree-4.5",
+  "title": {
+    "zhCN": "战术家插旗辅助",
+    "zhTW": "戰術家插旗輔助",
+    "en": "Tactician Banner Support"
+  },
+  "class": {
+    "base": {
+      "zhCN": "佣兵",
+      "zhTW": "傭兵",
+      "en": "Mercenary"
+    },
+    "ascendancy": {
+      "zhCN": "战术家",
+      "zhTW": "戰術家",
+      "en": "Tactician"
+    }
+  },
+  "source": {
+    "mobalytics": "https://mobalytics.gg/poe-2/builds/bannerlord-support-tactician-ulfhednar",
+    "poe2hub": "https://poe2hub.net/builds/mercenary/tactician/",
+    "notes": "External search on 2026-07-30 found Ulfhednar's The BANNERLORD Support Tactician and broader Tactician pin/banner support references. Mobalytics full build data is Cloudflare protected in this environment, so this local build records a reviewable banner-support direction instead of claiming a copied passive tree or gear set."
+  },
+  "overview": {
+    "difficulty": {
+      "zhCN": "中高，组队辅助向",
+      "zhTW": "中高，組隊輔助向",
+      "en": "Medium-high, party support"
+    },
+    "budget": {
+      "zhCN": "先低预算成型，后续吃光环、精魂和生存装备",
+      "zhTW": "先低預算成型，後續吃光環、精魂和生存裝備",
+      "en": "Starts cheap, later wants aura, spirit, and survival gear"
+    },
+    "bestFor": {
+      "zhCN": [
+        "想在组队里做旗帜、光环、压制和控场辅助的玩家。",
+        "能接受自身输出不是主目标，把操作重点放在站位、插旗和队友覆盖上的玩家。",
+        "愿意等天赋树、装备和升华顺序继续复核，不把当前版本当成完整照抄作业的玩家。"
+      ],
+      "zhTW": [
+        "想在組隊裡做旗幟、光環、壓制和控場輔助的玩家。",
+        "能接受自身輸出不是主目標，把操作重點放在站位、插旗和隊友覆蓋上的玩家。",
+        "願意等天賦樹、裝備和昇華順序繼續複核，不把目前版本當成完整照抄作業的玩家。"
+      ],
+      "en": [
+        "Players who want to support a party with banners, auras, pressure, and control.",
+        "Players who accept that personal damage is secondary to positioning, banner uptime, and teammate coverage.",
+        "Players willing to treat this as a reviewed direction until passive tree, gear, and ascendancy order are fully verified."
+      ]
+    },
+    "strengths": {
+      "zhCN": [
+        "本地 PoE2DB 4.5 技能目录已确认战旗、抗争战旗、恐怖战旗三类 Banner 技能存在并有三语言名称。",
+        "玩法定位清楚：常驻旗帜/光环先保覆盖，需要爆发或危险机制时再主动插旗。",
+        "适合沉淀成组队辅助 BD，不和已有支援火力单人/召唤协同 BD 重叠。"
+      ],
+      "zhTW": [
+        "本地 PoE2DB 4.5 技能目錄已確認戰爭之旗、反抗之旗、恐懼之旗三類 Banner 技能存在並有三語言名稱。",
+        "玩法定位清楚：常駐旗幟/光環先保覆蓋，需要爆發或危險機制時再主動插旗。",
+        "適合沉澱成組隊輔助 BD，不和既有支援火力單人/召喚協同 BD 重疊。"
+      ],
+      "en": [
+        "The local PoE2DB 4.5 skill catalog verifies War Banner, Defiance Banner, and Dread Banner with three-language names.",
+        "The playstyle is clear: keep persistent banner/aura coverage first, then place banners actively for burst or danger windows.",
+        "It fits as a party-support build and does not overlap with the existing Supporting Fire solo/minion-synergy guide."
+      ]
+    },
+    "risks": {
+      "zhCN": [
+        "Mobalytics 完整配装和天赋数据当前无法直接抓取，不能声称已复刻 Bannerlord 原版。",
+        "旗帜辅助对队友站位和覆盖范围很敏感，单人开荒体验可能明显弱于输出 BD。",
+        "最终升华顺序、精魂预算、装备阈值和天赋路线还需要继续手动复核。"
+      ],
+      "zhTW": [
+        "Mobalytics 完整配裝和天賦資料目前無法直接抓取，不能聲稱已複刻 Bannerlord 原版。",
+        "旗幟輔助對隊友站位和覆蓋範圍很敏感，單人拓荒體驗可能明顯弱於輸出 BD。",
+        "最終昇華順序、精魂預算、裝備門檻和天賦路線還需要繼續手動複核。"
+      ],
+      "en": [
+        "Full Mobalytics gear and passive data could not be fetched directly, so this does not claim to reproduce the original Bannerlord setup.",
+        "Banner support depends heavily on teammate positioning and coverage, so solo leveling can feel weaker than a damage build.",
+        "Final ascendancy order, spirit budget, gear thresholds, and passive routes still need manual review."
+      ]
+    }
+  },
+  "guideArticle": {
+    "title": {
+      "zhCN": "插旗辅助怎么玩",
+      "zhTW": "插旗輔助怎麼玩",
+      "en": "How Banner Support Plays"
+    },
+    "intro": {
+      "zhCN": "这份 BD 先把插旗师辅助方向加入平台：职业是佣兵升战术家，核心是用战旗、抗争战旗、恐怖战旗和常驻光环给队友提供覆盖，同时用盾系/压迫类技能保自己站得住。当前版本是可复核资料页，不声明完整天赋树和装备已经照搬来源。",
+      "zhTW": "這份 BD 先把插旗師輔助方向加入平台：職業是傭兵昇戰術家，核心是用戰爭之旗、反抗之旗、恐懼之旗和常駐光環給隊友提供覆蓋，同時用盾系/壓迫類技能保自己站得住。目前版本是可複核資料頁，不宣稱完整天賦樹和裝備已經照搬來源。",
+      "en": "This build adds the banner-support direction to the platform: Mercenary into Tactician, using War Banner, Defiance Banner, Dread Banner, and persistent aura tools to cover teammates while shield/control skills keep the support alive. This is a reviewable guide page, not a claimed copy of a complete source tree or gear set."
+    },
+    "sections": [
+      {
+        "id": "party-role",
+        "title": {
+          "zhCN": "这不是输出 BD，是队伍放大器",
+          "zhTW": "這不是輸出 BD，是隊伍放大器",
+          "en": "This Is a Team Amplifier, Not a Damage Build"
+        },
+        "body": {
+          "zhCN": "插旗辅助的第一目标不是自己清图，而是让队友在关键范围内吃到旗帜、光环和控场收益。你要关注队友站位、首领阶段、危险词缀和旗帜覆盖，而不是单看自己的面板。",
+          "zhTW": "插旗輔助的第一目標不是自己清圖，而是讓隊友在關鍵範圍內吃到旗幟、光環和控場收益。你要關注隊友站位、首領階段、危險詞綴和旗幟覆蓋，而不是單看自己的面板。",
+          "en": "The first job is not personal clear. It is to make sure teammates receive banner, aura, and control value in the right area. Watch teammate position, boss phases, dangerous map mods, and banner coverage instead of your own sheet damage."
+        },
+        "checks": {
+          "zhCN": [
+            "队友吃不到范围时，先调整站位再考虑换技能。",
+            "首领爆发窗口前留好主动插旗节奏。",
+            "单人测试只验证生存和手感，不能代表组队收益。"
+          ],
+          "zhTW": [
+            "隊友吃不到範圍時，先調整站位再考慮換技能。",
+            "首領爆發窗口前留好主動插旗節奏。",
+            "單人測試只驗證生存和手感，不能代表組隊收益。"
+          ],
+          "en": [
+            "If teammates are outside coverage, fix positioning before changing skills.",
+            "Reserve active banner placement for boss burst windows.",
+            "Solo testing only checks survival and feel; it does not measure party value."
+          ]
+        }
+      },
+      {
+        "id": "banner-package",
+        "title": {
+          "zhCN": "三面旗帜各司其职",
+          "zhTW": "三面旗幟各司其職",
+          "en": "Each Banner Has a Job"
+        },
+        "body": {
+          "zhCN": "战旗先作为低阶核心旗帜，抗争战旗偏防御覆盖，恐怖战旗偏后期压制和进攻窗口。不要因为能带多面旗就乱按；先保证常驻覆盖，再决定哪面旗需要主动放下。",
+          "zhTW": "戰爭之旗先作為低階核心旗幟，反抗之旗偏防禦覆蓋，恐懼之旗偏後期壓制和進攻窗口。不要因為能帶多面旗就亂按；先保證常駐覆蓋，再決定哪面旗需要主動放下。",
+          "en": "War Banner is the early core banner, Defiance Banner is the defensive coverage tool, and Dread Banner is the later pressure/offense window. Do not press every banner randomly; keep persistent coverage first, then decide which one should be placed."
+        },
+        "checks": {
+          "zhCN": [
+            "战旗是早期就能开始熟悉的 Banner。",
+            "抗争战旗用于队伍需要更稳的防御窗口。",
+            "恐怖战旗等级更靠后，先标成后期复核项。"
+          ],
+          "zhTW": [
+            "戰爭之旗是早期就能開始熟悉的 Banner。",
+            "反抗之旗用於隊伍需要更穩的防禦窗口。",
+            "恐懼之旗等級更靠後，先標成後期複核項。"
+          ],
+          "en": [
+            "War Banner is the early banner to learn first.",
+            "Defiance Banner is for defensive party windows.",
+            "Dread Banner unlocks later and stays marked for late review."
+          ]
+        }
+      },
+      {
+        "id": "survival-first",
+        "title": {
+          "zhCN": "辅助先活着，才有覆盖",
+          "zhTW": "輔助先活著，才有覆蓋",
+          "en": "A Dead Support Gives No Coverage"
+        },
+        "body": {
+          "zhCN": "插旗师经常要站在队伍附近或机制边缘，生存优先级很高。架盾、盾墙、抗性、生命和护甲/闪避底子要先成立，再追更多输出型增益。",
+          "zhTW": "插旗師經常要站在隊伍附近或機制邊緣，生存優先級很高。展開護盾、盾牆、抗性、生命和護甲/閃避底子要先成立，再追更多輸出型增益。",
+          "en": "Banner support often stands near the party or on the edge of mechanics, so survival has high priority. Raise Shield, Shield Wall, resistances, life, and armor/evasion bases must work before chasing more offensive value."
+        },
+        "checks": {
+          "zhCN": [
+            "死亡多时先补抗性和生命，不先买纯增益装备。",
+            "需要贴近队友时，提前架盾或用盾墙创造安全时间。",
+            "每次换装后重新检查精魂、抗性和属性是否断档。"
+          ],
+          "zhTW": [
+            "死亡多時先補抗性和生命，不先買純增益裝備。",
+            "需要貼近隊友時，提前展開護盾或用盾牆創造安全時間。",
+            "每次換裝後重新檢查精魂、抗性和屬性是否斷檔。"
+          ],
+          "en": [
+            "When deaths are frequent, fix resistances and life before buying pure support power.",
+            "When you must stand near teammates, raise shield or use Shield Wall early.",
+            "After each gear swap, recheck spirit, resistances, and attributes."
+          ]
+        }
+      },
+      {
+        "id": "publish-boundary",
+        "title": {
+          "zhCN": "当前发布边界",
+          "zhTW": "目前發布邊界",
+          "en": "Current Publishing Boundary"
+        },
+        "body": {
+          "zhCN": "这页已经能进入 BD 列表作为方向入口，但还不是完整照抄攻略。下一步要补的是来源配置复核、升华点顺序、天赋树、装备阈值和组队实测收益。",
+          "zhTW": "這頁已經能進入 BD 列表作為方向入口，但還不是完整照抄攻略。下一步要補的是來源配置複核、昇華點順序、天賦樹、裝備門檻和組隊實測收益。",
+          "en": "This page can enter the build list as a direction entry, but it is not a complete copy guide yet. Next steps are source review, ascendancy order, passive tree, gear thresholds, and party testing."
+        },
+        "checks": {
+          "zhCN": [
+            "没有登记天赋树路线前，页面不提供天赋按钮。",
+            "没有真实行情和装备来源前，不给价格结论。",
+            "没有组队测试前，不把收益写成确定倍数。"
+          ],
+          "zhTW": [
+            "沒有登記天賦樹路線前，頁面不提供天賦按鈕。",
+            "沒有真實行情和裝備來源前，不給價格結論。",
+            "沒有組隊測試前，不把收益寫成確定倍數。"
+          ],
+          "en": [
+            "No passive-tree buttons before route registration.",
+            "No price conclusions before real market and item sources.",
+            "No exact party multiplier claims before party testing."
+          ]
+        }
+      }
+    ]
+  },
+  "evidenceSummary": {
+    "title": {
+      "zhCN": "资料可信度",
+      "zhTW": "資料可信度",
+      "en": "Evidence Quality"
+    },
+    "intro": {
+      "zhCN": "当前先用外部搜索确认方向，用本地 PoE2DB 技能目录确认技能名；完整配装和路线仍待复核。",
+      "zhTW": "目前先用外部搜尋確認方向，用本地 PoE2DB 技能目錄確認技能名；完整配裝和路線仍待複核。",
+      "en": "External search confirms the direction, and the local PoE2DB skill catalog confirms skill names. Full gear and routes still need review."
+    },
+    "checks": [
+      {
+        "id": "external-direction",
+        "status": {
+          "zhCN": "方向已找到",
+          "zhTW": "方向已找到",
+          "en": "Direction found"
+        },
+        "evidence": {
+          "zhCN": "搜索结果包含 Ulfhednar 的 The BANNERLORD Support Tactician，并描述为装备、技能、天赋、玩法和机制指南。",
+          "zhTW": "搜尋結果包含 Ulfhednar 的 The BANNERLORD Support Tactician，並描述為裝備、技能、天賦、玩法和機制指南。",
+          "en": "Search results include Ulfhednar's The BANNERLORD Support Tactician and describe it as a gear, skill, passive, gameplay, and mechanics guide."
+        },
+        "limitation": {
+          "zhCN": "Mobalytics 完整页面在当前环境被 Cloudflare 挡住，不能自动抽取配置。",
+          "zhTW": "Mobalytics 完整頁面在目前環境被 Cloudflare 擋住，不能自動抽取配置。",
+          "en": "The full Mobalytics page is blocked by Cloudflare in this environment, so its setup cannot be extracted automatically."
+        },
+        "nextAction": {
+          "zhCN": "后续用浏览器人工打开来源页，补技能链接、装备和天赋树。",
+          "zhTW": "後續用瀏覽器人工打開來源頁，補技能連線、裝備和天賦樹。",
+          "en": "Open the source manually later and fill links, gear, and passive tree."
+        },
+        "severity": "warning"
+      },
+      {
+        "id": "local-skill-catalog",
+        "status": {
+          "zhCN": "技能名已验证",
+          "zhTW": "技能名已驗證",
+          "en": "Skill names verified"
+        },
+        "evidence": {
+          "zhCN": "本地 `skills/snapshots/catalog-poe2db-4.5-complete.json` 已包含战旗、抗争战旗、恐怖战旗、压迫气场、持久鏖战、架盾和盾墙。",
+          "zhTW": "本地 `skills/snapshots/catalog-poe2db-4.5-complete.json` 已包含戰爭之旗、反抗之旗、恐懼之旗、壓倒性的存在、損耗、展開護盾和盾牆。",
+          "en": "The local `skills/snapshots/catalog-poe2db-4.5-complete.json` contains War Banner, Defiance Banner, Dread Banner, Overwhelming Presence, Attrition, Raise Shield, and Shield Wall."
+        },
+        "limitation": {
+          "zhCN": "技能存在不等于链接兼容性、升华顺序和装备阈值已经验证。",
+          "zhTW": "技能存在不等於連線相容性、昇華順序和裝備門檻已經驗證。",
+          "en": "Skill existence does not prove link compatibility, ascendancy order, or gear thresholds."
+        },
+        "nextAction": {
+          "zhCN": "补 PoE2DB 技能详情和组队实测记录。",
+          "zhTW": "補 PoE2DB 技能詳情和組隊實測記錄。",
+          "en": "Add PoE2DB skill-detail evidence and party test notes."
+        },
+        "severity": "ok"
+      }
+    ]
+  },
+  "guideStrategy": {
+    "coreLoop": {
+      "title": "核心循环",
+      "steps": [
+        "进图前确认队友站位和主要危险来源。",
+        "保持战旗或抗争战旗的常驻覆盖，不为了追按钮频率丢掉范围。",
+        "首领爆发、稀有怪压场或队友要交爆发时，再主动插旗。",
+        "用压迫气场、持久鏖战、盾墙和架盾处理自己生存与控场。",
+        "每次换装备后重新检查精魂、抗性、属性和移动速度。"
+      ]
+    },
+    "powerSignals": [
+      {
+        "id": "coverage-stable",
+        "title": "覆盖稳定",
+        "good": "队友大多数战斗都在旗帜或光环范围内，不需要频繁回头等你。",
+        "check": "观察首领和高压稀有怪时，队友是否能自然站进覆盖区。"
+      },
+      {
+        "id": "support-survives",
+        "title": "辅助站得住",
+        "good": "你能在机制边缘维持覆盖，不因为贴近队友就连续死亡。",
+        "check": "死亡日志先看抗性、生命、护甲/闪避和是否提前架盾。"
+      },
+      {
+        "id": "burst-window",
+        "title": "爆发窗口清楚",
+        "good": "队友交爆发前，你能提前完成插旗和控场，而不是事后补按钮。",
+        "check": "把插旗动作放在首领可输出窗口前一拍。"
+      }
+    ],
+    "failureDiagnosis": [
+      {
+        "symptom": "队友说吃不到辅助",
+        "likelyCause": "站位太散，或者你把旗帜放在了过期战场。",
+        "fix": "先跟主输出队友行动，把旗帜放在他们接下来要打的位置。",
+        "priority": "高"
+      },
+      {
+        "symptom": "自己频繁死亡",
+        "likelyCause": "辅助装备过早追增益，生命、抗性和防御层不足。",
+        "fix": "回退到生命抗性装，先保证架盾和盾墙能争取反应时间。",
+        "priority": "高"
+      },
+      {
+        "symptom": "按钮很多但收益不明显",
+        "likelyCause": "常驻覆盖、插旗窗口和队友爆发节奏没有对齐。",
+        "fix": "减少功能按钮，先练战旗/抗争战旗覆盖和一套固定爆发流程。",
+        "priority": "中"
+      }
+    ],
+    "decisionRules": [
+      {
+        "id": "party-first",
+        "title": "组队优先规则",
+        "rules": [
+          "队友覆盖优先于个人输出。",
+          "队伍死亡多时优先抗争战旗和生存装备。",
+          "队伍输出窗口明确后再追恐怖战旗和进攻型细节。"
+        ]
+      },
+      {
+        "id": "solo-boundary",
+        "title": "单人边界",
+        "rules": [
+          "单人只用于练站位和保命，不用单人速度评价这个 BD 的强度。",
+          "没有固定队友时，先保留一个过渡输出技能。",
+          "没有完整天赋树前，不把它推荐为最省心开荒。"
+        ]
+      }
+    ]
+  },
+  "executionPlan": {
+    "title": "插旗辅助执行路线",
+    "intro": "先按可执行阶段拆分。当前没有登记天赋树路线，所以阶段只描述技能、装备和验证动作。",
+    "stages": [
+      {
+        "stageId": "party-setup",
+        "mainAction": "先拿战旗并熟悉覆盖范围，用过渡输出技能完成剧情和早期练级。",
+        "buyFirst": [
+          "移动速度鞋",
+          "生命加抗性的防具",
+          "能维持过渡输出的武器"
+        ],
+        "stopLine": "战旗能稳定覆盖队友，自己不频繁死亡，就不在低等级装备上深做。",
+        "fallback": "如果单人推进慢，保留弩、榴弹或图腾过渡，不强行只靠旗帜。",
+        "nextGate": "有固定队友或至少能稳定跟随队伍后，再进入多旗帜辅助框架。"
+      },
+      {
+        "stageId": "banner-core",
+        "mainAction": "加入抗争战旗、压迫气场和基础生存工具，形成常驻覆盖加主动插旗节奏。",
+        "buyFirst": [
+          "精魂或保留压力相关装备",
+          "补满元素抗性的戒指和腰带",
+          "生命、防御和移动速度底子"
+        ],
+        "stopLine": "如果精魂、抗性或移动速度因为换装断档，先停手回退。",
+        "fallback": "队友吃不到覆盖时先调整站位；自己死得多时减少进攻按钮，补架盾和盾墙。",
+        "nextGate": "常驻覆盖稳定、自己能活、队友爆发窗口能吃到插旗后，再考虑恐怖战旗后期配置。"
+      },
+      {
+        "stageId": "endgame-review",
+        "mainAction": "围绕恐怖战旗、队伍爆发窗口和高压地图词缀做后期复核。",
+        "buyFirst": [
+          "更高生命和防御底子",
+          "服务精魂/保留的高价值装备",
+          "队伍需要的诅咒、光环或辅助细节"
+        ],
+        "stopLine": "没有组队实测前，不把任何收益写成固定倍数。",
+        "fallback": "高压内容先降图或换防御装，确认旗帜覆盖和生存都稳定后再追输出型辅助。",
+        "nextGate": "补完来源配置、天赋树、装备阈值和组队实测后，才进入完整照抄版。"
+      }
+    ]
+  },
+  "routes": {
+    "guide": "builds/tactician-banner-support.html",
+    "tree": "",
+    "note": "Passive tree is intentionally not registered until a reviewed source route is available."
+  },
+  "passivePlan": {
+    "title": {
+      "zhCN": "天赋方向",
+      "zhTW": "天賦方向",
+      "en": "Passive Direction"
+    },
+    "intro": {
+      "zhCN": "当前还没有登记可照抄天赋树，但点法方向可以先明确：先保证佣兵开荒和自身生存，再围绕战术家的旗帜、压制/钉身、光环范围和组队覆盖去补核心圈。不要在来源路线复核前把它当成最终点法。",
+      "zhTW": "目前還沒有登記可照抄天賦樹，但點法方向可以先明確：先保證傭兵拓荒和自身生存，再圍繞戰術家的旗幟、壓制/釘身、光環範圍和組隊覆蓋去補核心圈。不要在來源路線複核前把它當成最終點法。",
+      "en": "No copy-ready passive tree is registered yet, but the direction is clear: secure Mercenary leveling and personal survival first, then build around Tactician banners, pin/control, aura radius, and party coverage. Do not treat this as the final tree before source-route review."
+    },
+    "cards": [
+      {
+        "id": "campaign-spine",
+        "title": {
+          "zhCN": "剧情骨架：先能活着跟队",
+          "zhTW": "劇情骨架：先能活著跟隊",
+          "en": "Campaign Spine: Stay Alive and Keep Up"
+        },
+        "body": {
+          "zhCN": "前期先拿佣兵附近的生命、防御、移动/属性和过渡输出效率。插旗辅助不是前期就删光输出技能的玩法，天赋也不能只追辅助范围而放弃剧情推进。",
+          "zhTW": "前期先拿傭兵附近的生命、防禦、移動/屬性和過渡輸出效率。插旗輔助不是前期就刪光輸出技能的玩法，天賦也不能只追輔助範圍而放棄劇情推進。",
+          "en": "Early points should take nearby life, defenses, movement/attributes, and enough transition damage. Banner support should not delete all damage tools early, and the tree should not chase support radius while ruining campaign progress."
+        },
+        "checks": {
+          "zhCN": [
+            "跟不上队友先补移动和路径效率。",
+            "剧情死亡多先补生命、防御和抗性压力。",
+            "输出完全不够时，保留过渡输出天赋，不急着全转辅助。"
+          ],
+          "zhTW": [
+            "跟不上隊友先補移動和路徑效率。",
+            "劇情死亡多先補生命、防禦和抗性壓力。",
+            "輸出完全不夠時，保留過渡輸出天賦，不急著全轉輔助。"
+          ],
+          "en": [
+            "If you cannot keep up, improve movement and pathing efficiency.",
+            "If campaign deaths are frequent, take life, defense, and resistance pressure first.",
+            "If damage is too low, keep transition damage passives instead of rushing full support."
+          ]
+        }
+      },
+      {
+        "id": "banner-core",
+        "title": {
+          "zhCN": "核心圈：旗帜、范围和持续",
+          "zhTW": "核心圈：旗幟、範圍和持續",
+          "en": "Core Wheels: Banners, Radius, Duration"
+        },
+        "body": {
+          "zhCN": "成型后优先围绕旗帜效果、技能效果范围、持续时间、精魂/保留压力和队友覆盖来取点。目标不是让自己多打一段伤害，而是提高战旗、抗争战旗、恐怖战旗的有效覆盖时间。",
+          "zhTW": "成型後優先圍繞旗幟效果、技能效果範圍、持續時間、精魂/保留壓力和隊友覆蓋來取點。目標不是讓自己多打一段傷害，而是提高戰爭之旗、反抗之旗、恐懼之旗的有效覆蓋時間。",
+          "en": "Once online, prioritize banner effect, area of effect, duration, spirit/reservation pressure, and teammate coverage. The goal is not personal damage; it is higher effective uptime for War Banner, Defiance Banner, and Dread Banner."
+        },
+        "checks": {
+          "zhCN": [
+            "队友吃不到范围，就优先范围和站位。",
+            "爆发窗口错过，就优先持续/冷却/操作节奏复核。",
+            "精魂不够时，不要继续追加次要光环。"
+          ],
+          "zhTW": [
+            "隊友吃不到範圍，就優先範圍和站位。",
+            "爆發窗口錯過，就優先持續/冷卻/操作節奏複核。",
+            "精魂不夠時，不要繼續追加次要光環。"
+          ],
+          "en": [
+            "If teammates miss coverage, prioritize radius and positioning.",
+            "If burst windows are missed, review duration, cooldown, and input rhythm.",
+            "If spirit is short, stop adding secondary auras."
+          ]
+        }
+      },
+      {
+        "id": "defense-control",
+        "title": {
+          "zhCN": "防御控场：辅助先别倒",
+          "zhTW": "防禦控場：輔助先別倒",
+          "en": "Defense and Control: Do Not Drop Coverage"
+        },
+        "body": {
+          "zhCN": "插旗师常站在队友附近或机制边缘，所以天赋要给足生命、防御、盾牌相关和控场容错。自己倒地时，所有旗帜收益都归零。",
+          "zhTW": "插旗師常站在隊友附近或機制邊緣，所以天賦要給足生命、防禦、盾牌相關和控場容錯。自己倒地時，所有旗幟收益都歸零。",
+          "en": "Banner support often stands near teammates or on mechanic edges, so the tree needs enough life, defenses, shield value, and control forgiveness. If the support dies, banner value drops to zero."
+        },
+        "checks": {
+          "zhCN": [
+            "死亡多先补生命和盾牌防御。",
+            "被怪压场先补控场和减速/钉身相关方向。",
+            "不要为了个人输出牺牲防御骨架。"
+          ],
+          "zhTW": [
+            "死亡多先補生命和盾牌防禦。",
+            "被怪壓場先補控場和減速/釘身相關方向。",
+            "不要為了個人輸出犧牲防禦骨架。"
+          ],
+          "en": [
+            "If deaths are frequent, take life and shield defense first.",
+            "If enemies overrun the party, add control, slow, or pin-related direction.",
+            "Do not sacrifice the defensive spine for personal damage."
+          ]
+        }
+      }
+    ],
+    "nextAction": {
+      "zhCN": "下一步需要人工打开来源 BD，把升华点顺序和阶段天赋路线登记成正式 tree route。",
+      "zhTW": "下一步需要人工打開來源 BD，把昇華點順序和階段天賦路線登記成正式 tree route。",
+      "en": "Next, manually open the source build and register ascendancy order plus staged passive routes as formal tree routes."
+    }
+  },
+  "buildSheet": {
+    "finalGear": [
+      {
+        "slot": "武器",
+        "required": [
+          "不强求输出武器，先保证属性门槛不断",
+          "有需要时保留一把过渡输出武器用于单人补伤"
+        ],
+        "best": [
+          "+ 所有技能或关键辅助技能等级",
+          "精神/保留压力相关收益",
+          "力量、敏捷、智力缺口"
+        ],
+        "avoid": [
+          "只加个人输出但让旗帜/光环开不起来",
+          "换武器后属性不够导致技能失效"
+        ]
+      },
+      {
+        "slot": "盾牌 / 副手",
+        "required": [
+          "生命",
+          "元素抗性",
+          "护甲、闪避或能量护盾底子"
+        ],
+        "best": [
+          "格挡或盾牌防御收益",
+          "精神或保留压力补强",
+          "属性补缺"
+        ],
+        "avoid": [
+          "无防御纯输出副手",
+          "导致架盾/盾墙手感变差的换装"
+        ]
+      },
+      {
+        "slot": "头盔",
+        "required": [
+          "生命",
+          "元素抗性",
+          "缺口属性"
+        ],
+        "best": [
+          "精神",
+          "技能等级或光环/旗帜相关收益",
+          "高防御底子"
+        ],
+        "avoid": [
+          "为了单条增益丢两条抗性",
+          "低防御低生命的花哨词缀"
+        ]
+      },
+      {
+        "slot": "胸甲",
+        "required": [
+          "高生命",
+          "高防御底子",
+          "至少一到两条抗性"
+        ],
+        "best": [
+          "护甲/闪避/能盾其中一条足够高",
+          "受到伤害缓冲相关收益",
+          "空前后缀方便补抗"
+        ],
+        "avoid": [
+          "纯辅助暗金但本体站不住",
+          "换胸后抗性大断档"
+        ]
+      },
+      {
+        "slot": "手套",
+        "required": [
+          "生命",
+          "抗性",
+          "属性补缺"
+        ],
+        "best": [
+          "施放/攻击手感",
+          "队伍需要的曝光、破甲或控场收益",
+          "空词缀可补抗"
+        ],
+        "avoid": [
+          "只追个人伤害",
+          "没有生命抗性的低价值手套"
+        ]
+      },
+      {
+        "slot": "鞋",
+        "required": [
+          "移动速度",
+          "生命",
+          "抗性"
+        ],
+        "best": [
+          "高移动速度",
+          "免疫/降低异常压力",
+          "属性补缺"
+        ],
+        "avoid": [
+          "无移动速度",
+          "为了单条辅助词跟不上队友"
+        ]
+      },
+      {
+        "slot": "腰带",
+        "required": [
+          "生命",
+          "抗性",
+          "力量或其它属性"
+        ],
+        "best": [
+          "药剂相关收益",
+          "高抗性总量",
+          "空词缀方便补缺"
+        ],
+        "avoid": [
+          "只给输出不补生存",
+          "换腰带后属性门槛断"
+        ]
+      },
+      {
+        "slot": "戒指",
+        "required": [
+          "补满元素抗性",
+          "属性门槛",
+          "生命或资源"
+        ],
+        "best": [
+          "精神/保留相关收益",
+          "诅咒或光环需求补强",
+          "双抗加属性"
+        ],
+        "avoid": [
+          "没有抗性的纯功能戒指",
+          "两枚戒指都不补属性"
+        ]
+      },
+      {
+        "slot": "项链",
+        "required": [
+          "关键属性门槛",
+          "生命或防御",
+          "精神/保留压力"
+        ],
+        "best": [
+          "+ 技能等级",
+          "光环、旗帜、范围或持续相关收益",
+          "后期可承担核心功能词缀"
+        ],
+        "avoid": [
+          "没有确认来源就买昂贵终局项链",
+          "换项链后技能属性不够"
+        ]
+      }
+    ],
+    "finalPassive": [
+      {
+        "group": "战术家升华",
+        "take": [
+          "旗帜效果和旗帜覆盖相关升华优先",
+          "Pin/控场/队伍增益相关升华优先",
+          "自身防御或团队安全收益优先于个人输出"
+        ],
+        "reason": "这套是 Banner support，升华点必须服务旗帜覆盖和队伍收益。"
+      },
+      {
+        "group": "最终天赋主干",
+        "take": [
+          "技能效果范围 / AoE",
+          "持续时间 / Duration",
+          "光环或增益效果",
+          "精神、保留、魔力回复或资源压力",
+          "生命、防御、盾牌相关节点",
+          "移动/属性补点"
+        ],
+        "reason": "最终树目标是让旗帜覆盖更大、更久，同时辅助自己站得住。"
+      },
+      {
+        "group": "诅咒和团队增伤",
+        "take": [
+          "按队伍伤害类型选择导电、易燃或其它诅咒方向",
+          "需要安全时优先衰弱、时空锁链",
+          "需要爆发时再补进攻诅咒和曝光"
+        ],
+        "reason": "辅助收益要跟队伍主输出类型绑定，不是固定每队都一样。"
+      },
+      {
+        "group": "不要点",
+        "take": [
+          "纯个人攻击/投射物伤害",
+          "不能提高旗帜、光环、诅咒或生存的远路伤害圈",
+          "会牺牲核心防御骨架的贪伤路径"
+        ],
+        "reason": "这些点会把辅助点成四不像。"
+      }
+    ],
+    "finalSkillGems": [
+      {
+        "group": "旗帜核心",
+        "skills": [
+          "战旗 / War Banner",
+          "抗争战旗 / Defiance Banner",
+          "恐怖战旗 / Dread Banner"
+        ],
+        "supports": [
+          "清晰 I / Clarity I",
+          "精准 I / Precision I",
+          "活力 I / Vitality I"
+        ],
+        "note": "战旗负责早期和常规覆盖；抗争战旗偏防御；恐怖战旗放进后期爆发/压制窗口。"
+      },
+      {
+        "group": "诅咒光环",
+        "skills": [
+          "诅咒光环 / Blasphemy",
+          "导电 / Conductivity",
+          "易燃 / Flammability",
+          "衰弱 / Enfeeble",
+          "时空锁链 / Temporal Chains"
+        ],
+        "supports": [
+          "按队友主伤害选诅咒",
+          "闪电队友用导电",
+          "火焰队友用易燃",
+          "高压图用衰弱或时空锁链"
+        ],
+        "note": "不要所有诅咒都塞满，按队伍需求和保留压力取舍。"
+      },
+      {
+        "group": "自保和控场",
+        "skills": [
+          "压迫气场 / Overwhelming Presence",
+          "持久鏖战 / Attrition",
+          "架盾 / Raise Shield",
+          "盾墙 / Shield Wall",
+          "摧甲重击 / Armour Breaker",
+          "日曜球 / Solar Orb"
+        ],
+        "supports": [
+          "瘫痪 / Maim",
+          "致盲 I / Blind I",
+          "火焰曝露 / Fire Exposure"
+        ],
+        "note": "自己死得多就先补架盾、盾墙和防御辅助；队伍需要破甲/曝光时再补工具技能。"
+      }
+    ],
+    "finalJewels": [
+      {
+        "type": "天赋珠宝 / 普通珠宝",
+        "attributes": [
+          "技能效果范围",
+          "光环或增益效果",
+          "持续时间",
+          "生命或防御",
+          "魔力回复、精神、保留压力相关收益"
+        ],
+        "avoid": [
+          "纯个人伤害",
+          "只服务过渡输出、不服务旗帜覆盖",
+          "没有生存也没有范围/持续的低价值词"
+        ]
+      },
+      {
+        "type": "后期特化珠宝",
+        "attributes": [
+          "队伍主伤害对应的诅咒/曝光收益",
+          "范围扩大或覆盖稳定",
+          "资源压力降低",
+          "盾牌、防御、异常抗性"
+        ],
+        "avoid": [
+          "没有固定队伍就买昂贵特化珠宝",
+          "为了理论增益牺牲实际站位和生存"
+        ]
+      },
+      {
+        "type": "属性补洞",
+        "attributes": [
+          "力量",
+          "敏捷",
+          "智力",
+          "元素抗性",
+          "缺口防御"
+        ],
+        "avoid": [
+          "装备换完才发现技能开不了",
+          "抗性没满就追功能词"
+        ]
+      }
+    ],
+    "mechanics": [
+      {
+        "id": "banner-bot",
+        "title": "核心机制：Banner-bot，不是单人输出",
+        "body": "这套应该按组队辅助理解：你负责把战旗、抗争战旗、恐怖战旗的覆盖放到队友实际输出的位置。常驻覆盖比个人伤害重要，主动插旗要对齐队友爆发和首领可输出窗口。",
+        "do": [
+          "默认跟主输出队友走，不站在队伍身后。",
+          "普通清图保常驻覆盖，首领爆发前主动插旗。",
+          "危险图词或队伍压力高时，优先抗争战旗和盾系自保。"
+        ],
+        "avoid": [
+          "把旗帜放在已经清完的旧战场。",
+          "为了多一个功能光环牺牲移动速度、抗性和生存。",
+          "用单人清图速度判断这个 BD 是否强。"
+        ]
+      },
+      {
+        "id": "resource-budget",
+        "title": "资源机制：精魂/保留先给核心旗帜",
+        "body": "插旗辅助最怕资源堆得很满但核心覆盖断档。战旗和抗争战旗优先级最高；恐怖战旗、压迫气场、持久鏖战、诅咒光环等内容要按队伍需求逐个加入。",
+        "do": [
+          "先保证一到两面核心旗帜稳定，再加次要光环。",
+          "每次换装备后重新检查精魂、属性、抗性。",
+          "按钮太多时先删个人输出和次要功能，不删核心旗帜。"
+        ],
+        "avoid": [
+          "精魂不够还硬开所有光环。",
+          "没有固定队友就追纯辅助终局配置。",
+          "把待复核链接当成已验证最终链接。"
+        ]
+      }
+    ],
+    "passiveRoadmap": [
+      {
+        "id": "campaign",
+        "title": "1. 剧情期：佣兵生存骨架 + 过渡输出",
+        "take": [
+          "佣兵起点附近的生命、防御、属性和移动/路径效率。",
+          "保留一条弩、榴弹、图腾或其它顺手过渡输出线。",
+          "如果跟队，尽早练战旗覆盖；如果单人，先别急着纯辅助。"
+        ],
+        "skip": [
+          "不要剧情前期只点范围/光环，导致自己推不动。",
+          "不要因为目标是插旗师就删掉所有输出手段。"
+        ]
+      },
+      {
+        "id": "first-ascendancy",
+        "title": "2. 第一次升华后：旗帜覆盖优先",
+        "take": [
+          "优先围绕战术家的旗帜效果、Pin/控场、队友覆盖和防御收益取点。",
+          "开始把战旗、抗争战旗作为核心按钮，练队伍移动时的覆盖位置。",
+          "有固定队友后，再减少个人输出投入。"
+        ],
+        "skip": [
+          "不要把升华点理解成个人输出加点。",
+          "队友站不到范围时，先修站位和范围，不先买贵装备。"
+        ]
+      },
+      {
+        "id": "maps",
+        "title": "3. 进图期：范围、持续、保留和盾系防御",
+        "take": [
+          "补技能效果范围、持续时间、精魂/保留压力、盾牌防御和生命。",
+          "高压地图优先让自己活着站在队友附近。",
+          "根据队伍伤害类型，复核诅咒光环和曝光/减抗工具。"
+        ],
+        "skip": [
+          "不要为了多一点个人伤害牺牲防御骨架。",
+          "没有实测前，不写固定倍数收益。"
+        ]
+      },
+      {
+        "id": "endgame",
+        "title": "4. 后期：来源树复核后登记正式路线",
+        "take": [
+          "人工记录来源 BD 的 123 点树、升华顺序和珠宝/范围配置。",
+          "把路线拆成剧情、转辅助、进图、后期四段，再登记 tree route。",
+          "复核通过后，页面再从“方向入口”升级成“可照抄路线”。"
+        ],
+        "skip": [
+          "不要用搜索摘要直接生成最终 123 点路线。",
+          "不要把输出型 Ballista Banner 路线混到纯辅助 Bannerlord 里。"
+        ]
+      }
+    ],
+    "gearChecklist": [
+      {
+        "slot": "武器 / 副手",
+        "target": "早期保留过渡输出；转辅助后优先不破坏属性、抗性、精魂和盾系自保。",
+        "good": [
+          "补属性或资源压力",
+          "能配盾时优先盾牌生存",
+          "来源页确认后再追特定暗金或高价词缀"
+        ],
+        "avoid": [
+          "只给个人输出但让你站不住",
+          "换装后核心旗帜开不起来"
+        ]
+      },
+      {
+        "slot": "头 / 胸 / 手 / 腰",
+        "target": "生命、抗性、防御底子优先，服务你能站在队友附近持续覆盖。",
+        "good": [
+          "生命 + 双抗或三抗",
+          "护甲/闪避/能量护盾中至少一条防御层成立",
+          "缺属性时用腰带/手套补"
+        ],
+        "avoid": [
+          "纯增益装导致抗性断档",
+          "一次换多件导致属性、抗性、精魂一起崩"
+        ]
+      },
+      {
+        "slot": "鞋",
+        "target": "移动速度是核心属性。插旗辅助跟不上队友，覆盖就等于没有。",
+        "good": [
+          "移动速度",
+          "生命",
+          "抗性或属性"
+        ],
+        "avoid": [
+          "无移速高防鞋",
+          "为了单条辅助词牺牲跟队速度"
+        ]
+      },
+      {
+        "slot": "戒指 / 项链",
+        "target": "补抗性、属性、精魂/保留压力；后期再按队伍需求找光环、诅咒或辅助相关词缀。",
+        "good": [
+          "缺口抗性",
+          "力量/敏捷/智力门槛",
+          "精魂或资源相关收益"
+        ],
+        "avoid": [
+          "没有固定队友就买昂贵终局辅助件",
+          "换项链后技能属性不够"
+        ]
+      },
+      {
+        "slot": "珠宝 / 护符 / 后期特化",
+        "target": "后期围绕范围、持续、保留、队伍需要的诅咒/曝光和自身生存做特化。",
+        "good": [
+          "范围或持续收益",
+          "防御和资源补强",
+          "来源页确认的关键珠宝"
+        ],
+        "avoid": [
+          "没确认来源就照抄昂贵珠宝",
+          "为了面板收益放弃实际覆盖"
+        ]
+      }
+    ],
+    "skillLinks": [
+      {
+        "id": "banners",
+        "title": "旗帜组",
+        "skills": [
+          "战旗 / War Banner",
+          "抗争战旗 / Defiance Banner",
+          "恐怖战旗 / Dread Banner"
+        ],
+        "supports": [
+          "清晰 I / Clarity I",
+          "精准 I / Precision I",
+          "活力 I / Vitality I"
+        ],
+        "rule": "战旗早期熟悉，抗争战旗服务防御窗口，恐怖战旗放到后期复核。具体支持宝石兼容性要按技能详情和来源页确认。"
+      },
+      {
+        "id": "aura-curse",
+        "title": "光环/诅咒组",
+        "skills": [
+          "压迫气场 / Overwhelming Presence",
+          "持久鏖战 / Attrition",
+          "诅咒光环 / Blasphemy",
+          "导电 / Conductivity",
+          "易燃 / Flammability",
+          "衰弱 / Enfeeble",
+          "时空锁链 / Temporal Chains"
+        ],
+        "supports": [
+          "按队友伤害类型选诅咒",
+          "缺生存时优先防御诅咒",
+          "缺爆发时才补进攻诅咒"
+        ],
+        "rule": "队伍如果是闪电输出，优先导电；火焰输出优先易燃；高压内容优先衰弱/时空锁链。"
+      },
+      {
+        "id": "survival",
+        "title": "自保/控场组",
+        "skills": [
+          "架盾 / Raise Shield",
+          "盾墙 / Shield Wall",
+          "摧甲重击 / Armour Breaker",
+          "日曜球 / Solar Orb"
+        ],
+        "supports": [
+          "瘫痪 / Maim",
+          "致盲 I / Blind I",
+          "火焰曝露 / Fire Exposure"
+        ],
+        "rule": "自己死得多，先补架盾和盾墙；队伍需要破甲或曝光时，再补对应工具。"
+      }
+    ]
+  },
+  "tags": [
+    "tactician",
+    "banner",
+    "support",
+    "party",
+    "draft"
+  ],
+  "stages": [
+    {
+      "id": "party-setup",
+      "title": "组队前准备",
+      "status": "draft",
+      "summary": "用过渡输出完成起步，同时开始练战旗覆盖和跟队站位。",
+      "priorities": [
+        "战旗覆盖",
+        "移动速度",
+        "生命抗性",
+        "过渡输出"
+      ],
+      "playbook": {
+        "title": "先别急着纯辅助",
+        "steps": [
+          "拿到战旗后先练范围和放置时机。",
+          "剧情推进仍保留一个顺手输出技能。",
+          "跟队时站在主输出队友附近，不要把旗帜放在队伍身后。",
+          "装备先补移动速度、生命和抗性。"
+        ],
+        "checks": [
+          "队友大多数战斗能吃到覆盖。",
+          "自己不会因为靠近队友就暴毙。",
+          "单人推进还有基本输出手段。"
+        ],
+        "mistakes": [
+          "过早删除所有输出技能。",
+          "为了多按按钮牺牲移动速度和抗性。",
+          "把旗帜放在已经打完的位置。"
+        ]
+      }
+    },
+    {
+      "id": "banner-core",
+      "title": "多旗帜核心",
+      "status": "draft",
+      "summary": "围绕战旗、抗争战旗、压迫气场和盾系防御形成组队辅助框架。",
+      "priorities": [
+        "常驻覆盖",
+        "主动插旗窗口",
+        "精魂预算",
+        "自身生存"
+      ],
+      "playbook": {
+        "title": "覆盖先于爆发",
+        "steps": [
+          "默认保证战旗或抗争战旗覆盖。",
+          "队友要交爆发时提前插旗，不要等伤害窗口结束。",
+          "用压迫气场和盾墙处理贴脸压力。",
+          "每次换装后检查精魂、抗性和属性。"
+        ],
+        "checks": [
+          "常驻覆盖不断档。",
+          "高压战斗前知道自己要插哪面旗。",
+          "精魂和抗性换装后仍成立。"
+        ],
+        "mistakes": [
+          "同时追多面旗却没有稳定覆盖。",
+          "自己站不住还继续买增益装。",
+          "队友爆发后才开始插旗。"
+        ]
+      }
+    },
+    {
+      "id": "endgame-review",
+      "title": "后期复核",
+      "status": "review",
+      "summary": "补恐怖战旗、后期装备阈值、组队收益和天赋树来源。",
+      "priorities": [
+        "恐怖战旗窗口",
+        "高压地图生存",
+        "组队实测",
+        "天赋树复核"
+      ],
+      "playbook": {
+        "title": "先复核，再写结论",
+        "steps": [
+          "人工打开来源 BD，记录技能链接、装备和天赋树。",
+          "用本地 PoE2DB 技能详情核对每个旗帜和辅助。",
+          "找固定队友测试覆盖、死亡原因和爆发窗口。",
+          "复核通过后再登记天赋树路线。"
+        ],
+        "checks": [
+          "来源配置已截图或结构化记录。",
+          "技能链接不是凭感觉推断。",
+          "组队收益有实际样本。"
+        ],
+        "mistakes": [
+          "把搜索摘要当完整攻略。",
+          "把输出型 Ballista Banner 当纯辅助 Bannerlord。",
+          "没有实测就写固定倍数收益。"
+        ]
+      }
+    }
+  ],
+  "skills": {
+    "overview": {
+      "title": {
+        "zhCN": "技能框架",
+        "zhTW": "技能框架",
+        "en": "Skill Framework"
+      },
+      "intro": {
+        "zhCN": "当前只登记本地技能目录已验证的核心技能名和待复核辅助链接，避免把未抓到的来源配置写死。",
+        "zhTW": "目前只登記本地技能目錄已驗證的核心技能名和待複核輔助連線，避免把未抓到的來源配置寫死。",
+        "en": "Only locally verified core skill names and review-pending support links are registered for now, avoiding hardcoded source details that were not fetched."
+      },
+      "cards": [
+        {
+          "id": "banner-core",
+          "title": {
+            "zhCN": "旗帜是主体",
+            "zhTW": "旗幟是主體",
+            "en": "Banners Are the Core"
+          },
+          "body": {
+            "zhCN": "战旗、抗争战旗、恐怖战旗是这套的身份。先学会覆盖和插旗窗口，再补其它光环和功能技能。",
+            "zhTW": "戰爭之旗、反抗之旗、恐懼之旗是這套的身份。先學會覆蓋和插旗窗口，再補其它光環和功能技能。",
+            "en": "War Banner, Defiance Banner, and Dread Banner define the setup. Learn coverage and placement windows before adding other aura or utility tools."
+          },
+          "checks": {
+            "zhCN": [
+              "战旗早期熟悉。",
+              "抗争战旗服务防御窗口。",
+              "恐怖战旗进入后期复核。"
+            ],
+            "zhTW": [
+              "戰爭之旗早期熟悉。",
+              "反抗之旗服務防禦窗口。",
+              "恐懼之旗進入後期複核。"
+            ],
+            "en": [
+              "Learn War Banner early.",
+              "Use Defiance Banner for defensive windows.",
+              "Keep Dread Banner for late review."
+            ]
+          }
+        },
+        {
+          "id": "aura-control",
+          "title": {
+            "zhCN": "光环和控场补覆盖",
+            "zhTW": "光環和控場補覆蓋",
+            "en": "Auras and Control Fill the Gaps"
+          },
+          "body": {
+            "zhCN": "压迫气场、持久鏖战和盾墙不是输出核心，而是帮你在队伍附近活下来并制造安全输出时间。",
+            "zhTW": "壓倒性的存在、損耗和盾牆不是輸出核心，而是幫你在隊伍附近活下來並製造安全輸出時間。",
+            "en": "Overwhelming Presence, Attrition, and Shield Wall are not the damage core; they help you survive near the party and create safer uptime."
+          },
+          "checks": {
+            "zhCN": [
+              "死亡多先补防御工具。",
+              "队友散开先调整站位。",
+              "不要让功能技能抢掉旗帜节奏。"
+            ],
+            "zhTW": [
+              "死亡多先補防禦工具。",
+              "隊友散開先調整站位。",
+              "不要讓功能技能搶掉旗幟節奏。"
+            ],
+            "en": [
+              "Fix defense tools first when deaths are frequent.",
+              "Adjust positioning before changing skills if teammates spread out.",
+              "Do not let utility buttons disrupt banner rhythm."
+            ]
+          }
+        }
+      ]
+    },
+    "active": [
+      {
+        "id": "War_Banner",
+        "role": "early-banner",
+        "name": {
+          "zhCN": "战旗",
+          "zhTW": "戰爭之旗",
+          "en": "War Banner"
+        },
+        "supportProfile": "banner-review"
+      },
+      {
+        "id": "Defiance_Banner",
+        "role": "defensive-banner",
+        "name": {
+          "zhCN": "抗争战旗",
+          "zhTW": "反抗之旗",
+          "en": "Defiance Banner"
+        },
+        "supportProfile": "banner-review"
+      },
+      {
+        "id": "Dread_Banner",
+        "role": "late-banner",
+        "name": {
+          "zhCN": "恐怖战旗",
+          "zhTW": "恐懼之旗",
+          "en": "Dread Banner"
+        },
+        "supportProfile": "banner-review"
+      },
+      {
+        "id": "Overwhelming_Presence",
+        "role": "aura-control",
+        "name": {
+          "zhCN": "压迫气场",
+          "zhTW": "壓倒性的存在",
+          "en": "Overwhelming Presence"
+        },
+        "supportProfile": "aura-review"
+      },
+      {
+        "id": "Attrition",
+        "role": "persistent-buff",
+        "name": {
+          "zhCN": "持久鏖战",
+          "zhTW": "損耗",
+          "en": "Attrition"
+        },
+        "supportProfile": "aura-review"
+      },
+      {
+        "id": "Raise_Shield",
+        "role": "survival",
+        "name": {
+          "zhCN": "架盾",
+          "zhTW": "展開護盾",
+          "en": "Raise Shield"
+        },
+        "supportProfile": "survival-review"
+      },
+      {
+        "id": "Shield_Wall",
+        "role": "survival-control",
+        "name": {
+          "zhCN": "盾墙",
+          "zhTW": "盾牆",
+          "en": "Shield Wall"
+        },
+        "supportProfile": "survival-review"
+      }
+    ],
+    "supports": {
+      "Clarity_I": {
+        "zhCN": "清晰 I",
+        "zhTW": "清晰 I",
+        "en": "Clarity I"
+      },
+      "Vitality_I": {
+        "zhCN": "活力 I",
+        "zhTW": "活力 I",
+        "en": "Vitality I"
+      },
+      "Precision_I": {
+        "zhCN": "精准 I",
+        "zhTW": "精準 I",
+        "en": "Precision I"
+      },
+      "Maim": {
+        "zhCN": "瘫痪",
+        "zhTW": "癱瘓",
+        "en": "Maim"
+      },
+      "Blind_I": {
+        "zhCN": "致盲 I",
+        "zhTW": "致盲 I",
+        "en": "Blind I"
+      }
+    },
+    "supportProfiles": {
+      "banner-review": [
+        "Clarity_I",
+        "Precision_I"
+      ],
+      "aura-review": [
+        "Clarity_I",
+        "Vitality_I"
+      ],
+      "survival-review": [
+        "Maim",
+        "Blind_I"
+      ]
+    },
+    "recommendedLinks": [
+      {
+        "id": "core-banner-link",
+        "slotType": "banner",
+        "priority": 1,
+        "skill": "War_Banner",
+        "supports": [
+          "Clarity_I",
+          "Precision_I"
+        ],
+        "note": {
+          "zhCN": "待复核链接；当前只记录辅助方向，不声明兼容性已完全验证。",
+          "zhTW": "待複核連線；目前只記錄輔助方向，不宣稱相容性已完全驗證。",
+          "en": "Review-pending link; this records support direction, not fully verified compatibility."
+        },
+        "rules": {
+          "zhCN": [
+            "优先服务常驻覆盖。",
+            "后续用来源页和 PoE2DB 技能详情复核。"
+          ],
+          "zhTW": [
+            "優先服務常駐覆蓋。",
+            "後續用來源頁和 PoE2DB 技能詳情複核。"
+          ],
+          "en": [
+            "Prioritize persistent coverage.",
+            "Review with the source page and PoE2DB skill details later."
+          ]
+        }
+      },
+      {
+        "id": "survival-link",
+        "slotType": "survival",
+        "priority": 2,
+        "chooseFrom": [
+          "Raise_Shield",
+          "Shield_Wall"
+        ],
+        "supports": [
+          "Maim",
+          "Blind_I"
+        ],
+        "note": {
+          "zhCN": "盾系技能先作为自保和控场工具，不把它当输出主链。",
+          "zhTW": "盾系技能先作為自保和控場工具，不把它當輸出主鏈。",
+          "en": "Shield skills are survival and control tools first, not the damage main link."
+        },
+        "rules": {
+          "zhCN": [
+            "自己死得多时优先补这一组。",
+            "如果队伍已经安全，再减少防御按钮。"
+          ],
+          "zhTW": [
+            "自己死得多時優先補這一組。",
+            "如果隊伍已經安全，再減少防禦按鈕。"
+          ],
+          "en": [
+            "Improve this group first when you die often.",
+            "Cut defensive buttons only after the party is already safe."
+          ]
+        }
+      }
+    ],
+    "supportSelectionRules": [
+      {
+        "id": "compatibility-review",
+        "title": {
+          "zhCN": "兼容性待复核",
+          "zhTW": "相容性待複核",
+          "en": "Compatibility Needs Review"
+        },
+        "items": {
+          "zhCN": [
+            "当前辅助名来自本地技能目录，但具体能否链接到每个技能要继续查详情。",
+            "不要把待复核链接当作游戏内必定可用链接。",
+            "最终版本需要按来源页逐条改成已验证。"
+          ],
+          "zhTW": [
+            "目前輔助名來自本地技能目錄，但具體能否連到每個技能要繼續查詳情。",
+            "不要把待複核連線當作遊戲內必定可用連線。",
+            "最終版本需要按來源頁逐條改成已驗證。"
+          ],
+          "en": [
+            "Support names come from the local skill catalog, but exact link compatibility needs detail review.",
+            "Do not treat review-pending links as guaranteed in-game links.",
+            "The final version should mark each link verified against the source."
+          ]
+        }
+      }
+    ],
+    "minionSelectionGuide": {
+      "title": {
+        "zhCN": "辅助职责选择",
+        "zhTW": "輔助職責選擇",
+        "en": "Support Role Selection"
+      },
+      "intro": {
+        "zhCN": "这个字段沿用项目现有 BD schema 的选择矩阵；这里不是召唤物，而是把辅助职责分成旗帜、光环控场和自保三组。",
+        "zhTW": "這個欄位沿用專案既有 BD schema 的選擇矩陣；這裡不是召喚物，而是把輔助職責分成旗幟、光環控場和自保三組。",
+        "en": "This field reuses the existing build schema's selection matrix. These are not minions; the support jobs are banners, aura/control, and self-defense."
+      },
+      "groups": [
+        {
+          "id": "banner-job",
+          "title": {
+            "zhCN": "旗帜职责",
+            "zhTW": "旗幟職責",
+            "en": "Banner Job"
+          },
+          "skillIds": [
+            "War_Banner",
+            "Defiance_Banner",
+            "Dread_Banner"
+          ],
+          "job": {
+            "zhCN": "负责主要队伍覆盖和关键窗口。",
+            "zhTW": "負責主要隊伍覆蓋和關鍵窗口。",
+            "en": "Provides main party coverage and key windows."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "队伍需要稳定增益覆盖。",
+              "首领阶段有明确爆发窗口。",
+              "队友愿意围绕旗帜站位。"
+            ],
+            "zhTW": [
+              "隊伍需要穩定增益覆蓋。",
+              "首領階段有明確爆發窗口。",
+              "隊友願意圍繞旗幟站位。"
+            ],
+            "en": [
+              "The party needs stable buff coverage.",
+              "Boss phases have clear burst windows.",
+              "Teammates are willing to position around banners."
+            ]
+          },
+          "firstSupports": [
+            "Clarity_I",
+            "Precision_I"
+          ],
+          "cutFirst": {
+            "zhCN": "不要先砍旗帜职责；要降配时先砍次要光环或输出按钮。",
+            "zhTW": "不要先砍旗幟職責；要降配時先砍次要光環或輸出按鈕。",
+            "en": "Do not cut banner jobs first; downgrade secondary aura or damage buttons before this."
+          }
+        },
+        {
+          "id": "control-job",
+          "title": {
+            "zhCN": "光环控场",
+            "zhTW": "光環控場",
+            "en": "Aura and Control"
+          },
+          "skillIds": [
+            "Overwhelming_Presence",
+            "Attrition"
+          ],
+          "job": {
+            "zhCN": "补队伍安全时间和敌人压力控制。",
+            "zhTW": "補隊伍安全時間和敵人壓力控制。",
+            "en": "Adds safety time and enemy pressure control."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "队伍被怪压场。",
+              "高压稀有怪或首领阶段需要更多控制。",
+              "旗帜覆盖已经稳定。"
+            ],
+            "zhTW": [
+              "隊伍被怪壓場。",
+              "高壓稀有怪或首領階段需要更多控制。",
+              "旗幟覆蓋已經穩定。"
+            ],
+            "en": [
+              "The party is under pressure.",
+              "Dangerous rares or boss phases need more control.",
+              "Banner coverage is already stable."
+            ]
+          },
+          "firstSupports": [
+            "Clarity_I",
+            "Vitality_I"
+          ],
+          "cutFirst": {
+            "zhCN": "精魂或按钮压力太高时，先降这一组的次要配置。",
+            "zhTW": "精魂或按鈕壓力太高時，先降這一組的次要配置。",
+            "en": "When spirit or button pressure is too high, downgrade secondary parts of this group first."
+          }
+        },
+        {
+          "id": "survival-job",
+          "title": {
+            "zhCN": "自保控场",
+            "zhTW": "自保控場",
+            "en": "Self-Defense Control"
+          },
+          "skillIds": [
+            "Raise_Shield",
+            "Shield_Wall"
+          ],
+          "job": {
+            "zhCN": "保证辅助能站在队友附近持续覆盖。",
+            "zhTW": "保證輔助能站在隊友附近持續覆蓋。",
+            "en": "Keeps the support alive near teammates so coverage continues."
+          },
+          "chooseWhen": {
+            "zhCN": [
+              "自己频繁死亡。",
+              "需要贴近队友或机制边缘。",
+              "地图词缀让怪物压力明显增加。"
+            ],
+            "zhTW": [
+              "自己頻繁死亡。",
+              "需要貼近隊友或機制邊緣。",
+              "輿圖詞綴讓怪物壓力明顯增加。"
+            ],
+            "en": [
+              "You die frequently.",
+              "You must stand near teammates or mechanics.",
+              "Map modifiers increase enemy pressure."
+            ]
+          },
+          "firstSupports": [
+            "Maim",
+            "Blind_I"
+          ],
+          "cutFirst": {
+            "zhCN": "只有队伍和自己都稳定后，才考虑减少自保。",
+            "zhTW": "只有隊伍和自己都穩定後，才考慮減少自保。",
+            "en": "Cut self-defense only after both the party and you are stable."
+          }
+        }
+      ],
+      "rules": {
+        "zhCN": [
+          "默认顺序：旗帜覆盖 > 自保站位 > 光环控场 > 个人输出。",
+          "队友吃不到覆盖时，先修站位，不先换装备。",
+          "自己死得多时，辅助价值归零，先补生命、抗性和盾系工具。"
+        ],
+        "zhTW": [
+          "預設順序：旗幟覆蓋 > 自保站位 > 光環控場 > 個人輸出。",
+          "隊友吃不到覆蓋時，先修站位，不先換裝備。",
+          "自己死得多時，輔助價值歸零，先補生命、抗性和盾系工具。"
+        ],
+        "en": [
+          "Default order: banner coverage > self-defense positioning > aura control > personal damage.",
+          "When teammates miss coverage, fix positioning before changing gear.",
+          "If you die often, support value drops to zero; fix life, resistances, and shield tools first."
+        ]
+      }
+    },
+    "supportDecisionMatrix": [
+      {
+        "id": "banner-window",
+        "title": {
+          "zhCN": "爆发插旗",
+          "zhTW": "爆發插旗",
+          "en": "Burst Banner Window"
+        },
+        "role": {
+          "zhCN": "服务队友爆发。",
+          "zhTW": "服務隊友爆發。",
+          "en": "Serves teammate burst."
+        },
+        "skillIds": [
+          "War_Banner",
+          "Defiance_Banner",
+          "Dread_Banner"
+        ],
+        "firstSupports": [
+          "Clarity_I",
+          "Precision_I"
+        ],
+        "addLater": [
+          "Vitality_I"
+        ],
+        "useWhen": {
+          "zhCN": [
+            "首领进入可输出阶段。",
+            "队友准备交爆发。",
+            "队伍能站进覆盖范围。"
+          ],
+          "zhTW": [
+            "首領進入可輸出階段。",
+            "隊友準備交爆發。",
+            "隊伍能站進覆蓋範圍。"
+          ],
+          "en": [
+            "The boss enters a damageable phase.",
+            "Teammates are about to burst.",
+            "The party can stand inside coverage."
+          ]
+        },
+        "cutWhen": {
+          "zhCN": [
+            "队伍分散到无法覆盖。",
+            "你自己站不住。",
+            "精魂或按钮压力影响核心旗帜。"
+          ],
+          "zhTW": [
+            "隊伍分散到無法覆蓋。",
+            "你自己站不住。",
+            "精魂或按鈕壓力影響核心旗幟。"
+          ],
+          "en": [
+            "The party is too spread out for coverage.",
+            "You cannot survive.",
+            "Spirit or button pressure disrupts core banners."
+          ]
+        },
+        "reviewNote": {
+          "zhCN": "具体链接仍要来源页和技能详情复核。",
+          "zhTW": "具體連線仍要來源頁和技能詳情複核。",
+          "en": "Exact links still need source and skill-detail review."
+        }
+      }
+    ],
+    "troubleshooting": [
+      {
+        "id": "coverage-missing",
+        "problem": {
+          "zhCN": "队友吃不到覆盖",
+          "zhTW": "隊友吃不到覆蓋",
+          "en": "Teammates miss coverage"
+        },
+        "check": {
+          "zhCN": [
+            "队伍是否分散。",
+            "旗帜是否放在上一波战斗位置。",
+            "你是否跑得太慢跟不上主输出。"
+          ],
+          "zhTW": [
+            "隊伍是否分散。",
+            "旗幟是否放在上一波戰鬥位置。",
+            "你是否跑得太慢跟不上主輸出。"
+          ],
+          "en": [
+            "Check whether the party is spread out.",
+            "Check whether banners are placed at the previous fight.",
+            "Check whether you are too slow to follow the carry."
+          ]
+        },
+        "note": {
+          "zhCN": "先处理移动和站位。",
+          "zhTW": "先處理移動和站位。",
+          "en": "Fix movement and positioning first."
+        },
+        "add": [
+          "War_Banner"
+        ],
+        "cut": [
+          "Attrition"
+        ]
+      }
+    ]
+  },
+  "skillAcquisition": [
+    {
+      "stageId": "party-setup",
+      "timing": "起步先拿战旗，并保留过渡输出技能。",
+      "take": [
+        "战旗",
+        "架盾",
+        "一个顺手过渡输出技能"
+      ],
+      "activeSkillIds": [
+        "War_Banner",
+        "Raise_Shield"
+      ],
+      "doNotForce": [
+        "不要剧情早期就删除所有输出手段。",
+        "不要为了纯辅助定位牺牲移动速度和抗性。"
+      ],
+      "confirmBefore": [
+        "能跟上队友。",
+        "战旗范围和持续时间有基本体感。",
+        "单人推进不完全卡死。"
+      ],
+      "sourceUse": [
+        "技能名来自本地 PoE2DB 4.5 技能目录。",
+        "具体获取章节仍待技能详情复核。"
+      ],
+      "fallback": [
+        "清图慢就保留过渡输出。",
+        "死亡多就先补生命抗性。"
+      ],
+      "evidenceNote": "War Banner and Raise Shield exist in the local verified skill catalog.",
+      "sourceStatus": "poe2db-skill-name-verified"
+    },
+    {
+      "stageId": "banner-core",
+      "timing": "进入组队辅助后加入抗争战旗、压迫气场和盾墙。",
+      "take": [
+        "抗争战旗",
+        "压迫气场",
+        "盾墙"
+      ],
+      "activeSkillIds": [
+        "Defiance_Banner",
+        "Overwhelming_Presence",
+        "Shield_Wall"
+      ],
+      "doNotForce": [
+        "精魂或保留压力不够时，不要同时塞满所有功能技能。",
+        "站不住时不要继续追加进攻型按钮。"
+      ],
+      "confirmBefore": [
+        "队友能吃到常驻覆盖。",
+        "你能在机制边缘活下来。",
+        "换装后抗性不断档。"
+      ],
+      "sourceUse": [
+        "技能名来自本地 PoE2DB 4.5 技能目录。",
+        "外部来源确认 Tactician banner support 方向存在。"
+      ],
+      "fallback": [
+        "队友分散时先调整站位。",
+        "自己死亡时回退到防御装备。"
+      ],
+      "evidenceNote": "Defiance Banner, Overwhelming Presence, and Shield Wall exist in the local verified skill catalog.",
+      "sourceStatus": "poe2db-skill-name-verified"
+    },
+    {
+      "stageId": "endgame-review",
+      "timing": "后期再复核恐怖战旗和完整来源配置。",
+      "take": [
+        "恐怖战旗",
+        "持久鏖战",
+        "来源页技能链接"
+      ],
+      "activeSkillIds": [
+        "Dread_Banner",
+        "Attrition"
+      ],
+      "doNotForce": [
+        "不要在来源未复核前写死最终链接。",
+        "不要用搜索摘要替代完整配置。"
+      ],
+      "confirmBefore": [
+        "来源配置已记录。",
+        "组队收益有样本。",
+        "天赋树路线已登记。"
+      ],
+      "sourceUse": [
+        "技能名来自本地 PoE2DB 4.5 技能目录。",
+        "Mobalytics 完整配置需要人工复核。"
+      ],
+      "fallback": [
+        "没有固定队友时，不推进收益结论。",
+        "没有路线时，保留为待复核 BD。"
+      ],
+      "evidenceNote": "Dread Banner and Attrition exist in the local verified skill catalog, but full endgame setup remains pending.",
+      "sourceStatus": "poe2db-skill-name-verified-source-build-pending"
+    }
+  ],
+  "gearOverview": {
+    "title": "装备优先级",
+    "intro": "装备先服务辅助站位和覆盖，不用样例市场价格做购买结论。",
+    "cards": [
+      {
+        "id": "survival",
+        "title": "生命抗性优先",
+        "body": "辅助死了就没有覆盖，所以低预算阶段先补生命、抗性、防御底子和移动速度。",
+        "checks": [
+          "元素抗性没有明显缺口。",
+          "移动速度能跟上队友。",
+          "换装不会让属性或精魂断档。"
+        ]
+      },
+      {
+        "id": "spirit",
+        "title": "精魂和保留压力",
+        "body": "多旗帜和光环会吃资源，后续需要明确精魂预算和保留压力。",
+        "checks": [
+          "新增功能技能前先看精魂。",
+          "精魂不够时先保核心旗帜。",
+          "不要为了次要光环拆掉防御。"
+        ]
+      }
+    ]
+  },
+  "gearPriorities": [
+    {
+      "slot": "Weapon",
+      "early": "保留过渡输出或防御需求。",
+      "mid": "优先不破坏属性和生存。",
+      "endgame": "按来源配置复核后再决定。",
+      "priorityStats": [
+        "属性",
+        "生存",
+        "队伍需求"
+      ],
+      "avoid": [
+        "只提供个人输出但让你站不住的武器。"
+      ]
+    },
+    {
+      "slot": "Shield",
+      "early": "生命、防御和抗性。",
+      "mid": "提高自保和站位容错。",
+      "endgame": "复核是否需要特定辅助或精魂词缀。",
+      "priorityStats": [
+        "生命",
+        "抗性",
+        "护甲或闪避"
+      ],
+      "avoid": [
+        "牺牲全部防御换低收益输出。"
+      ]
+    },
+    {
+      "slot": "Boots",
+      "early": "移动速度优先。",
+      "mid": "移动速度加抗性。",
+      "endgame": "移动速度、抗性和生存一起满足。",
+      "priorityStats": [
+        "移动速度",
+        "抗性",
+        "生命"
+      ],
+      "avoid": [
+        "无移动速度的便宜黄鞋。"
+      ]
+    },
+    {
+      "slot": "Jewellery",
+      "early": "补属性和抗性。",
+      "mid": "补精魂、抗性和缺口属性。",
+      "endgame": "按队伍需求复核光环和辅助词缀。",
+      "priorityStats": [
+        "抗性",
+        "属性",
+        "精魂"
+      ],
+      "avoid": [
+        "只看单条输出词导致抗性断档。"
+      ]
+    }
+  ],
+  "earlyGearStatPriority": [
+    {
+      "id": "move-survive",
+      "title": "先跑得动并活下来",
+      "priority": [
+        "移动速度",
+        "生命",
+        "元素抗性"
+      ],
+      "rule": "辅助必须跟得上队友，且能站在覆盖范围附近。",
+      "avoid": [
+        "低等级就买昂贵纯增益装备。",
+        "为了多一个技能牺牲所有抗性。"
+      ]
+    },
+    {
+      "id": "spirit-check",
+      "title": "每次加技能前查精魂",
+      "priority": [
+        "核心旗帜",
+        "防御工具",
+        "次要光环"
+      ],
+      "rule": "精魂紧张时先保核心旗帜和自保。",
+      "avoid": [
+        "把所有光环都开上再发现无法生存。"
+      ]
+    }
+  ],
+  "gearStagePlan": [
+    {
+      "stageId": "party-setup",
+      "budgetTier": "low",
+      "focus": "移动速度、生命、抗性和过渡输出。",
+      "mustHave": [
+        "移动速度鞋",
+        "生命抗性装",
+        "基础输出手段"
+      ],
+      "upgradeWhen": "队友覆盖稳定但你跟不上或容易死时，优先换鞋和防具。"
+    },
+    {
+      "stageId": "banner-core",
+      "budgetTier": "low-mid",
+      "focus": "精魂预算、抗性补齐和防御底子。",
+      "mustHave": [
+        "抗性补齐",
+        "精魂或保留压力处理",
+        "盾系自保装备"
+      ],
+      "upgradeWhen": "新增旗帜或光环导致断档时，先补资源和抗性。"
+    },
+    {
+      "stageId": "endgame-review",
+      "budgetTier": "review",
+      "focus": "按来源和组队实测决定高价值装备。",
+      "mustHave": [
+        "来源配置记录",
+        "组队测试样本",
+        "天赋树复核"
+      ],
+      "upgradeWhen": "确认队伍收益和生存短板后，再购买后期装备。"
+    }
+  ],
+  "gearStatThresholds": [
+    {
+      "stageId": "party-setup",
+      "title": "起步门槛",
+      "sourceStatus": "manual-guide-threshold",
+      "note": "当前是手工门槛，不是来源原始配装。",
+      "thresholds": [
+        {
+          "stat": "移动速度",
+          "minimum": "鞋子有移动速度",
+          "upgradeTarget": "跟得上队友节奏",
+          "priority": 1,
+          "reason": "覆盖依赖站位。"
+        },
+        {
+          "stat": "生命/抗性",
+          "minimum": "不因靠近队友频繁死亡",
+          "upgradeTarget": "抗性缺口逐步补齐",
+          "priority": 2,
+          "reason": "辅助死亡会丢覆盖。"
+        }
+      ]
+    },
+    {
+      "stageId": "banner-core",
+      "title": "核心门槛",
+      "sourceStatus": "manual-guide-threshold",
+      "note": "精魂和链接需要后续复核。",
+      "thresholds": [
+        {
+          "stat": "核心旗帜",
+          "minimum": "至少一面旗帜稳定覆盖",
+          "upgradeTarget": "根据队伍需求切换战旗/抗争战旗",
+          "priority": 1,
+          "reason": "这是 BD 的核心价值。"
+        },
+        {
+          "stat": "精魂/保留",
+          "minimum": "新增功能技能不挤掉核心旗帜",
+          "upgradeTarget": "支持多旗帜和必要光环",
+          "priority": 2,
+          "reason": "资源断档会让配置失效。"
+        }
+      ]
+    },
+    {
+      "stageId": "endgame-review",
+      "title": "后期门槛",
+      "sourceStatus": "pending-source-review",
+      "note": "需要来源配置和组队样本。",
+      "thresholds": [
+        {
+          "stat": "来源配置",
+          "minimum": "记录技能链接和装备",
+          "upgradeTarget": "转成可验证数据",
+          "priority": 1,
+          "reason": "不能靠搜索摘要写最终版。"
+        },
+        {
+          "stat": "组队收益",
+          "minimum": "有固定队友测试",
+          "upgradeTarget": "记录覆盖、死亡和爆发窗口",
+          "priority": 2,
+          "reason": "辅助 BD 必须按队伍表现判断。"
+        }
+      ]
+    }
+  ],
+  "craftingPlan": [
+    {
+      "id": "cheap-survival-gear",
+      "title": "低价生存装",
+      "stageId": "party-setup",
+      "sourceStatus": "manual-guide-plan",
+      "goal": "先让辅助跟得上且不暴毙。",
+      "base": "鞋子、防具、戒指、腰带",
+      "purchaseFirst": "优先买成品生命抗性装，不先做昂贵毕业件。",
+      "priorityMods": [
+        "移动速度",
+        "生命",
+        "元素抗性"
+      ],
+      "materials": [
+        "普通通货",
+        "低价黄装筛选"
+      ],
+      "steps": [
+        "先查缺口抗性。",
+        "买一件能同时补两个短板的低价装。",
+        "换装后重新检查移动、抗性、属性和精魂。"
+      ],
+      "successChecks": [
+        "能跟上队友。",
+        "高压普通怪不频繁秒杀你。"
+      ],
+      "fallback": [
+        "换装导致断档就退回旧件。",
+        "买不到多词好装就先单独补最大短板。"
+      ],
+      "stopRule": "解决当前死亡或跟队问题后停止投入。"
+    },
+    {
+      "id": "spirit-review-gear",
+      "title": "精魂预算复核",
+      "stageId": "banner-core",
+      "sourceStatus": "pending-source-review",
+      "goal": "支持核心旗帜和必要防御工具。",
+      "base": "饰品、副手或来源配置指定部位",
+      "purchaseFirst": "没有来源复核前，不按高价毕业思路购买。",
+      "priorityMods": [
+        "精魂",
+        "抗性",
+        "生命"
+      ],
+      "materials": [
+        "待来源复核",
+        "低价替换件"
+      ],
+      "steps": [
+        "记录当前可用技能和保留压力。",
+        "新增一个技能后检查是否挤掉核心旗帜。",
+        "若断档，优先减少次要功能技能。"
+      ],
+      "successChecks": [
+        "核心旗帜不断档。",
+        "抗性和属性仍满足。"
+      ],
+      "fallback": [
+        "删次要光环。",
+        "回退到更稳的生命抗性装。"
+      ],
+      "stopRule": "核心旗帜和自保都成立后，再考虑后期配置。"
+    }
+  ],
+  "transitionChecks": [
+    {
+      "id": "can-party-support",
+      "title": "可以开始组队辅助",
+      "items": [
+        "你能跟上主输出队友。",
+        "至少一面旗帜覆盖稳定。",
+        "生命和抗性不会因为站近队友就连续死亡。"
+      ]
+    },
+    {
+      "id": "do-not-force",
+      "title": "暂时不要强转纯辅助",
+      "items": [
+        "没有固定队友。",
+        "单人剧情还完全打不动。",
+        "精魂、属性或抗性换装后断档。"
+      ]
+    },
+    {
+      "id": "review-next",
+      "title": "下一步复核",
+      "items": [
+        "人工打开来源页记录完整配置。",
+        "补天赋树路线。",
+        "补组队收益和装备门槛。"
+      ]
+    }
+  ],
+  "skillProgression": [
+    {
+      "stageId": "party-setup",
+      "activeSkills": [
+        "战旗",
+        "架盾",
+        "过渡输出技能"
+      ],
+      "minions": [
+        "无"
+      ],
+      "supportPriority": [
+        "先不追复杂链接",
+        "保留移动和生存"
+      ],
+      "swapRule": "有队友并能稳定覆盖后，再减少个人输出按钮。"
+    },
+    {
+      "stageId": "banner-core",
+      "activeSkills": [
+        "战旗",
+        "抗争战旗",
+        "压迫气场",
+        "盾墙"
+      ],
+      "minions": [
+        "无"
+      ],
+      "supportPriority": [
+        "旗帜覆盖",
+        "自保控场",
+        "次要光环"
+      ],
+      "swapRule": "死亡多时减次要光环，先补自保。"
+    },
+    {
+      "stageId": "endgame-review",
+      "activeSkills": [
+        "恐怖战旗",
+        "持久鏖战",
+        "来源页复核技能"
+      ],
+      "minions": [
+        "无"
+      ],
+      "supportPriority": [
+        "来源配置复核",
+        "组队收益复核",
+        "天赋树复核"
+      ],
+      "swapRule": "没有来源和实测前，不写成最终照抄链接。"
+    }
+  ]
+}

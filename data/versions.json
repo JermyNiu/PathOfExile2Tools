@@ -29,9 +29,10 @@
       "pobbTreeSvgVersion": "4.5",
       "dataRoot": "data/seasons/s05",
       "builds": [
-        "data/seasons/s05/builds/tactician-supporting-fire.json"
+        "data/seasons/s05/builds/tactician-supporting-fire.json",
+        "data/seasons/s05/builds/tactician-banner-support.json"
       ],
-      "buildCount": 1,
+      "buildCount": 2,
       "status": "active"
     }
   ]

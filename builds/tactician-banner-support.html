@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>S05 战术家插旗辅助</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#10131d;
+    --panel:#151b28;
+    --panel2:#1d2636;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#334155;
+    --accent:#38bdf8;
+    --warn:#facc15;
+    --ok:#34d399;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header {
+    min-height:66px;
+    padding:14px 22px;
+    border-bottom:1px solid var(--line);
+    background:#0b1120;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  h1, h2, h3, p { margin:0; }
+  h1 { font-size:20px; font-weight:650; }
+  h2 { font-size:18px; font-weight:650; }
+  h3 { font-size:15px; font-weight:650; }
+  a { color:inherit; text-decoration:none; }
+  .nav, .button-row, .badge-row {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .btn {
+    min-height:36px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:7px 12px;
+    background:#0b1120;
+    color:var(--text);
+    font-size:14px;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .btn.primary { border-color:#0ea5e9; background:#075985; }
+  .segmented {
+    display:inline-flex;
+    gap:4px;
+    padding:4px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:#0b1120;
+  }
+  .segmented button {
+    min-height:30px;
+    border:0;
+    border-radius:6px;
+    padding:5px 10px;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font:inherit;
+    font-size:13px;
+  }
+  .segmented button.active { background:#075985; color:var(--text); }
+  .shell {
+    width:min(1220px, calc(100% - 32px));
+    margin:0 auto;
+    padding:18px 0 34px;
+    display:grid;
+    gap:16px;
+  }
+  .panel {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel);
+    padding:16px;
+    display:grid;
+    gap:13px;
+  }
+  .hero {
+    background:
+      radial-gradient(circle at 16% 20%, rgba(56,189,248,.14), transparent 30%),
+      linear-gradient(135deg, #151b28, #1d2636);
+  }
+  .grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; }
+  .grid.two { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .card {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:14px;
+    display:grid;
+    gap:8px;
+  }
+  .stat-grid { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:10px; }
+  .stat {
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--panel2);
+    padding:12px;
+    display:grid;
+    gap:4px;
+  }
+  .stat strong { font-size:22px; }
+  .stat span, .muted, li, .panel p { color:var(--muted); line-height:1.55; }
+  .badge {
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px 9px;
+    color:var(--muted);
+    background:#0b1120;
+    font-size:13px;
+  }
+  .badge.warn { color:#111827; background:var(--warn); border-color:var(--warn); }
+  .badge.ok { color:#06281d; background:var(--ok); border-color:var(--ok); }
+  ul { margin:0; padding-left:18px; }
+  li + li { margin-top:4px; }
+  .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:8px; }
+  table { width:100%; border-collapse:collapse; min-width:760px; }
+  th, td {
+    border-bottom:1px solid var(--line);
+    padding:10px;
+    text-align:left;
+    vertical-align:top;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  th { color:var(--text); background:#0b1120; font-weight:650; }
+  tr:last-child td { border-bottom:0; }
+  code { color:var(--accent); font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  @media (max-width:900px) {
+    .grid, .grid.two, .stat-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="pageTitle">S05 战术家插旗辅助</h1>
+  <div class="nav">
+    <a class="btn" href="index.html">BD 列表</a>
+    <a class="btn" href="../index.html">首页</a>
+    <div class="segmented" data-site-header-controls aria-label="语言">
+      <button type="button" data-lang="zhCN" class="active">简</button>
+      <button type="button" data-lang="zhTW">繁</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+<script src="../assets/site-header.js" data-root=".." data-active="builds" data-title="POE2 Tools"></script>
+
+<main class="shell">
+  <section class="panel hero">
+    <div class="badge-row" id="heroBadges"></div>
+    <h2 id="heroTitle">读取中...</h2>
+    <p id="heroIntro"></p>
+    <div class="button-row">
+      <a class="btn primary" href="../data/seasons/s05/builds/tactician-banner-support.json">BD 数据</a>
+      <a class="btn" href="../tools/gear-crafting.html">装备制作</a>
+    </div>
+  </section>
+
+  <section class="stat-grid" aria-label="数据状态">
+    <div class="stat"><strong id="stageCount">0</strong><span>装备部位</span></div>
+    <div class="stat"><strong id="activeCount">0</strong><span>天赋分组</span></div>
+    <div class="stat"><strong id="supportCount">0</strong><span>技能组</span></div>
+    <div class="stat"><strong id="craftCount">0</strong><span>珠宝类型</span></div>
+    <div class="stat"><strong id="routeCount">最终</strong><span>天赋</span></div>
+  </section>
+
+  <section class="panel" id="gearDirection">
+    <h2>装备属性</h2>
+    <div class="grid two" id="gearOverviewGrid"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>部位</th>
+            <th>必须属性</th>
+            <th>最好属性</th>
+            <th>别要</th>
+          </tr>
+        </thead>
+        <tbody id="finalGearRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="finalPassiveSheet">
+    <h2>最终天赋</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>分组</th>
+            <th>要点</th>
+            <th>原因</th>
+          </tr>
+        </thead>
+        <tbody id="finalPassiveRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="finalSkillSheet">
+    <h2>技能和辅助宝石</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>组</th>
+            <th>技能</th>
+            <th>辅助宝石 / 选择</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody id="finalSkillRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel" id="finalJewelSheet">
+    <h2>天赋宝石 / 珠宝属性</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>类型</th>
+            <th>要找属性</th>
+            <th>不要</th>
+          </tr>
+        </thead>
+        <tbody id="finalJewelRows"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+const state = { lang: 'zhCN', build: null };
+const localeLabels = {
+  zhCN: {
+    stages: '阶段',
+    active: '技能本体',
+    supports: '辅助宝石',
+    craft: '制作计划',
+    routes: '天赋路线',
+    noRoutes: '暂未登记',
+    skill: '技能',
+    role: '职责',
+    support: '推荐辅助',
+    checks: '检查',
+    sourcePending: '来源待复核',
+    passivePending: '天赋路线暂未登记',
+    slot: '部位',
+    early: '前期',
+    mid: '中期',
+    endgame: '后期',
+    craftPlan: '制作计划'
+  },
+  zhTW: {
+    stages: '階段',
+    active: '技能本體',
+    supports: '輔助寶石',
+    craft: '製作計畫',
+    routes: '天賦路線',
+    noRoutes: '暫未登記',
+    skill: '技能',
+    role: '職責',
+    support: '推薦輔助',
+    checks: '檢查',
+    sourcePending: '來源待複核',
+    passivePending: '天賦路線暫未登記',
+    slot: '部位',
+    early: '前期',
+    mid: '中期',
+    endgame: '後期',
+    craftPlan: '製作計畫'
+  },
+  en: {
+    stages: 'Stages',
+    active: 'Active skills',
+    supports: 'Supports',
+    craft: 'Craft plans',
+    routes: 'Tree routes',
+    noRoutes: 'Not registered',
+    skill: 'Skill',
+    role: 'Role',
+    support: 'Recommended supports',
+    checks: 'Checks',
+    sourcePending: 'Source review pending',
+    passivePending: 'Passive route not registered',
+    slot: 'Slot',
+    early: 'Early',
+    mid: 'Mid',
+    endgame: 'Endgame',
+    craftPlan: 'Craft plan'
+  }
+};
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function localized(value) {
+  if (typeof value === 'string') return value;
+  return value?.[state.lang] || value?.zhCN || value?.en || '';
+}
+
+function localizedList(value) {
+  if (Array.isArray(value)) return value;
+  return value?.[state.lang] || value?.zhCN || value?.en || [];
+}
+
+function listHtml(items) {
+  return `<ul>${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
+}
+
+function titledList(title, items) {
+  return `<div><strong>${esc(title)}</strong>${listHtml(items || [])}</div>`;
+}
+
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
+function supportName(id) {
+  return localized(state.build.skills.supports[id]) || id;
+}
+
+function render() {
+  const build = state.build;
+  if (!build) return;
+  const labels = localeLabels[state.lang];
+  document.documentElement.lang = state.lang === 'en' ? 'en' : state.lang === 'zhTW' ? 'zh-Hant' : 'zh-CN';
+  document.title = localized(build.title);
+  setText('pageTitle', localized(build.title));
+  setText('heroTitle', localized(build.title));
+  setText('heroIntro', '辅助 BD 只看最终配置：装备属性、最终天赋、技能/辅助宝石、天赋宝石属性。');
+  setText('stageCount', build.buildSheet?.finalGear?.length || 0);
+  setText('activeCount', build.buildSheet?.finalPassive?.length || 0);
+  setText('supportCount', build.buildSheet?.finalSkillGems?.length || 0);
+  setText('craftCount', build.buildSheet?.finalJewels?.length || 0);
+  setText('routeCount', '最终');
+
+  document.querySelectorAll('.stat span')[0].textContent = '装备部位';
+  document.querySelectorAll('.stat span')[1].textContent = '天赋分组';
+  document.querySelectorAll('.stat span')[2].textContent = '技能组';
+  document.querySelectorAll('.stat span')[3].textContent = '珠宝类型';
+  document.querySelectorAll('.stat span')[4].textContent = '天赋';
+
+  document.getElementById('heroBadges').innerHTML = [
+    localized(build.class.ascendancy),
+    localized(build.overview.difficulty),
+    labels.sourcePending
+  ].map((text, index) => `<span class="badge${index === 2 ? ' warn' : ''}">${esc(text)}</span>`).join('');
+
+  document.getElementById('gearOverviewGrid').innerHTML = '';
+  document.getElementById('finalGearRows').innerHTML = (build.buildSheet?.finalGear || []).map((gear) => `
+    <tr>
+      <td>${esc(gear.slot)}</td>
+      <td>${listHtml(gear.required)}</td>
+      <td>${listHtml(gear.best)}</td>
+      <td>${listHtml(gear.avoid)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('finalPassiveRows').innerHTML = (build.buildSheet?.finalPassive || []).map((row) => `
+    <tr>
+      <td>${esc(row.group)}</td>
+      <td>${listHtml(row.take)}</td>
+      <td>${esc(row.reason)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('finalSkillRows').innerHTML = (build.buildSheet?.finalSkillGems || []).map((row) => `
+    <tr>
+      <td>${esc(row.group)}</td>
+      <td>${listHtml(row.skills)}</td>
+      <td>${listHtml(row.supports)}</td>
+      <td>${esc(row.note)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('finalJewelRows').innerHTML = (build.buildSheet?.finalJewels || []).map((row) => `
+    <tr>
+      <td>${esc(row.type)}</td>
+      <td>${listHtml(row.attributes)}</td>
+      <td>${listHtml(row.avoid)}</td>
+    </tr>
+  `).join('');
+
+  document.querySelectorAll('[data-lang]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.lang === state.lang);
+  });
+  document.body.dataset.buildId = build.id;
+  document.body.dataset.buildStageCount = String(build.stages.length);
+  document.body.dataset.buildActiveSkillCount = String(build.skills.active.length);
+  document.body.dataset.buildSupportCount = String(Object.keys(build.skills.supports).length);
+  document.body.dataset.buildRouteCount = '0';
+  document.body.dataset.buildPassiveCardCount = String(build.passivePlan?.cards?.length || 0);
+  document.body.dataset.buildGearPriorityCount = String(build.gearPriorities.length);
+  document.body.dataset.buildCraftPlanCount = String(build.craftingPlan.length);
+  document.body.dataset.buildSheetMechanicsCount = String(build.buildSheet?.mechanics?.length || 0);
+  document.body.dataset.buildSheetPassiveRoadmapCount = String(build.buildSheet?.passiveRoadmap?.length || 0);
+  document.body.dataset.buildSheetGearChecklistCount = String(build.buildSheet?.gearChecklist?.length || 0);
+  document.body.dataset.buildSheetSkillLinkCount = String(build.buildSheet?.skillLinks?.length || 0);
+  document.body.dataset.buildFinalGearCount = String(build.buildSheet?.finalGear?.length || 0);
+  document.body.dataset.buildFinalPassiveCount = String(build.buildSheet?.finalPassive?.length || 0);
+  document.body.dataset.buildFinalSkillGemCount = String(build.buildSheet?.finalSkillGems?.length || 0);
+  document.body.dataset.buildFinalJewelCount = String(build.buildSheet?.finalJewels?.length || 0);
+}
+
+async function init() {
+  const response = await fetch('../data/seasons/s05/builds/tactician-banner-support.json', { cache: 'no-store' });
+  state.build = await response.json();
+  render();
+}
+
+document.querySelectorAll('[data-lang]').forEach((button) => {
+  button.addEventListener('click', () => {
+    state.lang = button.dataset.lang;
+    render();
+  });
+});
+
+init().catch((error) => {
+  setText('heroTitle', 'BD 加载失败');
+  setText('heroIntro', error.message);
+  document.body.dataset.buildLoadError = error.message;
+});
+</script>
+</body>
+</html>

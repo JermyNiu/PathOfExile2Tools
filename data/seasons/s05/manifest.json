@@ -97,6 +97,12 @@
       "status": "in-progress",
       "data": "builds/tactician-supporting-fire.json",
       "guide": "../../../builds/tactician-supporting-fire.html"
+    },
+    {
+      "id": "tactician-banner-support",
+      "status": "draft",
+      "data": "builds/tactician-banner-support.json",
+      "guide": "../../../builds/tactician-banner-support.html"
     }
   ],
   "buildCandidates": "builds/candidates.json",
